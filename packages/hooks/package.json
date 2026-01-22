@@ -1,0 +1,42 @@
+{
+  "name": "sse-hooks",
+  "version": "1.0.0",
+  "description": "React hook library, ready to use, written in Typescript.",
+  "license": "MIT",
+  "author": "SSE World",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "unbuild",
+    "build:index": "node ./scripts/generate-index.js"
+  },
+  "devDependencies": {
+    "@types/lodash.debounce": "^4.0.9",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "lodash.debounce": "^4.0.8",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "unbuild": "^3.6.1"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declaration": true,
+    "pretty": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "lib": ["ESNEXT", "DOM", "DOM.Iterable"],
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": ["react"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
+  },
+  "exclude": ["node_modules", "dist"]
+}
