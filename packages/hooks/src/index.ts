@@ -2,6 +2,7 @@
 
 export * from './useBoolean';
 export * from './useClickAnyWhere';
+export * from './useClickAway';
 export * from './useCookie';
 export * from './useCopyToClipboard';
 export * from './useCountdown';
@@ -13,6 +14,7 @@ export * from './useDocumentTitle';
 export * from './useEventCallback';
 export * from './useEventListener';
 export * from './useFetch';
+export * from './useForkRef';
 export * from './useHover';
 export * from './useIndexedDB';
 export * from './useIntersectionObserver';
