@@ -8,11 +8,13 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "generate-doc": "zx ./scripts/generate-doc.js"
+    "generate-doc": "zx ./scripts/generate-doc.js",
+    "release": "standard-version"
   },
   "devDependencies": {
     "prettier": "^3.7.4",
     "rimraf": "^6.1.2",
+    "standard-version": "^9.5.0",
     "turbo": "^2.7.5",
     "typedoc": "^0.28.16",
     "typedoc-plugin-markdown": "^4.9.0",
@@ -27,5 +29,6 @@
   "packageManager": "npm@11.6.2",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "version": "1.2.0"
 }
