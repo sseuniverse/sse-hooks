@@ -1,5 +1,8 @@
 // This file is auto-generated. Do not edit manually.
 
+export * from './computed';
+export * from './useAudioRecorder';
+export * from './useBattery';
 export * from './useBoolean';
 export * from './useClickAnyWhere';
 export * from './useClickAway';
@@ -25,6 +28,7 @@ export * from './useIsomorphicLayoutEffect';
 export * from './useLocalStorage';
 export * from './useMap';
 export * from './useMediaQuery';
+export * from './useMediaSession';
 export * from './useReadLocalStorage';
 export * from './useResizeObserver';
 export * from './useScreen';
@@ -36,4 +40,6 @@ export * from './useTernaryDarkMode';
 export * from './useTimeout';
 export * from './useToggle';
 export * from './useUnmount';
+export * from './useUserMedia';
 export * from './useWindowSize';
+export * from './withDefaults';
