@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the item. This is used to identify the item in the registry. It should be unique for your registry."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["registry:hook"],
+      "description": "The type of the item. This is used to determine the type and target path of the item when resolved for a project."
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the item. This is used to provide a brief overview of the item."
+    },
+    "title": {
+      "type": "string",
+      "description": "The human-readable title for your registry item. Keep it short and descriptive."
+    },
+    "dependencies": {
+      "type": "array",
+      "description": "An array of NPM dependencies required by the registry item.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "registryDependencies": {
+      "type": "array",
+      "description": "An array of SSE Hooks required by the registry item.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "file": {
+      "type": "object",
+      "description": "The file information for the registry item.",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "The path where the file should be placed when the registry item is resolved."
+        },
+        "content": {
+          "type": "string",
+          "description": "The content of the file."
+        },
+        "js": {
+          "type": "string",
+          "description": "The JavaScript code of the file."
+        }
+      },
+      "required": ["path", "content", "js"]
+    }
+  }
+}
