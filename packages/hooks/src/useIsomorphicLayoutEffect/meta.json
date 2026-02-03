@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-isomorphic-layout-effect",
+  "type": "registry:hook",
+  "title": "useIsomorphicLayoutEffect",
+  "description": "Custom hook that uses either `useLayoutEffect` or `useEffect` based on the environment (client-side or server-side). ```tsx useIsomorphicLayoutEffect(() => {   // Code to be executed during the layout phase on the client side }, [dependency1, dependency2]); ```",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [],
+  "file": {
+    "content": "import { useEffect, useLayoutEffect } from \"react\";\r\n\r\n\r\nexport const useIsomorphicLayoutEffect =\r\n  typeof window !== \"undefined\" ? useLayoutEffect : useEffect;",
+    "js": "import { useEffect, useLayoutEffect } from \"react\";\nexport const useIsomorphicLayoutEffect = typeof window !== \"undefined\" ? useLayoutEffect : useEffect;"
+  }
+}

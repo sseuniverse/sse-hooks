@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-timeout",
+  "type": "registry:hook",
+  "title": "useTimeout",
+  "description": "Custom hook that handles timeouts in React components using the [`setTimeout API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout). ```tsx // Usage of useTimeout hook useTimeout(() => {   // Code to be executed after the specified delay }, 1000); // Set a timeout of 1000 milliseconds (1 second) ```",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "use-isomorphic-layout-effect"
+  ],
+  "file": {
+    "content": "import { useEffect, useRef } from \"react\";\r\n\r\n\n\r\nexport function useTimeout(callback: () => void, delay: number | null): void {\r\n  const savedCallback = useRef(callback);\r\n\r\n  \r\n  useIsomorphicLayoutEffect(() => {\r\n    savedCallback.current = callback;\r\n  }, [callback]);\r\n\r\n  \r\n  useEffect(() => {\r\n    \r\n    \r\n    if (!delay && delay !== 0) {\r\n      return;\r\n    }\r\n\r\n    const id = setTimeout(() => {\r\n      savedCallback.current();\r\n    }, delay);\r\n\r\n    return () => {\r\n      clearTimeout(id);\r\n    };\r\n  }, [delay]);\r\n}",
+    "js": "import { useEffect, useRef } from \"react\";\nexport function useTimeout(callback, delay) {\n    const savedCallback = useRef(callback);\n    useIsomorphicLayoutEffect(() => {\n        savedCallback.current = callback;\n    }, [callback]);\n    useEffect(() => {\n        if (!delay && delay !== 0) {\n            return;\n        }\n        const id = setTimeout(() => {\n            savedCallback.current();\n        }, delay);\n        return () => {\n            clearTimeout(id);\n        };\n    }, [delay]);\n}"
+  }
+}

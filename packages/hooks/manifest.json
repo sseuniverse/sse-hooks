@@ -1,0 +1,260 @@
+{
+  "hooks": [
+    {
+      "name": "computed",
+      "description": "A subscriber bridge that connects the Vue-like Dep system to React's state.",
+      "path": "src/computed/meta.json"
+    },
+    {
+      "name": "use-audio-recorder",
+      "description": "Supported audio MIME types for recording.",
+      "path": "src/useAudioRecorder/meta.json"
+    },
+    {
+      "name": "use-battery",
+      "description": "Represents the state of the battery.",
+      "path": "src/useBattery/meta.json"
+    },
+    {
+      "name": "use-boolean",
+      "description": "The useBoolean return type.",
+      "path": "src/useBoolean/meta.json"
+    },
+    {
+      "name": "use-click-any-where",
+      "description": "Custom hook that handles click events anywhere on the document. ```tsx const handleClick = (event) => {   console.log('Document clicked!', event); }; // Attach click event handler to document useClickAnywhere(handleClick); ```",
+      "path": "src/useClickAnyWhere/meta.json"
+    },
+    {
+      "name": "use-click-away",
+      "description": "Supported touch events for the click-away listener.",
+      "path": "src/useClickAway/meta.json"
+    },
+    {
+      "name": "use-conference-system",
+      "description": "",
+      "path": "src/useConferenceSystem/meta.json"
+    },
+    {
+      "name": "use-cookie",
+      "description": "Options for customizing the behavior of the useCookie hook.",
+      "path": "src/useCookie/meta.json"
+    },
+    {
+      "name": "use-copy-to-clipboard",
+      "description": "The copied text as `string` or `null` if nothing has been copied yet.",
+      "path": "src/useCopyToClipboard/meta.json"
+    },
+    {
+      "name": "use-countdown",
+      "description": "The countdown's options.",
+      "path": "src/useCountdown/meta.json"
+    },
+    {
+      "name": "use-counter",
+      "description": "The hook return type.",
+      "path": "src/useCounter/meta.json"
+    },
+    {
+      "name": "use-dark-mode",
+      "description": "The hook options.",
+      "path": "src/useDarkMode/meta.json"
+    },
+    {
+      "name": "use-debounce-callback",
+      "description": "Configuration options for controlling the behavior of the debounced function.",
+      "path": "src/useDebounceCallback/meta.json"
+    },
+    {
+      "name": "use-debounce-value",
+      "description": "Hook options.",
+      "path": "src/useDebounceValue/meta.json"
+    },
+    {
+      "name": "use-document-title",
+      "description": "Hook options.",
+      "path": "src/useDocumentTitle/meta.json"
+    },
+    {
+      "name": "use-event-callback",
+      "description": "Custom hook that creates a memoized event callback. ```tsx const handleClick = useEventCallback((event) => {   // Handle the event here }); ```",
+      "path": "src/useEventCallback/meta.json"
+    },
+    {
+      "name": "use-event-listener",
+      "description": "Custom hook that attaches event listeners to DOM elements, the window, or media query lists. ```tsx // Example 1: Attach a window event listener useEventListener('resize', handleResize); ``` ```tsx // Example 2: Attach a document event listener with options const elementRef = useRef(document); useEventListener('click', handleClick, elementRef, { capture: true }); ``` ```tsx // Example 3: Attach an element event listener const buttonRef = useRef<HTMLButtonElement>(null); useEventListener('click', handleButtonClick, buttonRef); ```",
+      "path": "src/useEventListener/meta.json"
+    },
+    {
+      "name": "use-fetch",
+      "description": "Options for customizing the behavior of the useFetch hook. Extends the standard [`RequestInit`](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit) interface.",
+      "path": "src/useFetch/meta.json"
+    },
+    {
+      "name": "use-fork-ref",
+      "description": "Merges refs into a single memoized callback ref or `null`. ```tsx const rootRef = React.useRef<Instance>(null); const refFork = useForkRef(rootRef, props.ref); return (   <Root {...props} ref={refFork} /> ); ```",
+      "path": "src/useForkRef/meta.json"
+    },
+    {
+      "name": "use-hover",
+      "description": "Custom hook that tracks whether a DOM element is being hovered over. ```tsx const buttonRef = useRef<HTMLButtonElement>(null); const isHovered = useHover(buttonRef); // Access the isHovered variable to determine if the button is being hovered over. ```",
+      "path": "src/useHover/meta.json"
+    },
+    {
+      "name": "use-indexed-db",
+      "description": "Options for configuring the IndexedDB connection and behavior.",
+      "path": "src/useIndexedDB/meta.json"
+    },
+    {
+      "name": "use-intersection-observer",
+      "description": "The hook internal state.",
+      "path": "src/useIntersectionObserver/meta.json"
+    },
+    {
+      "name": "use-interval",
+      "description": "Custom hook that creates an interval that invokes a callback function at a specified delay using the [`setInterval API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval). ```tsx const handleInterval = () => {   // Code to be executed at each interval }; useInterval(handleInterval, 1000); ```",
+      "path": "src/useInterval/meta.json"
+    },
+    {
+      "name": "use-is-client",
+      "description": "Custom hook that determines if the code is running on the client side (in the browser). ```tsx const isClient = useIsClient(); // Use isClient to conditionally render or execute code specific to the client side. ```",
+      "path": "src/useIsClient/meta.json"
+    },
+    {
+      "name": "use-is-mounted",
+      "description": "Custom hook that determines if the component is currently mounted. ```tsx const isComponentMounted = useIsMounted(); // Use isComponentMounted() to check if the component is currently mounted before performing certain actions. ```",
+      "path": "src/useIsMounted/meta.json"
+    },
+    {
+      "name": "use-isomorphic-layout-effect",
+      "description": "Custom hook that uses either `useLayoutEffect` or `useEffect` based on the environment (client-side or server-side). ```tsx useIsomorphicLayoutEffect(() => {   // Code to be executed during the layout phase on the client side }, [dependency1, dependency2]); ```",
+      "path": "src/useIsomorphicLayoutEffect/meta.json"
+    },
+    {
+      "name": "use-local-storage",
+      "description": "Options for customizing the behavior of serialization and deserialization.",
+      "path": "src/useLocalStorage/meta.json"
+    },
+    {
+      "name": "use-map",
+      "description": "Represents the type for either a Map or an array of key-value pairs.",
+      "path": "src/useMap/meta.json"
+    },
+    {
+      "name": "use-media-quality",
+      "description": "",
+      "path": "src/useMediaQuality/meta.json"
+    },
+    {
+      "name": "use-media-query",
+      "description": "Hook options.",
+      "path": "src/useMediaQuery/meta.json"
+    },
+    {
+      "name": "use-media-session",
+      "description": "Represents an image associated with the media (e.g., album art).",
+      "path": "src/useMediaSession/meta.json"
+    },
+    {
+      "name": "use-network-information",
+      "description": "",
+      "path": "src/useNetworkInformation/meta.json"
+    },
+    {
+      "name": "use-portal",
+      "description": "A safe, typed alternative to findDOMNode. * Works with: 1. DOM Elements (returns them directly) 2. Ref Objects (returns .current) 3. Null/Undefined (returns null) * NOT SUPPORTED: Passing a Class Component instance directly (legacy behavior). You must use a Ref for Components.",
+      "path": "src/usePortal/meta.json"
+    },
+    {
+      "name": "use-read-local-storage",
+      "description": "Represents the type for the options available when reading from local storage.",
+      "path": "src/useReadLocalStorage/meta.json"
+    },
+    {
+      "name": "use-resize-observer",
+      "description": "The size of the observed element.",
+      "path": "src/useResizeObserver/meta.json"
+    },
+    {
+      "name": "use-role-guard",
+      "description": "",
+      "path": "src/useRoleGuard/meta.json"
+    },
+    {
+      "name": "use-screen",
+      "description": "The hooks options.",
+      "path": "src/useScreen/meta.json"
+    },
+    {
+      "name": "use-screen-share",
+      "description": "Boolean or specific constraints for the video track.",
+      "path": "src/useScreenShare/meta.json"
+    },
+    {
+      "name": "use-script",
+      "description": "Script loading status.",
+      "path": "src/useScript/meta.json"
+    },
+    {
+      "name": "use-scroll-lock",
+      "description": "Hook options.",
+      "path": "src/useScrollLock/meta.json"
+    },
+    {
+      "name": "use-session-storage",
+      "description": "Represents the options for customizing the behavior of serialization and deserialization.",
+      "path": "src/useSessionStorage/meta.json"
+    },
+    {
+      "name": "use-ssr",
+      "description": "",
+      "path": "src/useSSR/meta.json"
+    },
+    {
+      "name": "use-step",
+      "description": "Represents the second element of the output of the `useStep` hook.",
+      "path": "src/useStep/meta.json"
+    },
+    {
+      "name": "use-symbol",
+      "description": "",
+      "path": "src/useSymbol/meta.json"
+    },
+    {
+      "name": "use-ternary-dark-mode",
+      "description": "Ternary dark mode options.",
+      "path": "src/useTernaryDarkMode/meta.json"
+    },
+    {
+      "name": "use-timeout",
+      "description": "Custom hook that handles timeouts in React components using the [`setTimeout API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout). ```tsx // Usage of useTimeout hook useTimeout(() => {   // Code to be executed after the specified delay }, 1000); // Set a timeout of 1000 milliseconds (1 second) ```",
+      "path": "src/useTimeout/meta.json"
+    },
+    {
+      "name": "use-toggle",
+      "description": "Custom hook that manages a boolean toggle state in React components. a function to toggle the state, and a function to set the state explicitly. ```tsx const [isToggled, toggle, setToggle] = useToggle(); // Initial value is false // OR const [isToggled, toggle, setToggle] = useToggle(true); // Initial value is true // Use isToggled in your component, toggle to switch the state, setToggle to set the state explicitly. ```",
+      "path": "src/useToggle/meta.json"
+    },
+    {
+      "name": "use-unmount",
+      "description": "Custom hook that runs a cleanup function when the component is unmounted. ```tsx useUnmount(() => {   // Cleanup logic here }); ```",
+      "path": "src/useUnmount/meta.json"
+    },
+    {
+      "name": "use-user-media",
+      "description": "Constraints for the `useUserMedia` hook. Defines the video and audio settings for the media stream.",
+      "path": "src/useUserMedia/meta.json"
+    },
+    {
+      "name": "use-window-size",
+      "description": "Represent the dimension of the window.",
+      "path": "src/useWindowSize/meta.json"
+    },
+    {
+      "name": "with-defaults",
+      "description": "",
+      "path": "src/withDefaults/meta.json"
+    }
+  ],
+  "length": 51
+}

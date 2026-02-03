@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-event-callback",
+  "type": "registry:hook",
+  "title": "useEventCallback",
+  "description": "Custom hook that creates a memoized event callback. ```tsx const handleClick = useEventCallback((event) => {   // Handle the event here }); ```",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "use-isomorphic-layout-effect"
+  ],
+  "file": {
+    "content": "import { useCallback, useRef } from \"react\";\r\n\r\n\n\r\nexport function useEventCallback<Args extends unknown[], R>(\r\n  fn: (...args: Args) => R,\r\n): (...args: Args) => R;\r\nexport function useEventCallback<Args extends unknown[], R>(\r\n  fn: ((...args: Args) => R) | undefined,\r\n): ((...args: Args) => R) | undefined;\r\nexport function useEventCallback<Args extends unknown[], R>(\r\n  fn: ((...args: Args) => R) | undefined,\r\n): ((...args: Args) => R) | undefined {\r\n  const ref = useRef<typeof fn>(() => {\r\n    throw new Error(\"Cannot call an event handler while rendering.\");\r\n  });\r\n\r\n  useIsomorphicLayoutEffect(() => {\r\n    ref.current = fn;\r\n  }, [fn]);\r\n\r\n  return useCallback((...args: Args) => ref.current?.(...args), [ref]) as (\r\n    ...args: Args\r\n  ) => R;\r\n}",
+    "js": "import { useCallback, useRef } from \"react\";\nexport function useEventCallback(fn) {\n    const ref = useRef(() => {\n        throw new Error(\"Cannot call an event handler while rendering.\");\n    });\n    useIsomorphicLayoutEffect(() => {\n        ref.current = fn;\n    }, [fn]);\n    return useCallback((...args) => ref.current?.(...args), [ref]);\n}"
+  }
+}

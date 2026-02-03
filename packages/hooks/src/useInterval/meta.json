@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-interval",
+  "type": "registry:hook",
+  "title": "useInterval",
+  "description": "Custom hook that creates an interval that invokes a callback function at a specified delay using the [`setInterval API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval). ```tsx const handleInterval = () => {   // Code to be executed at each interval }; useInterval(handleInterval, 1000); ```",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "use-isomorphic-layout-effect"
+  ],
+  "file": {
+    "content": "import { useEffect, useRef } from \"react\";\r\n\r\n\n\r\nexport function useInterval(callback: () => void, delay: number | null) {\r\n  const savedCallback = useRef(callback);\r\n\r\n  \r\n  useIsomorphicLayoutEffect(() => {\r\n    savedCallback.current = callback;\r\n  }, [callback]);\r\n\r\n  \r\n  useEffect(() => {\r\n    \r\n    \r\n    if (delay === null) {\r\n      return;\r\n    }\r\n\r\n    const id = setInterval(() => {\r\n      savedCallback.current();\r\n    }, delay);\r\n\r\n    return () => {\r\n      clearInterval(id);\r\n    };\r\n  }, [delay]);\r\n}",
+    "js": "import { useEffect, useRef } from \"react\";\nexport function useInterval(callback, delay) {\n    const savedCallback = useRef(callback);\n    useIsomorphicLayoutEffect(() => {\n        savedCallback.current = callback;\n    }, [callback]);\n    useEffect(() => {\n        if (delay === null) {\n            return;\n        }\n        const id = setInterval(() => {\n            savedCallback.current();\n        }, delay);\n        return () => {\n            clearInterval(id);\n        };\n    }, [delay]);\n}"
+  }
+}

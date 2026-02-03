@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-document-title",
+  "type": "registry:hook",
+  "title": "useDocumentTitle",
+  "description": "Hook options.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "use-isomorphic-layout-effect",
+    "use-unmount"
+  ],
+  "file": {
+    "content": "import { useRef } from 'react'\r\n\r\n\n\n\r\ntype UseDocumentTitleOptions = {\r\n  \r\n  preserveTitleOnUnmount?: boolean\r\n}\r\n\r\n\r\nexport function useDocumentTitle(\r\n  title: string,\r\n  options: UseDocumentTitleOptions = {},\r\n): void {\r\n  const { preserveTitleOnUnmount = true } = options\r\n  const defaultTitle = useRef<string | null>(null)\r\n\r\n  useIsomorphicLayoutEffect(() => {\r\n    defaultTitle.current = window.document.title\r\n  }, [])\r\n\r\n  useIsomorphicLayoutEffect(() => {\r\n    window.document.title = title\r\n  }, [title])\r\n\r\n  useUnmount(() => {\r\n    if (!preserveTitleOnUnmount && defaultTitle.current) {\r\n      window.document.title = defaultTitle.current\r\n    }\r\n  })\r\n}",
+    "js": "import { useRef } from 'react';\nexport function useDocumentTitle(title, options = {}) {\n    const { preserveTitleOnUnmount = true } = options;\n    const defaultTitle = useRef(null);\n    useIsomorphicLayoutEffect(() => {\n        defaultTitle.current = window.document.title;\n    }, []);\n    useIsomorphicLayoutEffect(() => {\n        window.document.title = title;\n    }, [title]);\n    useUnmount(() => {\n        if (!preserveTitleOnUnmount && defaultTitle.current) {\n            window.document.title = defaultTitle.current;\n        }\n    });\n}"
+  }
+}

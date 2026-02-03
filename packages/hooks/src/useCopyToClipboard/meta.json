@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-copy-to-clipboard",
+  "type": "registry:hook",
+  "title": "useCopyToClipboard",
+  "description": "The copied text as `string` or `null` if nothing has been copied yet.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [],
+  "file": {
+    "content": "import { useCallback, useState } from \"react\";\r\n\r\n\r\ntype CopiedValue = string | null;\r\n\r\n\r\ntype CopyFn = (text: string) => Promise<boolean>;\r\n\r\n\r\nexport function useCopyToClipboard(): [CopiedValue, CopyFn] {\r\n  const [copiedText, setCopiedText] = useState<CopiedValue>(null);\r\n\r\n  const copy: CopyFn = useCallback(async (text) => {\r\n    if (!navigator?.clipboard) {\r\n      console.warn(\"Clipboard not supported\");\r\n      return false;\r\n    }\r\n\r\n    \r\n    try {\r\n      await navigator.clipboard.writeText(text);\r\n      setCopiedText(text);\r\n      return true;\r\n    } catch (error) {\r\n      console.warn(\"Copy failed\", error);\r\n      setCopiedText(null);\r\n      return false;\r\n    }\r\n  }, []);\r\n\r\n  return [copiedText, copy];\r\n}",
+    "js": "import { useCallback, useState } from \"react\";\nexport function useCopyToClipboard() {\n    const [copiedText, setCopiedText] = useState(null);\n    const copy = useCallback(async (text) => {\n        if (!navigator?.clipboard) {\n            console.warn(\"Clipboard not supported\");\n            return false;\n        }\n        try {\n            await navigator.clipboard.writeText(text);\n            setCopiedText(text);\n            return true;\n        }\n        catch (error) {\n            console.warn(\"Copy failed\", error);\n            setCopiedText(null);\n            return false;\n        }\n    }, []);\n    return [copiedText, copy];\n}"
+  }
+}

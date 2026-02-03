@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-countdown",
+  "type": "registry:hook",
+  "title": "useCountdown",
+  "description": "The countdown's options.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "use-counter",
+    "use-boolean",
+    "use-interval"
+  ],
+  "file": {
+    "content": "import { useCallback } from \"react\";\r\n\n\n\n\r\ntype CountdownOptions = {\r\n  \r\n  countStart: number;\r\n\r\n  \r\n  intervalMs?: number;\r\n  \r\n  isIncrement?: boolean;\r\n\r\n  \r\n  countStop?: number;\r\n};\r\n\r\n\r\ntype CountdownControllers = {\r\n  \r\n  startCountdown: () => void;\r\n  \r\n  stopCountdown: () => void;\r\n  \r\n  resetCountdown: () => void;\r\n};\r\n\r\n\r\n\r\nexport function useCountdown({\r\n  countStart,\r\n  countStop = 0,\r\n  intervalMs = 1000,\r\n  isIncrement = false,\r\n}: CountdownOptions): [number, CountdownControllers] {\r\n  const {\r\n    count,\r\n    increment,\r\n    decrement,\r\n    reset: resetCounter,\r\n  } = useCounter(countStart);\r\n\r\n  \r\n  const {\r\n    value: isCountdownRunning,\r\n    setTrue: startCountdown,\r\n    setFalse: stopCountdown,\r\n  } = useBoolean(false);\r\n\r\n  \r\n  const resetCountdown = useCallback(() => {\r\n    stopCountdown();\r\n    resetCounter();\r\n  }, [stopCountdown, resetCounter]);\r\n\r\n  const countdownCallback = useCallback(() => {\r\n    if (count === countStop) {\r\n      stopCountdown();\r\n      return;\r\n    }\r\n\r\n    if (isIncrement) {\r\n      increment();\r\n    } else {\r\n      decrement();\r\n    }\r\n  }, [count, countStop, decrement, increment, isIncrement, stopCountdown]);\r\n\r\n  useInterval(countdownCallback, isCountdownRunning ? intervalMs : null);\r\n\r\n  return [count, { startCountdown, stopCountdown, resetCountdown }];\r\n}",
+    "js": "import { useCallback } from \"react\";\nexport function useCountdown({ countStart, countStop = 0, intervalMs = 1000, isIncrement = false, }) {\n    const { count, increment, decrement, reset: resetCounter, } = useCounter(countStart);\n    const { value: isCountdownRunning, setTrue: startCountdown, setFalse: stopCountdown, } = useBoolean(false);\n    const resetCountdown = useCallback(() => {\n        stopCountdown();\n        resetCounter();\n    }, [stopCountdown, resetCounter]);\n    const countdownCallback = useCallback(() => {\n        if (count === countStop) {\n            stopCountdown();\n            return;\n        }\n        if (isIncrement) {\n            increment();\n        }\n        else {\n            decrement();\n        }\n    }, [count, countStop, decrement, increment, isIncrement, stopCountdown]);\n    useInterval(countdownCallback, isCountdownRunning ? intervalMs : null);\n    return [count, { startCountdown, stopCountdown, resetCountdown }];\n}"
+  }
+}

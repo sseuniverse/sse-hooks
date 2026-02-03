@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-media-query",
+  "type": "registry:hook",
+  "title": "useMediaQuery",
+  "description": "Hook options.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "use-isomorphic-layout-effect"
+  ],
+  "file": {
+    "content": "import { useState } from \"react\";\r\n\r\n\n\r\ntype UseMediaQueryOptions = {\r\n  \r\n  defaultValue?: boolean;\r\n  \r\n  initializeWithValue?: boolean;\r\n};\r\n\r\nconst IS_SERVER = typeof window === \"undefined\";\r\n\r\n\r\nexport function useMediaQuery(\r\n  query: string,\r\n  {\r\n    defaultValue = false,\r\n    initializeWithValue = true,\r\n  }: UseMediaQueryOptions = {},\r\n): boolean {\r\n  const getMatches = (query: string): boolean => {\r\n    if (IS_SERVER) {\r\n      return defaultValue;\r\n    }\r\n    return window.matchMedia(query).matches;\r\n  };\r\n\r\n  const [matches, setMatches] = useState<boolean>(() => {\r\n    if (initializeWithValue) {\r\n      return getMatches(query);\r\n    }\r\n    return defaultValue;\r\n  });\r\n\r\n  \r\n  function handleChange() {\r\n    setMatches(getMatches(query));\r\n  }\r\n\r\n  useIsomorphicLayoutEffect(() => {\r\n    const matchMedia = window.matchMedia(query);\r\n\r\n    \r\n    handleChange();\r\n\r\n    \r\n    if (matchMedia.addListener) {\r\n      matchMedia.addListener(handleChange);\r\n    } else {\r\n      matchMedia.addEventListener(\"change\", handleChange);\r\n    }\r\n\r\n    return () => {\r\n      if (matchMedia.removeListener) {\r\n        matchMedia.removeListener(handleChange);\r\n      } else {\r\n        matchMedia.removeEventListener(\"change\", handleChange);\r\n      }\r\n    };\r\n  }, [query]);\r\n\r\n  return matches;\r\n}",
+    "js": "import { useState } from \"react\";\nconst IS_SERVER = typeof window === \"undefined\";\nexport function useMediaQuery(query, { defaultValue = false, initializeWithValue = true, } = {}) {\n    const getMatches = (query) => {\n        if (IS_SERVER) {\n            return defaultValue;\n        }\n        return window.matchMedia(query).matches;\n    };\n    const [matches, setMatches] = useState(() => {\n        if (initializeWithValue) {\n            return getMatches(query);\n        }\n        return defaultValue;\n    });\n    function handleChange() {\n        setMatches(getMatches(query));\n    }\n    useIsomorphicLayoutEffect(() => {\n        const matchMedia = window.matchMedia(query);\n        handleChange();\n        if (matchMedia.addListener) {\n            matchMedia.addListener(handleChange);\n        }\n        else {\n            matchMedia.addEventListener(\"change\", handleChange);\n        }\n        return () => {\n            if (matchMedia.removeListener) {\n                matchMedia.removeListener(handleChange);\n            }\n            else {\n                matchMedia.removeEventListener(\"change\", handleChange);\n            }\n        };\n    }, [query]);\n    return matches;\n}"
+  }
+}

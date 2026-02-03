@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-debounce-value",
+  "type": "registry:hook",
+  "title": "useDebounceValue",
+  "description": "Hook options.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "use-debounce-callback"
+  ],
+  "file": {
+    "content": "import { useRef, useState } from \"react\";\r\n\r\n\n\n\r\ntype UseDebounceValueOptions<T> = {\r\n  \r\n  leading?: boolean;\r\n  \r\n  trailing?: boolean;\r\n  \r\n  maxWait?: number;\r\n  \r\n  equalityFn?: (left: T, right: T) => boolean;\r\n};\r\n\r\n\r\nexport function useDebounceValue<T>(\r\n  initialValue: T | (() => T),\r\n  delay: number,\r\n  options?: UseDebounceValueOptions<T>,\r\n): [T, DebouncedState<(value: T) => void>] {\r\n  const eq = options?.equalityFn ?? ((left: T, right: T) => left === right);\r\n  const unwrappedInitialValue =\r\n    initialValue instanceof Function ? initialValue() : initialValue;\r\n  const [debouncedValue, setDebouncedValue] = useState<T>(\r\n    unwrappedInitialValue,\r\n  );\r\n  const previousValueRef = useRef<T | undefined>(unwrappedInitialValue);\r\n\r\n  const updateDebouncedValue = useDebounceCallback(\r\n    setDebouncedValue,\r\n    delay,\r\n    options,\r\n  );\r\n\r\n  \r\n  if (!eq(previousValueRef.current as T, unwrappedInitialValue)) {\r\n    updateDebouncedValue(unwrappedInitialValue);\r\n    previousValueRef.current = unwrappedInitialValue;\r\n  }\r\n\r\n  return [debouncedValue, updateDebouncedValue];\r\n}",
+    "js": "import { useRef, useState } from \"react\";\nexport function useDebounceValue(initialValue, delay, options) {\n    const eq = options?.equalityFn ?? ((left, right) => left === right);\n    const unwrappedInitialValue = initialValue instanceof Function ? initialValue() : initialValue;\n    const [debouncedValue, setDebouncedValue] = useState(unwrappedInitialValue);\n    const previousValueRef = useRef(unwrappedInitialValue);\n    const updateDebouncedValue = useDebounceCallback(setDebouncedValue, delay, options);\n    if (!eq(previousValueRef.current, unwrappedInitialValue)) {\n        updateDebouncedValue(unwrappedInitialValue);\n        previousValueRef.current = unwrappedInitialValue;\n    }\n    return [debouncedValue, updateDebouncedValue];\n}"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "with-defaults",
+  "type": "registry:hook",
+  "title": "withDefaults",
+  "description": "",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [],
+  "file": {
+    "content": "import { useMemo } from \"react\";\r\n\r\nexport type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N;\r\nexport type DefineProps<T, BKeys extends keyof T> = Readonly<T> & {\r\n  readonly [K in BKeys]-?: boolean;\r\n};\r\n\r\ntype NotUndefined<T> = T extends undefined ? never : T;\r\ntype MappedOmit<T, K extends keyof any> = {\r\n  [P in keyof T as P extends K ? never : P]: T[P];\r\n};\r\n\r\ntype InferDefaults<T> = {\r\n  [K in keyof T]?: InferDefault<T, T[K]>;\r\n};\r\n\r\ntype NativeType =\r\n  | null\r\n  | undefined\r\n  | number\r\n  | string\r\n  | boolean\r\n  | symbol\r\n  | Function;\r\n\r\ntype InferDefault<P, T> =\r\n  | ((props: P) => T & {})\r\n  | (T extends NativeType ? T : never);\r\n\r\ntype PropsWithDefaults<\r\n  T,\r\n  Defaults extends InferDefaults<T>,\r\n  BKeys extends keyof T,\r\n> = T extends unknown\r\n  ? Readonly<MappedOmit<T, keyof Defaults>> & {\r\n      readonly [K in keyof Defaults as K extends keyof T\r\n        ? K\r\n        : never]-?: K extends keyof T\r\n        ? Defaults[K] extends undefined\r\n          ? IfAny<Defaults[K], NotUndefined<T[K]>, T[K]>\r\n          : NotUndefined<T[K]>\r\n        : never;\r\n    } & {\r\n      readonly [K in BKeys]-?: K extends keyof Defaults\r\n        ? Defaults[K] extends undefined\r\n          ? boolean | undefined\r\n          : boolean\r\n        : boolean;\r\n    }\r\n  : never;\r\n\r\nexport function withDefaults<T, BKeys extends keyof T = never>(\r\n  props: DefineProps<T, BKeys>,\r\n  defaults: InferDefaults<T>,\r\n): PropsWithDefaults<T, InferDefaults<T>, BKeys> {\r\n  const merged = useMemo(() => {\r\n    const result = { ...props } as any;\r\n\r\n    for (const key in defaults) {\r\n      if (!(key in result) || result[key] === undefined) {\r\n        const def = defaults[key];\r\n        if (typeof def === \"function\") {\r\n          result[key] = (def as (props: T) => any)(result);\r\n        } else {\r\n          result[key] = def;\r\n        }\r\n      }\r\n    }\r\n\r\n    return result;\r\n  }, [props, defaults]);\r\n\r\n  return merged as PropsWithDefaults<T, InferDefaults<T>, BKeys>;\r\n}",
+    "js": "import { useMemo } from \"react\";\nexport function withDefaults(props, defaults) {\n    const merged = useMemo(() => {\n        const result = { ...props };\n        for (const key in defaults) {\n            if (!(key in result) || result[key] === undefined) {\n                const def = defaults[key];\n                if (typeof def === \"function\") {\n                    result[key] = def(result);\n                }\n                else {\n                    result[key] = def;\n                }\n            }\n        }\n        return result;\n    }, [props, defaults]);\n    return merged;\n}"
+  }
+}

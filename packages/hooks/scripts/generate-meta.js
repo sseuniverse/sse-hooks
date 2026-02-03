@@ -3,7 +3,9 @@ import path from "path";
 import ts from "typescript";
 
 const SRC_DIR = path.join(process.cwd(), "src");
-const OUTPUT_FILE = path.join(process.cwd(), "meta.json");
+const MANIFEST_FILE = path.join(process.cwd(), "manifest.json");
+const SCHEMA_URL =
+  "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json";
 
 // --- HELPERS ---
 
@@ -25,11 +27,7 @@ const extractDescription = (content) => {
     .trim();
 };
 
-/**
- * Removes all comments (JSDoc, single-line, and multi-line) from a string
- */
 const stripComments = (code) => {
-  // Regex covers: // comments and /* comments */
   return code.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "$1").trim();
 };
 
@@ -39,7 +37,7 @@ const transpileToJs = (tsCode) => {
       target: ts.ScriptTarget.ESNext,
       module: ts.ModuleKind.ESNext,
       jsx: ts.JsxEmit.React,
-      removeComments: true, // Native TS compiler flag to strip comments
+      removeComments: true,
     },
   });
   return result.outputText.trim();
@@ -67,7 +65,7 @@ const bundleHook = (
     if (importPath.startsWith("../")) {
       const folderName = importPath.split("/")[1];
       registryDeps.add(toKebabCase(folderName));
-      return ""; // Removed marker comment entirely
+      return "";
     } else if (importPath.startsWith("./")) {
       const resolvedPath = path.resolve(dir, importPath);
       const ext = [".ts", ".tsx", ".d.ts", "/index.ts", ""].find((e) =>
@@ -94,8 +92,8 @@ const bundleHook = (
 // --- CLEANUP LOGIC ---
 
 const cleanupMetaFiles = (hookDirectories) => {
-  console.log("🧹 Cleaning up old meta files...");
-  if (fs.existsSync(OUTPUT_FILE)) fs.unlinkSync(OUTPUT_FILE);
+  console.log("🧹 Cleaning up old files...");
+  if (fs.existsSync(MANIFEST_FILE)) fs.unlinkSync(MANIFEST_FILE);
 
   hookDirectories.forEach((hookName) => {
     const individualMetaPath = path.join(SRC_DIR, hookName, "meta.json");
@@ -113,57 +111,71 @@ const generateMeta = () => {
 
   cleanupMetaFiles(hookDirectories);
 
-  console.log("\n📦 Bundling hooks (stripping comments)...");
+  console.log("\n📦 Generating individual meta files and root manifest...");
 
-  const registry = hookDirectories
-    .map((hookName) => {
-      const hookDir = path.join(SRC_DIR, hookName);
-      const indexFile = path.join(hookDir, "index.ts");
-      if (!fs.existsSync(indexFile)) return null;
+  const hooksList = [];
 
-      const registryDeps = new Set();
-      const npmDeps = new Set();
+  hookDirectories.forEach((hookName) => {
+    const hookDir = path.join(SRC_DIR, hookName);
+    const indexFile = path.join(hookDir, "index.ts");
+    if (!fs.existsSync(indexFile)) return;
 
-      // Bundle the raw content first to extract description
-      const rawBundledTs = bundleHook(
-        hookDir,
-        "./index.ts",
-        new Set(),
-        registryDeps,
-        npmDeps,
-      );
-      const description = extractDescription(rawBundledTs);
+    const registryDeps = new Set();
+    const npmDeps = new Set();
+    const kebabName = toKebabCase(hookName);
 
-      // Now strip comments from the final TS output
-      const cleanTs = stripComments(rawBundledTs)
-        .replace(/export \* from .+/g, "")
-        .trim();
+    const rawBundledTs = bundleHook(
+      hookDir,
+      "./index.ts",
+      new Set(),
+      registryDeps,
+      npmDeps,
+    );
+    const description = extractDescription(rawBundledTs);
 
-      const hookMeta = {
-        name: toKebabCase(hookName),
-        type: "registry:hook",
-        title: hookName,
-        description: description,
-        dependencies: Array.from(npmDeps),
-        registryDependencies: Array.from(registryDeps),
-        file: {
-          path: `hooks/${toKebabCase(hookName)}.ts`,
-          content: cleanTs,
-          js: transpileToJs(cleanTs),
-        },
-      };
+    const cleanTs = stripComments(rawBundledTs)
+      .replace(/export \* from .+/g, "")
+      .trim();
 
-      const individualMetaPath = path.join(hookDir, "meta.json");
-      fs.writeFileSync(individualMetaPath, JSON.stringify(hookMeta, null, 2));
-      console.log(`   ✨ Created: src/${hookName}/meta.json`);
+    const hookMeta = {
+      $schema: SCHEMA_URL,
+      name: kebabName,
+      type: "registry:hook",
+      title: hookName,
+      description: description,
+      dependencies: Array.from(npmDeps),
+      registryDependencies: Array.from(registryDeps),
+      file: {
+        content: cleanTs,
+        js: transpileToJs(cleanTs),
+      },
+    };
 
-      return hookMeta;
-    })
-    .filter(Boolean);
+    // 1. Save individual meta.json in the hook directory
+    const individualMetaPath = path.join(hookDir, "meta.json");
+    fs.writeFileSync(individualMetaPath, JSON.stringify(hookMeta, null, 2));
 
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(registry, null, 2));
-  console.log(`\n✅ Global meta.json updated with ${registry.length} hooks.`);
+    // 2. Add entry for the manifest
+    hooksList.push({
+      name: kebabName,
+      description: description,
+      path: `src/${hookName}/meta.json`,
+    });
+
+    console.log(`   ✨ Created: src/${hookName}/meta.json`);
+  });
+
+  // 3. Save the manifest.json with the requested structure
+  const manifestData = {
+    hooks: hooksList,
+    length: hooksList.length,
+  };
+
+  fs.writeFileSync(MANIFEST_FILE, JSON.stringify(manifestData, null, 2));
+  console.log(`\n✅ manifest.json created with ${hooksList.length} hooks.`);
 };
+
+// --- EXECUTION ---
 
 const args = process.argv.slice(2);
 

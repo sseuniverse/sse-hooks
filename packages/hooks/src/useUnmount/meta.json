@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-unmount",
+  "type": "registry:hook",
+  "title": "useUnmount",
+  "description": "Custom hook that runs a cleanup function when the component is unmounted. ```tsx useUnmount(() => {   // Cleanup logic here }); ```",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [],
+  "file": {
+    "content": "import { useEffect, useRef } from \"react\";\r\n\r\n\r\nexport function useUnmount(func: () => void) {\r\n  const funcRef = useRef(func);\r\n\r\n  funcRef.current = func;\r\n\r\n  useEffect(\r\n    () => () => {\r\n      funcRef.current();\r\n    },\r\n    [],\r\n  );\r\n}",
+    "js": "import { useEffect, useRef } from \"react\";\nexport function useUnmount(func) {\n    const funcRef = useRef(func);\n    funcRef.current = func;\n    useEffect(() => () => {\n        funcRef.current();\n    }, []);\n}"
+  }
+}

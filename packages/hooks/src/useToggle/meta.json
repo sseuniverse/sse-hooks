@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-toggle",
+  "type": "registry:hook",
+  "title": "useToggle",
+  "description": "Custom hook that manages a boolean toggle state in React components. a function to toggle the state, and a function to set the state explicitly. ```tsx const [isToggled, toggle, setToggle] = useToggle(); // Initial value is false // OR const [isToggled, toggle, setToggle] = useToggle(true); // Initial value is true // Use isToggled in your component, toggle to switch the state, setToggle to set the state explicitly. ```",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [],
+  "file": {
+    "content": "import { useCallback, useState } from \"react\";\r\n\r\nimport type { Dispatch, SetStateAction } from \"react\";\r\n\r\n\r\nexport function useToggle(\r\n  defaultValue?: boolean,\r\n): [boolean, () => void, Dispatch<SetStateAction<boolean>>] {\r\n  const [value, setValue] = useState(!!defaultValue);\r\n\r\n  const toggle = useCallback(() => {\r\n    setValue((x) => !x);\r\n  }, []);\r\n\r\n  return [value, toggle, setValue];\r\n}",
+    "js": "import { useCallback, useState } from \"react\";\nexport function useToggle(defaultValue) {\n    const [value, setValue] = useState(!!defaultValue);\n    const toggle = useCallback(() => {\n        setValue((x) => !x);\n    }, []);\n    return [value, toggle, setValue];\n}"
+  }
+}

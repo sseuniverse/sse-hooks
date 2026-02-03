@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-window-size",
+  "type": "registry:hook",
+  "title": "useWindowSize",
+  "description": "Represent the dimension of the window.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "use-debounce-callback",
+    "use-event-listener",
+    "use-isomorphic-layout-effect"
+  ],
+  "file": {
+    "content": "import { useState } from \"react\";\r\n\r\n\n\n\n\r\ntype WindowSize<T extends number | undefined = number | undefined> = {\r\n  \r\n  width: T;\r\n  \r\n  height: T;\r\n};\r\n\r\n\r\ntype UseWindowSizeOptions<InitializeWithValue extends boolean | undefined> = {\r\n  \r\n  initializeWithValue: InitializeWithValue;\r\n  \r\n  debounceDelay?: number;\r\n};\r\n\r\nconst IS_SERVER = typeof window === \"undefined\";\r\n\r\n\r\nexport function useWindowSize(options: UseWindowSizeOptions<false>): WindowSize;\r\n\r\nexport function useWindowSize(\r\n  options?: Partial<UseWindowSizeOptions<true>>,\r\n): WindowSize<number>;\r\n\r\nexport function useWindowSize(\r\n  options: Partial<UseWindowSizeOptions<boolean>> = {},\r\n): WindowSize | WindowSize<number> {\r\n  let { initializeWithValue = true } = options;\r\n  if (IS_SERVER) {\r\n    initializeWithValue = false;\r\n  }\r\n\r\n  const [windowSize, setWindowSize] = useState<WindowSize>(() => {\r\n    if (initializeWithValue) {\r\n      return {\r\n        width: window.innerWidth,\r\n        height: window.innerHeight,\r\n      };\r\n    }\r\n    return {\r\n      width: undefined,\r\n      height: undefined,\r\n    };\r\n  });\r\n\r\n  const debouncedSetWindowSize = useDebounceCallback(\r\n    setWindowSize,\r\n    options.debounceDelay,\r\n  );\r\n\r\n  function handleSize() {\r\n    const setSize = options.debounceDelay\r\n      ? debouncedSetWindowSize\r\n      : setWindowSize;\r\n\r\n    setSize({\r\n      width: window.innerWidth,\r\n      height: window.innerHeight,\r\n    });\r\n  }\r\n\r\n  useEventListener(\"resize\", handleSize);\r\n\r\n  \r\n  useIsomorphicLayoutEffect(() => {\r\n    handleSize();\r\n  }, []);\r\n\r\n  return windowSize;\r\n}",
+    "js": "import { useState } from \"react\";\nconst IS_SERVER = typeof window === \"undefined\";\nexport function useWindowSize(options = {}) {\n    let { initializeWithValue = true } = options;\n    if (IS_SERVER) {\n        initializeWithValue = false;\n    }\n    const [windowSize, setWindowSize] = useState(() => {\n        if (initializeWithValue) {\n            return {\n                width: window.innerWidth,\n                height: window.innerHeight,\n            };\n        }\n        return {\n            width: undefined,\n            height: undefined,\n        };\n    });\n    const debouncedSetWindowSize = useDebounceCallback(setWindowSize, options.debounceDelay);\n    function handleSize() {\n        const setSize = options.debounceDelay\n            ? debouncedSetWindowSize\n            : setWindowSize;\n        setSize({\n            width: window.innerWidth,\n            height: window.innerHeight,\n        });\n    }\n    useEventListener(\"resize\", handleSize);\n    useIsomorphicLayoutEffect(() => {\n        handleSize();\n    }, []);\n    return windowSize;\n}"
+  }
+}

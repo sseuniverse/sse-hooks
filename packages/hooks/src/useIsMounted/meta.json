@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-is-mounted",
+  "type": "registry:hook",
+  "title": "useIsMounted",
+  "description": "Custom hook that determines if the component is currently mounted. ```tsx const isComponentMounted = useIsMounted(); // Use isComponentMounted() to check if the component is currently mounted before performing certain actions. ```",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [],
+  "file": {
+    "content": "import { useCallback, useEffect, useRef } from \"react\";\r\n\r\n\r\nexport function useIsMounted(): () => boolean {\r\n  const isMounted = useRef(false);\r\n\r\n  useEffect(() => {\r\n    isMounted.current = true;\r\n\r\n    return () => {\r\n      isMounted.current = false;\r\n    };\r\n  }, []);\r\n\r\n  return useCallback(() => isMounted.current, []);\r\n}",
+    "js": "import { useCallback, useEffect, useRef } from \"react\";\nexport function useIsMounted() {\n    const isMounted = useRef(false);\n    useEffect(() => {\n        isMounted.current = true;\n        return () => {\n            isMounted.current = false;\n        };\n    }, []);\n    return useCallback(() => isMounted.current, []);\n}"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-click-any-where",
+  "type": "registry:hook",
+  "title": "useClickAnyWhere",
+  "description": "Custom hook that handles click events anywhere on the document. ```tsx const handleClick = (event) => {   console.log('Document clicked!', event); }; // Attach click event handler to document useClickAnywhere(handleClick); ```",
+  "dependencies": [],
+  "registryDependencies": [
+    "use-event-listener"
+  ],
+  "file": {
+    "content": "export function useClickAnyWhere(handler: (event: MouseEvent) => void) {\r\n  useEventListener(\"click\", (event) => {\r\n    handler(event);\r\n  });\r\n}",
+    "js": "export function useClickAnyWhere(handler) {\n    useEventListener(\"click\", (event) => {\n        handler(event);\n    });\n}"
+  }
+}

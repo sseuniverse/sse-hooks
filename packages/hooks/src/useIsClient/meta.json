@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "name": "use-is-client",
+  "type": "registry:hook",
+  "title": "useIsClient",
+  "description": "Custom hook that determines if the code is running on the client side (in the browser). ```tsx const isClient = useIsClient(); // Use isClient to conditionally render or execute code specific to the client side. ```",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [],
+  "file": {
+    "content": "import { useEffect, useState } from \"react\";\r\n\r\n\r\nexport function useIsClient() {\r\n  const [isClient, setClient] = useState(false);\r\n\r\n  useEffect(() => {\r\n    setClient(true);\r\n  }, []);\r\n\r\n  return isClient;\r\n}",
+    "js": "import { useEffect, useState } from \"react\";\nexport function useIsClient() {\n    const [isClient, setClient] = useState(false);\n    useEffect(() => {\n        setClient(true);\n    }, []);\n    return isClient;\n}"
+  }
+}
