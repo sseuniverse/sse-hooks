@@ -50,7 +50,7 @@
           "description": "The JavaScript code of the file."
         }
       },
-      "required": ["path", "content", "js"]
+      "required": ["content", "js"]
     }
   }
 }
