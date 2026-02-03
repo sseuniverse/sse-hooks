@@ -2,8 +2,11 @@
 
 <!-- HOOKS:START -->
 
+- [`useAudioRecorder`](/docs/use-audio-recorder) — A comprehensive hook for audio recording with real-time analysis using getUserMedia, MediaRecorder, and Web Audio APIs
 - [`useBoolean`](/docs/use-boolean) — handles boolean state with useful utility functions.
 - [`useClickAnyWhere`](/docs/use-click-any-where) — handles click events anywhere on the document.
+- [`useClickAway`](/docs/use-click-away) — triggers a callback when a user clicks outside the referenced element.
+It handles portal elements, scrollbar clicks, and touch interactions intelligently.
 - [`useCookie`](/docs/use-cookie) — manages state synchronized with a browser [cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies).
 It handles serialization, prefixes, updates across tabs, and custom event synchronization.
 - [`useCopyToClipboard`](/docs/use-copy-to-clipboard) — copies text to the clipboard using the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API).
@@ -16,6 +19,7 @@ It handles serialization, prefixes, updates across tabs, and custom event synchr
 - [`useEventCallback`](/docs/use-event-callback) — creates a memoized event callback.
 - [`useEventListener`](/docs/use-event-listener) — 
 - [`useFetch`](/docs/use-fetch) — provides a wrapper around the native [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to handle HTTP requests with state management, abort capability, and TypeScript support.
+- [`useForkRef`](/docs/use-fork-ref) — Merges refs into a single memoized callback ref or null.
 - [`useHover`](/docs/use-hover) — tracks whether a DOM element is being hovered over.
 - [`useIndexedDB`](/docs/use-indexed-d-b) — provides an interface to the [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) for client-side storage of significant amounts of structured data.
 - [`useIntersectionObserver`](/docs/use-intersection-observer) — tracks the intersection of a DOM element with its containing element or the viewport using the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
@@ -25,6 +29,8 @@ It handles serialization, prefixes, updates across tabs, and custom event synchr
 - [`useLocalStorage`](/docs/use-local-storage) — uses the [localStorage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to persist state across page reloads.
 - [`useMap`](/docs/use-map) — manages a key-value [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) state with setter actions.
 - [`useMediaQuery`](/docs/use-media-query) — tracks the state of a media query using the [Match Media API](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia).
+- [`useMediaSession`](/docs/use-media-session) — interacts with the [Media Session API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Session_API).
+It allows you to customize media notifications and handle media control events (like play, pause, next track) from the system's notification area or lock screen.
 - [`useReadLocalStorage`](/docs/use-read-local-storage) — 
 - [`useResizeObserver`](/docs/use-resize-observer) — observes the size of an element using the [ResizeObserver API](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).
 - [`useScreen`](/docs/use-screen) — 
@@ -36,5 +42,7 @@ It handles serialization, prefixes, updates across tabs, and custom event synchr
 - [`useTimeout`](/docs/use-timeout) — handles timeouts in React components using the [setTimeout API](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout).
 - [`useToggle`](/docs/use-toggle) — manages a boolean toggle state in React components.
 - [`useUnmount`](/docs/use-unmount) — runs a cleanup function when the component is unmounted.
+- [`useUserMedia`](/docs/use-user-media) — captures audio and video from the user's device.
+It handles permission errors, stream management, and cleanup automatically.
 - [`useWindowSize`](/docs/use-window-size) — 
 <!-- HOOKS:END -->

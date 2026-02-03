@@ -30,5 +30,8 @@
   "workspaces": [
     "packages/*"
   ],
-  "version": "1.2.0"
+  "version": "1.2.0",
+  "dependencies": {
+    "react-dom": "^19.2.4"
+  }
 }

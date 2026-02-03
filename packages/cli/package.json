@@ -1,6 +1,6 @@
 {
   "name": "sse-tool",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Tools for SSE Hooks",
   "license": "MIT",
   "author": "SSE World",
@@ -23,6 +23,7 @@
     "cli-table3": "^0.6.5",
     "commander": "^14.0.3",
     "fs-extra": "^11.3.3",
-    "inquirer": "^13.2.2"
+    "inquirer": "^13.2.2",
+    "ora": "^9.1.0"
   }
 }

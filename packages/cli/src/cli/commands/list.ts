@@ -9,8 +9,8 @@ export async function listCommand() {
     const hooks = await fetchHookList(config.repoUrl);
 
     const table = new Table({
-      head: ["Hook Name", "JS Available", "TS Available", "Description"],
-      colWidths: [20, 12, 12, 40],
+      head: ["Hook Name", "Description"],
+      colWidths: [25, 60],
     });
 
     hooks.forEach((hook) => {

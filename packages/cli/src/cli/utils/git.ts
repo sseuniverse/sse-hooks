@@ -56,13 +56,18 @@ export async function fetchHookList(repoUrl: string): Promise<ManifestEntry[]> {
   }
 }
 
+/**
+ * Downloads a hook or retrieves its metadata.
+ * @param metaOnly If true, it fetches metadata without writing to the filesystem.
+ */
 export async function downloadHook(
   repoUrl: string,
   hookName: string,
   language: "ts" | "js",
   filePath: string,
   manifest: ManifestEntry[],
-): Promise<void> {
+  metaOnly: boolean = false,
+): Promise<HookInfo> {
   try {
     const { owner, repo, branch } = parseRepoUrl(repoUrl);
 
@@ -72,19 +77,31 @@ export async function downloadHook(
     const metaFullPath = `${REPO_CONFIG.HOOKS_BASE_PATH}/${hookEntry.path}`;
     const metaUrl = GITHUB_RAW_URL(`${owner}/${repo}`, branch, metaFullPath);
 
+    // Fetch the metadata from the remote repository
     const response = await axios.get<HookInfo>(metaUrl);
     const metaData = response.data;
+
+    // If we only need metadata (to check dependencies), stop here
+    if (metaOnly) {
+      return metaData;
+    }
+
     const code = language === "js" ? metaData.file.js : metaData.file.content;
 
     if (!code) {
       throw new Error(`Code for ${language.toUpperCase()} not found.`);
     }
 
-    await fs.ensureDir(path.dirname(filePath));
-    await fs.writeFile(filePath, code);
+    // Ensure directory exists and write the hook file
+    if (filePath) {
+      await fs.ensureDir(path.dirname(filePath));
+      await fs.writeFile(filePath, code);
+    }
+
+    return metaData;
   } catch (err: any) {
     const message = err instanceof Error ? err.message : "Unknown error";
-    error(`Failed to download hook: ${hookName} - ${message}`);
-    throw new Error(REPO_CONFIG.ERRORS.HOOK_NOT_FOUND);
+    error(`Failed to process hook: ${hookName} - ${message}`);
+    throw err;
   }
 }
