@@ -2,47 +2,44 @@
 
 <!-- HOOKS:START -->
 
-- [`useAudioRecorder`](/docs/use-audio-recorder) — A comprehensive hook for audio recording with real-time analysis using getUserMedia, MediaRecorder, and Web Audio APIs
-- [`useBoolean`](/docs/use-boolean) — handles boolean state with useful utility functions.
-- [`useClickAnyWhere`](/docs/use-click-any-where) — handles click events anywhere on the document.
-- [`useClickAway`](/docs/use-click-away) — triggers a callback when a user clicks outside the referenced element.
-It handles portal elements, scrollbar clicks, and touch interactions intelligently.
-- [`useCookie`](/docs/use-cookie) — manages state synchronized with a browser [cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies).
-It handles serialization, prefixes, updates across tabs, and custom event synchronization.
-- [`useCopyToClipboard`](/docs/use-copy-to-clipboard) — copies text to the clipboard using the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API).
-- [`useCountdown`](/docs/use-countdown) — manages countdown.
-- [`useCounter`](/docs/use-counter) — manages a counter with increment, decrement, reset, and setCount functionalities.
-- [`useDarkMode`](/docs/use-dark-mode) — returns the current state of the dark mode.
-- [`useDebounceCallback`](/docs/use-debounce-callback) — creates a debounced version of a callback function.
-- [`useDebounceValue`](/docs/use-debounce-value) — returns a debounced version of the provided value, along with a function to update it.
-- [`useDocumentTitle`](/docs/use-document-title) — sets the document title.
-- [`useEventCallback`](/docs/use-event-callback) — creates a memoized event callback.
-- [`useEventListener`](/docs/use-event-listener) — 
-- [`useFetch`](/docs/use-fetch) — provides a wrapper around the native [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to handle HTTP requests with state management, abort capability, and TypeScript support.
-- [`useForkRef`](/docs/use-fork-ref) — Merges refs into a single memoized callback ref or null.
-- [`useHover`](/docs/use-hover) — tracks whether a DOM element is being hovered over.
-- [`useIndexedDB`](/docs/use-indexed-d-b) — provides an interface to the [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) for client-side storage of significant amounts of structured data.
-- [`useIntersectionObserver`](/docs/use-intersection-observer) — tracks the intersection of a DOM element with its containing element or the viewport using the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
-- [`useInterval`](/docs/use-interval) — creates an interval that invokes a callback function at a specified delay using the [setInterval API](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval).
-- [`useIsClient`](/docs/use-is-client) — determines if the code is running on the client side (in the browser).
-- [`useIsMounted`](/docs/use-is-mounted) — determines if the component is currently mounted.
-- [`useLocalStorage`](/docs/use-local-storage) — uses the [localStorage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to persist state across page reloads.
-- [`useMap`](/docs/use-map) — manages a key-value [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) state with setter actions.
-- [`useMediaQuery`](/docs/use-media-query) — tracks the state of a media query using the [Match Media API](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia).
-- [`useMediaSession`](/docs/use-media-session) — interacts with the [Media Session API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Session_API).
-It allows you to customize media notifications and handle media control events (like play, pause, next track) from the system's notification area or lock screen.
-- [`useReadLocalStorage`](/docs/use-read-local-storage) — 
-- [`useResizeObserver`](/docs/use-resize-observer) — observes the size of an element using the [ResizeObserver API](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).
-- [`useScreen`](/docs/use-screen) — 
-- [`useScript`](/docs/use-script) — dynamically loads scripts and tracking their loading status.
-- [`useScrollLock`](/docs/use-scroll-lock) — A custom hook that locks and unlocks scroll.
-- [`useSessionStorage`](/docs/use-session-storage) — uses the [sessionStorage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) to persist state across page reloads.
-- [`useStep`](/docs/use-step) — manages and navigates between steps in a multi-step process.
-- [`useTernaryDarkMode`](/docs/use-ternary-dark-mode) — manages ternary (system, dark, light) dark mode with local storage support.
-- [`useTimeout`](/docs/use-timeout) — handles timeouts in React components using the [setTimeout API](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout).
-- [`useToggle`](/docs/use-toggle) — manages a boolean toggle state in React components.
-- [`useUnmount`](/docs/use-unmount) — runs a cleanup function when the component is unmounted.
-- [`useUserMedia`](/docs/use-user-media) — captures audio and video from the user's device.
-It handles permission errors, stream management, and cleanup automatically.
-- [`useWindowSize`](/docs/use-window-size) — 
+- [`useAudioRecorder`](/hooks/use-audio-recorder) — A comprehensive hook for audio recording with real-time analysis using getUserMedia, MediaRecorder, and Web Audio APIs.
+- [`useBoolean`](/hooks/use-boolean) — Custom hook that handles boolean state with useful utility functions.
+- [`useClickAnyWhere`](/hooks/use-click-any-where) — Custom hook that handles click events anywhere on the document.
+- [`useClickAway`](/hooks/use-click-away) — Custom hook that triggers a callback when a user clicks outside the referenced element.
+- [`useCookie`](/hooks/use-cookie) — Custom hook that manages state synchronized with a browser [`cookie`](https://developer.
+- [`useCopyToClipboard`](/hooks/use-copy-to-clipboard) — Custom hook that copies text to the clipboard using the [`Clipboard API`](https://developer.
+- [`useCountdown`](/hooks/use-countdown) — Custom hook that manages countdown.
+- [`useCounter`](/hooks/use-counter) — Custom hook that manages a counter with increment, decrement, reset, and setCount functionalities.
+- [`useDarkMode`](/hooks/use-dark-mode) — Custom hook that returns the current state of the dark mode.
+- [`useDebounceCallback`](/hooks/use-debounce-callback) — Custom hook that creates a debounced version of a callback function.
+- [`useDebounceValue`](/hooks/use-debounce-value) — Custom hook that returns a debounced version of the provided value, along with a function to update it.
+- [`useDocumentTitle`](/hooks/use-document-title) — Custom hook that sets the document title.
+- [`useEventCallback`](/hooks/use-event-callback) — Custom hook that creates a memoized event callback.
+- [`useEventListener`](/hooks/use-event-listener) — .
+- [`useFetch`](/hooks/use-fetch) — Custom hook that provides a wrapper around the native [`fetch API`](https://developer.
+- [`useForkRef`](/hooks/use-fork-ref) — Merges refs into a single memoized callback ref or `null`.
+- [`useHover`](/hooks/use-hover) — Custom hook that tracks whether a DOM element is being hovered over.
+- [`useIndexedDB`](/hooks/use-indexed-db) — Custom hook that provides an interface to the [`IndexedDB API`](https://developer.
+- [`useIntersectionObserver`](/hooks/use-intersection-observer) — Custom hook that tracks the intersection of a DOM element with its containing element or the viewport using the [`Intersection Observer API`](https://developer.
+- [`useInterval`](/hooks/use-interval) — Custom hook that creates an interval that invokes a callback function at a specified delay using the [`setInterval API`](https://developer.
+- [`useIsClient`](/hooks/use-is-client) — Custom hook that determines if the code is running on the client side (in the browser).
+- [`useIsMounted`](/hooks/use-is-mounted) — Custom hook that determines if the component is currently mounted.
+- [`useLocalStorage`](/hooks/use-local-storage) — Custom hook that uses the [`localStorage API`](https://developer.
+- [`useMap`](/hooks/use-map) — Custom hook that manages a key-value [`Map`](https://developer.
+- [`useMediaQuery`](/hooks/use-media-query) — Custom hook that tracks the state of a media query using the [`Match Media API`](https://developer.
+- [`useMediaSession`](/hooks/use-media-session) — Custom hook that interacts with the [Media Session API](https://developer.
+- [`useReadLocalStorage`](/hooks/use-read-local-storage) — .
+- [`useResizeObserver`](/hooks/use-resize-observer) — Custom hook that observes the size of an element using the [`ResizeObserver API`](https://developer.
+- [`useScreen`](/hooks/use-screen) — .
+- [`useScreenShare`](/hooks/use-screen-share) — Custom hook that captures the user's screen or specific application window.
+- [`useScript`](/hooks/use-script) — Custom hook that dynamically loads scripts and tracking their loading status.
+- [`useScrollLock`](/hooks/use-scroll-lock) — A custom hook that locks and unlocks scroll.
+- [`useSessionStorage`](/hooks/use-session-storage) — Custom hook that uses the [`sessionStorage API`](https://developer.
+- [`useStep`](/hooks/use-step) — Custom hook that manages and navigates between steps in a multi-step process.
+- [`useTernaryDarkMode`](/hooks/use-ternary-dark-mode) — Custom hook that manages ternary (system, dark, light) dark mode with local storage support.
+- [`useTimeout`](/hooks/use-timeout) — Custom hook that handles timeouts in React components using the [`setTimeout API`](https://developer.
+- [`useToggle`](/hooks/use-toggle) — Custom hook that manages a boolean toggle state in React components.
+- [`useUnmount`](/hooks/use-unmount) — Custom hook that runs a cleanup function when the component is unmounted.
+- [`useUserMedia`](/hooks/use-user-media) — Custom hook that captures audio and video from the user's device.
+- [`useWindowSize`](/hooks/use-window-size) — .
 <!-- HOOKS:END -->

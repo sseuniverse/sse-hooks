@@ -54,7 +54,7 @@ export function getHooks() {
         name,
         modulePath,
         slug,
-        path: `/hook/${slug}`,
+        path: `/hooks/${slug}`,
         summary,
         flags: hookFunc.flags,
         links: {

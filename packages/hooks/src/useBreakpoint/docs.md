@@ -1,0 +1,228 @@
+---
+# category: browser
+name: BreakPointHooks
+description: Reactive hooks and utilities to be used with user provided breakpoints.
+new: true
+---
+
+## Functions
+
+Reactive hooks
+
+- `useGreater`
+- `useSmaller`
+- `useBetween`
+
+Non reactive utility function
+
+- `isGreater`
+- `isSmaller`
+- `isInBetween`
+
+## Usage
+
+```tsx
+import {
+  BreakPointHooks,
+  breakpointsTailwind,
+} from "sse-hooks";
+
+const { useGreater, useBetween, isSmaller } =
+  BreakPointHooks(breakpointsTailwind);
+
+// Non reactive check, can be used outside react components
+const smaller = isSmaller("xl");
+
+function Demo() {
+  // Greater than md
+  const greater = useGreater("md");
+
+  // Betweeb md and lg
+  const between = useBetween("md", "lg");
+
+  // smaller than 2xl
+  const smaller = useSmaller("2xl");
+}
+
+return (
+  <div>
+    {greater && "Greater than md"}
+    {between && "Between md & lg"}
+    {smaller && "Smaller than 2xl"}
+  </div>
+);
+```
+
+```tsx
+import { BreakPointHooks } from "sse-hooks";
+
+const breakpoints = {
+  mobile: 425,
+  tablet: 768,
+  laptop: 1024,
+  desktop: 1560,
+};
+
+const { useGreater, useBetween } = BreakPointHooks(breakpoints);
+
+function Demo() {
+  // Greater than mobile
+  const greater = useGreater("mobile");
+
+  // Betweeb laptop and desktop
+  const between = useBetween("laptop", "desktop");
+
+  // smaller than tablet
+  const smaller = useSmaller("tablet");
+}
+```
+
+## Performance Optimization
+
+If you use the these `BreakPointHooks` a lot in your application, you run the risk of unnecessary performance loss by adding too many event listeners.
+A way to optimise is to setup all of these hooks in a `context provider` and consume them with `React.useContext()`, thus you only setup media query event listeners only once.
+
+`React.useContext` causes re-renders in all components that consume that context, whether the consumed value is used or not,
+So you can further further optimise these contexts by using either [use-context-selector](https://github.com/dai-shi/use-context-selector) or [react-tracked](https://react-tracked.js.org/docs/quick-start/).
+
+## Available Breakpoints
+
+```typescript
+/**
+ * Breakpoints from Tailwind V2
+ *
+ * @see https://tailwindcss.com/docs/breakpoints
+ */
+export const breakpointsTailwind = {
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  "2xl": 1536,
+};
+
+/**
+ * Breakpoints from Bootstrap V5
+ *
+ * @see https://getbootstrap.com/docs/5.0/layout/breakpoints
+ */
+export const breakpointsBootstrapV5 = {
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1400,
+};
+
+/**
+ * Breakpoints from Vuetify V2
+ *
+ * @see https://vuetifyjs.com/en/features/breakpoints
+ */
+export const breakpointsVuetify = {
+  xs: 600,
+  sm: 960,
+  md: 1264,
+  lg: 1904,
+};
+
+/**
+ * Breakpoints from Ant Design
+ *
+ * @see https://ant.design/components/layout/#breakpoint-width
+ */
+export const breakpointsAntDesign = {
+  xs: 480,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1600,
+};
+
+/**
+ * Sematic Breakpoints
+ */
+export const breakpointsSematic = {
+  mobileS: 320,
+  mobileM: 375,
+  mobileL: 425,
+  tablet: 768,
+  laptop: 1024,
+  laptopL: 1440,
+  desktop4K: 2560,
+};
+```
+
+## Type Declarations
+
+```typescript
+/**
+ * Reactive hooks and utilities to be used with user provided breakpoints.
+ *
+ * @param {string} breakpoints
+ * @returns functions to be used as hooks
+ *
+ * @see https://react-hooks-library.vercel.app/core/BreakPointHooks
+ */
+declare function BreakPointHooks<BreakPoints extends Record<string, number>>(
+  breakpoints: BreakPoints,
+): {
+  /**
+   * Hook that returns a boolean if screen width is greater than given breakpoint.
+   *
+   * @param k {string} breakpoint
+   * @returns boolean
+   *
+   * @see https://react-hooks-library.vercel.app/core/BreakPointHooks
+   **/
+  useGreater: (k: keyof BreakPoints) => boolean;
+  /**
+   * Hook that returns a boolean if screen width is smaller than given breakpoint.
+   *
+   * @param k {string} breakpoint
+   * @param k {string} breakpoint
+   *
+   * @returns boolean
+   *
+   * @see https://react-hooks-library.vercel.app/core/BreakPointHooks
+   **/
+  useSmaller: (k: keyof BreakPoints) => boolean;
+  /**
+   * Hook that returns a boolean if screen width is between two given breakpoint.
+   *
+   * @param a {string} breakpoint
+   * @param b {string} breakpoint
+   *
+   * @returns boolean
+   *
+   * @see https://react-hooks-library.vercel.app/core/BreakPointHooks
+   **/
+  useBetween: (a: keyof BreakPoints, b: keyof BreakPoints) => boolean;
+  /**
+   * Utility function that returns a boolean if screen width is greater than given breakpoint.
+   *
+   * @param k {string} breakpoint
+   *
+   * @see https://react-hooks-library.vercel.app/core/BreakPointHooks
+   **/
+  isGreater(k: keyof BreakPoints): boolean;
+  /**
+   * Utility function that returns a boolean if screen width is smaller than given breakpoint.
+   *
+   * @param k {string} breakpoint
+   *
+   * @see https://react-hooks-library.vercel.app/core/BreakPointHooks
+   **/
+  isSmaller(k: keyof BreakPoints): boolean;
+  /**
+   * Utility function that returns a boolean if screen width is between two given breakpoint.
+   *
+   * @param k {string} breakpoint
+   *
+   * @see https://react-hooks-library.vercel.app/core/BreakPointHooks
+   **/
+  isInBetween(a: keyof BreakPoints, b: keyof BreakPoints): boolean;
+};
+declare type BreakPointHooksReturn = ReturnType<typeof BreakPointHooks>;
+```

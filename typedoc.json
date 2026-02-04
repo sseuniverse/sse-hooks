@@ -34,7 +34,7 @@
     "@privateRemarks",
     "@satisfies",
     "@overload",
-    "@example",
+    // "@example",
     "@see"
   ],
 
@@ -52,7 +52,14 @@
     "notDocumented": false
   },
   // Emit warnings for any tags not listed here
-  "blockTags": ["@param", "@returns", "@see", "@example", "@template"],
+  "blockTags": [
+    "@param",
+    "@returns",
+    "@see",
+    "@example",
+    "@template",
+    "@default"
+  ],
 
   // Markdown and styles
   // "allReflectionsHaveOwnDocument": true,
@@ -68,7 +75,7 @@
   "parametersFormat": "table",
 
   "headings": {
-    "readme": false,
+    "readme": false
     // "members": true
   },
   "navigation": {
