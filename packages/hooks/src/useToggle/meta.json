@@ -9,7 +9,7 @@
   ],
   "registryDependencies": [],
   "file": {
-    "content": "import { useCallback, useState } from \"react\";\r\n\r\nimport type { Dispatch, SetStateAction } from \"react\";\r\n\r\n\r\nexport function useToggle(\r\n  defaultValue?: boolean,\r\n): [boolean, () => void, Dispatch<SetStateAction<boolean>>] {\r\n  const [value, setValue] = useState(!!defaultValue);\r\n\r\n  const toggle = useCallback(() => {\r\n    setValue((x) => !x);\r\n  }, []);\r\n\r\n  return [value, toggle, setValue];\r\n}",
+    "content": "import { useCallback, useState } from \"react\";\n\nimport type { Dispatch, SetStateAction } from \"react\";\n\nexport function useToggle(\n  defaultValue?: boolean,\n): [boolean, () => void, Dispatch<SetStateAction<boolean>>] {\n  const [value, setValue] = useState(!!defaultValue);\n\n  const toggle = useCallback(() => {\n    setValue((x) => !x);\n  }, []);\n\n  return [value, toggle, setValue];\n}\n",
     "js": "import { useCallback, useState } from \"react\";\nexport function useToggle(defaultValue) {\n    const [value, setValue] = useState(!!defaultValue);\n    const toggle = useCallback(() => {\n        setValue((x) => !x);\n    }, []);\n    return [value, toggle, setValue];\n}"
   }
 }

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import ts from "typescript";
+import prettier from "prettier";
 
 const SRC_DIR = path.join(process.cwd(), "src");
 const MANIFEST_FILE = path.join(process.cwd(), "manifest.json");
@@ -28,6 +29,7 @@ const extractDescription = (content) => {
 };
 
 const stripComments = (code) => {
+  // Removes block comments and single line comments
   return code.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "$1").trim();
 };
 
@@ -41,6 +43,17 @@ const transpileToJs = (tsCode) => {
     },
   });
   return result.outputText.trim();
+};
+
+const formatCode = async (content) => {
+  // Formats the code using Prettier so it looks professional in the JSON
+  return await prettier.format(content, {
+    parser: "typescript",
+    semi: true,
+    singleQuote: false,
+    trailingComma: "all",
+    printWidth: 80,
+  });
 };
 
 // --- BUNDLING LOGIC ---
@@ -63,10 +76,17 @@ const bundleHook = (
 
   return content.replace(importRegex, (match, importPath) => {
     if (importPath.startsWith("../")) {
+      // It's a sibling hook (Registry Dependency)
       const folderName = importPath.split("/")[1];
-      registryDeps.add(toKebabCase(folderName));
-      return "";
+      const kebabName = toKebabCase(folderName);
+      registryDeps.add(kebabName);
+
+      // FIX: Do not return empty string.
+      // Rewrite the import to point to the kebab-case sibling file.
+      // e.g., import ... from "../UseFetch" -> import ... from "./use-fetch"
+      return match.replace(importPath, `./${kebabName}`);
     } else if (importPath.startsWith("./")) {
+      // It's a local utility file (Bundle it in)
       const resolvedPath = path.resolve(dir, importPath);
       const ext = [".ts", ".tsx", ".d.ts", "/index.ts", ""].find((e) =>
         fs.existsSync(resolvedPath + e),
@@ -83,6 +103,7 @@ const bundleHook = (
       }
       return match;
     } else {
+      // It's an NPM dependency
       externalNpmDeps.add(importPath);
       return match;
     }
@@ -103,7 +124,7 @@ const cleanupMetaFiles = (hookDirectories) => {
 
 // --- MAIN GENERATOR ---
 
-const generateMeta = () => {
+const generateMeta = async () => {
   const hookDirectories = fs
     .readdirSync(SRC_DIR, { withFileTypes: true })
     .filter((d) => d.isDirectory())
@@ -115,10 +136,11 @@ const generateMeta = () => {
 
   const hooksList = [];
 
-  hookDirectories.forEach((hookName) => {
+  // Use for...of loop to handle async await for Prettier
+  for (const hookName of hookDirectories) {
     const hookDir = path.join(SRC_DIR, hookName);
     const indexFile = path.join(hookDir, "index.ts");
-    if (!fs.existsSync(indexFile)) return;
+    if (!fs.existsSync(indexFile)) continue;
 
     const registryDeps = new Set();
     const npmDeps = new Set();
@@ -133,9 +155,17 @@ const generateMeta = () => {
     );
     const description = extractDescription(rawBundledTs);
 
-    const cleanTs = stripComments(rawBundledTs)
-      .replace(/export \* from .+/g, "")
+    // 1. Strip comments
+    let cleanTs = stripComments(rawBundledTs)
+      .replace(/export \* from .+/g, "") // Remove re-exports
       .trim();
+
+    // 2. Format with Prettier (Makes it look great)
+    try {
+      cleanTs = await formatCode(cleanTs);
+    } catch (error) {
+      console.warn(`Warning: Could not format ${hookName}`, error);
+    }
 
     const hookMeta = {
       $schema: SCHEMA_URL,
@@ -151,11 +181,11 @@ const generateMeta = () => {
       },
     };
 
-    // 1. Save individual meta.json in the hook directory
+    // 3. Save individual meta.json
     const individualMetaPath = path.join(hookDir, "meta.json");
     fs.writeFileSync(individualMetaPath, JSON.stringify(hookMeta, null, 2));
 
-    // 2. Add entry for the manifest
+    // 4. Add to manifest list
     hooksList.push({
       name: kebabName,
       description: description,
@@ -163,9 +193,9 @@ const generateMeta = () => {
     });
 
     console.log(`   ✨ Created: src/${hookName}/meta.json`);
-  });
+  }
 
-  // 3. Save the manifest.json with the requested structure
+  // 5. Save the manifest.json
   const manifestData = {
     hooks: hooksList,
     length: hooksList.length,
@@ -187,5 +217,8 @@ if (args.includes("--rm")) {
 
   cleanupMetaFiles(hookDirectories);
 } else {
-  generateMeta();
+  generateMeta().catch((err) => {
+    console.error("Error generating meta:", err);
+    process.exit(1);
+  });
 }

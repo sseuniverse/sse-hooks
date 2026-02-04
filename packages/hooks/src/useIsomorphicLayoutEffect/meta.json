@@ -9,7 +9,7 @@
   ],
   "registryDependencies": [],
   "file": {
-    "content": "import { useEffect, useLayoutEffect } from \"react\";\r\n\r\n\r\nexport const useIsomorphicLayoutEffect =\r\n  typeof window !== \"undefined\" ? useLayoutEffect : useEffect;",
+    "content": "import { useEffect, useLayoutEffect } from \"react\";\n\nexport const useIsomorphicLayoutEffect =\n  typeof window !== \"undefined\" ? useLayoutEffect : useEffect;\n",
     "js": "import { useEffect, useLayoutEffect } from \"react\";\nexport const useIsomorphicLayoutEffect = typeof window !== \"undefined\" ? useLayoutEffect : useEffect;"
   }
 }

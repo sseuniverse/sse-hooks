@@ -9,7 +9,7 @@
     "use-event-listener"
   ],
   "file": {
-    "content": "export function useClickAnyWhere(handler: (event: MouseEvent) => void) {\r\n  useEventListener(\"click\", (event) => {\r\n    handler(event);\r\n  });\r\n}",
-    "js": "export function useClickAnyWhere(handler) {\n    useEventListener(\"click\", (event) => {\n        handler(event);\n    });\n}"
+    "content": "import { useEventListener } from \"./use-event-listener\";\n\nexport function useClickAnyWhere(handler: (event: MouseEvent) => void) {\n  useEventListener(\"click\", (event) => {\n    handler(event);\n  });\n}\n",
+    "js": "import { useEventListener } from \"./use-event-listener\";\nexport function useClickAnyWhere(handler) {\n    useEventListener(\"click\", (event) => {\n        handler(event);\n    });\n}"
   }
 }

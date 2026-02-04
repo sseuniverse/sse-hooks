@@ -9,7 +9,7 @@
   ],
   "registryDependencies": [],
   "file": {
-    "content": "import { useCallback, useEffect, useRef } from \"react\";\r\n\r\n\r\nexport function useIsMounted(): () => boolean {\r\n  const isMounted = useRef(false);\r\n\r\n  useEffect(() => {\r\n    isMounted.current = true;\r\n\r\n    return () => {\r\n      isMounted.current = false;\r\n    };\r\n  }, []);\r\n\r\n  return useCallback(() => isMounted.current, []);\r\n}",
+    "content": "import { useCallback, useEffect, useRef } from \"react\";\n\nexport function useIsMounted(): () => boolean {\n  const isMounted = useRef(false);\n\n  useEffect(() => {\n    isMounted.current = true;\n\n    return () => {\n      isMounted.current = false;\n    };\n  }, []);\n\n  return useCallback(() => isMounted.current, []);\n}\n",
     "js": "import { useCallback, useEffect, useRef } from \"react\";\nexport function useIsMounted() {\n    const isMounted = useRef(false);\n    useEffect(() => {\n        isMounted.current = true;\n        return () => {\n            isMounted.current = false;\n        };\n    }, []);\n    return useCallback(() => isMounted.current, []);\n}"
   }
 }

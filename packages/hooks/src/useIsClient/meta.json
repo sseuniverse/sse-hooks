@@ -9,7 +9,7 @@
   ],
   "registryDependencies": [],
   "file": {
-    "content": "import { useEffect, useState } from \"react\";\r\n\r\n\r\nexport function useIsClient() {\r\n  const [isClient, setClient] = useState(false);\r\n\r\n  useEffect(() => {\r\n    setClient(true);\r\n  }, []);\r\n\r\n  return isClient;\r\n}",
+    "content": "import { useEffect, useState } from \"react\";\n\nexport function useIsClient() {\n  const [isClient, setClient] = useState(false);\n\n  useEffect(() => {\n    setClient(true);\n  }, []);\n\n  return isClient;\n}\n",
     "js": "import { useEffect, useState } from \"react\";\nexport function useIsClient() {\n    const [isClient, setClient] = useState(false);\n    useEffect(() => {\n        setClient(true);\n    }, []);\n    return isClient;\n}"
   }
 }

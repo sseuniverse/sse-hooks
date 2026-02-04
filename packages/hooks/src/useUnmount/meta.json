@@ -9,7 +9,7 @@
   ],
   "registryDependencies": [],
   "file": {
-    "content": "import { useEffect, useRef } from \"react\";\r\n\r\n\r\nexport function useUnmount(func: () => void) {\r\n  const funcRef = useRef(func);\r\n\r\n  funcRef.current = func;\r\n\r\n  useEffect(\r\n    () => () => {\r\n      funcRef.current();\r\n    },\r\n    [],\r\n  );\r\n}",
+    "content": "import { useEffect, useRef } from \"react\";\n\nexport function useUnmount(func: () => void) {\n  const funcRef = useRef(func);\n\n  funcRef.current = func;\n\n  useEffect(\n    () => () => {\n      funcRef.current();\n    },\n    [],\n  );\n}\n",
     "js": "import { useEffect, useRef } from \"react\";\nexport function useUnmount(func) {\n    const funcRef = useRef(func);\n    funcRef.current = func;\n    useEffect(() => () => {\n        funcRef.current();\n    }, []);\n}"
   }
 }
