@@ -26,7 +26,7 @@ provide('navigation', navigation)
 
 <template>
   <UApp>
-    <AppHeader />
+    <Header />
 
     <UError :error="error" />
 

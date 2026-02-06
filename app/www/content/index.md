@@ -20,7 +20,7 @@ A comprehensive collection of modern, type-safe, and SSR-friendly React hooks. S
 #links
   :::u-button
   ---
-  to: /getting-started
+  to: /docs/getting-started
   size: xl
   trailing-icon: i-lucide-arrow-right
   ---
@@ -149,10 +149,10 @@ A comprehensive collection of modern, type-safe, and SSR-friendly React hooks. S
   ---
   links:
     - label: Explore Hooks
-      to: '/hooks'
+      to: '/docs/hooks'
       trailingIcon: i-lucide-arrow-right
     - label: CLI Documentation
-      to: '/getting-started'
+      to: '/docs/getting-started'
       variant: subtle
   ---
   #title

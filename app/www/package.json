@@ -25,6 +25,7 @@
     "nuxt": "^4.3.0",
     "nuxt-llms": "0.2.0",
     "nuxt-og-image": "^5.1.13",
+    "shiki-transformer-color-highlight": "^1.0.0",
     "tailwindcss": "^4.1.18",
     "ufo": "^1.6.3",
     "unist-util-visit": "^5.1.0",

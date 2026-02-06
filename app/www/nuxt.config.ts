@@ -53,6 +53,14 @@ export default defineNuxtConfig({
     provider: "iconify",
   },
 
+  routeRules: {
+    "/docs": { redirect: "/docs/getting-started", prerender: false },
+    "/getting-started/**": {
+      redirect: { to: "/docs/getting-started/**", statusCode: 301 },
+      prerender: false,
+    },
+  },
+
   llms: {
     domain: "https://sse-hooks.vercel.app/", // Replace with your actual domain
     title: "SSE Hooks Documentation",
@@ -68,7 +76,7 @@ export default defineNuxtConfig({
         title: "Getting Started",
         contentCollection: "docs",
         contentFilters: [
-          { field: "path", operator: "LIKE", value: "/getting-started%" },
+          { field: "path", operator: "LIKE", value: "/docs/getting-started%" },
         ],
       },
       {
@@ -76,7 +84,7 @@ export default defineNuxtConfig({
         contentCollection: "docs",
         contentFilters: [
           // Matches content generated in the "2.hooks" folder (mapped to /hooks)
-          { field: "path", operator: "LIKE", value: "/hooks%" },
+          { field: "path", operator: "LIKE", value: "/docs/hooks%" },
         ],
       },
     ],

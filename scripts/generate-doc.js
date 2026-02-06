@@ -5,10 +5,26 @@ import { execSync } from "node:child_process";
 // --- CONFIGURATION ---
 const TEMP_DIR = "./generated/typedoc";
 const INPUT_JSON = "./generated/typedoc/all.json"; // Path defined in your typedoc.json
-const OUTPUT_DIR = "./app/www/content/2.hooks";
+const OUTPUT_DIR = "./app/www/content/docs/2.hooks";
 const README_MAIN = "./README.md";
 const README_HOOKS = "./packages/hooks/README.md";
 const GITHUB_REPO = "sseuniverse/sse-hooks";
+const HOOKS_SRC_DIR = "./packages/hooks/src";
+
+// Define Category Order / Mapping
+const CATEGORY_MAP = {
+  sensors: "📡 Sensors",
+  state: "💾 State",
+  effect: "⚡ Side Effects",
+  lifecycle: "🔄 LifeCycle",
+  dom: "🎨 DOM & UI",
+  storage: "📦 Storage",
+  network: "🌐 Network",
+  form: "📝 Form",
+  animation: "✨ Animation",
+  utils: "🛠️ Utilities",
+  uncategorized: "📦 Uncategorized",
+};
 
 // Ensure output directory exists
 if (!fs.existsSync(OUTPUT_DIR)) {
@@ -21,9 +37,6 @@ function camelToKebab(str) {
   return str.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 }
 
-/**
- * Parses TypeDoc types into readable strings
- */
 function parseType(typeObj) {
   if (!typeObj) return "void";
   if (typeObj.type === "intrinsic") return typeObj.name;
@@ -37,9 +50,6 @@ function parseType(typeObj) {
   return "any";
 }
 
-/**
- * Extract summary text from TypeDoc comments
- */
 function parseComment(comment) {
   if (!comment || !comment.summary) return "";
   return comment.summary
@@ -48,9 +58,18 @@ function parseComment(comment) {
     .trim();
 }
 
-/**
- * Extract @example tag content
- */
+function parseCategory(blockTags) {
+  if (!blockTags) return "uncategorized";
+  const category = blockTags.find((t) => t.tag === "@category");
+  return category
+    ? category.content
+        .map((c) => c.text)
+        .join("")
+        .trim()
+        .toLowerCase()
+    : "uncategorized";
+}
+
 function parseExample(blockTags) {
   if (!blockTags) return "";
   const example = blockTags.find((t) => t.tag === "@example");
@@ -61,41 +80,8 @@ function parseExample(blockTags) {
     .join("")
     .trim();
 
-  // 🛠️ FIX: Remove ```tsx, ```javascript, or just ``` lines
-  // This prevents double-wrapping since the script adds its own fences
-  content = content
-    .replace(/^```[\w-]*\r?\n/gm, "") // Remove opening ```tsx
-    .replace(/```\s*$/gm, ""); // Remove closing ```
-
+  content = content.replace(/^```[\w-]*\r?\n/gm, "").replace(/```\s*$/gm, "");
   return content.trim();
-}
-
-/**
- * Fetch existing CreatedAt date to preserve it.
- * Scans folder for any file matching regex: `\d+\.${hookName}\.md`
- */
-function getFileDates(hookName) {
-  const now = new Date().toISOString();
-  const files = fs.readdirSync(OUTPUT_DIR);
-
-  // Find existing file regardless of the number prefix (e.g. 1.useHook.md or 5.useHook.md)
-  const existingFile = files.find((f) => f.endsWith(`.${hookName}.md`));
-
-  if (existingFile) {
-    const content = fs.readFileSync(
-      path.join(OUTPUT_DIR, existingFile),
-      "utf-8",
-    );
-    const createdMatch = content.match(/createdAt: (.*)/);
-    return {
-      createdAt: createdMatch ? createdMatch[1].trim() : now,
-      updatedAt: now,
-      exists: true,
-      oldFileName: existingFile,
-    };
-  }
-
-  return { createdAt: now, updatedAt: now, exists: false, oldFileName: null };
 }
 
 /**
@@ -111,7 +97,6 @@ async function getNewHooksList() {
 
     if (!Array.isArray(tags) || tags.length < 2) return new Set();
 
-    // Compare against the PREVIOUS tag (index 1)
     const prevTag = tags[1];
     console.log(`Checking against previous version: ${prevTag.name}`);
 
@@ -122,7 +107,6 @@ async function getNewHooksList() {
 
     const oldHooks = new Set();
     treeData.tree.forEach((file) => {
-      // Assuming structure packages/hooks/src/useX/useX.ts
       const match = file.path.match(
         /packages\/hooks\/src\/(use[A-Z][a-zA-Z0-9]+)/,
       );
@@ -139,6 +123,98 @@ async function getNewHooksList() {
   }
 }
 
+function parseFrontMatter(fileContent) {
+  const match = fileContent.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]*)$/);
+
+  if (!match) {
+    return { attributes: {}, body: fileContent };
+  }
+
+  const frontMatterBlock = match[1];
+  const body = match[2].trim();
+  const attributes = {};
+
+  frontMatterBlock.split("\n").forEach((line) => {
+    const parts = line.split(":");
+    if (parts.length >= 2) {
+      const key = parts[0].trim();
+      const value = parts.slice(1).join(":").trim();
+      attributes[key] = value;
+    }
+  });
+
+  return { attributes, body };
+}
+
+/**
+ * GENERATE .navigation.yml
+ */
+function generateNavigationFile() {
+  const content = `title: Hooks
+icon: i-lucide-square-function
+`;
+  fs.writeFileSync(path.join(OUTPUT_DIR, ".navigation.yml"), content);
+  console.log("✅ Generated .navigation.yml");
+}
+
+/**
+ * GENERATE 0.index.md
+ */
+function generateIndexFile(hooks) {
+  // Group hooks by category
+  const categorizedHooks = {};
+
+  // Initialize categories
+  Object.keys(CATEGORY_MAP).forEach((key) => (categorizedHooks[key] = []));
+
+  hooks.forEach((hook) => {
+    // Determine category key (default to uncategorized if not found in map)
+    const catKey = CATEGORY_MAP[hook.category]
+      ? hook.category
+      : "uncategorized";
+    categorizedHooks[catKey].push(hook);
+  });
+
+  let indexContent = `---
+title: Hooks
+description: A comprehensive collection of React hooks for sensors, state management, side effects, and more.
+seo:
+  title: React Hooks Collection
+navigation: false
+---
+
+`;
+
+  // Build sections based on CATEGORY_MAP order
+  for (const [key, title] of Object.entries(CATEGORY_MAP)) {
+    const categoryHooks = categorizedHooks[key];
+
+    if (categoryHooks && categoryHooks.length > 0) {
+      indexContent += `## ${title.split(" ")[1] || title}
+
+::card-group
+`;
+
+      categoryHooks.forEach((hook) => {
+        indexContent += `  :::card
+  ---
+  title: ${hook.name}
+  to: /docs/hooks/${hook.kebabName}
+  ---
+  ${hook.shortDesc}
+  :::
+
+`;
+      });
+
+      indexContent += `::\n\n`;
+    }
+  }
+
+  fs.writeFileSync(path.join(OUTPUT_DIR, "0.index.md"), indexContent);
+  console.log("✅ Generated 0.index.md");
+}
+
 // --- MAIN SCRIPT ---
 
 async function main() {
@@ -151,38 +227,36 @@ async function main() {
     if (!fs.existsSync(INPUT_JSON)) {
       throw new Error(`❌ File not found: ${INPUT_JSON}`);
     }
+
     const data = JSON.parse(fs.readFileSync(INPUT_JSON, "utf-8"));
     const { oldHooks, hasData } = await getNewHooksList();
 
-    // 2. Extract Hooks from TypeDoc JSON
-    // Strategy: Find children that have a 'Functions' group where the function name starts with 'use'
     let hooks = [];
-
     if (data.children) {
       for (const module of data.children) {
-        // Find the main hook function inside the module
         const funcGroup = module.groups?.find((g) => g.title === "Functions");
         if (!funcGroup) continue;
 
-        // Get the function reflection
         const hookId = funcGroup.children[0];
         const hookFunc = module.children?.find((c) => c.id === hookId);
 
         if (hookFunc && hookFunc.name.startsWith("use")) {
           hooks.push({
             name: hookFunc.name,
-            signature: hookFunc.signatures?.[0], // Get the first signature
+            signature: hookFunc.signatures?.[0],
             moduleName: module.name,
           });
         }
       }
     }
 
-    // 3. Sort Alphabetically
     hooks.sort((a, b) => a.name.localeCompare(b.name));
 
-    // 4. Generate Files
-    const readmeLinks = [];
+    // Store categorized links for README
+    const processedHooks = [];
+    const categorizedLinks = {};
+    Object.keys(CATEGORY_MAP).forEach((k) => (categorizedLinks[k] = []));
+
     let index = 1;
 
     for (const hook of hooks) {
@@ -190,17 +264,44 @@ async function main() {
       if (!signature) continue;
 
       const kebabName = camelToKebab(name);
-      const summary = parseComment(signature.comment);
-      const shortDesc = summary.split(".")[0] + ".";
-      const example = parseExample(signature.comment?.blockTags);
 
-      // Determine if New
+      // 1. Get Auto-Generated Info
+      const autoSummary = parseComment(signature.comment);
+      const autoCategory = parseCategory(signature.comment?.blockTags);
+      const autoDesc = autoSummary.split(".")[0] + ".";
+      const example = parseExample(signature.comment?.blockTags);
       const isNew = hasData && !oldHooks.has(name);
 
-      // Dates
-      const { createdAt, updatedAt, oldFileName } = getFileDates(name);
+      const manualDocPath = path.join(HOOKS_SRC_DIR, name, "docs.md");
+      let manualData = { attributes: {}, body: "" };
 
-      // --- API SECTION (Parameters) ---
+      if (fs.existsSync(manualDocPath)) {
+        manualData = parseFrontMatter(fs.readFileSync(manualDocPath, "utf-8"));
+      }
+
+      const finalTitle =
+        manualData.attributes.title || manualData.attributes.name || name;
+
+      const finalCategory = manualData.attributes.category
+        ? manualData.attributes.category.toLowerCase()
+        : autoCategory;
+
+      const finalDesc = manualData.attributes.description || autoDesc;
+
+      // Normalize category (default to utils if unknown, or keep uncategorized)
+      const validCategory = CATEGORY_MAP[finalCategory]
+        ? finalCategory
+        : "uncategorized";
+
+      // Save processed data
+      processedHooks.push({
+        name: finalTitle,
+        kebabName,
+        category: validCategory,
+        shortDesc: finalDesc,
+      });
+
+      // --- DOC FILE GENERATION ---
       let apiSection = "";
       if (signature.parameters?.length) {
         apiSection += `### Parameters\n\n| Name | Type | Description |\n| :--- | :--- | :--- |\n`;
@@ -210,25 +311,49 @@ async function main() {
         });
       }
 
-      // --- API SECTION (Return Value) ---
       const returnType = parseType(signature.type);
       if (returnType !== "void") {
         const returnTag = signature.comment?.blockTags?.find(
           (t) => t.tag === "@returns",
         );
+
         const returnDesc = returnTag
           ? returnTag.content.map((c) => c.text).join("")
           : "";
         apiSection += `\n### Return Value\n\nReturns \`${returnType}\`.\n\n${returnDesc}`;
       }
 
-      // --- MARKDOWN CONTENT ---
+      let middleContent = "";
+
+      if (manualData.body) {
+        // If manual body exists, USE IT EXACTLY AS IS.
+        // We do NOT add a "## Usage" wrapper here, because your manual body likely has its own structure.
+        middleContent = manualData.body;
+      } else {
+        // If no manual body, fall back to the default generated usage section.
+        middleContent = `
+::code-group
+\`\`\`tsx [example.ts]
+import { ${name} } from './{hooks file}'
+
+${example || "// See usage example in source"}
+\`\`\`
+\`\`\`tsx [package.ts]
+import { ${name} } from 'sse-hooks'
+
+${example || "// See usage example in source"}
+\`\`\`
+::`;
+      }
+
       const content = `---
-title: ${name}
-description: ${shortDesc.replace(/\n/g, " ")}
-createdAt: ${createdAt}
-updatedAt: ${updatedAt}
-${isNew ? "navigation.badge: NEW" : ""}
+title: ${finalTitle}
+description: ${finalDesc.replace(/\n/g, " ")}${isNew ? "\nnavigation.badge: NEW" : ""}
+category: ${validCategory}
+links:
+  - label: GitHub
+    icon: i-simple-icons-github
+    to: https://github.com/sseuniverse/sse-hooks/blob/main/packages/hooks/src/${name}
 ---
 
 ## Installation
@@ -244,50 +369,39 @@ npm install sse-hooks
 
 ## Usage
 
-::code-group
-\`\`\`tsx [example.ts]
-import { ${name} } from './{hooks file}'
-
-${example || "// See usage example in source"}
-\`\`\`
-\`\`\`tsx [package.ts]
-import { ${name} } from 'sse-hooks'
-
-${example || "// See usage example in source"}
-\`\`\`
-::
+${middleContent}
 
 ## API
 
 ${apiSection || "No parameters."}
 `;
 
-      // Write File
       const newFileName = `${index}.${kebabName}.md`;
-
-      // Remove old file if name/index changed
-      if (oldFileName && oldFileName !== newFileName) {
-        fs.unlinkSync(path.join(OUTPUT_DIR, oldFileName));
-      }
-
       fs.writeFileSync(path.join(OUTPUT_DIR, newFileName), content);
       console.log(`✅ [${index}] Generated ${name} ${isNew ? "(New)" : ""}`);
 
-      // Collect data for README
-      readmeLinks.push(`- [\`${name}\`](https://sse-hooks.vercel.app/hooks/${kebabName}) — ${shortDesc}`);
+      // Add to Category List
+      categorizedLinks[validCategory].push(
+        `- [\`${name}\`](https://sse-hooks.vercel.app/docs/hooks/${kebabName}) — ${finalDesc}`,
+      );
 
       index++;
     }
 
-    // 5. Update READMEs
-    updateReadme(README_MAIN, readmeLinks);
-    updateReadme(README_HOOKS, readmeLinks);
+    // --- GENERATE SPECIAL FILES ---
+    generateNavigationFile();
+    generateIndexFile(processedHooks);
+
+    // 5. Update READMEs with Categorized Lists
+    const readmeContent = generateReadmeContent(categorizedLinks);
+    updateReadme(README_MAIN, readmeContent);
+    updateReadme(README_HOOKS, readmeContent);
+
     console.log(`\n🎉 Documentation & Readmes updated!`);
   } catch (error) {
     console.error("\n❌ Error:", error.message);
     process.exit(1);
   } finally {
-    // 6. CLEAN UP
     if (fs.existsSync(TEMP_DIR)) {
       console.log(`🧹 Cleaning up temporary folder: ${TEMP_DIR}`);
       fs.rmSync(TEMP_DIR, { recursive: true, force: true });
@@ -295,7 +409,20 @@ ${apiSection || "No parameters."}
   }
 }
 
-function updateReadme(filePath, links) {
+function generateReadmeContent(categorizedLinks) {
+  let output = "";
+
+  for (const [key, title] of Object.entries(CATEGORY_MAP)) {
+    const links = categorizedLinks[key];
+    if (links && links.length > 0) {
+      output += `### ${title}\n${links.join("\n")}\n\n`;
+    }
+  }
+
+  return output.trim();
+}
+
+function updateReadme(filePath, newContent) {
   if (!fs.existsSync(filePath)) return;
 
   const content = fs.readFileSync(filePath, "utf-8");
@@ -303,10 +430,10 @@ function updateReadme(filePath, links) {
   const endMarker = "<!-- HOOKS:END -->";
 
   const regex = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`);
-  const newContent = `${startMarker}\n\n${links.join("\n")}\n${endMarker}`;
+  const replacement = `${startMarker}\n\n${newContent}\n${endMarker}`;
 
   if (content.match(regex)) {
-    fs.writeFileSync(filePath, content.replace(regex, newContent));
+    fs.writeFileSync(filePath, content.replace(regex, replacement));
     console.log(`📄 Updated ${filePath}`);
   }
 }

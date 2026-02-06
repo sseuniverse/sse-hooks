@@ -58,7 +58,8 @@
     "@see",
     "@example",
     "@template",
-    "@default"
+    "@default",
+    "@category"
   ],
 
   // Markdown and styles
