@@ -42,6 +42,8 @@ export function useWindowSize(
 ): WindowSize<number>;
 /**
  * Custom hook that tracks the size of the window.
+ *
+ * @category sensors
  * @param {?UseWindowSizeOptions} [options] - The options for customizing the behavior of the hook (optional).
  * @returns {object} An object containing the width and height of the window.
  * @public

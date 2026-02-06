@@ -34,8 +34,21 @@ export const kbdKeysMap = {
 export type KbdKey = keyof typeof kbdKeysMap;
 export type KbdKeySpecific = keyof KbdKeysSpecificMap;
 
-// --- The Hook ---
-
+/**
+ * Custom hook that detects the operating system (Mac vs. Windows/Linux) and provides
+ * a normalized map of keyboard keys (e.g., mapping "Meta" to "Command" on Mac and "Ctrl" on Windows).
+ * * @category utilities
+ * @returns {Object} An object containing the OS detection state and a key mapping function.
+ * @public
+ * @see [Documentation](/docs/hooks/use-kbd)
+ * @example
+ * ```tsx
+ * const { isMac, getKbdKey } = useKbd();
+ * * // Returns "⌘" on Mac, "Ctrl" on Windows
+ * const metaSymbol = getKbdKey('meta');
+ * * return <div>Press {metaSymbol} + C to copy</div>;
+ * ```
+ */
 export const useKbd = () => {
   // Initialize as false for SSR consistency
   const [isMac, setIsMac] = useState<boolean>(false);

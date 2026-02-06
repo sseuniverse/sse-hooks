@@ -5,6 +5,7 @@ import { UseMediaSessionOptions, UseMediaSessionReturn } from "./types";
  * Custom hook that interacts with the [Media Session API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Session_API).
  * It allows you to customize media notifications and handle media control events (like play, pause, next track) from the system's notification area or lock screen.
  *
+ * @category sensors
  * @param options - Initial configuration for the media session.
  * @returns Object containing methods to control the media session and a flag indicating support.
  * @public

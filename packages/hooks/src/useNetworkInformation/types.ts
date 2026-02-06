@@ -16,8 +16,12 @@ export interface NetworkInformation {
 }
 
 export interface UseNetworkInformationReturn {
+  /** Detailed information about the network connection. */
   networkInfo: NetworkInformation | null;
+  /** Whether the browser detects an internet connection. */
   isOnline: boolean;
+  /** Whether the Network Information API is supported in this browser. */
   isSupported: boolean;
+  /** Function to manually update the network information. */
   refresh: () => void;
 }

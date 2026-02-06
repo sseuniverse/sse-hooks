@@ -1,4 +1,4 @@
-import { useIsomorphicLayoutEffect } from "../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect";
+import { useIsomorphicLayoutEffect } from "../useIsomorphicLayoutEffect";
 import { useLocalStorage } from "../useLocalStorage/useLocalStorage";
 import { useMediaQuery } from "../useMediaQuery/useMediaQuery";
 
@@ -41,6 +41,8 @@ type DarkModeReturn = {
 
 /**
  * Custom hook that returns the current state of the dark mode.
+ * 
+ * @category dom
  * @param {?DarkModeOptions} [options] - The initial value of the dark mode, default `false`.
  * @returns {DarkModeReturn} An object containing the dark mode's state and its controllers.
  * @public

@@ -42,6 +42,8 @@ export type TernaryDarkModeReturn = {
 
 /**
  * Custom hook that manages ternary (system, dark, light) dark mode with local storage support.
+ *
+ * @category dom
  * @param {?TernaryDarkModeOptions | string} [options] - Options or the local storage key for the hook.
  * @returns {TernaryDarkModeReturn} An object containing the dark mode state and helper functions.
  * @public

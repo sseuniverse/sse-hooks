@@ -1,8 +1,6 @@
 import { useEffect, useRef } from "react";
-
 import type { RefObject } from "react";
-
-import { useIsomorphicLayoutEffect } from "../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect";
+import { useIsomorphicLayoutEffect } from "../useIsomorphicLayoutEffect";
 
 // MediaQueryList Event based useEventListener interface
 function useEventListener<K extends keyof MediaQueryListEventMap>(
@@ -45,6 +43,8 @@ function useEventListener<K extends keyof DocumentEventMap>(
 
 /**
  * Custom hook that attaches event listeners to DOM elements, the window, or media query lists.
+ * 
+ * @category dom
  * @template KW - The type of event for window events.
  * @template KH - The type of event for HTML or SVG element events.
  * @template KM - The type of event for media query list events.

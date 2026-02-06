@@ -10,6 +10,7 @@ const DEFAULT_CONSTRAINTS: UseUserMediaConstraints = {
  * Custom hook that captures audio and video from the user's device.
  * It handles permission errors, stream management, and cleanup automatically.
  *
+ * @category sensors
  * @param initialConstraints - The initial constraints for audio and video.
  * @returns {UseUserMediaReturn} An object containing the stream, error state, and control functions.
  * @public

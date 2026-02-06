@@ -55,6 +55,8 @@ export interface UseFetchReturn<T> extends UseFetchState<T> {
 
 /**
  * Custom hook that provides a wrapper around the native [`fetch API`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to handle HTTP requests with state management, abort capability, and TypeScript support.
+ * 
+ * @category network
  * @template T - The type of the data expected from the response.
  * @param {string} [url] - The URL to fetch.
  * @param {UseFetchOptions} [options] - Options for customizing the request and hook behavior (optional).

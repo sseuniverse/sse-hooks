@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-
 import type { DebouncedState } from "../useDebounceCallback";
 import { useDebounceCallback } from "../useDebounceCallback";
 
@@ -28,6 +27,8 @@ type UseDebounceValueOptions<T> = {
 
 /**
  * Custom hook that returns a debounced version of the provided value, along with a function to update it.
+ * 
+ * @category effect
  * @template T - The type of the value.
  * @param {T | (() => T)} initialValue - The value to be debounced.
  * @param {number} delay - The delay in milliseconds before the value is updated (default is 500ms).

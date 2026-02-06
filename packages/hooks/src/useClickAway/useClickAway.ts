@@ -69,6 +69,7 @@ function clickedRootScrollbar(event: MouseEvent, doc: Document) {
  * Custom hook that triggers a callback when a user clicks outside the referenced element.
  * It handles portal elements, scrollbar clicks, and touch interactions intelligently.
  *
+ * @category dom
  * @param onClickAway - The callback function to be called when a click outside is detected.
  * @param options - Configuration options for the hook.
  * @returns {object} An object containing the `ref` to attach to the target element and `listenerProps` to spread.

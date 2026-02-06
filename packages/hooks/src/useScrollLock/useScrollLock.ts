@@ -40,6 +40,8 @@ const IS_SERVER = typeof window === "undefined";
 
 /**
  * A custom hook that locks and unlocks scroll.
+ * 
+ * @category dom
  * @param {UseScrollLockOptions} [options] - Options to configure the hook, by default it will lock the scroll automatically.
  * @returns {UseScrollLockReturn} - An object containing the lock and unlock functions.
  * @public

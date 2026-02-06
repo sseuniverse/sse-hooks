@@ -9,6 +9,7 @@ import {
 /**
  * A comprehensive hook for audio recording with real-time analysis using getUserMedia, MediaRecorder, and Web Audio APIs
  *
+ * @category sensors
  * @param {UseAudioRecorderOptions} [options] - Configuration options for audio recording.
  * @returns {UseAudioRecorderReturn} Object containing recording state, audio data, and control methods.
  * @throws Will set an error if audio recording is not supported or permission is denied.

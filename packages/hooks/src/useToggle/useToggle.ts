@@ -4,6 +4,8 @@ import type { Dispatch, SetStateAction } from "react";
 
 /**
  * Custom hook that manages a boolean toggle state in React components.
+ *
+ * @category state
  * @param {boolean} [defaultValue] - The initial value for the toggle state.
  * @returns {[boolean, () => void, Dispatch<SetStateAction<boolean>>]} A tuple containing the current state,
  * a function to toggle the state, and a function to set the state explicitly.

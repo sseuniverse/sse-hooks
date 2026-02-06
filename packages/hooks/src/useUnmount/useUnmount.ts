@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 
 /**
  * Custom hook that runs a cleanup function when the component is unmounted.
+ * 
+ * @category lifecycle
  * @param {() => void} func - The cleanup function to be executed on unmount.
  * @public
  * @see [Documentation](/docs/use-unmount)

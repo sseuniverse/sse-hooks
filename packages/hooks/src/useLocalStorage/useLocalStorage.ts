@@ -32,6 +32,8 @@ const IS_SERVER = typeof window === "undefined";
 
 /**
  * Custom hook that uses the [`localStorage API`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to persist state across page reloads.
+ * 
+ * @category storage
  * @template T - The type of the state to be stored in local storage.
  * @param {string} key - The key under which the value will be stored in local storage.
  * @param {T | (() => T)} initialValue - The initial value of the state or a function that returns the initial value.

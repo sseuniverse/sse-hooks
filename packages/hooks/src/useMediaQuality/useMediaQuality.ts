@@ -23,6 +23,22 @@ const QUALITY_PRESETS: QualityPresetTypes = {
   },
 };
 
+/**
+ * Custom hook to manage video stream quality by applying constraints (resolution and frame rate)
+ * to a MediaStream track.
+ * * @category utilities
+ * @param {MediaStream | null} stream - The MediaStream containing the video track to adjust.
+ * @returns {UseMediaQualityReturn} The current quality state and a setter function.
+ * @public
+ * @see [Documentation](/docs/use-media-quality)
+ * @example
+ * ```tsx
+ * const { quality, setQuality, isChanging } = useMediaQuality(userVideoStream);
+ * * const handleHDClick = () => {
+ * setQuality('high'); // Switches to 1280x720
+ * };
+ * ```
+ */
 export const useMediaQuality = (
   stream: MediaStream | null,
 ): UseMediaQualityReturn => {

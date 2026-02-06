@@ -2,6 +2,8 @@ import { useEventListener } from "../useEventListener";
 
 /**
  * Custom hook that handles click events anywhere on the document.
+ * 
+ * @category dom
  * @param {Function} handler - The function to be called when a click event is detected anywhere on the document.
  * @public
  * @see [Documentation](/docs/use-click-any-where)

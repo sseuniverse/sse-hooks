@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
-
-import { useIsomorphicLayoutEffect } from "../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect";
+import { useIsomorphicLayoutEffect } from "../useIsomorphicLayoutEffect";
 
 /**
  * Custom hook that creates an interval that invokes a callback function at a specified delay using the [`setInterval API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval).
+ * 
+ * @category effect
  * @param {() => void} callback - The function to be invoked at each interval.
  * @param {number | null} delay - The time, in milliseconds, between each invocation of the callback. Use `null` to clear the interval.
  * @public

@@ -7,6 +7,24 @@ declare global {
   }
 }
 
+/**
+ * Custom hook that tracks the device's network connection status and details (speed, type)
+ * using the Network Information API.
+ * @category network
+ * @returns {UseNetworkInformationReturn} The network state, connection details, and support status.
+ * @public
+ * @see [Documentation](/docs/use-network-information)
+ * @example
+ * ```tsx
+ * const { isOnline, networkInfo } = useNetworkInformation();
+ * * if (!isOnline) return <div>You are offline</div>;
+ * * return (
+ * <div>
+ * Connection: {networkInfo?.effectiveType} ({networkInfo?.downlink} Mbps)
+ * </div>
+ * );
+ * ```
+ */
 export const useNetworkInformation = (): UseNetworkInformationReturn => {
   const [networkInfo, setNetworkInfo] = useState<NetworkInformation | null>(
     null,

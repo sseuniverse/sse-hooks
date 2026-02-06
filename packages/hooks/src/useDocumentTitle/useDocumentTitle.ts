@@ -1,7 +1,6 @@
 import { useRef } from 'react'
-
-import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect'
-import { useUnmount } from '../useUnmount/useUnmount'
+import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
+import { useUnmount } from '../useUnmount'
 
 /** Hook options. */
 type UseDocumentTitleOptions = {
@@ -11,6 +10,8 @@ type UseDocumentTitleOptions = {
 
 /**
  * Custom hook that sets the document title.
+ * 
+ * @category dom
  * @param {string} title - The title to set.
  * @param {?UseDocumentTitleOptions} [options] - The options.
  * @public

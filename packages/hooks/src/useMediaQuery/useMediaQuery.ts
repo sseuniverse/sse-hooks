@@ -20,6 +20,7 @@ const IS_SERVER = typeof window === "undefined";
 
 /**
  * Custom hook that tracks the state of a media query using the [`Match Media API`](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia).
+ * @category sensors
  * @param {string} query - The media query to track.
  * @param {?UseMediaQueryOptions} [options] - The options for customizing the behavior of the hook (optional).
  * @returns {boolean} The current state of the media query (true if the query matches, false otherwise).

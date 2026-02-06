@@ -1,8 +1,7 @@
 ---
-# category: browser
-name: BreakPointHooks
+category: sensors
+title: BreakPointHooks
 description: Reactive hooks and utilities to be used with user provided breakpoints.
-new: true
 ---
 
 ## Functions

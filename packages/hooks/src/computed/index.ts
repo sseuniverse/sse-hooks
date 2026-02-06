@@ -1,3 +1,5 @@
+// This file is auto-generated. Do not edit manually.
+
 export * from './computed';
 export * from './constants';
 export * from './dep';

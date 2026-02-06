@@ -10,6 +10,7 @@ const DEFAULT_OPTIONS: UseScreenShareOptions = {
  * Custom hook that captures the user's screen or specific application window.
  * It handles permission errors, stream management, native stop events, and cleanup.
  *
+ * @category sensors
  * @param initialOptions - The initial options for screen sharing (video/audio).
  * @returns {UseScreenShareReturn} An object containing the stream, error state, and control functions.
  * @public

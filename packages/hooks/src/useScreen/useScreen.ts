@@ -29,6 +29,8 @@ export function useScreen(options: UseScreenOptions<false>): Screen | undefined;
 export function useScreen(options?: Partial<UseScreenOptions<true>>): Screen;
 /**
  * Custom hook that tracks the [`screen`](https://developer.mozilla.org/en-US/docs/Web/API/Window/screen) dimensions and properties.
+ * 
+ * @category sensors
  * @param {?UseScreenOptions} [options] - The options for customizing the behavior of the hook (optional).
  * @returns {Screen | undefined} The current `Screen` object representing the screen dimensions and properties, or `undefined` if not available.
  * @public

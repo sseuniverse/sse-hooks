@@ -1,8 +1,10 @@
+// This file is auto-generated. Do not edit manually.
 
 export * from './computed';
 export * from './useAudioRecorder';
 export * from './useBattery';
 export * from './useBoolean';
+export * from './useBreakpoint';
 export * from './useClickAnyWhere';
 export * from './useClickAway';
 export * from './useConferenceSystem';
@@ -25,6 +27,7 @@ export * from './useInterval';
 export * from './useIsClient';
 export * from './useIsMounted';
 export * from './useIsomorphicLayoutEffect';
+export * from './useKBD';
 export * from './useLocalStorage';
 export * from './useMap';
 export * from './useMediaQuality';

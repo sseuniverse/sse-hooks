@@ -16,6 +16,8 @@ type UseBooleanReturn = {
 
 /**
  * Custom hook that handles boolean state with useful utility functions.
+ * 
+ * @category state
  * @param {boolean} [defaultValue] - The initial value for the boolean state (default is `false`).
  * @returns {UseBooleanReturn} An object containing the boolean state value and utility functions to manipulate the state.
  * @throws Will throw an error if `defaultValue` is an invalid boolean value.

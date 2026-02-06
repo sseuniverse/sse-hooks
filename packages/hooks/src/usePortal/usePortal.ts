@@ -20,6 +20,30 @@ import findDOMNode from "./findDOMNode";
 export const errorMessage1 =
   "You must either add a `ref` to the element you are interacting with or pass an `event` to openPortal(e) or togglePortal(e) when the `programmaticallyOpen` option is not set to `true`.";
 
+/**
+ * Custom hook to manage the creation and state of DOM Portals.
+ * Handles mounting, unmounting, outside clicks, and "Escape" key closure.
+ * * @category dom
+ * @param {UsePortalOptions} [options={}] - Configuration options for the portal.
+ * @returns {UsePortalObjectReturn & UsePortalArrayReturn} A hybrid object/array containing the Portal component, open/close functions, and refs.
+ * @public
+ * @see [Documentation](/docs/use-portal)
+ * @example
+ * ```tsx
+ * const { Portal, openPortal, closePortal, isOpen } = usePortal();
+ * * return (
+ * <>
+ * <button onClick={openPortal}>Open Modal</button>
+ * <Portal>
+ * <div className="modal">
+ * <h1>Hello World</h1>
+ * <button onClick={closePortal}>Close</button>
+ * </div>
+ * </Portal>
+ * </>
+ * );
+ * ```
+ */
 export default function usePortal({
   closeOnOutsideClick = true,
   closeOnEsc = true,

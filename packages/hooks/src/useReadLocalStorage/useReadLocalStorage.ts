@@ -27,6 +27,8 @@ export function useReadLocalStorage<T>(
 ): T | null;
 /**
  * Custom hook that reads a value from [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), closely related to [`useLocalStorage()`](/docs/use-local-storage).
+ * 
+ * @category storage
  * @template T - The type of the stored value.
  * @param {string} key - The key associated with the value in local storage.
  * @param {Options<T>} [options] - Additional options for reading the value (optional).

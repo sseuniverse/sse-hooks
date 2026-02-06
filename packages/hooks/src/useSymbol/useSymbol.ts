@@ -1,6 +1,20 @@
 import { useState, useCallback, useMemo, useRef } from "react";
 import { UseSymbolReturn } from "./types";
 
+/**
+ * Custom hook for managing ES6 Symbols. Provides utilities to create unique symbols,
+ * manage a registry of symbols, and access well-known symbols.
+ * * @category utilities
+ * @returns {UseSymbolReturn} Utilities for creating, retrieving, and managing symbols.
+ * @public
+ * @see [Documentation](/docs/use-symbol)
+ * @example
+ * ```tsx
+ * const { createSymbol, wellKnownSymbols } = useSymbol();
+ * const myId = createSymbol('my-id');
+ * * console.log(wellKnownSymbols.iterator); // Symbol(Symbol.iterator)
+ * ```
+ */
 export function useSymbol(): UseSymbolReturn {
   const [symbols, setSymbols] = useState<symbol[]>([]);
   const symbolsRef = useRef<Set<symbol>>(new Set());

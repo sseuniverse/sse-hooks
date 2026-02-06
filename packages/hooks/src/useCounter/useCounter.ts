@@ -16,6 +16,8 @@ type UseCounterReturn = {
 
 /**
  * Custom hook that manages a counter with increment, decrement, reset, and setCount functionalities.
+ * 
+ * @category state
  * @param {number} [initialValue] - The initial value for the counter.
  * @returns {UseCounterReturn} An object containing the current count and functions to interact with the counter.
  * @public

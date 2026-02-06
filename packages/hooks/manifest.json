@@ -21,6 +21,11 @@
       "path": "src/useBoolean/meta.json"
     },
     {
+      "name": "use-breakpoint",
+      "description": "Hook that returns a boolean if screen width is greater than given breakpoint.",
+      "path": "src/useBreakpoint/meta.json"
+    },
+    {
       "name": "use-click-any-where",
       "description": "Custom hook that handles click events anywhere on the document. ```tsx const handleClick = (event) => {   console.log('Document clicked!', event); }; // Attach click event handler to document useClickAnywhere(handleClick); ```",
       "path": "src/useClickAnyWhere/meta.json"
@@ -32,7 +37,7 @@
     },
     {
       "name": "use-conference-system",
-      "description": "",
+      "description": "Configuration options for the conference system hook.",
       "path": "src/useConferenceSystem/meta.json"
     },
     {
@@ -131,6 +136,11 @@
       "path": "src/useIsomorphicLayoutEffect/meta.json"
     },
     {
+      "name": "use-kbd",
+      "description": "Custom hook that detects the operating system (Mac vs. Windows/Linux) and provides a normalized map of keyboard keys (e.g., mapping \"Meta\" to \"Command\" on Mac and \"Ctrl\" on Windows). * @category utilities ```tsx const { isMac, getKbdKey } = useKbd(); * // Returns \"⌘\" on Mac, \"Ctrl\" on Windows const metaSymbol = getKbdKey('meta'); * return <div>Press {metaSymbol} + C to copy</div>; ```",
+      "path": "src/useKBD/meta.json"
+    },
+    {
       "name": "use-local-storage",
       "description": "Options for customizing the behavior of serialization and deserialization.",
       "path": "src/useLocalStorage/meta.json"
@@ -142,7 +152,7 @@
     },
     {
       "name": "use-media-quality",
-      "description": "",
+      "description": "The current quality preset being used.",
       "path": "src/useMediaQuality/meta.json"
     },
     {
@@ -157,7 +167,7 @@
     },
     {
       "name": "use-network-information",
-      "description": "",
+      "description": "Detailed information about the network connection.",
       "path": "src/useNetworkInformation/meta.json"
     },
     {
@@ -177,7 +187,7 @@
     },
     {
       "name": "use-role-guard",
-      "description": "",
+      "description": "The user object. If not provided, attempts to read from session storage.",
       "path": "src/useRoleGuard/meta.json"
     },
     {
@@ -207,7 +217,7 @@
     },
     {
       "name": "use-ssr",
-      "description": "",
+      "description": "Whether code is running in the browser.",
       "path": "src/useSSR/meta.json"
     },
     {
@@ -217,7 +227,7 @@
     },
     {
       "name": "use-symbol",
-      "description": "",
+      "description": "Creates a new unique symbol and adds it to the local registry.",
       "path": "src/useSymbol/meta.json"
     },
     {
@@ -256,5 +266,5 @@
       "path": "src/withDefaults/meta.json"
     }
   ],
-  "length": 51
+  "length": 53
 }

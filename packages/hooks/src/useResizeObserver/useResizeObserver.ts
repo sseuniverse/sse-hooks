@@ -36,6 +36,7 @@ const initialSize: Size = {
 /**
  * Custom hook that observes the size of an element using the [`ResizeObserver API`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).
  * @template T - The type of the element to observe.
+ * @category sensors
  * @param {UseResizeObserverOptions<T>} options - The options for the ResizeObserver.
  * @returns {Size} - The size of the observed element.
  * @public

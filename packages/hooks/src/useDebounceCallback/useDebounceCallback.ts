@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-
 import debounce from "lodash.debounce";
-
 import { useUnmount } from "../useUnmount/useUnmount";
 
 /** Configuration options for controlling the behavior of the debounced function. */
@@ -49,6 +47,8 @@ export type DebouncedState<T extends (...args: any) => ReturnType<T>> = ((
 
 /**
  * Custom hook that creates a debounced version of a callback function.
+ * 
+ * @category effect
  * @template T - Type of the original callback function.
  * @param {T} func - The callback function to be debounced.
  * @param {number} delay - The delay in milliseconds before the callback is invoked (default is `500` milliseconds).

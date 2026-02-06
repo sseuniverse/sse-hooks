@@ -60,6 +60,8 @@ export type UseCookieOptions<T> = {
 
 /**
  * Helper function to parse the document.cookie string into an object.
+ * 
+ * @category storage
  * @returns {Record<string, string>} An object mapping cookie names to values.
  */
 function parseCookies(): Record<string, string> {

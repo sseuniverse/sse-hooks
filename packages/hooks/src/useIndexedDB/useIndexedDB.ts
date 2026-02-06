@@ -64,6 +64,8 @@ interface UseIndexedDBReturn<T> {
 
 /**
  * Custom hook that provides an interface to the [`IndexedDB API`](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) for client-side storage of significant amounts of structured data.
+ * 
+ * @category storage
  * @template T - The type of the data to be stored.
  * @param {string} databaseName - The name of the IndexedDB database.
  * @param {string} storeName - The name of the object store within the database.

@@ -3,6 +3,7 @@ import React from "react";
 /**
  * Merges refs into a single memoized callback ref or `null`.
  *
+ * @category utilities
  * @template Instance - The type of the value being referenced (usually a DOM element).
  * @param {Array<React.Ref<Instance> | undefined>} refs The ref array.
  * @returns {React.RefCallback<Instance> | null} The new ref callback.

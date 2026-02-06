@@ -51,6 +51,7 @@ type UseIntersectionObserverOptions = {
  * The return type of the useIntersectionObserver hook.
  *
  * Supports both tuple and object destructing.
+ * @category sensors
  * @param {(node: Element | null) => void} ref - The ref callback function.
  * @param {boolean} isIntersecting - A boolean indicating if the element is intersecting.
  * @param {IntersectionObserverEntry | undefined} entry - The intersection observer Entry.

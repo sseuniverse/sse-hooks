@@ -38,6 +38,8 @@ type CountdownControllers = {
 
 /**
  * Custom hook that manages countdown.
+ * 
+ * @category effect
  * @param {CountdownOptions} countdownOptions - The countdown's options.
  * @returns {[number, CountdownControllers]} An array containing the countdown's count and its controllers.
  * @public
