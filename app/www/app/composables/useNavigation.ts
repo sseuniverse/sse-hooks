@@ -16,6 +16,7 @@ const categories: CategoryTypes = {
     { id: "storage", title: "Storage" },
     { id: "network", title: "Network" },
     { id: "utilities", title: "Utilities" },
+    { id: "uncategorized", title: "Uncategorized" }
   ],
 };
 

@@ -94,11 +94,13 @@
 - [`useClickAway`](https://sse-hooks.vercel.app/docs/hooks/use-click-away) — Custom hook that triggers a callback when a user clicks outside the referenced element.
 - [`useDarkMode`](https://sse-hooks.vercel.app/docs/hooks/use-dark-mode) — Custom hook that returns the current state of the dark mode.
 - [`useDocumentTitle`](https://sse-hooks.vercel.app/docs/hooks/use-document-title) — Custom hook that sets the document title.
+- [`useForkRef`](https://sse-hooks.vercel.app/docs/hooks/use-fork-ref) — Merges refs into a single memoized callback ref or `null`.
 - [`useScript`](https://sse-hooks.vercel.app/docs/hooks/use-script) — Custom hook that dynamically loads scripts and tracking their loading status.
 - [`useScrollLock`](https://sse-hooks.vercel.app/docs/hooks/use-scroll-lock) — A custom hook that locks and unlocks scroll.
 - [`useTernaryDarkMode`](https://sse-hooks.vercel.app/docs/hooks/use-ternary-dark-mode) — Custom hook that manages ternary (system, dark, light) dark mode with local storage support.
 
 ### 📦 Storage
+- [`useCookie`](https://sse-hooks.vercel.app/docs/hooks/use-cookie) — Custom hook that manages state synchronized with a browser [`cookie`](https://developer.
 - [`useIndexedDB`](https://sse-hooks.vercel.app/docs/hooks/use-indexed-db) — Custom hook that provides an interface to the [`IndexedDB API`](https://developer.
 - [`useLocalStorage`](https://sse-hooks.vercel.app/docs/hooks/use-local-storage) — Custom hook that uses the [`localStorage API`](https://developer.
 - [`useSessionStorage`](https://sse-hooks.vercel.app/docs/hooks/use-session-storage) — Custom hook that uses the [`sessionStorage API`](https://developer.
@@ -108,20 +110,20 @@
 - [`useNetworkInformation`](https://sse-hooks.vercel.app/docs/hooks/use-network-information) — Custom hook that tracks the device's network connection status and details (speed, type)
 using the Network Information API.
 
-### 📦 Uncategorized
-- [`useCookie`](https://sse-hooks.vercel.app/docs/hooks/use-cookie) — Custom hook that manages state synchronized with a browser [`cookie`](https://developer.
+### 🛠️ Utilities
 - [`useCopyToClipboard`](https://sse-hooks.vercel.app/docs/hooks/use-copy-to-clipboard) — Custom hook that copies text to the clipboard using the [`Clipboard API`](https://developer.
 - [`useEventCallback`](https://sse-hooks.vercel.app/docs/hooks/use-event-callback) — Custom hook that creates a memoized event callback.
-- [`useEventListener`](https://sse-hooks.vercel.app/docs/hooks/use-event-listener) — .
-- [`useForkRef`](https://sse-hooks.vercel.app/docs/hooks/use-fork-ref) — Merges refs into a single memoized callback ref or `null`.
-- [`useIntersectionObserver`](https://sse-hooks.vercel.app/docs/hooks/use-intersection-observer) — Custom hook that tracks the intersection of a DOM element with its containing element or the viewport using the [`Intersection Observer API`](https://developer.
 - [`useKbd`](https://sse-hooks.vercel.app/docs/hooks/use-kbd) — Custom hook that detects the operating system (Mac vs.
 - [`useMediaQuality`](https://sse-hooks.vercel.app/docs/hooks/use-media-quality) — Custom hook to manage video stream quality by applying constraints (resolution and frame rate)
 to a MediaStream track.
-- [`useReadLocalStorage`](https://sse-hooks.vercel.app/docs/hooks/use-read-local-storage) — .
-- [`useScreen`](https://sse-hooks.vercel.app/docs/hooks/use-screen) — .
 - [`useSSR`](https://sse-hooks.vercel.app/docs/hooks/use-ssr) — Custom hook that detects the current environment (Browser, Server, or Native)
 and capability support (Workers, EventListeners).
 - [`useSymbol`](https://sse-hooks.vercel.app/docs/hooks/use-symbol) — Custom hook for managing ES6 Symbols.
+
+### 📦 Uncategorized
+- [`useEventListener`](https://sse-hooks.vercel.app/docs/hooks/use-event-listener) — .
+- [`useIntersectionObserver`](https://sse-hooks.vercel.app/docs/hooks/use-intersection-observer) — Custom hook that tracks the intersection of a DOM element with its containing element or the viewport using the [`Intersection Observer API`](https://developer.
+- [`useReadLocalStorage`](https://sse-hooks.vercel.app/docs/hooks/use-read-local-storage) — .
+- [`useScreen`](https://sse-hooks.vercel.app/docs/hooks/use-screen) — .
 - [`useWindowSize`](https://sse-hooks.vercel.app/docs/hooks/use-window-size) — .
 <!-- HOOKS:END -->

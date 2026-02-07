@@ -4,7 +4,7 @@ const appConfig = useAppConfig()
 
 const items = computed(() => {
   return [
-    { label: `v1.x`, active: true, color: 'primary' as const, checked: true, type: 'checkbox' as const },
+    { label: `v1.3.x`, active: true, color: 'primary' as const, checked: true, type: 'checkbox' as const },
   ]
 })
 </script>
@@ -19,7 +19,7 @@ const items = computed(() => {
     size="xs"
   >
     <UButton
-      :label="`v1.4.x`"
+      :label="`v1.3.0`"
       variant="subtle"
       :trailing-icon="appConfig.ui.icons.chevronDown"
       size="xs"

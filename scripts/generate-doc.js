@@ -22,7 +22,7 @@ const CATEGORY_MAP = {
   network: "🌐 Network",
   form: "📝 Form",
   animation: "✨ Animation",
-  utils: "🛠️ Utilities",
+  utilities: "🛠️ Utilities",
   uncategorized: "📦 Uncategorized",
 };
 

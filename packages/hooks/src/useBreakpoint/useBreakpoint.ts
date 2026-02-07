@@ -1,4 +1,4 @@
-import { useMediaQuery } from "src/useMediaQuery";
+import { useMediaQuery } from "../useMediaQuery";
 
 function match(query: string): boolean {
   if (typeof window === "undefined") return false;

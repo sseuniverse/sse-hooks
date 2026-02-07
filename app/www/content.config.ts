@@ -66,6 +66,7 @@ export default defineContentConfig({
             "storage",
             "network",
             "utilities",
+            "uncategorized"
           ])
           .optional(),
         navigation: z.object({

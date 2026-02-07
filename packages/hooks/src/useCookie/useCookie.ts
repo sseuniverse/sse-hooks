@@ -60,8 +60,6 @@ export type UseCookieOptions<T> = {
 
 /**
  * Helper function to parse the document.cookie string into an object.
- * 
- * @category storage
  * @returns {Record<string, string>} An object mapping cookie names to values.
  */
 function parseCookies(): Record<string, string> {
@@ -99,8 +97,9 @@ function buildCookie(
 }
 
 /**
- * Custom hook that manages state synchronized with a browser [`cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies).
- * It handles serialization, prefixes, updates across tabs, and custom event synchronization.
+ * Custom hook that manages state synchronized with a browser [`cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies). It handles serialization, prefixes, updates across tabs, and custom event synchronization.
+ * 
+ * @category storage
  * @template T - The type of the state to be stored in the cookie.
  * @param {string} key - The base name of the cookie.
  * @param {T | (() => T)} initialValue - The initial value of the state.
