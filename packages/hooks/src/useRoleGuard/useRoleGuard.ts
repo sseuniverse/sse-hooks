@@ -4,7 +4,7 @@ import { User, UseRoleGuardOptions, UseRoleGuardReturn } from "./types";
 /**
  * Custom hook for Role-Based Access Control (RBAC).
  * Checks if a user has specific permissions and handles redirection for unauthorized access.
- * * @category state
+ * @category state
  * @param {string[]} requiredRoles - The list of roles required to access the resource.
  * @param {UseRoleGuardOptions} [options={}] - Configuration options including user object and redirect paths.
  * @returns {UseRoleGuardReturn} Access status, user data, and role checking utilities.
@@ -15,9 +15,9 @@ import { User, UseRoleGuardOptions, UseRoleGuardReturn } from "./types";
  * const { hasAccess, user, isLoading } = useRoleGuard(['admin', 'editor'], {
  * redirectTo: '/login'
  * });
- * * if (isLoading) return <Loader />;
+ * if (isLoading) return <Loader />;
  * if (!hasAccess) return null; // Will redirect automatically
- * * return <AdminPanel user={user} />;
+ * return <AdminPanel user={user} />;
  * ```
  */
 export function useRoleGuard(

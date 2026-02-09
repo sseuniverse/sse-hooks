@@ -23,7 +23,7 @@ export const errorMessage1 =
 /**
  * Custom hook to manage the creation and state of DOM Portals.
  * Handles mounting, unmounting, outside clicks, and "Escape" key closure.
- * * @category dom
+ * @category dom
  * @param {UsePortalOptions} [options={}] - Configuration options for the portal.
  * @returns {UsePortalObjectReturn & UsePortalArrayReturn} A hybrid object/array containing the Portal component, open/close functions, and refs.
  * @public
@@ -31,7 +31,7 @@ export const errorMessage1 =
  * @example
  * ```tsx
  * const { Portal, openPortal, closePortal, isOpen } = usePortal();
- * * return (
+ * return (
  * <>
  * <button onClick={openPortal}>Open Modal</button>
  * <Portal>

@@ -105,6 +105,7 @@
 - [`useAudioRecorder`](https://sse-hooks.vercel.app/docs/hooks/use-audio-recorder) — A comprehensive hook for audio recording with real-time analysis using getUserMedia, MediaRecorder, and Web Audio APIs.
 - [`useConferenceSystem`](https://sse-hooks.vercel.app/docs/hooks/use-conference-system) — A comprehensive hook for managing video conferencing state, including camera access, screen sharing, network monitoring, and automatic media quality adjustment.
 - [`useHover`](https://sse-hooks.vercel.app/docs/hooks/use-hover) — Custom hook that tracks whether a DOM element is being hovered over.
+- [`useKey`](https://sse-hooks.vercel.app/docs/hooks/use-key) — A powerful sensor hook for handling keyboard shortcuts, sequences, and modifiers.
 - [`useMediaQuery`](https://sse-hooks.vercel.app/docs/hooks/use-media-query) — Custom hook that tracks the state of a media query using the [`Match Media API`](https://developer.
 - [`useMediaSession`](https://sse-hooks.vercel.app/docs/hooks/use-media-session) — Custom hook that interacts with the [Media Session API](https://developer.
 - [`useResizeObserver`](https://sse-hooks.vercel.app/docs/hooks/use-resize-observer) — Custom hook that observes the size of an element using the [`ResizeObserver API`](https://developer.
@@ -136,12 +137,14 @@
 - [`useClickAway`](https://sse-hooks.vercel.app/docs/hooks/use-click-away) — Custom hook that triggers a callback when a user clicks outside the referenced element.
 - [`useDarkMode`](https://sse-hooks.vercel.app/docs/hooks/use-dark-mode) — Custom hook that returns the current state of the dark mode.
 - [`useDocumentTitle`](https://sse-hooks.vercel.app/docs/hooks/use-document-title) — Custom hook that sets the document title.
+- [`useFavicon`](https://sse-hooks.vercel.app/docs/hooks/use-favicon) — Custom hook that sets the document favicon.
 - [`useForkRef`](https://sse-hooks.vercel.app/docs/hooks/use-fork-ref) — Merges refs into a single memoized callback ref or `null`.
 - [`useScript`](https://sse-hooks.vercel.app/docs/hooks/use-script) — Custom hook that dynamically loads scripts and tracking their loading status.
 - [`useScrollLock`](https://sse-hooks.vercel.app/docs/hooks/use-scroll-lock) — A custom hook that locks and unlocks scroll.
 - [`useTernaryDarkMode`](https://sse-hooks.vercel.app/docs/hooks/use-ternary-dark-mode) — Custom hook that manages ternary (system, dark, light) dark mode with local storage support.
 
 ### 📦 Storage
+- [`useAutoSave`](https://sse-hooks.vercel.app/docs/hooks/use-auto-save) — A robust hook for auto-saving form data with debouncing, race-condition handling, and lifecycle safety.
 - [`useCookie`](https://sse-hooks.vercel.app/docs/hooks/use-cookie) — Custom hook that manages state synchronized with a browser [`cookie`](https://developer.
 - [`useIndexedDB`](https://sse-hooks.vercel.app/docs/hooks/use-indexed-db) — Custom hook that provides an interface to the [`IndexedDB API`](https://developer.
 - [`useLocalStorage`](https://sse-hooks.vercel.app/docs/hooks/use-local-storage) — Custom hook that uses the [`localStorage API`](https://developer.
@@ -153,11 +156,13 @@
 using the Network Information API.
 
 ### 🛠️ Utilities
+- [`useCallbackRef`](https://sse-hooks.vercel.app/docs/hooks/use-callback-ref) — A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a prop or avoid re-executing effects when passed as a dependency.
 - [`useCopyToClipboard`](https://sse-hooks.vercel.app/docs/hooks/use-copy-to-clipboard) — Custom hook that copies text to the clipboard using the [`Clipboard API`](https://developer.
 - [`useEventCallback`](https://sse-hooks.vercel.app/docs/hooks/use-event-callback) — Custom hook that creates a memoized event callback.
 - [`useKbd`](https://sse-hooks.vercel.app/docs/hooks/use-kbd) — Custom hook that detects the operating system (Mac vs.
 - [`useMediaQuality`](https://sse-hooks.vercel.app/docs/hooks/use-media-quality) — Custom hook to manage video stream quality by applying constraints (resolution and frame rate)
 to a MediaStream track.
+- [`useSearchWithSuggestions`](https://sse-hooks.vercel.app/docs/hooks/use-search-with-suggestions) — A comprehensive hook for building "Command Palette" or "Omnibar" style search interfaces.
 - [`useSSR`](https://sse-hooks.vercel.app/docs/hooks/use-ssr) — Custom hook that detects the current environment (Browser, Server, or Native)
 and capability support (Workers, EventListeners).
 - [`useSymbol`](https://sse-hooks.vercel.app/docs/hooks/use-symbol) — Custom hook for managing ES6 Symbols.

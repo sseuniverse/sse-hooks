@@ -3,7 +3,7 @@
   "name": "use-kbd",
   "type": "registry:hook",
   "title": "useKBD",
-  "description": "Custom hook that detects the operating system (Mac vs. Windows/Linux) and provides a normalized map of keyboard keys (e.g., mapping \"Meta\" to \"Command\" on Mac and \"Ctrl\" on Windows). * @category utilities ```tsx const { isMac, getKbdKey } = useKbd(); * // Returns \"⌘\" on Mac, \"Ctrl\" on Windows const metaSymbol = getKbdKey('meta'); * return <div>Press {metaSymbol} + C to copy</div>; ```",
+  "description": "Custom hook that detects the operating system (Mac vs. Windows/Linux) and provides a normalized map of keyboard keys (e.g., mapping \"Meta\" to \"Command\" on Mac and \"Ctrl\" on Windows). ```tsx const { isMac, getKbdKey } = useKbd(); // Returns \"⌘\" on Mac, \"Ctrl\" on Windows const metaSymbol = getKbdKey('meta'); return <div>Press {metaSymbol} + C to copy</div>; ```",
   "dependencies": [
     "react"
   ],

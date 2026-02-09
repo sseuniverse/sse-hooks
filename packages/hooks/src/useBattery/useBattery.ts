@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { isNavigator, off, on } from "./misc/utils";
-import { isEqual } from "./misc/deep-equal";
 
 /**
  * Represents the state of the battery.
@@ -46,9 +44,8 @@ type UseBatteryState =
   | { isSupported: true; fetched: false }
   | (BatteryState & { isSupported: true; fetched: true });
 
-const nav: NavigatorWithPossibleBattery | undefined = isNavigator
-  ? navigator
-  : undefined;
+const nav: NavigatorWithPossibleBattery | undefined =
+  typeof navigator !== "undefined" ? navigator : undefined;
 
 const isBatteryApiSupported = nav && typeof nav.getBattery === "function";
 
@@ -98,6 +95,7 @@ function useBattery(): UseBatteryState {
       if (!isMounted || !battery) {
         return;
       }
+
       const newState: UseBatteryState = {
         isSupported: true,
         fetched: true,
@@ -106,28 +104,29 @@ function useBattery(): UseBatteryState {
         dischargingTime: battery.dischargingTime,
         chargingTime: battery.chargingTime,
       };
-      !isEqual(state, newState) && setState(newState);
+      setState(newState);
     };
 
     nav!.getBattery!().then((bat: BatteryManager) => {
       if (!isMounted) {
         return;
       }
+
       battery = bat;
-      on(battery, "chargingchange", handleChange);
-      on(battery, "chargingtimechange", handleChange);
-      on(battery, "dischargingtimechange", handleChange);
-      on(battery, "levelchange", handleChange);
+      battery.addEventListener("chargingchange", handleChange);
+      battery.addEventListener("chargingtimechange", handleChange);
+      battery.addEventListener("dischargingtimechange", handleChange);
+      battery.addEventListener("levelchange", handleChange);
       handleChange();
     });
 
     return () => {
       isMounted = false;
       if (battery) {
-        off(battery, "chargingchange", handleChange);
-        off(battery, "chargingtimechange", handleChange);
-        off(battery, "dischargingtimechange", handleChange);
-        off(battery, "levelchange", handleChange);
+        battery.removeEventListener("chargingchange", handleChange);
+        battery.removeEventListener("chargingtimechange", handleChange);
+        battery.removeEventListener("dischargingtimechange", handleChange);
+        battery.removeEventListener("levelchange", handleChange);
       }
     };
   }, []);

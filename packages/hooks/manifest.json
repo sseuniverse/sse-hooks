@@ -11,6 +11,11 @@
       "path": "src/useAudioRecorder/meta.json"
     },
     {
+      "name": "use-auto-save",
+      "description": "Configuration options for the useAutoSave hook.",
+      "path": "src/useAutoSave/meta.json"
+    },
+    {
       "name": "use-battery",
       "description": "Represents the state of the battery.",
       "path": "src/useBattery/meta.json"
@@ -24,6 +29,11 @@
       "name": "use-breakpoint",
       "description": "Breakpoints from Tailwind V2",
       "path": "src/useBreakpoint/meta.json"
+    },
+    {
+      "name": "use-callback-ref",
+      "description": "A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a prop or avoid re-executing effects when passed as a dependency ```tsx const handleClick = useCallbackRef((event: MouseEvent) => {   console.log(\"Clicked!\", event); }); useEffect(() => {   window.addEventListener(\"click\", handleClick);   return () => window.removeEventListener(\"click\", handleClick); }, []); ```",
+      "path": "src/useCallbackRef/meta.json"
     },
     {
       "name": "use-click-any-where",
@@ -137,8 +147,13 @@
     },
     {
       "name": "use-kbd",
-      "description": "Custom hook that detects the operating system (Mac vs. Windows/Linux) and provides a normalized map of keyboard keys (e.g., mapping \"Meta\" to \"Command\" on Mac and \"Ctrl\" on Windows). * @category utilities ```tsx const { isMac, getKbdKey } = useKbd(); * // Returns \"⌘\" on Mac, \"Ctrl\" on Windows const metaSymbol = getKbdKey('meta'); * return <div>Press {metaSymbol} + C to copy</div>; ```",
+      "description": "Custom hook that detects the operating system (Mac vs. Windows/Linux) and provides a normalized map of keyboard keys (e.g., mapping \"Meta\" to \"Command\" on Mac and \"Ctrl\" on Windows). ```tsx const { isMac, getKbdKey } = useKbd(); // Returns \"⌘\" on Mac, \"Ctrl\" on Windows const metaSymbol = getKbdKey('meta'); return <div>Press {metaSymbol} + C to copy</div>; ```",
       "path": "src/useKBD/meta.json"
+    },
+    {
+      "name": "use-key",
+      "description": "The function to call",
+      "path": "src/useKey/meta.json"
     },
     {
       "name": "use-local-storage",
@@ -172,7 +187,7 @@
     },
     {
       "name": "use-portal",
-      "description": "A safe, typed alternative to findDOMNode. * Works with: 1. DOM Elements (returns them directly) 2. Ref Objects (returns .current) 3. Null/Undefined (returns null) * NOT SUPPORTED: Passing a Class Component instance directly (legacy behavior). You must use a Ref for Components.",
+      "description": "A safe, typed alternative to findDOMNode. Works with: 1. DOM Elements (returns them directly) 2. Ref Objects (returns .current) 3. Null/Undefined (returns null) NOT SUPPORTED: Passing a Class Component instance directly (legacy behavior). You must use a Ref for Components.",
       "path": "src/usePortal/meta.json"
     },
     {
@@ -209,6 +224,11 @@
       "name": "use-scroll-lock",
       "description": "Hook options.",
       "path": "src/useScrollLock/meta.json"
+    },
+    {
+      "name": "use-search-with-suggestions",
+      "description": "The string trigger (e.g., \":user\"). Auto-prefixed with \":\" if missing.",
+      "path": "src/useSearchWithSuggestions/meta.json"
     },
     {
       "name": "use-session-storage",
@@ -266,5 +286,5 @@
       "path": "src/withDefaults/meta.json"
     }
   ],
-  "length": 53
+  "length": 57
 }

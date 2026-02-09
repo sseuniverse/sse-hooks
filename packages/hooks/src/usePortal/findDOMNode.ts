@@ -13,11 +13,11 @@ type ComponentOrElement<T> =
 
 /**
  * A safe, typed alternative to findDOMNode.
- * * Works with:
+ * Works with:
  * 1. DOM Elements (returns them directly)
  * 2. Ref Objects (returns .current)
  * 3. Null/Undefined (returns null)
- * * NOT SUPPORTED: Passing a Class Component instance directly (legacy behavior).
+ * NOT SUPPORTED: Passing a Class Component instance directly (legacy behavior).
  * You must use a Ref for Components.
  */
 export default function findDOMNode<T = Element | Text>(

@@ -22,7 +22,7 @@ import {
  * const { camera, screen, quality, network } = useConferenceSystem({
  * defaultAutoQuality: true
  * });
- * * return (
+ * return (
  * <div>
  * <video ref={v => v.srcObject = camera.stream} autoPlay />
  * <button onClick={camera.start}>Start Camera</button>

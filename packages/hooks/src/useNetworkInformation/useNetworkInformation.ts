@@ -17,8 +17,8 @@ declare global {
  * @example
  * ```tsx
  * const { isOnline, networkInfo } = useNetworkInformation();
- * * if (!isOnline) return <div>You are offline</div>;
- * * return (
+ * if (!isOnline) return <div>You are offline</div>;
+ * return (
  * <div>
  * Connection: {networkInfo?.effectiveType} ({networkInfo?.downlink} Mbps)
  * </div>
