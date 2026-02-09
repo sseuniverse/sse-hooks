@@ -68,7 +68,7 @@ const communityLinks = computed(() => [{
   icon: 'i-lucide-file-pen',
   label: 'Edit this page',
   // Updated to point to your repo structure
-  to: `https://github.com/sseuniverse/sse-hooks/edit/main/packages/hooks/${page?.value?.stem}.md`,
+  to: `https://github.com/sseuniverse/sse-hooks/edit/main/app/www/content/docs/${page?.value?.stem}.md`,
   target: '_blank'
 }, {
   icon: 'i-lucide-star',

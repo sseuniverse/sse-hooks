@@ -10,6 +10,11 @@ export default defineNuxtConfig({
     "@nuxtjs/mcp-toolkit",
   ],
 
+  sourcemap: {
+    server: false,
+    client: false,
+  },
+
   devtools: {
     enabled: true,
   },

@@ -14,7 +14,7 @@ useSeoMeta({
 
 defineOgImageComponent('Docs')
 
-const { data: versions } = await useFetch('https://ungh.cc/repos/sseuniverse/sse-hooks/releases', {
+const { data: versions } = await useFetch('/api/github/releases', {
   transform: (data: {
     releases: {
       name?: string

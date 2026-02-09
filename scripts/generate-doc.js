@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { execSync } from "node:child_process";
+import prettier from "prettier";
 
 // --- CONFIGURATION ---
 const TEMP_DIR = "./generated/typedoc";
@@ -269,8 +270,17 @@ async function main() {
       const autoSummary = parseComment(signature.comment);
       const autoCategory = parseCategory(signature.comment?.blockTags);
       const autoDesc = autoSummary.split(".")[0] + ".";
-      const example = parseExample(signature.comment?.blockTags);
       const isNew = hasData && !oldHooks.has(name);
+      const example = await prettier.format(
+        parseExample(signature.comment?.blockTags),
+        {
+          parser: "typescript",
+          semi: true,
+          singleQuote: false,
+          trailingComma: "all",
+          printWidth: 80,
+        },
+      );
 
       const manualDocPath = path.join(HOOKS_SRC_DIR, name, "docs.md");
       let manualData = { attributes: {}, body: "" };
@@ -374,10 +384,20 @@ ${middleContent}
 ## API
 
 ${apiSection || "No parameters."}
+
+## Changelog
+
+:hooks-changelog
 `;
 
       const newFileName = `${index}.${kebabName}.md`;
-      fs.writeFileSync(path.join(OUTPUT_DIR, newFileName), content);
+      fs.writeFileSync(
+        path.join(OUTPUT_DIR, newFileName),
+        await prettier.format(content.toString(), {
+          parser: "markdown",
+          printWidth: 80,
+        }),
+      );
       console.log(`✅ [${index}] Generated ${name} ${isNew ? "(New)" : ""}`);
 
       // Add to Category List

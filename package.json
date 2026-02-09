@@ -11,7 +11,7 @@
     "clean:docs": "node scripts/clean-docs.js",
     "generate:docs": "node scripts/generate-doc.js",
     "build:docs": "npm run clean:docs && npm run generate:docs",
-    "release": "standard-version"
+    "release": "node scripts/generate-changelog.js"
   },
   "devDependencies": {
     "prettier": "^3.7.4",
