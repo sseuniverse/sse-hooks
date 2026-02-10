@@ -19,7 +19,9 @@ export interface HookInfo {
 }
 
 export interface Config {
-  hooksDir: string;
-  defaultLanguage: "ts" | "js";
-  repoUrl: string;
+  hooks: {
+    hooksDir: string;
+    defaultLanguage: "ts" | "js";
+    registryUrl: string;
+  };
 }

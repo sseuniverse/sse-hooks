@@ -12,7 +12,7 @@ const pkg = JSON.parse(
 );
 
 program
-  .name(pkg?.name || "open-hook")
+  .name(pkg?.name || "sse-tool")
   .description("CLI for managing custom React hooks")
   .version(`${pkg?.version}`, "-v, --version", "Output the current version");
 

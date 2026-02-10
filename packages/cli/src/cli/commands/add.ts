@@ -1,10 +1,9 @@
 import inquirer from "inquirer";
 import { getConfig } from "../utils/config";
-import { fetchHookList, downloadHook } from "../utils/git";
+import { fetchHookList, downloadHook } from "../utils/registry";
 import { error, success, info } from "../utils/logger";
 import path from "path";
-import fs from "fs/promises";
-import { REPO_CONFIG } from "../utils/constants";
+import fs from "fs-extra";
 import { HookInfo } from "@/types";
 import chalk from "chalk";
 import ora from "ora";
@@ -13,12 +12,13 @@ import { installNpmDependencies } from "../utils/npm";
 export async function addCommand(hookNames: string[] = [], options: any = {}) {
   try {
     const config = await getConfig();
-    const availableHooks = await fetchHookList(config.repoUrl);
+    const installDir = config.hooks.hooksDir;
+    const language = options?.language || config?.hooks.defaultLanguage;
 
-    let finalHookNames: string[] = [...hookNames];
+    let initialQueue: string[] = [...hookNames];
 
-    // Interactive selection if no hooks provided in CLI
-    if (finalHookNames.length === 0) {
+    if (initialQueue.length === 0) {
+      const availableHooks = await fetchHookList(config.hooks.registryUrl);
       const { selectedHooks } = await inquirer.prompt([
         {
           type: "checkbox",
@@ -33,112 +33,116 @@ export async function addCommand(hookNames: string[] = [], options: any = {}) {
             input.length > 0 || "You must choose at least one hook",
         },
       ]);
-      finalHookNames = selectedHooks;
+      initialQueue = selectedHooks;
     }
 
-    const language = options?.language || config?.defaultLanguage;
-    const installDir = config.hooksDir;
-    const installedInSession = new Set<string>();
+    const hooksToInstall = new Set<string>();
+    const dependenciesToInstall = new Set<string>();
+    const payloadMap = new Map<string, HookInfo>();
 
-    /**
-     * Recursive function to handle hooks and their registry dependencies
-     */
-    async function processHook(name: string) {
-      if (installedInSession.has(name)) return;
+    const resolveSpinner = ora("Resolving hooks...").start();
 
-      const hookEntry = availableHooks.find((h) => h.name === name);
-      if (!hookEntry) {
-        error(`Hook "${name}" not found in registry.`);
-        return;
-      }
+    try {
+      const queue = [...initialQueue];
 
-      const spinnerMeta = ora(
-        `Checking requirements for ${chalk.bold(name)}...`,
-      ).start();
-      let metaData: HookInfo;
+      while (queue.length > 0) {
+        const currentInput = queue.shift()!;
+        if (
+          !currentInput.startsWith("http") &&
+          hooksToInstall.has(currentInput)
+        ) {
+          continue;
+        }
 
-      try {
-        // We need a helper or a modified downloadHook that just returns Meta without writing
-        // For this logic, we assume downloadHook (or a fetchMeta) provides the requirements
-        // If your downloadHook writes immediately, you might want to split that logic.
-        // For now, we follow your requirement to process dependencies first:
-
-        // This is a placeholder for getting the metadata without saving the file yet
-        // In your current architecture, we'll fetch the hook info.
-        metaData = await downloadHook(
-          config.repoUrl,
-          name,
+        // Fetch metadata (supports both Name and URL)
+        const meta = await downloadHook(
+          config.hooks.registryUrl,
+          currentInput,
           language,
           "",
-          availableHooks,
           true,
         );
-        spinnerMeta.stop();
-      } catch (err: any) {
-        spinnerMeta.fail(`Could not fetch metadata for ${name}`);
-        return;
-      }
 
-      if (metaData.registryDependencies?.length) {
-        info(`Installing internal requirements for ${chalk.cyan(name)}...`);
-        for (const dep of metaData.registryDependencies) {
-          await processHook(dep);
+        const realName = meta.name;
+        if (hooksToInstall.has(realName)) continue;
+        hooksToInstall.add(realName);
+        payloadMap.set(realName, meta);
+
+        if (meta.registryDependencies) {
+          queue.push(...meta.registryDependencies);
+        }
+
+        if (meta.dependencies) {
+          meta.dependencies.forEach((dep) => dependenciesToInstall.add(dep));
         }
       }
 
-      if (metaData.dependencies?.length) {
-        await installNpmDependencies(metaData.dependencies);
-      }
+      resolveSpinner.stop();
+    } catch (err: any) {
+      resolveSpinner.fail("Failed to resolve hooks.");
+      error(err instanceof Error ? err.message : "Unknown error");
+      return;
+    }
 
-      const fileName = `${REPO_CONFIG.HOOK_FILE_PREFIX}${name}.${language}`;
+    const sortedHooks = Array.from(hooksToInstall).sort();
+    const sortedDeps = Array.from(dependenciesToInstall).sort();
+
+    if (sortedHooks.length) {
+      console.log(chalk.bold.cyan(`\nHooks:`));
+      sortedHooks.forEach((h) => console.log(`- ${h}`));
+    }
+
+    if (sortedDeps.length) {
+      console.log(chalk.bold.cyan(`\nDependencies:`));
+      sortedDeps.forEach((d) => console.log(`- ${d}`));
+    }
+
+    console.log("");
+
+    const { proceed } = await inquirer.prompt([
+      {
+        type: "confirm",
+        name: "proceed",
+        message: "Ready to install. Proceed?",
+        default: true,
+      },
+    ]);
+
+    if (!proceed) {
+      info("Operation cancelled.");
+      return;
+    }
+
+    if (sortedDeps.length) {
+      await installNpmDependencies(sortedDeps);
+    }
+
+    const writeSpinner = ora("Writing components...").start();
+
+    for (const name of sortedHooks) {
+      const meta = payloadMap.get(name)!;
+      const code = language === "js" ? meta.file.js : meta.file.content;
+
+      // Use the name from metadata for the file name
+      const fileName = `${meta.name}.${language}`;
       const filePath = path.join(installDir, fileName);
 
-      // Check if file exists to prevent accidental overwrites
       try {
         await fs.access(filePath);
-        const { action } = await inquirer.prompt([
-          {
-            type: "list",
-            name: "action",
-            message: `Hook "${name}" already exists. Overwrite?`,
-            choices: [
-              { name: "Yes, replace it", value: "replace" },
-              { name: "Skip", value: "skip" },
-            ],
-          },
-        ]);
-        if (action === "skip") {
-          installedInSession.add(name); // Mark as processed to avoid re-prompting
-          return;
-        }
       } catch {}
 
-      const downloadSpinner = ora(`Finalizing ${chalk.bold(name)}...`).start();
-      try {
-        await downloadHook(
-          config.repoUrl,
-          name,
-          language,
-          filePath,
-          availableHooks,
-        );
-        installedInSession.add(name);
-        downloadSpinner.succeed(chalk.green(`Hook ${name} is ready.`));
-      } catch (err: any) {
-        downloadSpinner.fail(
-          chalk.red(`Failed to save ${name}: ${err.message}`),
-        );
-      }
+      await fs.ensureDir(path.dirname(filePath));
+      await fs.writeFile(filePath, code);
     }
 
-    // Start processing the initial list
-    for (const name of finalHookNames) {
-      await processHook(name);
-    }
+    writeSpinner.succeed(chalk.green("Done."));
 
-    if (installedInSession.size > 0) {
-      console.log(""); // Spacer
-      success(`Successfully processed ${installedInSession.size} hook(s).`);
+    if (hooksToInstall.size > 0) {
+      success(
+        `Installed ${hooksToInstall.size} component(s) to ${chalk.cyan(
+          installDir,
+        )}`,
+      );
     }
   } catch (err: any) {
     if (err.message === "Configuration missing") {

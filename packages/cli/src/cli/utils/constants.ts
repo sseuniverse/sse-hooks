@@ -1,39 +1,27 @@
-export const REPO_CONFIG = {
-  // Default repository information
-  DEFAULT_REPO: "sseuniverse/sse-hooks",
-  DEFAULT_BRANCH: "main",
+const ORIGIN = "https://sse-hooks.vercel.app";
 
-  // Updated to match your repo structure
-  MANIFEST_PATH: "packages/hooks/manifest.json",
-  HOOKS_BASE_PATH: "packages/hooks",
+export const REGISTRY_CONFIG = {
+  ORIGIN: ORIGIN,
+  BASE_URL: `${ORIGIN}/api/registry/hook`,
+  MANIFEST_ENDPOINT: "manifest.json",
+  HOOK_ENDPOINT: (name: string) => `${name}/meta.json`,
 
-  // GitHub URL patterns
-  RAW_CONTENT_URL: "https://raw.githubusercontent.com",
-  REPO_URL_PATTERN: "https://github.com/{owner}/{repo}/tree/{branch}",
-
-  // Hook file naming convention
-  HOOK_FILE_PREFIX: "", // Prefix is handled by the manifest names
-  HOOK_FILE_SUFFIX: "{ext}",
-
-  // Error messages
   ERRORS: {
-    INVALID_REPO_URL: "Invalid GitHub repository URL",
-    MANIFEST_NOT_FOUND: "Hook manifest not found",
-    HOOK_NOT_FOUND: "Hook not found in repository",
-    META_NOT_FOUND: "Hook metadata could not be retrieved",
+    FETCH_FAILED: "Failed to fetch from registry",
+    MANIFEST_NOT_FOUND: "Registry manifest not found",
+    HOOK_NOT_FOUND: "Hook not found in registry",
   },
 };
 
 // Default configuration values
 export const DEFAULT_CONFIG_VALUES = {
   HOOKS_DIR: "src/hooks",
-  DEFAULT_LANGUAGE: "ts" as "ts" | "js",
-  REPO_URL: `https://github.com/${REPO_CONFIG.DEFAULT_REPO}`,
+  REPO_URL: REGISTRY_CONFIG.BASE_URL,
 };
 
 export const CLI = {
   COMMAND_NAME: "sse-tools",
-  CONFIG_FILE: "sse-hooks.config.json",
+  CONFIG_FILE: "sse.config.json",
   COMMANDS: {
     INIT: "init",
     ADD: "add",
@@ -43,6 +31,6 @@ export const CLI = {
   PROMPTS: {
     HOOKS_DIR: "Where should hooks be stored?",
     DEFAULT_LANG: "Default hook language?",
-    REPO_URL: "Git repository URL for hooks?",
+    REPO_URL: "Registry API URL?",
   },
 };

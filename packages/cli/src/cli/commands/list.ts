@@ -1,12 +1,12 @@
 import { getConfig } from "../utils/config";
-import { fetchHookList } from "../utils/git";
+import { fetchHookList } from "../utils/registry";
 import { info, error } from "../utils/logger";
 import Table from "cli-table3";
 
 export async function listCommand() {
   try {
     const config = await getConfig();
-    const hooks = await fetchHookList(config.repoUrl);
+    const hooks = await fetchHookList(config.hooks.registryUrl);
 
     const table = new Table({
       head: ["Hook Name", "Description"],
