@@ -5,8 +5,7 @@ import prettier from "prettier";
 
 const SRC_DIR = path.join(process.cwd(), "src");
 const MANIFEST_FILE = path.join(process.cwd(), "manifest.json");
-const SCHEMA_URL =
-  "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json";
+const SCHEMA_URL = "https://sse-hooks.vercel.app/api/registry/schema/hook.json";
 
 // --- HELPERS ---
 

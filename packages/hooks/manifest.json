@@ -101,6 +101,11 @@
       "path": "src/useEventListener/meta.json"
     },
     {
+      "name": "use-favicon",
+      "description": "Hook options.",
+      "path": "src/useFavicon/meta.json"
+    },
+    {
       "name": "use-fetch",
       "description": "Options for customizing the behavior of the useFetch hook. Extends the standard [`RequestInit`](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit) interface.",
       "path": "src/useFetch/meta.json"
@@ -286,5 +291,5 @@
       "path": "src/withDefaults/meta.json"
     }
   ],
-  "length": 57
+  "length": 58
 }

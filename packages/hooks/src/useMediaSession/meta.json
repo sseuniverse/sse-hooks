@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/sseuniverse/sse-hooks/refs/heads/main/schema/meta.json",
+  "$schema": "https://sse-hooks.vercel.app/api/registry/schema/hook.json",
   "name": "use-media-session",
   "type": "registry:hook",
   "title": "useMediaSession",

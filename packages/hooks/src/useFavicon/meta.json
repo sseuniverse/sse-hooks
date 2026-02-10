@@ -1,0 +1,18 @@
+{
+  "$schema": "https://sse-hooks.vercel.app/api/registry/schema/hook.json",
+  "name": "use-favicon",
+  "type": "registry:hook",
+  "title": "useFavicon",
+  "description": "Hook options.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "use-isomorphic-layout-effect",
+    "use-unmount"
+  ],
+  "file": {
+    "content": "import { useRef } from \"react\";\nimport { useIsomorphicLayoutEffect } from \"./use-isomorphic-layout-effect\";\nimport { useUnmount } from \"./use-unmount\";\n\nexport type UseFaviconOptions = {\n  preserveFaviconOnUnmount?: boolean;\n\n  type?: string;\n};\n\nexport function useFavicon(\n  href: string,\n  options: UseFaviconOptions = {},\n): void {\n  const { preserveFaviconOnUnmount = true, type = \"image/x-icon\" } = options;\n  const defaultFavicon = useRef<{ href: string; type: string } | null>(null);\n\n  useIsomorphicLayoutEffect(() => {\n    const link = document.querySelector(\"link[rel*='icon']\") as HTMLLinkElement;\n    if (link) {\n      defaultFavicon.current = { href: link.href, type: link.type };\n    }\n  }, []);\n\n  useIsomorphicLayoutEffect(() => {\n    const link: HTMLLinkElement =\n      document.querySelector(\"link[rel*='icon']\") ||\n      document.createElement(\"link\");\n\n    if (!link.parentNode) {\n      link.rel = \"icon\";\n      document.head.appendChild(link);\n    }\n\n    link.type = type;\n    link.href = href;\n  }, [href, type]);\n\n  useUnmount(() => {\n    if (!preserveFaviconOnUnmount && defaultFavicon.current) {\n      const link = document.querySelector(\n        \"link[rel*='icon']\",\n      ) as HTMLLinkElement;\n\n      if (link) {\n        link.href = defaultFavicon.current.href;\n        link.type = defaultFavicon.current.type;\n      }\n    }\n  });\n}\n",
+    "js": "import { useRef } from \"react\";\nimport { useIsomorphicLayoutEffect } from \"./use-isomorphic-layout-effect\";\nimport { useUnmount } from \"./use-unmount\";\nexport function useFavicon(href, options = {}) {\n    const { preserveFaviconOnUnmount = true, type = \"image/x-icon\" } = options;\n    const defaultFavicon = useRef(null);\n    useIsomorphicLayoutEffect(() => {\n        const link = document.querySelector(\"link[rel*='icon']\");\n        if (link) {\n            defaultFavicon.current = { href: link.href, type: link.type };\n        }\n    }, []);\n    useIsomorphicLayoutEffect(() => {\n        const link = document.querySelector(\"link[rel*='icon']\") ||\n            document.createElement(\"link\");\n        if (!link.parentNode) {\n            link.rel = \"icon\";\n            document.head.appendChild(link);\n        }\n        link.type = type;\n        link.href = href;\n    }, [href, type]);\n    useUnmount(() => {\n        if (!preserveFaviconOnUnmount && defaultFavicon.current) {\n            const link = document.querySelector(\"link[rel*='icon']\");\n            if (link) {\n                link.href = defaultFavicon.current.href;\n                link.type = defaultFavicon.current.type;\n            }\n        }\n    });\n}"
+  }
+}
