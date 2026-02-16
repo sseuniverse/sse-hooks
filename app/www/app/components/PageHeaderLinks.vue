@@ -5,6 +5,7 @@ const route = useRoute()
 const toast = useToast()
 const { copy, copied } = useClipboard()
 const site = useSiteConfig()
+const appConfig = useAppConfig()
 
 const mdPath = computed(() => `${site.url}/raw${route.path}.md`)
 
@@ -49,7 +50,7 @@ async function copyPage() {
   <UFieldGroup>
     <UButton
       label="Copy page"
-      :icon="copied ? 'i-lucide-copy-check' : 'i-lucide-copy'"
+      :icon="copied ? appConfig.ui.icons.copyCheck : appConfig.ui.icons.copy"
       color="neutral"
       variant="outline"
       :ui="{
@@ -69,7 +70,7 @@ async function copyPage() {
       }"
     >
       <UButton
-        icon="i-lucide-chevron-down"
+        :icon="appConfig.ui.icons.chevronDown"
         size="sm"
         color="neutral"
         variant="outline"

@@ -43,8 +43,6 @@ A comprehensive collection of modern, type-safe, and SSR-friendly React hooks. S
   :::prose-pre
   ---
   code: |
-    import { useBattery } from 'sse-hooks'
-
     const Demo = () => {
       const { level, charging } = useBattery()
 
@@ -59,8 +57,6 @@ A comprehensive collection of modern, type-safe, and SSR-friendly React hooks. S
   ---
 
   ```tsx [App.tsx]
-  import { useBattery } from 'sse-hooks'
-
   const Demo = () => {
     const { level, charging } = useBattery()
 

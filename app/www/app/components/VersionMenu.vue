@@ -19,7 +19,7 @@ const items = computed(() => {
     size="xs"
   >
     <UButton
-      :label="`v1.3.0`"
+      :label="`v1.3.1`"
       variant="subtle"
       :trailing-icon="appConfig.ui.icons.chevronDown"
       size="xs"

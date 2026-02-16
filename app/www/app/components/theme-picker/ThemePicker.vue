@@ -20,8 +20,6 @@ const {
   mode,
   hasCSSChanges,
   hasAppConfigChanges,
-  exportCSS,
-  exportAppConfig,
   resetTheme
 } = useTheme()
 </script>
@@ -45,7 +43,6 @@ const {
           Primary
 
           <UButton
-            to="/docs/getting-started/theme/css-variables#colors"
             size="xs"
             color="neutral"
             variant="link"
@@ -82,7 +79,6 @@ const {
           Neutral
 
           <UButton
-            to="/docs/getting-started/theme/css-variables#text"
             size="xs"
             color="neutral"
             variant="link"
@@ -109,7 +105,6 @@ const {
           Radius
 
           <UButton
-            to="/docs/getting-started/theme/css-variables#radius"
             size="xs"
             color="neutral"
             variant="link"
@@ -136,7 +131,6 @@ const {
           Font
 
           <UButton
-            to="/docs/getting-started/integrations/fonts"
             size="xs"
             color="neutral"
             variant="link"
@@ -164,7 +158,6 @@ const {
           Icons
 
           <UButton
-            to="/docs/getting-started/integrations/icons"
             size="xs"
             color="neutral"
             variant="link"
@@ -214,31 +207,7 @@ const {
       </fieldset>
 
       <fieldset v-if="hasCSSChanges || hasAppConfigChanges">
-        <legend class="text-[11px] leading-none font-semibold mb-2 select-none">
-          Export
-        </legend>
-
         <div class="flex items-center justify-between gap-1 -mx-2">
-          <!-- <UButton
-            v-if="hasCSSChanges"
-            color="neutral"
-            variant="soft"
-            size="sm"
-            label="main.css"
-            class="flex-1 text-[11px]"
-            :icon="copiedCSS ? 'i-lucide-copy-check' : 'i-lucide-copy'"
-            @click="copyCSS(exportCSS())"
-          />
-          <UButton
-            v-if="hasAppConfigChanges"
-            color="neutral"
-            variant="soft"
-            size="sm"
-            label="app.config.ts"
-            :icon="copiedAppConfig ? 'i-lucide-copy-check' : 'i-lucide-copy'"
-            class="flex-1 text-[11px]"
-            @click="copyAppConfig(exportAppConfig())"
-          /> -->
           <UTooltip text="Reset theme">
             <UButton
               color="neutral"

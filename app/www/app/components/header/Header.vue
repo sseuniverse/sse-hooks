@@ -19,9 +19,9 @@ const { desktopLinks } = useHeader()
     <template #right>
       <ThemePicker />
 
-      <!-- <UTooltip text="Search" :kbds="['meta', 'K']">
+      <UTooltip text="Search" :kbds="['meta', 'K']">
         <UContentSearchButton />
-      </UTooltip> -->
+      </UTooltip>
 
       <UTooltip text="Open on GitHub" class="hidden lg:flex">
         <UButton

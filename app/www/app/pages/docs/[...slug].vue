@@ -35,19 +35,12 @@ useSeoMeta({
 })
 
 // OG Image Generation
-if (route.path.startsWith('/docs/components/')) {
-  defineOgImageComponent('OgImageComponent', {
-    title: page.value.title,
-    description: page.value.description,
-    component: (route.params.slug as string[]).pop() as string
-  })
-} else {
-  defineOgImageComponent('Docs', {
-    title: page.value.title,
-    description: page.value.description,
-    headline: breadcrumb.value?.[breadcrumb.value.length - 1]?.label || 'Docs'
-  })
-}
+
+defineOgImageComponent('Docs', {
+  title: page.value.title,
+  description: page.value.description,
+  headline: breadcrumb.value?.[breadcrumb.value.length - 1]?.label || 'Docs'
+})
 
 // Pre-render logic
 const path = computed(() => route.path.replace(/\/$/, ''))
@@ -63,11 +56,9 @@ useHead({
   ]
 })
 
-// Contribution / Community Links for TOC
 const communityLinks = computed(() => [{
   icon: 'i-lucide-file-pen',
   label: 'Edit this page',
-  // Updated to point to your repo structure
   to: `https://github.com/sseuniverse/sse-hooks/edit/main/app/www/content/docs/${page?.value?.stem}.md`,
   target: '_blank'
 }, {
@@ -90,7 +81,7 @@ const communityLinks = computed(() => [{
       </template>
 
       <template #links>
-        <!-- <UButton
+        <UButton
           v-for="link in page.links"
           :key="link.label"
           color="neutral"
@@ -101,7 +92,7 @@ const communityLinks = computed(() => [{
           <template v-if="link.avatar" #leading>
             <UAvatar v-bind="link.avatar" size="2xs" :alt="`${link.label} avatar`" />
           </template>
-        </UButton> -->
+        </UButton>
         <PageHeaderLinks />
       </template>
     </UPageHeader>

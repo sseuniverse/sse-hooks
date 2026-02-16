@@ -342,18 +342,12 @@ async function main() {
       } else {
         // If no manual body, fall back to the default generated usage section.
         middleContent = `
-::code-group
 \`\`\`tsx [example.ts]
 import { ${name} } from './{hooks file}'
 
 ${example || "// See usage example in source"}
 \`\`\`
-\`\`\`tsx [package.ts]
-import { ${name} } from 'sse-hooks'
-
-${example || "// See usage example in source"}
-\`\`\`
-::`;
+`;
       }
 
       const content = `---
@@ -369,12 +363,23 @@ links:
 ## Installation
 
 ::code-group
-\`\`\`bash [terminal]
-npx sse-tool add ${kebabName}
-\`\`\`
+
 \`\`\`bash [npm]
-npm install sse-hooks
+npx sse-hooks add ${kebabName}
 \`\`\`
+\`\`\`bash [yarn]
+yarn dlx sse-hooks add ${kebabName}
+\`\`\`
+\`\`\`bash [pnpm]
+pnpm dlx sse-hooks add ${kebabName}
+\`\`\`
+\`\`\`bash [deno]
+deno run -A npm:sse-hooks add ${kebabName}
+\`\`\`
+\`\`\`bash [bun]
+bunx sse-hooks add ${kebabName}
+\`\`\`
+
 ::
 
 ## Usage
