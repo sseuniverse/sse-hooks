@@ -186,6 +186,11 @@
       "path": "src/useMediaSession/meta.json"
     },
     {
+      "name": "use-memoized-fn",
+      "description": "A hook that returns a memoized version of a function. Unlike `useCallback`, the function identity remains stable across re-renders, but it always has access to the latest props and state without needing a dependency array. This is particularly useful for passing callbacks to optimized child components to prevent unnecessary re-renders while avoiding closure staleness. ```tsx const [state, setState] = useState(0); * // The identity of 'callback' never changes, but it always logs the latest 'state' const callback = useMemoizedFn(() => { console.log('Current state:', state); }); * return <ExpensiveComponent onClick={callback} />; ```",
+      "path": "src/useMemoizedFn/meta.json"
+    },
+    {
       "name": "use-network-information",
       "description": "Detailed information about the network connection.",
       "path": "src/useNetworkInformation/meta.json"
@@ -291,5 +296,5 @@
       "path": "src/withDefaults/meta.json"
     }
   ],
-  "length": 58
+  "length": 59
 }

@@ -1,6 +1,6 @@
 {
-  "name": "sse-hooks",
-  "version": "1.3.0",
+  "name": "sse-hooks-directory",
+  "version": "1.3.1",
   "description": "React hook library, ready to use, written in Typescript.",
   "license": "MIT",
   "author": "SSE World",

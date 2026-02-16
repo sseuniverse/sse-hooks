@@ -1,0 +1,15 @@
+{
+  "$schema": "https://sse-hooks.vercel.app/api/registry/schema/hook.json",
+  "name": "use-memoized-fn",
+  "type": "registry:hook",
+  "title": "useMemoizedFn",
+  "description": "A hook that returns a memoized version of a function. Unlike `useCallback`, the function identity remains stable across re-renders, but it always has access to the latest props and state without needing a dependency array. This is particularly useful for passing callbacks to optimized child components to prevent unnecessary re-renders while avoiding closure staleness. ```tsx const [state, setState] = useState(0); * // The identity of 'callback' never changes, but it always logs the latest 'state' const callback = useMemoizedFn(() => { console.log('Current state:', state); }); * return <ExpensiveComponent onClick={callback} />; ```",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [],
+  "file": {
+    "content": "import { useMemo, useRef } from \"react\";\n\ntype PickFunction<T extends (this: any, ...args: any[]) => any> = (\n  this: ThisParameterType<T>,\n  ...args: Parameters<T>\n) => ReturnType<T>;\n\nexport function useMemoizedFn<T extends (this: any, ...args: any[]) => any>(\n  fn: T,\n): PickFunction<T> {\n  if (\n    process.env.NODE_ENV === \"development\" ||\n    process.env.NODE_ENV === \"test\"\n  ) {\n    if (!(typeof fn === \"function\")) {\n      console.error(\n        `useMemoizedFn expected parameter is a function, got ${typeof fn}`,\n      );\n    }\n  }\n\n  const fnRef = useRef<T>(fn);\n\n  fnRef.current = useMemo<T>(() => fn, [fn]);\n\n  const memoizedFn = useRef<PickFunction<T>>(undefined);\n  if (!memoizedFn.current) {\n    memoizedFn.current = function (this, ...args) {\n      return fnRef.current.apply(this, args);\n    };\n  }\n\n  return memoizedFn.current;\n}\n",
+    "js": "import { useMemo, useRef } from \"react\";\nexport function useMemoizedFn(fn) {\n    if (process.env.NODE_ENV === \"development\" ||\n        process.env.NODE_ENV === \"test\") {\n        if (!(typeof fn === \"function\")) {\n            console.error(`useMemoizedFn expected parameter is a function, got ${typeof fn}`);\n        }\n    }\n    const fnRef = useRef(fn);\n    fnRef.current = useMemo(() => fn, [fn]);\n    const memoizedFn = useRef(undefined);\n    if (!memoizedFn.current) {\n        memoizedFn.current = function (...args) {\n            return fnRef.current.apply(this, args);\n        };\n    }\n    return memoizedFn.current;\n}"
+  }
+}

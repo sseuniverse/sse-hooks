@@ -162,6 +162,7 @@ using the Network Information API.
 - [`useKbd`](https://sse-hooks.vercel.app/docs/hooks/use-kbd) — Custom hook that detects the operating system (Mac vs.
 - [`useMediaQuality`](https://sse-hooks.vercel.app/docs/hooks/use-media-quality) — Custom hook to manage video stream quality by applying constraints (resolution and frame rate)
 to a MediaStream track.
+- [`useMemoizedFn`](https://sse-hooks.vercel.app/docs/hooks/use-memoized-fn) — A hook that returns a memoized version of a function.
 - [`useSearchWithSuggestions`](https://sse-hooks.vercel.app/docs/hooks/use-search-with-suggestions) — A comprehensive hook for building "Command Palette" or "Omnibar" style search interfaces.
 - [`useSSR`](https://sse-hooks.vercel.app/docs/hooks/use-ssr) — Custom hook that detects the current environment (Browser, Server, or Native)
 and capability support (Workers, EventListeners).
