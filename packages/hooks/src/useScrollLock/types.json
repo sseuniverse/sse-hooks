@@ -1,0 +1,56 @@
+{
+  "name": "useScrollLock",
+  "description": "A custom hook that locks and unlocks scroll.",
+  "props": [
+    {
+      "name": "options",
+      "description": "Options to configure the hook, by default it will lock the scroll automatically.",
+      "type": "UseScrollLockOptions",
+      "required": false,
+      "default": "{}",
+      "schema": [
+        {
+          "name": "autoLock",
+          "description": "Whether to lock the scroll initially.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        },
+        {
+          "name": "lockTarget",
+          "description": "The target element to lock the scroll (default is the body element).",
+          "type": "HTMLElement | string",
+          "rawType": "HTMLElement | string",
+          "required": false
+        },
+        {
+          "name": "widthReflow",
+          "description": "Whether to prevent width reflow when locking the scroll.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "isLocked",
+      "description": "Whether the scroll is locked.",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "lock",
+      "description": "Lock the scroll.",
+      "type": "() => void",
+      "required": true
+    },
+    {
+      "name": "unlock",
+      "description": "Unlock the scroll.",
+      "type": "() => void",
+      "required": true
+    }
+  ]
+}

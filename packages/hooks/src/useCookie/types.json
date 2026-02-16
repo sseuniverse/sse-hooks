@@ -1,0 +1,126 @@
+{
+  "name": "useCookie",
+  "description": "Custom hook that manages state synchronized with a browser [`cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies). It handles serialization, prefixes, updates across tabs, and custom event synchronization.",
+  "props": [
+    {
+      "name": "key",
+      "description": "The base name of the cookie.",
+      "type": "string",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "initialValue",
+      "description": "The initial value of the state.",
+      "type": "T | () => T",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "options",
+      "description": "Options for customization.",
+      "type": "UseCookieOptions<T>",
+      "required": false,
+      "default": "{}",
+      "schema": [
+        {
+          "name": "defaultValue",
+          "description": "The default value to return if the cookie is not found.",
+          "type": "T",
+          "rawType": "T",
+          "required": false
+        },
+        {
+          "name": "deserializer",
+          "description": "A function to deserialize the stored value.",
+          "type": "(value: string) => T",
+          "rawType": "(value: string) => T",
+          "required": false
+        },
+        {
+          "name": "domain",
+          "description": "The domain for which the cookie is valid.",
+          "type": "string",
+          "rawType": "string",
+          "required": false
+        },
+        {
+          "name": "expires",
+          "description": "The expiration date of the cookie.",
+          "type": "Date",
+          "rawType": "Date",
+          "required": false
+        },
+        {
+          "name": "initializeWithValue",
+          "description": "If `true` (default), the hook will initialize reading the cookie.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        },
+        {
+          "name": "maxAge",
+          "description": "The maximum age of the cookie in seconds.",
+          "type": "number",
+          "rawType": "number",
+          "required": false
+        },
+        {
+          "name": "path",
+          "description": "The path within the site for which the cookie is valid.",
+          "type": "string",
+          "rawType": "string",
+          "required": false
+        },
+        {
+          "name": "prefix",
+          "description": "A prefix to be prepended to the key (e.g., \"myApp_\").\r Useful for namespacing or complying with cookie prefixes like `__Secure-` or `__Host-`.",
+          "type": "string",
+          "rawType": "string",
+          "required": false
+        },
+        {
+          "name": "sameSite",
+          "description": "Controls whether the cookie is sent with cross-site requests.",
+          "type": "\"lax\" | \"strict\" | \"none\"",
+          "rawType": "\"lax\" | \"strict\" | \"none\"",
+          "required": false
+        },
+        {
+          "name": "secure",
+          "description": "If `true`, the cookie is only transmitted over secure protocols (HTTPS).",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        },
+        {
+          "name": "serializer",
+          "description": "A function to serialize the value before storing it.",
+          "type": "(value: T) => string",
+          "rawType": "(value: T) => string",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "[0]",
+      "description": "",
+      "type": "T",
+      "required": true
+    },
+    {
+      "name": "[1]",
+      "description": "",
+      "type": "Dispatch<SetStateAction<T>>",
+      "required": true
+    },
+    {
+      "name": "[2]",
+      "description": "",
+      "type": "() => void",
+      "required": true
+    }
+  ]
+}

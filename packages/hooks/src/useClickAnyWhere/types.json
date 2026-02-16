@@ -1,0 +1,21 @@
+{
+  "name": "useClickAnyWhere",
+  "description": "Custom hook that handles click events anywhere on the document.",
+  "props": [
+    {
+      "name": "handler",
+      "description": "The function to be called when a click event is detected anywhere on the document.",
+      "type": "(event: MouseEvent) => void",
+      "required": true,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "void",
+      "required": true
+    }
+  ]
+}

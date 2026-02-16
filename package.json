@@ -10,6 +10,9 @@
     "check-types": "turbo run check-types",
     "clean:docs": "node scripts/clean-docs.js",
     "generate:docs": "node scripts/generate-doc.js",
+    "generate:types": "node scripts/generate-types.js",
+    "generate:types:md": "node scripts/generate-md.js",
+    "generate:types:nuxt": "node scripts/generate-nuxt-types.js",
     "build:docs": "npm run clean:docs && npm run generate:docs",
     "release": "node scripts/generate-changelog.js"
   },

@@ -1,0 +1,93 @@
+{
+  "name": "useIndexedDB",
+  "description": "Custom hook that provides an interface to the [`IndexedDB API`](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) for client-side storage of significant amounts of structured data.",
+  "props": [
+    {
+      "name": "databaseName",
+      "description": "The name of the IndexedDB database.",
+      "type": "string",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "storeName",
+      "description": "The name of the object store within the database.",
+      "type": "string",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "options",
+      "description": "Configuration options for the database connection (optional).",
+      "type": "UseIndexedDBOptions",
+      "required": false,
+      "default": "{}",
+      "schema": [
+        {
+          "name": "onUpgradeNeeded",
+          "description": "A callback function executed when the database version changes or is created.\r Use this to create or modify object stores.",
+          "type": "(db: IDBDatabase, oldVersion: number, newVersion: number) => void",
+          "rawType": "(db: IDBDatabase, oldVersion: number, newVersion: number) => void",
+          "required": false
+        },
+        {
+          "name": "version",
+          "description": "The version of the database. Changing this triggers an upgrade.",
+          "type": "number",
+          "rawType": "number",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "clear",
+      "description": "Removes all items from the current object store.",
+      "type": "() => Promise<void>",
+      "required": true
+    },
+    {
+      "name": "data",
+      "description": "The most recently accessed or modified data item.",
+      "type": "T | null",
+      "required": true
+    },
+    {
+      "name": "error",
+      "description": "The error message if an operation failed, or null if successful.",
+      "type": "string | null",
+      "required": true
+    },
+    {
+      "name": "getAllKeys",
+      "description": "Retrieves all keys currently stored in the object store.",
+      "type": "() => Promise<string[]>",
+      "required": true
+    },
+    {
+      "name": "getItem",
+      "description": "Retrieves a value from the database by its key.",
+      "type": "(key: string) => Promise<T | null>",
+      "required": true
+    },
+    {
+      "name": "loading",
+      "description": "Indicates if the database is initializing or an operation is in progress.",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "removeItem",
+      "description": "Removes an item from the database by its key.",
+      "type": "(key: string) => Promise<void>",
+      "required": true
+    },
+    {
+      "name": "setItem",
+      "description": "Stores a value in the database under the specified key.",
+      "type": "(key: string, value: T) => Promise<void>",
+      "required": true
+    }
+  ]
+}

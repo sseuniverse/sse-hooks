@@ -1,0 +1,71 @@
+{
+  "name": "useDebounceValue",
+  "description": "Custom hook that returns a debounced version of the provided value, along with a function to update it.",
+  "props": [
+    {
+      "name": "initialValue",
+      "description": "The value to be debounced.",
+      "type": "T | () => T",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "delay",
+      "description": "The delay in milliseconds before the value is updated (default is 500ms).",
+      "type": "number",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "options",
+      "description": "Optional configurations for the debouncing behavior.",
+      "type": "UseDebounceValueOptions<T>",
+      "required": false,
+      "default": "",
+      "schema": [
+        {
+          "name": "equalityFn",
+          "description": "A function to determine if the value has changed. Defaults to a function that checks if the value is strictly equal to the previous value.",
+          "type": "(left: T, right: T) => boolean",
+          "rawType": "(left: T, right: T) => boolean",
+          "required": false
+        },
+        {
+          "name": "leading",
+          "description": "Determines whether the function should be invoked on the leading edge of the timeout.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        },
+        {
+          "name": "maxWait",
+          "description": "The maximum time the specified function is allowed to be delayed before it is invoked.",
+          "type": "number",
+          "rawType": "number",
+          "required": false
+        },
+        {
+          "name": "trailing",
+          "description": "Determines whether the function should be invoked on the trailing edge of the timeout.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "[0]",
+      "description": "",
+      "type": "T",
+      "required": true
+    },
+    {
+      "name": "[1]",
+      "description": "",
+      "type": "DebouncedState<(value: T) => void>",
+      "required": true
+    }
+  ]
+}

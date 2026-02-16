@@ -1,0 +1,33 @@
+{
+  "name": "useToggle",
+  "description": "Custom hook that manages a boolean toggle state in React components.",
+  "props": [
+    {
+      "name": "defaultValue",
+      "description": "The initial value for the toggle state.",
+      "type": "boolean",
+      "required": false,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "[0]",
+      "description": "",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "[1]",
+      "description": "",
+      "type": "() => void",
+      "required": true
+    },
+    {
+      "name": "[2]",
+      "description": "",
+      "type": "Dispatch<SetStateAction<boolean>>",
+      "required": true
+    }
+  ]
+}

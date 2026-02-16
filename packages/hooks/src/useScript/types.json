@@ -1,0 +1,52 @@
+{
+  "name": "useScript",
+  "description": "Custom hook that dynamically loads scripts and tracking their loading status.",
+  "props": [
+    {
+      "name": "src",
+      "description": "The source URL of the script to load. Set to `null` or omit to prevent loading (optional).",
+      "type": "string | null",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "options",
+      "description": "Additional options for controlling script loading (optional).",
+      "type": "UseScriptOptions",
+      "required": false,
+      "default": "",
+      "schema": [
+        {
+          "name": "id",
+          "description": "Script's `id` (optional).",
+          "type": "string",
+          "rawType": "string",
+          "required": false
+        },
+        {
+          "name": "removeOnUnmount",
+          "description": "If `true`, removes the script from the DOM when the component unmounts (optional).",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        },
+        {
+          "name": "shouldPreventLoad",
+          "description": "If `true`, prevents the script from being loaded (optional).",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "UseScriptStatus",
+      "rawType": "\"idle\" | \"loading\" | \"ready\" | \"error\"",
+      "required": true
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "name": "useScreenShare",
+  "description": "Custom hook that captures the user's screen or specific application window.\r It handles permission errors, stream management, native stop events, and cleanup.",
+  "props": [
+    {
+      "name": "initialOptions",
+      "description": "The initial options for screen sharing (video/audio).",
+      "type": "UseScreenShareOptions",
+      "required": true,
+      "default": "DEFAULT_OPTIONS"
+    }
+  ],
+  "returns": [
+    {
+      "name": "error",
+      "description": "",
+      "type": "string | null",
+      "required": true
+    },
+    {
+      "name": "isLoading",
+      "description": "",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "isSupported",
+      "description": "",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "startCapture",
+      "description": "",
+      "type": "(options: UseScreenShareOptions) => Promise<void>",
+      "required": true
+    },
+    {
+      "name": "stopCapture",
+      "description": "",
+      "type": "() => void",
+      "required": true
+    },
+    {
+      "name": "stream",
+      "description": "",
+      "type": "MediaStream | null",
+      "required": true
+    }
+  ]
+}

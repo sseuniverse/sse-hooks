@@ -1,0 +1,21 @@
+{
+  "name": "useMediaQuality",
+  "description": "Custom hook to manage video stream quality by applying constraints (resolution and frame rate)\r to a MediaStream track.",
+  "props": [
+    {
+      "name": "stream",
+      "description": "The MediaStream containing the video track to adjust.",
+      "type": "MediaStream | null",
+      "required": true,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "UseMediaQualityReturn",
+      "required": true
+    }
+  ]
+}

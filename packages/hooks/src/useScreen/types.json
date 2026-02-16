@@ -1,0 +1,37 @@
+{
+  "name": "useScreen",
+  "description": "",
+  "props": [
+    {
+      "name": "options",
+      "description": "",
+      "type": "UseScreenOptions<false>",
+      "required": true,
+      "default": "",
+      "schema": [
+        {
+          "name": "debounceDelay",
+          "description": "The delay in milliseconds before the state is updated (disabled by default for retro-compatibility).",
+          "type": "number",
+          "rawType": "number",
+          "required": false
+        },
+        {
+          "name": "initializeWithValue",
+          "description": "If `true` (default), the hook will initialize reading the screen dimensions. In SSR, you should set it to `false`, returning `undefined` initially.",
+          "type": "InitializeWithValue",
+          "rawType": "InitializeWithValue",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "Screen | undefined",
+      "required": true
+    }
+  ]
+}

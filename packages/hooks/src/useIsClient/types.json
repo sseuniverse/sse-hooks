@@ -1,0 +1,13 @@
+{
+  "name": "useIsClient",
+  "description": "Custom hook that determines if the code is running on the client side (in the browser).",
+  "props": [],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "boolean",
+      "required": true
+    }
+  ]
+}

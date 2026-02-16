@@ -1,0 +1,28 @@
+{
+  "name": "useTimeout",
+  "description": "Custom hook that handles timeouts in React components using the [`setTimeout API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout).",
+  "props": [
+    {
+      "name": "callback",
+      "description": "The function to be executed when the timeout elapses.",
+      "type": "() => void",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "delay",
+      "description": "The duration (in milliseconds) for the timeout. Set to `null` to clear the timeout.",
+      "type": "number | null",
+      "required": true,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "void",
+      "required": true
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "name": "useStep",
+  "description": "Custom hook that manages and navigates between steps in a multi-step process.",
+  "props": [
+    {
+      "name": "maxStep",
+      "description": "The maximum step in the process.",
+      "type": "number",
+      "required": true,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "[0]",
+      "description": "",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "[1]",
+      "description": "",
+      "type": "UseStepActions",
+      "required": true,
+      "schema": [
+        {
+          "name": "canGoToNextStep",
+          "description": "Check if the next step is available.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": true
+        },
+        {
+          "name": "canGoToPrevStep",
+          "description": "Check if the previous step is available.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": true
+        },
+        {
+          "name": "goToNextStep",
+          "description": "Go to the next step in the process.",
+          "type": "() => void",
+          "rawType": "() => void",
+          "required": true
+        },
+        {
+          "name": "goToPrevStep",
+          "description": "Go to the previous step in the process.",
+          "type": "() => void",
+          "rawType": "() => void",
+          "required": true
+        },
+        {
+          "name": "reset",
+          "description": "Reset the step to the initial step.",
+          "type": "() => void",
+          "rawType": "() => void",
+          "required": true
+        },
+        {
+          "name": "setStep",
+          "description": "Set the current step to a specific value.",
+          "type": "Dispatch<SetStateAction<number>>",
+          "rawType": "Dispatch<SetStateAction<number>>",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "useWindowSize",
+  "description": "",
+  "props": [
+    {
+      "name": "options",
+      "description": "",
+      "type": "UseWindowSizeOptions<false>",
+      "required": true,
+      "default": "",
+      "schema": [
+        {
+          "name": "debounceDelay",
+          "description": "The delay in milliseconds before the state is updated (disabled by default for retro-compatibility).",
+          "type": "number",
+          "rawType": "number",
+          "required": false
+        },
+        {
+          "name": "initializeWithValue",
+          "description": "If `true` (default), the hook will initialize reading the window size. In SSR, you should set it to `false`, returning `undefined` initially.",
+          "type": "InitializeWithValue",
+          "rawType": "InitializeWithValue",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "height",
+      "description": "The height of the window.",
+      "type": "T",
+      "required": true
+    },
+    {
+      "name": "width",
+      "description": "The width of the window.",
+      "type": "T",
+      "required": true
+    }
+  ]
+}

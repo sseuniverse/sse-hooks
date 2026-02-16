@@ -1,0 +1,28 @@
+{
+  "name": "useRoleGuard",
+  "description": "Custom hook for Role-Based Access Control (RBAC).\r Checks if a user has specific permissions and handles redirection for unauthorized access.",
+  "props": [
+    {
+      "name": "requiredRoles",
+      "description": "The list of roles required to access the resource.",
+      "type": "string[]",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "options",
+      "description": "Configuration options including user object and redirect paths.",
+      "type": "UseRoleGuardOptions",
+      "required": false,
+      "default": "{}"
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "UseRoleGuardReturn",
+      "required": true
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "useCounter",
+  "description": "Custom hook that manages a counter with increment, decrement, reset, and setCount functionalities.",
+  "props": [
+    {
+      "name": "initialValue",
+      "description": "The initial value for the counter.",
+      "type": "number",
+      "required": false,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "count",
+      "description": "The current count value.",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "decrement",
+      "description": "Function to decrement the counter by 1.",
+      "type": "() => void",
+      "required": true
+    },
+    {
+      "name": "increment",
+      "description": "Function to increment the counter by 1.",
+      "type": "() => void",
+      "required": true
+    },
+    {
+      "name": "reset",
+      "description": "Function to reset the counter to its initial value.",
+      "type": "() => void",
+      "required": true
+    },
+    {
+      "name": "setCount",
+      "description": "Function to set a specific value to the counter.",
+      "type": "React.Dispatch<React.SetStateAction<number>>",
+      "required": true
+    }
+  ]
+}

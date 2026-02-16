@@ -1,0 +1,23 @@
+{
+  "name": "useMap",
+  "description": "Custom hook that manages a key-value [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) state with setter actions.",
+  "props": [
+    {
+      "name": "initialState",
+      "description": "The initial state of the map as a Map or an array of key-value pairs (optional).",
+      "type": "MapOrEntries<K, V>",
+      "rawType": "Map<K, V> | [K, V][]",
+      "required": false,
+      "default": "..."
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "UseMapReturn<K, V>",
+      "rawType": "[Omit<Map<K, V>, \"set\" | \"clear\" | \"delete\">, UseMapActions<K, V>]",
+      "required": true
+    }
+  ]
+}

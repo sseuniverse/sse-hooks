@@ -1,0 +1,21 @@
+{
+  "name": "useMemoizedFn",
+  "description": "A hook that returns a memoized version of a function. \r Unlike `useCallback`, the function identity remains stable across re-renders, \r but it always has access to the latest props and state without needing a dependency array.\r This is particularly useful for passing callbacks to optimized child components \r to prevent unnecessary re-renders while avoiding closure staleness.",
+  "props": [
+    {
+      "name": "fn",
+      "description": "The function to be memoized.",
+      "type": "T",
+      "required": true,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "PickFunction<T>",
+      "required": true
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "name": "useCountdown",
+  "description": "Custom hook that manages countdown.",
+  "props": [
+    {
+      "name": "countdownOptions",
+      "description": "The countdown's options.",
+      "type": "CountdownOptions",
+      "required": true,
+      "default": "",
+      "schema": [
+        {
+          "name": "countStart",
+          "description": "The countdown's starting number, initial value of the returned number.",
+          "type": "number",
+          "rawType": "number",
+          "required": true
+        },
+        {
+          "name": "countStop",
+          "description": "The countdown's stopping number. Pass `-Infinity` to decrease forever.",
+          "type": "number",
+          "rawType": "number",
+          "required": false
+        },
+        {
+          "name": "intervalMs",
+          "description": "The countdown's interval, in milliseconds.",
+          "type": "number",
+          "rawType": "number",
+          "required": false
+        },
+        {
+          "name": "isIncrement",
+          "description": "True if the countdown is increment.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "[0]",
+      "description": "",
+      "type": "number",
+      "required": true
+    },
+    {
+      "name": "[1]",
+      "description": "",
+      "type": "CountdownControllers",
+      "required": true,
+      "schema": [
+        {
+          "name": "resetCountdown",
+          "description": "Reset the countdown.",
+          "type": "() => void",
+          "rawType": "() => void",
+          "required": true
+        },
+        {
+          "name": "startCountdown",
+          "description": "Start the countdown.",
+          "type": "() => void",
+          "rawType": "() => void",
+          "required": true
+        },
+        {
+          "name": "stopCountdown",
+          "description": "Stop the countdown.",
+          "type": "() => void",
+          "rawType": "() => void",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

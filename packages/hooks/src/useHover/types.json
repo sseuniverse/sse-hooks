@@ -1,0 +1,21 @@
+{
+  "name": "useHover",
+  "description": "Custom hook that tracks whether a DOM element is being hovered over.",
+  "props": [
+    {
+      "name": "elementRef",
+      "description": "The ref object for the DOM element to track.",
+      "type": "RefObject<T>",
+      "required": true,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "boolean",
+      "required": true
+    }
+  ]
+}

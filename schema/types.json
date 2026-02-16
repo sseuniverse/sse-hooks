@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HookMeta",
+  "description": "Meta information for a Hook, styled like ui.nuxt.com API definitions.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the hook (e.g., useAudioRecorder)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Summary description of the hook extracted from JSDoc."
+    },
+    "props": {
+      "type": "array",
+      "description": "The parameters/arguments the hook accepts.",
+      "items": { "$ref": "#/definitions/PropertyMeta" }
+    },
+    "returns": {
+      "type": "array",
+      "description": "The exposed variables, states, or functions returned by the hook.",
+      "items": { "$ref": "#/definitions/PropertyMeta" }
+    }
+  },
+  "required": ["name", "description", "props", "returns"],
+  "definitions": {
+    "PropertyMeta": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "type": { "type": "string" },
+        "required": { "type": "boolean" },
+        "default": { "type": "string" }
+      },
+      "required": ["name", "description", "type", "required"]
+    }
+  }
+}

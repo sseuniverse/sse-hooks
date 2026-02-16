@@ -1,0 +1,50 @@
+{
+  "name": "useResizeObserver",
+  "description": "Custom hook that observes the size of an element using the [`ResizeObserver API`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).",
+  "props": [
+    {
+      "name": "options",
+      "description": "The options for the ResizeObserver.",
+      "type": "UseResizeObserverOptions<T>",
+      "required": true,
+      "default": "",
+      "schema": [
+        {
+          "name": "box",
+          "description": "The box model to use for the ResizeObserver.",
+          "type": "\"border-box\" | \"content-box\" | \"device-pixel-content-box\"",
+          "rawType": "\"border-box\" | \"content-box\" | \"device-pixel-content-box\"",
+          "required": false
+        },
+        {
+          "name": "onResize",
+          "description": "When using `onResize`, the hook doesn't re-render on element size changes; it delegates handling to the provided callback.",
+          "type": "(size: Size) => void",
+          "rawType": "(size: Size) => void",
+          "required": false
+        },
+        {
+          "name": "ref",
+          "description": "The ref of the element to observe.",
+          "type": "RefObject<T>",
+          "rawType": "RefObject<T>",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "height",
+      "description": "The height of the observed element.",
+      "type": "number | undefined",
+      "required": true
+    },
+    {
+      "name": "width",
+      "description": "The width of the observed element.",
+      "type": "number | undefined",
+      "required": true
+    }
+  ]
+}

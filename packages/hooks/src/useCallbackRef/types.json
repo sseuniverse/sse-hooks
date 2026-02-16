@@ -1,0 +1,21 @@
+{
+  "name": "useCallbackRef",
+  "description": "A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a prop or avoid re-executing effects when passed as a dependency",
+  "props": [
+    {
+      "name": "callback",
+      "description": "The callback function to store in a ref. It can be undefined.",
+      "type": "T | undefined",
+      "required": true,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "T",
+      "required": true
+    }
+  ]
+}

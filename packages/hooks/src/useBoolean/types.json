@@ -1,0 +1,45 @@
+{
+  "name": "useBoolean",
+  "description": "Custom hook that handles boolean state with useful utility functions.",
+  "props": [
+    {
+      "name": "defaultValue",
+      "description": "The initial value for the boolean state (default is `false`).",
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    }
+  ],
+  "returns": [
+    {
+      "name": "setFalse",
+      "description": "Function to set the boolean state to `false`.",
+      "type": "() => void",
+      "required": true
+    },
+    {
+      "name": "setTrue",
+      "description": "Function to set the boolean state to `true`.",
+      "type": "() => void",
+      "required": true
+    },
+    {
+      "name": "setValue",
+      "description": "Function to set the boolean state directly.",
+      "type": "React.Dispatch<React.SetStateAction<boolean>>",
+      "required": true
+    },
+    {
+      "name": "toggle",
+      "description": "Function to toggle the boolean state.",
+      "type": "() => void",
+      "required": true
+    },
+    {
+      "name": "value",
+      "description": "The current boolean state value.",
+      "type": "boolean",
+      "required": true
+    }
+  ]
+}

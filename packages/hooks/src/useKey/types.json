@@ -1,0 +1,51 @@
+{
+  "name": "useKey",
+  "description": "A powerful sensor hook for handling keyboard shortcuts, sequences, and modifiers.\r \r It supports complex key combinations (`Ctrl+Shift+S`), Gmail-style sequences (`g then i`),\r and provides metadata for generating \"Keyboard Shortcut\" UI help modals.",
+  "props": [
+    {
+      "name": "keyMap",
+      "description": "An object defining the key bindings and their actions.",
+      "type": "KeyMap",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "options",
+      "description": "Global configuration options.",
+      "type": "UseKeyOptions",
+      "required": false,
+      "default": "{}"
+    }
+  ],
+  "returns": [
+    {
+      "name": "bindings",
+      "description": "",
+      "type": "Object[]",
+      "required": true,
+      "schema": [
+        {
+          "name": "category",
+          "description": "",
+          "type": "string",
+          "rawType": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "description": "",
+          "type": "string",
+          "rawType": "string",
+          "required": true
+        },
+        {
+          "name": "keys",
+          "description": "",
+          "type": "string",
+          "rawType": "string",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

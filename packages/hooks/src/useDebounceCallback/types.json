@@ -1,0 +1,59 @@
+{
+  "name": "useDebounceCallback",
+  "description": "Custom hook that creates a debounced version of a callback function.",
+  "props": [
+    {
+      "name": "func",
+      "description": "The callback function to be debounced.",
+      "type": "T",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "delay",
+      "description": "The delay in milliseconds before the callback is invoked (default is `500` milliseconds).",
+      "type": "number",
+      "required": true,
+      "default": "500"
+    },
+    {
+      "name": "options",
+      "description": "Options to control the behavior of the debounced function.",
+      "type": "DebounceOptions",
+      "required": false,
+      "default": "",
+      "schema": [
+        {
+          "name": "leading",
+          "description": "Determines whether the function should be invoked on the leading edge of the timeout.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        },
+        {
+          "name": "maxWait",
+          "description": "The maximum time the specified function is allowed to be delayed before it is invoked.",
+          "type": "number",
+          "rawType": "number",
+          "required": false
+        },
+        {
+          "name": "trailing",
+          "description": "Determines whether the function should be invoked on the trailing edge of the timeout.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "DebouncedState<T>",
+      "rawType": "(args: Parameters<T>) => ReturnType<T> | undefined & ControlFunctions",
+      "required": true
+    }
+  ]
+}

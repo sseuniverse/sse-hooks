@@ -1,0 +1,42 @@
+{
+  "name": "useEventListener",
+  "description": "",
+  "props": [
+    {
+      "name": "eventName",
+      "description": "",
+      "type": "K",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "handler",
+      "description": "",
+      "type": "(event: any) => void",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "element",
+      "description": "",
+      "type": "RefObject<MediaQueryList>",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "options",
+      "description": "",
+      "type": "boolean | AddEventListenerOptions",
+      "required": false,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "void",
+      "required": true
+    }
+  ]
+}

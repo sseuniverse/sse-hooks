@@ -1,0 +1,21 @@
+{
+  "name": "useEventCallback",
+  "description": "Custom hook that creates a memoized event callback.",
+  "props": [
+    {
+      "name": "fn",
+      "description": "The callback function.",
+      "type": "(args: Args) => R",
+      "required": true,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "(args: Args) => R",
+      "required": true
+    }
+  ]
+}

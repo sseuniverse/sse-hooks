@@ -1,0 +1,13 @@
+{
+  "name": "useSymbol",
+  "description": "Custom hook for managing ES6 Symbols. Provides utilities to create unique symbols,\r manage a registry of symbols, and access well-known symbols.",
+  "props": [],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "UseSymbolReturn",
+      "required": true
+    }
+  ]
+}

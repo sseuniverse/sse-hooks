@@ -1,0 +1,21 @@
+{
+  "name": "useForkRef",
+  "description": "Merges refs into a single memoized callback ref or `null`.",
+  "props": [
+    {
+      "name": "refs",
+      "description": "The ref array.",
+      "type": "Ref<Instance> | undefined[]",
+      "required": true,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "(instance: Instance | null) => void | () => VoidOrUndefinedOnly | null",
+      "required": true
+    }
+  ]
+}

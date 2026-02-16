@@ -1,0 +1,13 @@
+{
+  "name": "useNetworkInformation",
+  "description": "Custom hook that tracks the device's network connection status and details (speed, type)\r using the Network Information API.",
+  "props": [],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "UseNetworkInformationReturn",
+      "required": true
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "name": "useAutoSave",
+  "description": "A robust hook for auto-saving form data with debouncing, race-condition handling, and lifecycle safety.\r \r It monitors the `data` state and triggers the `onSave` callback after a specified `delay` of inactivity.\r It also provides a smart `onChange` handler that adapts to both React Events and direct values.",
+  "props": [
+    {
+      "name": "initialData",
+      "description": "The initial state of the data object.",
+      "type": "T",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "onSave",
+      "description": "The async function to call when data changes. Receives the clean data payload.",
+      "type": "(data: Omit<T, K>) => void | Promise<void>",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "config",
+      "description": "Configuration options.",
+      "type": "BaseConfig & Object",
+      "required": false,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "data",
+      "description": "The current state of the data.",
+      "type": "T",
+      "required": true
+    },
+    {
+      "name": "isSaving",
+      "description": "Indicates if a save operation is currently in progress.",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "onChange",
+      "description": "A smart change handler factory.\r Can be used with standard inputs `onChange(\"name\")` or direct values `onChange(\"age\")(30)`.",
+      "type": "(key: any) => (valueOrEvent: any) => void",
+      "required": true
+    },
+    {
+      "name": "setData",
+      "description": "Standard React state setter for the data.",
+      "type": "Dispatch<SetStateAction<T>>",
+      "required": true
+    }
+  ]
+}

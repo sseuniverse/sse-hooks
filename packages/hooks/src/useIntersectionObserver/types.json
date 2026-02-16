@@ -1,0 +1,66 @@
+{
+  "name": "useIntersectionObserver",
+  "description": "Custom hook that tracks the intersection of a DOM element with its containing element or the viewport using the [`Intersection Observer API`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).",
+  "props": [
+    {
+      "name": "options",
+      "description": "The options for the Intersection Observer.",
+      "type": "UseIntersectionObserverOptions",
+      "required": true,
+      "default": "{}",
+      "schema": [
+        {
+          "name": "freezeOnceVisible",
+          "description": "If true, freezes the intersection state once the element becomes visible.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        },
+        {
+          "name": "initialIsIntersecting",
+          "description": "The initial state of the intersection.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        },
+        {
+          "name": "onChange",
+          "description": "A callback function to be invoked when the intersection state changes.",
+          "type": "(isIntersecting: boolean, entry: IntersectionObserverEntry) => void",
+          "rawType": "(isIntersecting: boolean, entry: IntersectionObserverEntry) => void",
+          "required": false
+        },
+        {
+          "name": "root",
+          "description": "The element that is used as the viewport for checking visibility of the target.",
+          "type": "Element | Document | null",
+          "rawType": "Element | Document | null",
+          "required": false
+        },
+        {
+          "name": "rootMargin",
+          "description": "A margin around the root.",
+          "type": "string",
+          "rawType": "string",
+          "required": false
+        },
+        {
+          "name": "threshold",
+          "description": "A threshold indicating the percentage of the target's visibility needed to trigger the callback.",
+          "type": "number | number[]",
+          "rawType": "number | number[]",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "IntersectionReturn",
+      "rawType": "[(node: Element | null) => void, boolean, IntersectionObserverEntry | undefined] & Object",
+      "required": true
+    }
+  ]
+}

@@ -1,0 +1,2662 @@
+[
+  {
+    "name": "useAudioRecorder",
+    "description": "A comprehensive hook for audio recording with real-time analysis using getUserMedia, MediaRecorder, and Web Audio APIs",
+    "props": [
+      {
+        "name": "options",
+        "description": "Configuration options for audio recording.",
+        "type": "UseAudioRecorderOptions",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "audioBitsPerSecond",
+            "description": "Audio bitrate in bits per second.",
+            "type": "number",
+            "rawType": "number",
+            "required": false
+          },
+          {
+            "name": "enableAnalysis",
+            "description": "If set, enables real-time audio analysis during recording.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "fftSize",
+            "description": "FFT size for audio analysis.",
+            "type": "number",
+            "rawType": "number",
+            "required": false
+          },
+          {
+            "name": "mimeType",
+            "description": "MIME type for the recorded audio.",
+            "type": "AudioMimeType",
+            "rawType": "\"audio/webm\" | \"audio/webm;codecs=opus\" | \"audio/webm;codecs=vorbis\" | \"audio/ogg\" | \"audio/ogg;codecs=opus\" | \"audio/ogg;codecs=vorbis\" | \"application/ogg\" | \"audio/mp4\" | \"audio/mp4;codecs=mp4a.40.2\" | \"audio/aac\" | \"audio/x-m4a\" | \"audio/mpeg\" | \"audio/mp3\" | \"audio/wav\" | \"audio/x-wav\" | \"audio/wave\" | \"audio/flac\" | \"audio/3gpp\" | \"audio/3gpp2\"",
+            "required": false
+          },
+          {
+            "name": "timeslice",
+            "description": "Timeslice (ms) for MediaRecorder data chunks.",
+            "type": "number",
+            "rawType": "number",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "analysisData",
+        "description": "Live audio analysis data.",
+        "type": "AudioAnalysisData | null",
+        "required": true
+      },
+      {
+        "name": "audioBlob",
+        "description": "Final recorded audio blob.",
+        "type": "Blob | null",
+        "required": true
+      },
+      {
+        "name": "audioUrl",
+        "description": "Object URL for the recorded audio.",
+        "type": "string | null",
+        "required": true
+      },
+      {
+        "name": "clearRecording",
+        "description": "Clears the current recording state.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "downloadRecording",
+        "description": "Downloads the recording as a file.",
+        "type": "(filename: string) => void",
+        "required": true
+      },
+      {
+        "name": "duration",
+        "description": "Duration of the recording in seconds.",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "error",
+        "description": "Error message if recording fails.",
+        "type": "string | null",
+        "required": true
+      },
+      {
+        "name": "isPaused",
+        "description": "Whether recording is currently paused.",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "isRecording",
+        "description": "Whether recording is currently active.",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "isSupported",
+        "description": "Whether audio recording is supported in the current browser.",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "mediaRecorder",
+        "description": "MediaRecorder instance.",
+        "type": "MediaRecorder | null",
+        "required": true
+      },
+      {
+        "name": "pauseRecording",
+        "description": "Pauses the recording.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "resumeRecording",
+        "description": "Resumes a paused recording.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "startRecording",
+        "description": "Starts audio recording.",
+        "type": "() => Promise<void>",
+        "required": true
+      },
+      {
+        "name": "stopRecording",
+        "description": "Stops audio recording.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "stream",
+        "description": "Active media stream.",
+        "type": "MediaStream | null",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useAutoSave",
+    "description": "A robust hook for auto-saving form data with debouncing, race-condition handling, and lifecycle safety.\r \r It monitors the `data` state and triggers the `onSave` callback after a specified `delay` of inactivity.\r It also provides a smart `onChange` handler that adapts to both React Events and direct values.",
+    "props": [
+      {
+        "name": "initialData",
+        "description": "The initial state of the data object.",
+        "type": "T",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "onSave",
+        "description": "The async function to call when data changes. Receives the clean data payload.",
+        "type": "(data: Omit<T, K>) => void | Promise<void>",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "config",
+        "description": "Configuration options.",
+        "type": "BaseConfig & Object",
+        "required": false,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "data",
+        "description": "The current state of the data.",
+        "type": "T",
+        "required": true
+      },
+      {
+        "name": "isSaving",
+        "description": "Indicates if a save operation is currently in progress.",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "onChange",
+        "description": "A smart change handler factory.\r Can be used with standard inputs `onChange(\"name\")` or direct values `onChange(\"age\")(30)`.",
+        "type": "(key: any) => (valueOrEvent: any) => void",
+        "required": true
+      },
+      {
+        "name": "setData",
+        "description": "Standard React state setter for the data.",
+        "type": "Dispatch<SetStateAction<T>>",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useBattery",
+    "description": "",
+    "props": [],
+    "returns": []
+  },
+  {
+    "name": "useBoolean",
+    "description": "Custom hook that handles boolean state with useful utility functions.",
+    "props": [
+      {
+        "name": "defaultValue",
+        "description": "The initial value for the boolean state (default is `false`).",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      }
+    ],
+    "returns": [
+      {
+        "name": "setFalse",
+        "description": "Function to set the boolean state to `false`.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "setTrue",
+        "description": "Function to set the boolean state to `true`.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "setValue",
+        "description": "Function to set the boolean state directly.",
+        "type": "React.Dispatch<React.SetStateAction<boolean>>",
+        "required": true
+      },
+      {
+        "name": "toggle",
+        "description": "Function to toggle the boolean state.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "value",
+        "description": "The current boolean state value.",
+        "type": "boolean",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useBreakpoint",
+    "description": "",
+    "props": [],
+    "returns": []
+  },
+  {
+    "name": "useCallbackRef",
+    "description": "A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a prop or avoid re-executing effects when passed as a dependency",
+    "props": [
+      {
+        "name": "callback",
+        "description": "The callback function to store in a ref. It can be undefined.",
+        "type": "T | undefined",
+        "required": true,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "T",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useClickAnyWhere",
+    "description": "Custom hook that handles click events anywhere on the document.",
+    "props": [
+      {
+        "name": "handler",
+        "description": "The function to be called when a click event is detected anywhere on the document.",
+        "type": "(event: MouseEvent) => void",
+        "required": true,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useClickAway",
+    "description": "Custom hook that triggers a callback when a user clicks outside the referenced element.\r It handles portal elements, scrollbar clicks, and touch interactions intelligently.",
+    "props": [
+      {
+        "name": "onClickAway",
+        "description": "The callback function to be called when a click outside is detected.",
+        "type": "(event: MouseEvent | TouchEvent) => void",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "Configuration options for the hook.",
+        "type": "UseClickAwayOptions",
+        "required": true,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "disableReactTree",
+            "description": "If `true`, the React tree is ignored and only the DOM tree is considered.\r This prop changes how portaled elements are handled.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "mouseEvent",
+            "description": "The mouse event to listen to. You can disable the listener by providing `false`.",
+            "type": "false | ClickAwayMouseEventHandler",
+            "rawType": "false | \"onClick\" | \"onMouseDown\" | \"onMouseUp\" | \"onPointerDown\" | \"onPointerUp\"",
+            "required": false
+          },
+          {
+            "name": "ref",
+            "description": "An external ref to merge with the hook's internal ref.\r Useful if you need to access the DOM element outside of this hook.",
+            "type": "Ref<Element>",
+            "rawType": "Ref<Element>",
+            "required": false
+          },
+          {
+            "name": "touchEvent",
+            "description": "The touch event to listen to. You can disable the listener by providing `false`.",
+            "type": "false | ClickAwayTouchEventHandler",
+            "rawType": "false | \"onTouchStart\" | \"onTouchEnd\"",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "listenerProps",
+        "description": "",
+        "type": "Record<string, any>",
+        "required": true
+      },
+      {
+        "name": "ref",
+        "description": "",
+        "type": "Ref<Element>",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useConferenceSystem",
+    "description": "A comprehensive hook for managing video conferencing state, including camera access, screen sharing, network monitoring, and automatic media quality adjustment.",
+    "props": [
+      {
+        "name": "options",
+        "description": "Configuration options for the conference system.",
+        "type": "UseConferenceSystemOptions",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "defaultAutoQuality",
+            "description": "Whether to enable automatic network-based quality scaling on mount.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "camera",
+        "description": "Camera management and state",
+        "type": "Object",
+        "required": true,
+        "schema": [
+          {
+            "name": "error",
+            "description": "Error message if camera access or capture fails.",
+            "type": "string | null",
+            "rawType": "string | null",
+            "required": true
+          },
+          {
+            "name": "isActive",
+            "description": "Whether the camera stream is currently active.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": true
+          },
+          {
+            "name": "isLoading",
+            "description": "Indicates if the camera is currently requesting permissions or initializing.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": true
+          },
+          {
+            "name": "start",
+            "description": "Starts the camera capture with optional constraints.",
+            "type": "(constraints: UseUserMediaConstraints) => Promise<void>",
+            "rawType": "(constraints: UseUserMediaConstraints) => Promise<void>",
+            "required": true
+          },
+          {
+            "name": "stop",
+            "description": "Stops the camera capture and clears the stream.",
+            "type": "() => void",
+            "rawType": "() => void",
+            "required": true
+          },
+          {
+            "name": "stream",
+            "description": "The active MediaStream for the camera, or null if inactive.",
+            "type": "MediaStream | null",
+            "rawType": "MediaStream | null",
+            "required": true
+          }
+        ]
+      },
+      {
+        "name": "network",
+        "description": "Network status and telemetry",
+        "type": "Object",
+        "required": true,
+        "schema": [
+          {
+            "name": "isOnline",
+            "description": "Boolean indicating if the browser has an active internet connection.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": true
+          },
+          {
+            "name": "speed",
+            "description": "Estimated downlink speed in Mbps.",
+            "type": "number",
+            "rawType": "number",
+            "required": true
+          },
+          {
+            "name": "type",
+            "description": "The network connection type (e.g., '4g', 'wifi', 'unknown').",
+            "type": "string",
+            "rawType": "string",
+            "required": true
+          }
+        ]
+      },
+      {
+        "name": "quality",
+        "description": "Media quality management",
+        "type": "Object",
+        "required": true,
+        "schema": [
+          {
+            "name": "current",
+            "description": "The currently applied quality level ('low', 'medium', 'high').",
+            "type": "MediaQuality",
+            "rawType": "MediaQuality",
+            "required": true
+          },
+          {
+            "name": "isAuto",
+            "description": "Whether automatic quality adjustment is currently enabled.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": true
+          },
+          {
+            "name": "isChanging",
+            "description": "Whether a quality transition is currently in progress.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": true
+          },
+          {
+            "name": "set",
+            "description": "Manually sets the media quality level (overrides auto-quality).",
+            "type": "(level: MediaQuality) => Promise<void>",
+            "rawType": "(level: MediaQuality) => Promise<void>",
+            "required": true
+          },
+          {
+            "name": "toggleAuto",
+            "description": "Toggles the automatic quality scaling logic on or off.",
+            "type": "() => void",
+            "rawType": "() => void",
+            "required": true
+          }
+        ]
+      },
+      {
+        "name": "screen",
+        "description": "Screen sharing management and state",
+        "type": "Object",
+        "required": true,
+        "schema": [
+          {
+            "name": "error",
+            "description": "Error message if screen share access fails or is denied.",
+            "type": "string | null",
+            "rawType": "string | null",
+            "required": true
+          },
+          {
+            "name": "isActive",
+            "description": "Whether the screen share is currently active.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": true
+          },
+          {
+            "name": "start",
+            "description": "Starts the screen share capture process.",
+            "type": "(options: UseScreenShareOptions) => Promise<void>",
+            "rawType": "(options: UseScreenShareOptions) => Promise<void>",
+            "required": true
+          },
+          {
+            "name": "stop",
+            "description": "Stops the screen share and clears the stream.",
+            "type": "() => void",
+            "rawType": "() => void",
+            "required": true
+          },
+          {
+            "name": "stream",
+            "description": "The active MediaStream for screen sharing, or null if inactive.",
+            "type": "MediaStream | null",
+            "rawType": "MediaStream | null",
+            "required": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "useCookie",
+    "description": "Custom hook that manages state synchronized with a browser [`cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies). It handles serialization, prefixes, updates across tabs, and custom event synchronization.",
+    "props": [
+      {
+        "name": "key",
+        "description": "The base name of the cookie.",
+        "type": "string",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "initialValue",
+        "description": "The initial value of the state.",
+        "type": "T | () => T",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "Options for customization.",
+        "type": "UseCookieOptions<T>",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "defaultValue",
+            "description": "The default value to return if the cookie is not found.",
+            "type": "T",
+            "rawType": "T",
+            "required": false
+          },
+          {
+            "name": "deserializer",
+            "description": "A function to deserialize the stored value.",
+            "type": "(value: string) => T",
+            "rawType": "(value: string) => T",
+            "required": false
+          },
+          {
+            "name": "domain",
+            "description": "The domain for which the cookie is valid.",
+            "type": "string",
+            "rawType": "string",
+            "required": false
+          },
+          {
+            "name": "expires",
+            "description": "The expiration date of the cookie.",
+            "type": "Date",
+            "rawType": "Date",
+            "required": false
+          },
+          {
+            "name": "initializeWithValue",
+            "description": "If `true` (default), the hook will initialize reading the cookie.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "maxAge",
+            "description": "The maximum age of the cookie in seconds.",
+            "type": "number",
+            "rawType": "number",
+            "required": false
+          },
+          {
+            "name": "path",
+            "description": "The path within the site for which the cookie is valid.",
+            "type": "string",
+            "rawType": "string",
+            "required": false
+          },
+          {
+            "name": "prefix",
+            "description": "A prefix to be prepended to the key (e.g., \"myApp_\").\r Useful for namespacing or complying with cookie prefixes like `__Secure-` or `__Host-`.",
+            "type": "string",
+            "rawType": "string",
+            "required": false
+          },
+          {
+            "name": "sameSite",
+            "description": "Controls whether the cookie is sent with cross-site requests.",
+            "type": "\"lax\" | \"strict\" | \"none\"",
+            "rawType": "\"lax\" | \"strict\" | \"none\"",
+            "required": false
+          },
+          {
+            "name": "secure",
+            "description": "If `true`, the cookie is only transmitted over secure protocols (HTTPS).",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "serializer",
+            "description": "A function to serialize the value before storing it.",
+            "type": "(value: T) => string",
+            "rawType": "(value: T) => string",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "[0]",
+        "description": "",
+        "type": "T",
+        "required": true
+      },
+      {
+        "name": "[1]",
+        "description": "",
+        "type": "Dispatch<SetStateAction<T>>",
+        "required": true
+      },
+      {
+        "name": "[2]",
+        "description": "",
+        "type": "() => void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useCopyToClipboard",
+    "description": "Custom hook that copies text to the clipboard using the [`Clipboard API`](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API).",
+    "props": [],
+    "returns": [
+      {
+        "name": "[0]",
+        "description": "",
+        "type": "CopiedValue",
+        "rawType": "string | null",
+        "required": true
+      },
+      {
+        "name": "[1]",
+        "description": "",
+        "type": "CopyFn",
+        "rawType": "(text: string) => Promise<boolean>",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useCountdown",
+    "description": "Custom hook that manages countdown.",
+    "props": [
+      {
+        "name": "countdownOptions",
+        "description": "The countdown's options.",
+        "type": "CountdownOptions",
+        "required": true,
+        "default": "",
+        "schema": [
+          {
+            "name": "countStart",
+            "description": "The countdown's starting number, initial value of the returned number.",
+            "type": "number",
+            "rawType": "number",
+            "required": true
+          },
+          {
+            "name": "countStop",
+            "description": "The countdown's stopping number. Pass `-Infinity` to decrease forever.",
+            "type": "number",
+            "rawType": "number",
+            "required": false
+          },
+          {
+            "name": "intervalMs",
+            "description": "The countdown's interval, in milliseconds.",
+            "type": "number",
+            "rawType": "number",
+            "required": false
+          },
+          {
+            "name": "isIncrement",
+            "description": "True if the countdown is increment.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "[0]",
+        "description": "",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "[1]",
+        "description": "",
+        "type": "CountdownControllers",
+        "required": true,
+        "schema": [
+          {
+            "name": "resetCountdown",
+            "description": "Reset the countdown.",
+            "type": "() => void",
+            "rawType": "() => void",
+            "required": true
+          },
+          {
+            "name": "startCountdown",
+            "description": "Start the countdown.",
+            "type": "() => void",
+            "rawType": "() => void",
+            "required": true
+          },
+          {
+            "name": "stopCountdown",
+            "description": "Stop the countdown.",
+            "type": "() => void",
+            "rawType": "() => void",
+            "required": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "useCounter",
+    "description": "Custom hook that manages a counter with increment, decrement, reset, and setCount functionalities.",
+    "props": [
+      {
+        "name": "initialValue",
+        "description": "The initial value for the counter.",
+        "type": "number",
+        "required": false,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "count",
+        "description": "The current count value.",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "decrement",
+        "description": "Function to decrement the counter by 1.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "increment",
+        "description": "Function to increment the counter by 1.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "reset",
+        "description": "Function to reset the counter to its initial value.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "setCount",
+        "description": "Function to set a specific value to the counter.",
+        "type": "React.Dispatch<React.SetStateAction<number>>",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useDarkMode",
+    "description": "Custom hook that returns the current state of the dark mode.",
+    "props": [
+      {
+        "name": "options",
+        "description": "The initial value of the dark mode, default `false`.",
+        "type": "DarkModeOptions",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "defaultValue",
+            "description": "The initial value of the dark mode.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "initializeWithValue",
+            "description": "If `true` (default), the hook will initialize reading `localStorage`.\r In SSR, you should set it to `false`, returning the `defaultValue` or `false` initially.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "localStorageKey",
+            "description": "The key to use in the local storage.",
+            "type": "string",
+            "rawType": "string",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "disable",
+        "description": "Function to disable the dark mode.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "enable",
+        "description": "Function to enable the dark mode.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "isDarkMode",
+        "description": "The current state of the dark mode.",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "set",
+        "description": "Function to set a specific value to the dark mode.",
+        "type": "(value: boolean) => void",
+        "required": true
+      },
+      {
+        "name": "toggle",
+        "description": "Function to toggle the dark mode.",
+        "type": "() => void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useDebounceCallback",
+    "description": "Custom hook that creates a debounced version of a callback function.",
+    "props": [
+      {
+        "name": "func",
+        "description": "The callback function to be debounced.",
+        "type": "T",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "delay",
+        "description": "The delay in milliseconds before the callback is invoked (default is `500` milliseconds).",
+        "type": "number",
+        "required": true,
+        "default": "500"
+      },
+      {
+        "name": "options",
+        "description": "Options to control the behavior of the debounced function.",
+        "type": "DebounceOptions",
+        "required": false,
+        "default": "",
+        "schema": [
+          {
+            "name": "leading",
+            "description": "Determines whether the function should be invoked on the leading edge of the timeout.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "maxWait",
+            "description": "The maximum time the specified function is allowed to be delayed before it is invoked.",
+            "type": "number",
+            "rawType": "number",
+            "required": false
+          },
+          {
+            "name": "trailing",
+            "description": "Determines whether the function should be invoked on the trailing edge of the timeout.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "DebouncedState<T>",
+        "rawType": "(args: Parameters<T>) => ReturnType<T> | undefined & ControlFunctions",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useDebounceValue",
+    "description": "Custom hook that returns a debounced version of the provided value, along with a function to update it.",
+    "props": [
+      {
+        "name": "initialValue",
+        "description": "The value to be debounced.",
+        "type": "T | () => T",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "delay",
+        "description": "The delay in milliseconds before the value is updated (default is 500ms).",
+        "type": "number",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "Optional configurations for the debouncing behavior.",
+        "type": "UseDebounceValueOptions<T>",
+        "required": false,
+        "default": "",
+        "schema": [
+          {
+            "name": "equalityFn",
+            "description": "A function to determine if the value has changed. Defaults to a function that checks if the value is strictly equal to the previous value.",
+            "type": "(left: T, right: T) => boolean",
+            "rawType": "(left: T, right: T) => boolean",
+            "required": false
+          },
+          {
+            "name": "leading",
+            "description": "Determines whether the function should be invoked on the leading edge of the timeout.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "maxWait",
+            "description": "The maximum time the specified function is allowed to be delayed before it is invoked.",
+            "type": "number",
+            "rawType": "number",
+            "required": false
+          },
+          {
+            "name": "trailing",
+            "description": "Determines whether the function should be invoked on the trailing edge of the timeout.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "[0]",
+        "description": "",
+        "type": "T",
+        "required": true
+      },
+      {
+        "name": "[1]",
+        "description": "",
+        "type": "DebouncedState<(value: T) => void>",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useDocumentTitle",
+    "description": "Custom hook that sets the document title.",
+    "props": [
+      {
+        "name": "title",
+        "description": "The title to set.",
+        "type": "string",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "The options.",
+        "type": "UseDocumentTitleOptions",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "preserveTitleOnUnmount",
+            "description": "Whether to keep the title after unmounting the component (default is `true`).",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useEventCallback",
+    "description": "Custom hook that creates a memoized event callback.",
+    "props": [
+      {
+        "name": "fn",
+        "description": "The callback function.",
+        "type": "(args: Args) => R",
+        "required": true,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "(args: Args) => R",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useEventListener",
+    "description": "",
+    "props": [
+      {
+        "name": "eventName",
+        "description": "",
+        "type": "K",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "handler",
+        "description": "",
+        "type": "(event: any) => void",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "element",
+        "description": "",
+        "type": "RefObject<MediaQueryList>",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "",
+        "type": "boolean | AddEventListenerOptions",
+        "required": false,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useFavicon",
+    "description": "Custom hook that sets the document favicon.",
+    "props": [
+      {
+        "name": "href",
+        "description": "The URL of the favicon to set.",
+        "type": "string",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "Configuration options.",
+        "type": "UseFaviconOptions",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "preserveFaviconOnUnmount",
+            "description": "Whether to keep the favicon after unmounting the component (default is `true`).\r If `false`, the favicon will revert to what it was before this hook mounted.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "type",
+            "description": "The MIME type of the favicon (default is `image/x-icon`).",
+            "type": "string",
+            "rawType": "string",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useFetch",
+    "description": "Custom hook that provides a wrapper around the native [`fetch API`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to handle HTTP requests with state management, abort capability, and TypeScript support.",
+    "props": [
+      {
+        "name": "url",
+        "description": "The URL to fetch.",
+        "type": "string",
+        "required": false,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "Options for customizing the request and hook behavior (optional).",
+        "type": "UseFetchOptions",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "immediate",
+            "description": "If `true`, the fetch request will be executed immediately upon mounting or when the URL changes.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "onError",
+            "description": "Callback function invoked when the request fails.",
+            "type": "(error: Error) => void",
+            "rawType": "(error: Error) => void",
+            "required": false
+          },
+          {
+            "name": "onSuccess",
+            "description": "Callback function invoked when the request completes successfully.",
+            "type": "(data: any) => void",
+            "rawType": "(data: any) => void",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "abort",
+        "description": "Aborts the current request if it is pending.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "data",
+        "description": "The data received from the response, or null if not yet received.",
+        "type": "T | null",
+        "required": true
+      },
+      {
+        "name": "error",
+        "description": "The error object if the request failed, or null if successful.",
+        "type": "Error | null",
+        "required": true
+      },
+      {
+        "name": "execute",
+        "description": "Manually triggers the fetch request.",
+        "type": "(url: string, options: RequestInit) => Promise<T | null>",
+        "required": true
+      },
+      {
+        "name": "loading",
+        "description": "Indicates if the request is currently in progress.",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "reset",
+        "description": "Resets the state to its initial values (data: null, loading: false, error: null).",
+        "type": "() => void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useForkRef",
+    "description": "Merges refs into a single memoized callback ref or `null`.",
+    "props": [
+      {
+        "name": "refs",
+        "description": "The ref array.",
+        "type": "Ref<Instance> | undefined[]",
+        "required": true,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "(instance: Instance | null) => void | () => VoidOrUndefinedOnly | null",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useHover",
+    "description": "Custom hook that tracks whether a DOM element is being hovered over.",
+    "props": [
+      {
+        "name": "elementRef",
+        "description": "The ref object for the DOM element to track.",
+        "type": "RefObject<T>",
+        "required": true,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "boolean",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useIndexedDB",
+    "description": "Custom hook that provides an interface to the [`IndexedDB API`](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) for client-side storage of significant amounts of structured data.",
+    "props": [
+      {
+        "name": "databaseName",
+        "description": "The name of the IndexedDB database.",
+        "type": "string",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "storeName",
+        "description": "The name of the object store within the database.",
+        "type": "string",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "Configuration options for the database connection (optional).",
+        "type": "UseIndexedDBOptions",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "onUpgradeNeeded",
+            "description": "A callback function executed when the database version changes or is created.\r Use this to create or modify object stores.",
+            "type": "(db: IDBDatabase, oldVersion: number, newVersion: number) => void",
+            "rawType": "(db: IDBDatabase, oldVersion: number, newVersion: number) => void",
+            "required": false
+          },
+          {
+            "name": "version",
+            "description": "The version of the database. Changing this triggers an upgrade.",
+            "type": "number",
+            "rawType": "number",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "clear",
+        "description": "Removes all items from the current object store.",
+        "type": "() => Promise<void>",
+        "required": true
+      },
+      {
+        "name": "data",
+        "description": "The most recently accessed or modified data item.",
+        "type": "T | null",
+        "required": true
+      },
+      {
+        "name": "error",
+        "description": "The error message if an operation failed, or null if successful.",
+        "type": "string | null",
+        "required": true
+      },
+      {
+        "name": "getAllKeys",
+        "description": "Retrieves all keys currently stored in the object store.",
+        "type": "() => Promise<string[]>",
+        "required": true
+      },
+      {
+        "name": "getItem",
+        "description": "Retrieves a value from the database by its key.",
+        "type": "(key: string) => Promise<T | null>",
+        "required": true
+      },
+      {
+        "name": "loading",
+        "description": "Indicates if the database is initializing or an operation is in progress.",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "removeItem",
+        "description": "Removes an item from the database by its key.",
+        "type": "(key: string) => Promise<void>",
+        "required": true
+      },
+      {
+        "name": "setItem",
+        "description": "Stores a value in the database under the specified key.",
+        "type": "(key: string, value: T) => Promise<void>",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useIntersectionObserver",
+    "description": "Custom hook that tracks the intersection of a DOM element with its containing element or the viewport using the [`Intersection Observer API`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).",
+    "props": [
+      {
+        "name": "options",
+        "description": "The options for the Intersection Observer.",
+        "type": "UseIntersectionObserverOptions",
+        "required": true,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "freezeOnceVisible",
+            "description": "If true, freezes the intersection state once the element becomes visible.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "initialIsIntersecting",
+            "description": "The initial state of the intersection.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "onChange",
+            "description": "A callback function to be invoked when the intersection state changes.",
+            "type": "(isIntersecting: boolean, entry: IntersectionObserverEntry) => void",
+            "rawType": "(isIntersecting: boolean, entry: IntersectionObserverEntry) => void",
+            "required": false
+          },
+          {
+            "name": "root",
+            "description": "The element that is used as the viewport for checking visibility of the target.",
+            "type": "Element | Document | null",
+            "rawType": "Element | Document | null",
+            "required": false
+          },
+          {
+            "name": "rootMargin",
+            "description": "A margin around the root.",
+            "type": "string",
+            "rawType": "string",
+            "required": false
+          },
+          {
+            "name": "threshold",
+            "description": "A threshold indicating the percentage of the target's visibility needed to trigger the callback.",
+            "type": "number | number[]",
+            "rawType": "number | number[]",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "IntersectionReturn",
+        "rawType": "[(node: Element | null) => void, boolean, IntersectionObserverEntry | undefined] & Object",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useInterval",
+    "description": "Custom hook that creates an interval that invokes a callback function at a specified delay using the [`setInterval API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval).",
+    "props": [
+      {
+        "name": "callback",
+        "description": "The function to be invoked at each interval.",
+        "type": "() => void",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "delay",
+        "description": "The time, in milliseconds, between each invocation of the callback. Use `null` to clear the interval.",
+        "type": "number | null",
+        "required": true,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useIsClient",
+    "description": "Custom hook that determines if the code is running on the client side (in the browser).",
+    "props": [],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "boolean",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useIsMounted",
+    "description": "Custom hook that determines if the component is currently mounted.",
+    "props": [],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "() => boolean",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useIsomorphicLayoutEffect",
+    "description": "",
+    "props": [],
+    "returns": []
+  },
+  {
+    "name": "useKBD",
+    "description": "",
+    "props": [],
+    "returns": []
+  },
+  {
+    "name": "useKey",
+    "description": "A powerful sensor hook for handling keyboard shortcuts, sequences, and modifiers.\r \r It supports complex key combinations (`Ctrl+Shift+S`), Gmail-style sequences (`g then i`),\r and provides metadata for generating \"Keyboard Shortcut\" UI help modals.",
+    "props": [
+      {
+        "name": "keyMap",
+        "description": "An object defining the key bindings and their actions.",
+        "type": "KeyMap",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "Global configuration options.",
+        "type": "UseKeyOptions",
+        "required": false,
+        "default": "{}"
+      }
+    ],
+    "returns": [
+      {
+        "name": "bindings",
+        "description": "",
+        "type": "Object[]",
+        "required": true,
+        "schema": [
+          {
+            "name": "category",
+            "description": "",
+            "type": "string",
+            "rawType": "string",
+            "required": true
+          },
+          {
+            "name": "description",
+            "description": "",
+            "type": "string",
+            "rawType": "string",
+            "required": true
+          },
+          {
+            "name": "keys",
+            "description": "",
+            "type": "string",
+            "rawType": "string",
+            "required": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "useLocalStorage",
+    "description": "Custom hook that uses the [`localStorage API`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to persist state across page reloads.",
+    "props": [
+      {
+        "name": "key",
+        "description": "The key under which the value will be stored in local storage.",
+        "type": "string",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "initialValue",
+        "description": "The initial value of the state or a function that returns the initial value.",
+        "type": "T | () => T",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "Options for customizing the behavior of serialization and deserialization (optional).",
+        "type": "UseLocalStorageOptions<T>",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "deserializer",
+            "description": "A function to deserialize the stored value.",
+            "type": "(value: string) => T",
+            "rawType": "(value: string) => T",
+            "required": false
+          },
+          {
+            "name": "initializeWithValue",
+            "description": "If `true` (default), the hook will initialize reading the local storage. In SSR, you should set it to `false`, returning the initial value initially.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "serializer",
+            "description": "A function to serialize the value before storing it.",
+            "type": "(value: T) => string",
+            "rawType": "(value: T) => string",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "[0]",
+        "description": "",
+        "type": "T",
+        "required": true
+      },
+      {
+        "name": "[1]",
+        "description": "",
+        "type": "Dispatch<SetStateAction<T>>",
+        "required": true
+      },
+      {
+        "name": "[2]",
+        "description": "",
+        "type": "() => void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useMap",
+    "description": "Custom hook that manages a key-value [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) state with setter actions.",
+    "props": [
+      {
+        "name": "initialState",
+        "description": "The initial state of the map as a Map or an array of key-value pairs (optional).",
+        "type": "MapOrEntries<K, V>",
+        "rawType": "Map<K, V> | [K, V][]",
+        "required": false,
+        "default": "..."
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "UseMapReturn<K, V>",
+        "rawType": "[Omit<Map<K, V>, \"set\" | \"clear\" | \"delete\">, UseMapActions<K, V>]",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useMediaQuality",
+    "description": "Custom hook to manage video stream quality by applying constraints (resolution and frame rate)\r to a MediaStream track.",
+    "props": [
+      {
+        "name": "stream",
+        "description": "The MediaStream containing the video track to adjust.",
+        "type": "MediaStream | null",
+        "required": true,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "UseMediaQualityReturn",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useMediaQuery",
+    "description": "Custom hook that tracks the state of a media query using the [`Match Media API`](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia).",
+    "props": [
+      {
+        "name": "query",
+        "description": "The media query to track.",
+        "type": "string",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "The options for customizing the behavior of the hook (optional).",
+        "type": "UseMediaQueryOptions",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "defaultValue",
+            "description": "The default value to return if the hook is being run on the server.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "initializeWithValue",
+            "description": "If `true` (default), the hook will initialize reading the media query. In SSR, you should set it to `false`, returning `options.defaultValue` or `false` initially.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "boolean",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useMediaSession",
+    "description": "Custom hook that interacts with the [Media Session API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Session_API).\r It allows you to customize media notifications and handle media control events (like play, pause, next track) from the system's notification area or lock screen.",
+    "props": [
+      {
+        "name": "options",
+        "description": "Initial configuration for the media session.",
+        "type": "UseMediaSessionOptions",
+        "required": false,
+        "default": "",
+        "schema": [
+          {
+            "name": "actionHandlers",
+            "description": "Initial action handlers to register.",
+            "type": "Partial<Record<MediaSessionAction, MediaSessionActionHandler>>",
+            "rawType": "Partial<Record<MediaSessionAction, MediaSessionActionHandler>>",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "description": "Initial metadata to set for the session.",
+            "type": "MediaMetadataInit",
+            "rawType": "MediaMetadataInit",
+            "required": false,
+            "schema": [
+              {
+                "name": "album",
+                "description": "The album name.",
+                "type": "string",
+                "rawType": "string",
+                "required": false
+              },
+              {
+                "name": "artist",
+                "description": "The artist name.",
+                "type": "string",
+                "rawType": "string",
+                "required": false
+              },
+              {
+                "name": "artwork",
+                "description": "An array of artwork images.",
+                "type": "MediaImage[]",
+                "rawType": "MediaImage[]",
+                "required": false,
+                "schema": [
+                  {
+                    "name": "sizes",
+                    "description": "The sizes of the image (e.g., \"96x96\").",
+                    "type": "string",
+                    "rawType": "string",
+                    "required": false
+                  },
+                  {
+                    "name": "src",
+                    "description": "The URL of the image.",
+                    "type": "string",
+                    "rawType": "string",
+                    "required": true
+                  },
+                  {
+                    "name": "type",
+                    "description": "The MIME type of the image (e.g., \"image/png\").",
+                    "type": "string",
+                    "rawType": "string",
+                    "required": false
+                  }
+                ]
+              },
+              {
+                "name": "title",
+                "description": "The title of the media.",
+                "type": "string",
+                "rawType": "string",
+                "required": false
+              }
+            ]
+          },
+          {
+            "name": "playbackState",
+            "description": "Initial playback state.",
+            "type": "MediaSessionPlaybackState",
+            "rawType": "\"none\" | \"paused\" | \"playing\"",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "clearActionHandlers",
+        "description": "Function to clear all registered action handlers.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "isSupported",
+        "description": "Whether the Media Session API is supported in the current environment.",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "setActionHandler",
+        "description": "Function to set a specific action handler.",
+        "type": "(action: MediaSessionAction, handler: MediaSessionActionHandler | null) => void",
+        "required": true
+      },
+      {
+        "name": "setMetadata",
+        "description": "Function to update the media metadata.",
+        "type": "(metadata: MediaMetadataInit) => void",
+        "required": true
+      },
+      {
+        "name": "setPlaybackState",
+        "description": "Function to update the playback state.",
+        "type": "(state: MediaSessionPlaybackState) => void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useMemoizedFn",
+    "description": "A hook that returns a memoized version of a function. \r Unlike `useCallback`, the function identity remains stable across re-renders, \r but it always has access to the latest props and state without needing a dependency array.\r This is particularly useful for passing callbacks to optimized child components \r to prevent unnecessary re-renders while avoiding closure staleness.",
+    "props": [
+      {
+        "name": "fn",
+        "description": "The function to be memoized.",
+        "type": "T",
+        "required": true,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "PickFunction<T>",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useNetworkInformation",
+    "description": "Custom hook that tracks the device's network connection status and details (speed, type)\r using the Network Information API.",
+    "props": [],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "UseNetworkInformationReturn",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "usePortal",
+    "description": "",
+    "props": [],
+    "returns": []
+  },
+  {
+    "name": "useReadLocalStorage",
+    "description": "",
+    "props": [
+      {
+        "name": "key",
+        "description": "",
+        "type": "string",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "",
+        "type": "Options<T, false>",
+        "required": true,
+        "default": "",
+        "schema": [
+          {
+            "name": "deserializer",
+            "description": "Custom deserializer function to convert the stored string value to the desired type (optional).",
+            "type": "(value: string) => T",
+            "rawType": "(value: string) => T",
+            "required": false
+          },
+          {
+            "name": "initializeWithValue",
+            "description": "If `true` (default), the hook will initialize reading the local storage. In SSR, you should set it to `false`, returning `undefined` initially.",
+            "type": "InitializeWithValue",
+            "rawType": "InitializeWithValue",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "T | null | undefined",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useResizeObserver",
+    "description": "Custom hook that observes the size of an element using the [`ResizeObserver API`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).",
+    "props": [
+      {
+        "name": "options",
+        "description": "The options for the ResizeObserver.",
+        "type": "UseResizeObserverOptions<T>",
+        "required": true,
+        "default": "",
+        "schema": [
+          {
+            "name": "box",
+            "description": "The box model to use for the ResizeObserver.",
+            "type": "\"border-box\" | \"content-box\" | \"device-pixel-content-box\"",
+            "rawType": "\"border-box\" | \"content-box\" | \"device-pixel-content-box\"",
+            "required": false
+          },
+          {
+            "name": "onResize",
+            "description": "When using `onResize`, the hook doesn't re-render on element size changes; it delegates handling to the provided callback.",
+            "type": "(size: Size) => void",
+            "rawType": "(size: Size) => void",
+            "required": false
+          },
+          {
+            "name": "ref",
+            "description": "The ref of the element to observe.",
+            "type": "RefObject<T>",
+            "rawType": "RefObject<T>",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "height",
+        "description": "The height of the observed element.",
+        "type": "number | undefined",
+        "required": true
+      },
+      {
+        "name": "width",
+        "description": "The width of the observed element.",
+        "type": "number | undefined",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useRoleGuard",
+    "description": "Custom hook for Role-Based Access Control (RBAC).\r Checks if a user has specific permissions and handles redirection for unauthorized access.",
+    "props": [
+      {
+        "name": "requiredRoles",
+        "description": "The list of roles required to access the resource.",
+        "type": "string[]",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "Configuration options including user object and redirect paths.",
+        "type": "UseRoleGuardOptions",
+        "required": false,
+        "default": "{}"
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "UseRoleGuardReturn",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useScreen",
+    "description": "",
+    "props": [
+      {
+        "name": "options",
+        "description": "",
+        "type": "UseScreenOptions<false>",
+        "required": true,
+        "default": "",
+        "schema": [
+          {
+            "name": "debounceDelay",
+            "description": "The delay in milliseconds before the state is updated (disabled by default for retro-compatibility).",
+            "type": "number",
+            "rawType": "number",
+            "required": false
+          },
+          {
+            "name": "initializeWithValue",
+            "description": "If `true` (default), the hook will initialize reading the screen dimensions. In SSR, you should set it to `false`, returning `undefined` initially.",
+            "type": "InitializeWithValue",
+            "rawType": "InitializeWithValue",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "Screen | undefined",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useScreenShare",
+    "description": "Custom hook that captures the user's screen or specific application window.\r It handles permission errors, stream management, native stop events, and cleanup.",
+    "props": [
+      {
+        "name": "initialOptions",
+        "description": "The initial options for screen sharing (video/audio).",
+        "type": "UseScreenShareOptions",
+        "required": true,
+        "default": "DEFAULT_OPTIONS"
+      }
+    ],
+    "returns": [
+      {
+        "name": "error",
+        "description": "",
+        "type": "string | null",
+        "required": true
+      },
+      {
+        "name": "isLoading",
+        "description": "",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "isSupported",
+        "description": "",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "startCapture",
+        "description": "",
+        "type": "(options: UseScreenShareOptions) => Promise<void>",
+        "required": true
+      },
+      {
+        "name": "stopCapture",
+        "description": "",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "stream",
+        "description": "",
+        "type": "MediaStream | null",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useScript",
+    "description": "Custom hook that dynamically loads scripts and tracking their loading status.",
+    "props": [
+      {
+        "name": "src",
+        "description": "The source URL of the script to load. Set to `null` or omit to prevent loading (optional).",
+        "type": "string | null",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "Additional options for controlling script loading (optional).",
+        "type": "UseScriptOptions",
+        "required": false,
+        "default": "",
+        "schema": [
+          {
+            "name": "id",
+            "description": "Script's `id` (optional).",
+            "type": "string",
+            "rawType": "string",
+            "required": false
+          },
+          {
+            "name": "removeOnUnmount",
+            "description": "If `true`, removes the script from the DOM when the component unmounts (optional).",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "shouldPreventLoad",
+            "description": "If `true`, prevents the script from being loaded (optional).",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "UseScriptStatus",
+        "rawType": "\"idle\" | \"loading\" | \"ready\" | \"error\"",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useScrollLock",
+    "description": "A custom hook that locks and unlocks scroll.",
+    "props": [
+      {
+        "name": "options",
+        "description": "Options to configure the hook, by default it will lock the scroll automatically.",
+        "type": "UseScrollLockOptions",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "autoLock",
+            "description": "Whether to lock the scroll initially.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "lockTarget",
+            "description": "The target element to lock the scroll (default is the body element).",
+            "type": "HTMLElement | string",
+            "rawType": "HTMLElement | string",
+            "required": false
+          },
+          {
+            "name": "widthReflow",
+            "description": "Whether to prevent width reflow when locking the scroll.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "isLocked",
+        "description": "Whether the scroll is locked.",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "lock",
+        "description": "Lock the scroll.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "unlock",
+        "description": "Unlock the scroll.",
+        "type": "() => void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useSearchWithSuggestions",
+    "description": "A comprehensive hook for building \"Command Palette\" or \"Omnibar\" style search interfaces.\r * It provides \"Ghost Text\" autocomplete (like Google search), command scoping (like Slack's `/` commands),\r and keyboard support. It handles the complex logic of parsing input strings to separate commands from queries.",
+    "props": [
+      {
+        "name": "data",
+        "description": "The array of data objects to search through.",
+        "type": "T[]",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "searchKeys",
+        "description": "An array of keys (e.g., `['name', 'email']`) to search against by default.",
+        "type": "any",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "config",
+        "description": "Optional configuration object.",
+        "type": "BaseSearchConfig<T>",
+        "required": false,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "UseSearchSuggestionsResult<T>",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useSessionStorage",
+    "description": "Custom hook that uses the [`sessionStorage API`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) to persist state across page reloads.",
+    "props": [
+      {
+        "name": "key",
+        "description": "The key under which the value will be stored in session storage.",
+        "type": "string",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "initialValue",
+        "description": "The initial value of the state or a function that returns the initial value.",
+        "type": "T | () => T",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "options",
+        "description": "Options for customizing the behavior of serialization and deserialization (optional).",
+        "type": "UseSessionStorageOptions<T>",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "deserializer",
+            "description": "A function to deserialize the stored value.",
+            "type": "(value: string) => T",
+            "rawType": "(value: string) => T",
+            "required": false
+          },
+          {
+            "name": "initializeWithValue",
+            "description": "If `true` (default), the hook will initialize reading the session storage. In SSR, you should set it to `false`, returning the initial value initially.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "serializer",
+            "description": "A function to serialize the value before storing it.",
+            "type": "(value: T) => string",
+            "rawType": "(value: T) => string",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "[0]",
+        "description": "",
+        "type": "T",
+        "required": true
+      },
+      {
+        "name": "[1]",
+        "description": "",
+        "type": "Dispatch<SetStateAction<T>>",
+        "required": true
+      },
+      {
+        "name": "[2]",
+        "description": "",
+        "type": "() => void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useSSR",
+    "description": "Custom hook that detects the current environment (Browser, Server, or Native)\r and capability support (Workers, EventListeners). useful for avoiding hydration mismatches.",
+    "props": [],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "UseSSRReturn",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useStep",
+    "description": "Custom hook that manages and navigates between steps in a multi-step process.",
+    "props": [
+      {
+        "name": "maxStep",
+        "description": "The maximum step in the process.",
+        "type": "number",
+        "required": true,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "[0]",
+        "description": "",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "[1]",
+        "description": "",
+        "type": "UseStepActions",
+        "required": true,
+        "schema": [
+          {
+            "name": "canGoToNextStep",
+            "description": "Check if the next step is available.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": true
+          },
+          {
+            "name": "canGoToPrevStep",
+            "description": "Check if the previous step is available.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": true
+          },
+          {
+            "name": "goToNextStep",
+            "description": "Go to the next step in the process.",
+            "type": "() => void",
+            "rawType": "() => void",
+            "required": true
+          },
+          {
+            "name": "goToPrevStep",
+            "description": "Go to the previous step in the process.",
+            "type": "() => void",
+            "rawType": "() => void",
+            "required": true
+          },
+          {
+            "name": "reset",
+            "description": "Reset the step to the initial step.",
+            "type": "() => void",
+            "rawType": "() => void",
+            "required": true
+          },
+          {
+            "name": "setStep",
+            "description": "Set the current step to a specific value.",
+            "type": "Dispatch<SetStateAction<number>>",
+            "rawType": "Dispatch<SetStateAction<number>>",
+            "required": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "useSymbol",
+    "description": "Custom hook for managing ES6 Symbols. Provides utilities to create unique symbols,\r manage a registry of symbols, and access well-known symbols.",
+    "props": [],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "UseSymbolReturn",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useTernaryDarkMode",
+    "description": "Custom hook that manages ternary (system, dark, light) dark mode with local storage support.",
+    "props": [
+      {
+        "name": "options",
+        "description": "Options or the local storage key for the hook.",
+        "type": "TernaryDarkModeOptions",
+        "required": false,
+        "default": "{}",
+        "schema": [
+          {
+            "name": "defaultValue",
+            "description": "The default value for the dark mode.",
+            "type": "TernaryDarkMode",
+            "rawType": "\"system\" | \"dark\" | \"light\"",
+            "required": false
+          },
+          {
+            "name": "initializeWithValue",
+            "description": "If `true` (default), the hook will initialize reading `localStorage`. In SSR, you should set it to `false`, returning default values initially.",
+            "type": "boolean",
+            "rawType": "boolean",
+            "required": false
+          },
+          {
+            "name": "localStorageKey",
+            "description": "The key for storing dark mode preference in local storage.",
+            "type": "string",
+            "rawType": "string",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "isDarkMode",
+        "description": "The current state of the dark mode.",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "setTernaryDarkMode",
+        "description": "A function to set the dark mode state.",
+        "type": "Dispatch<SetStateAction<TernaryDarkMode>>",
+        "required": true
+      },
+      {
+        "name": "ternaryDarkMode",
+        "description": "The current state of the dark mode.",
+        "type": "TernaryDarkMode",
+        "rawType": "\"system\" | \"dark\" | \"light\"",
+        "required": true
+      },
+      {
+        "name": "toggleTernaryDarkMode",
+        "description": "A function to toggle the dark mode state.",
+        "type": "() => void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useTimeout",
+    "description": "Custom hook that handles timeouts in React components using the [`setTimeout API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout).",
+    "props": [
+      {
+        "name": "callback",
+        "description": "The function to be executed when the timeout elapses.",
+        "type": "() => void",
+        "required": true,
+        "default": ""
+      },
+      {
+        "name": "delay",
+        "description": "The duration (in milliseconds) for the timeout. Set to `null` to clear the timeout.",
+        "type": "number | null",
+        "required": true,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useToggle",
+    "description": "Custom hook that manages a boolean toggle state in React components.",
+    "props": [
+      {
+        "name": "defaultValue",
+        "description": "The initial value for the toggle state.",
+        "type": "boolean",
+        "required": false,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "[0]",
+        "description": "",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "[1]",
+        "description": "",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "[2]",
+        "description": "",
+        "type": "Dispatch<SetStateAction<boolean>>",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useUnmount",
+    "description": "Custom hook that runs a cleanup function when the component is unmounted.",
+    "props": [
+      {
+        "name": "func",
+        "description": "The cleanup function to be executed on unmount.",
+        "type": "() => void",
+        "required": true,
+        "default": ""
+      }
+    ],
+    "returns": [
+      {
+        "name": "return",
+        "description": "Hook return value",
+        "type": "void",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useUserMedia",
+    "description": "Custom hook that captures audio and video from the user's device.\r It handles permission errors, stream management, and cleanup automatically.",
+    "props": [
+      {
+        "name": "initialConstraints",
+        "description": "The initial constraints for audio and video.",
+        "type": "UseUserMediaConstraints",
+        "required": true,
+        "default": "DEFAULT_CONSTRAINTS",
+        "schema": [
+          {
+            "name": "audio",
+            "description": "Boolean or specific constraints for the audio track.",
+            "type": "boolean | MediaTrackConstraints",
+            "rawType": "boolean | MediaTrackConstraints",
+            "required": false
+          },
+          {
+            "name": "video",
+            "description": "Boolean or specific constraints for the video track.",
+            "type": "boolean | MediaTrackConstraints",
+            "rawType": "boolean | MediaTrackConstraints",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "error",
+        "description": "An error message string if the media capture failed, or null otherwise.",
+        "type": "string | null",
+        "required": true
+      },
+      {
+        "name": "isLoading",
+        "description": "A boolean indicating if the media stream is currently loading (requesting permission).",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "isSupported",
+        "description": "A boolean indicating if the `getUserMedia` API is supported in the current environment.",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "startCapture",
+        "description": "Function to start capturing media. Accepts optional constraints to override defaults.",
+        "type": "(constraints: UseUserMediaConstraints) => Promise<void>",
+        "required": true
+      },
+      {
+        "name": "stopCapture",
+        "description": "Function to stop the current media capture and release tracks.",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "stream",
+        "description": "The current MediaStream object, or null if no stream is active.",
+        "type": "MediaStream | null",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "useWindowSize",
+    "description": "",
+    "props": [
+      {
+        "name": "options",
+        "description": "",
+        "type": "UseWindowSizeOptions<false>",
+        "required": true,
+        "default": "",
+        "schema": [
+          {
+            "name": "debounceDelay",
+            "description": "The delay in milliseconds before the state is updated (disabled by default for retro-compatibility).",
+            "type": "number",
+            "rawType": "number",
+            "required": false
+          },
+          {
+            "name": "initializeWithValue",
+            "description": "If `true` (default), the hook will initialize reading the window size. In SSR, you should set it to `false`, returning `undefined` initially.",
+            "type": "InitializeWithValue",
+            "rawType": "InitializeWithValue",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "returns": [
+      {
+        "name": "height",
+        "description": "The height of the window.",
+        "type": "T",
+        "required": true
+      },
+      {
+        "name": "width",
+        "description": "The width of the window.",
+        "type": "T",
+        "required": true
+      }
+    ]
+  }
+]

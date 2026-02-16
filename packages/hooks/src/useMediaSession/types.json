@@ -1,0 +1,121 @@
+{
+  "name": "useMediaSession",
+  "description": "Custom hook that interacts with the [Media Session API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Session_API).\r It allows you to customize media notifications and handle media control events (like play, pause, next track) from the system's notification area or lock screen.",
+  "props": [
+    {
+      "name": "options",
+      "description": "Initial configuration for the media session.",
+      "type": "UseMediaSessionOptions",
+      "required": false,
+      "default": "",
+      "schema": [
+        {
+          "name": "actionHandlers",
+          "description": "Initial action handlers to register.",
+          "type": "Partial<Record<MediaSessionAction, MediaSessionActionHandler>>",
+          "rawType": "Partial<Record<MediaSessionAction, MediaSessionActionHandler>>",
+          "required": false
+        },
+        {
+          "name": "metadata",
+          "description": "Initial metadata to set for the session.",
+          "type": "MediaMetadataInit",
+          "rawType": "MediaMetadataInit",
+          "required": false,
+          "schema": [
+            {
+              "name": "album",
+              "description": "The album name.",
+              "type": "string",
+              "rawType": "string",
+              "required": false
+            },
+            {
+              "name": "artist",
+              "description": "The artist name.",
+              "type": "string",
+              "rawType": "string",
+              "required": false
+            },
+            {
+              "name": "artwork",
+              "description": "An array of artwork images.",
+              "type": "MediaImage[]",
+              "rawType": "MediaImage[]",
+              "required": false,
+              "schema": [
+                {
+                  "name": "sizes",
+                  "description": "The sizes of the image (e.g., \"96x96\").",
+                  "type": "string",
+                  "rawType": "string",
+                  "required": false
+                },
+                {
+                  "name": "src",
+                  "description": "The URL of the image.",
+                  "type": "string",
+                  "rawType": "string",
+                  "required": true
+                },
+                {
+                  "name": "type",
+                  "description": "The MIME type of the image (e.g., \"image/png\").",
+                  "type": "string",
+                  "rawType": "string",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "title",
+              "description": "The title of the media.",
+              "type": "string",
+              "rawType": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "playbackState",
+          "description": "Initial playback state.",
+          "type": "MediaSessionPlaybackState",
+          "rawType": "\"none\" | \"paused\" | \"playing\"",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "clearActionHandlers",
+      "description": "Function to clear all registered action handlers.",
+      "type": "() => void",
+      "required": true
+    },
+    {
+      "name": "isSupported",
+      "description": "Whether the Media Session API is supported in the current environment.",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "setActionHandler",
+      "description": "Function to set a specific action handler.",
+      "type": "(action: MediaSessionAction, handler: MediaSessionActionHandler | null) => void",
+      "required": true
+    },
+    {
+      "name": "setMetadata",
+      "description": "Function to update the media metadata.",
+      "type": "(metadata: MediaMetadataInit) => void",
+      "required": true
+    },
+    {
+      "name": "setPlaybackState",
+      "description": "Function to update the playback state.",
+      "type": "(state: MediaSessionPlaybackState) => void",
+      "required": true
+    }
+  ]
+}

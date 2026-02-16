@@ -1,0 +1,44 @@
+{
+  "name": "useReadLocalStorage",
+  "description": "",
+  "props": [
+    {
+      "name": "key",
+      "description": "",
+      "type": "string",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "options",
+      "description": "",
+      "type": "Options<T, false>",
+      "required": true,
+      "default": "",
+      "schema": [
+        {
+          "name": "deserializer",
+          "description": "Custom deserializer function to convert the stored string value to the desired type (optional).",
+          "type": "(value: string) => T",
+          "rawType": "(value: string) => T",
+          "required": false
+        },
+        {
+          "name": "initializeWithValue",
+          "description": "If `true` (default), the hook will initialize reading the local storage. In SSR, you should set it to `false`, returning `undefined` initially.",
+          "type": "InitializeWithValue",
+          "rawType": "InitializeWithValue",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "T | null | undefined",
+      "required": true
+    }
+  ]
+}

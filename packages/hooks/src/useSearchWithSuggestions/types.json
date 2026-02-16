@@ -1,0 +1,35 @@
+{
+  "name": "useSearchWithSuggestions",
+  "description": "A comprehensive hook for building \"Command Palette\" or \"Omnibar\" style search interfaces.\r * It provides \"Ghost Text\" autocomplete (like Google search), command scoping (like Slack's `/` commands),\r and keyboard support. It handles the complex logic of parsing input strings to separate commands from queries.",
+  "props": [
+    {
+      "name": "data",
+      "description": "The array of data objects to search through.",
+      "type": "T[]",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "searchKeys",
+      "description": "An array of keys (e.g., `['name', 'email']`) to search against by default.",
+      "type": "any",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "config",
+      "description": "Optional configuration object.",
+      "type": "BaseSearchConfig<T>",
+      "required": false,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "UseSearchSuggestionsResult<T>",
+      "required": true
+    }
+  ]
+}

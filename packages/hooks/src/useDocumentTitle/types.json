@@ -1,0 +1,37 @@
+{
+  "name": "useDocumentTitle",
+  "description": "Custom hook that sets the document title.",
+  "props": [
+    {
+      "name": "title",
+      "description": "The title to set.",
+      "type": "string",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "options",
+      "description": "The options.",
+      "type": "UseDocumentTitleOptions",
+      "required": false,
+      "default": "{}",
+      "schema": [
+        {
+          "name": "preserveTitleOnUnmount",
+          "description": "Whether to keep the title after unmounting the component (default is `true`).",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "void",
+      "required": true
+    }
+  ]
+}

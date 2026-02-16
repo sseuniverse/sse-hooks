@@ -1,0 +1,81 @@
+{
+  "name": "useFetch",
+  "description": "Custom hook that provides a wrapper around the native [`fetch API`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to handle HTTP requests with state management, abort capability, and TypeScript support.",
+  "props": [
+    {
+      "name": "url",
+      "description": "The URL to fetch.",
+      "type": "string",
+      "required": false,
+      "default": ""
+    },
+    {
+      "name": "options",
+      "description": "Options for customizing the request and hook behavior (optional).",
+      "type": "UseFetchOptions",
+      "required": false,
+      "default": "{}",
+      "schema": [
+        {
+          "name": "immediate",
+          "description": "If `true`, the fetch request will be executed immediately upon mounting or when the URL changes.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        },
+        {
+          "name": "onError",
+          "description": "Callback function invoked when the request fails.",
+          "type": "(error: Error) => void",
+          "rawType": "(error: Error) => void",
+          "required": false
+        },
+        {
+          "name": "onSuccess",
+          "description": "Callback function invoked when the request completes successfully.",
+          "type": "(data: any) => void",
+          "rawType": "(data: any) => void",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "returns": [
+    {
+      "name": "abort",
+      "description": "Aborts the current request if it is pending.",
+      "type": "() => void",
+      "required": true
+    },
+    {
+      "name": "data",
+      "description": "The data received from the response, or null if not yet received.",
+      "type": "T | null",
+      "required": true
+    },
+    {
+      "name": "error",
+      "description": "The error object if the request failed, or null if successful.",
+      "type": "Error | null",
+      "required": true
+    },
+    {
+      "name": "execute",
+      "description": "Manually triggers the fetch request.",
+      "type": "(url: string, options: RequestInit) => Promise<T | null>",
+      "required": true
+    },
+    {
+      "name": "loading",
+      "description": "Indicates if the request is currently in progress.",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "reset",
+      "description": "Resets the state to its initial values (data: null, loading: false, error: null).",
+      "type": "() => void",
+      "required": true
+    }
+  ]
+}

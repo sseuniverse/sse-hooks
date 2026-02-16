@@ -1,0 +1,21 @@
+{
+  "name": "useUnmount",
+  "description": "Custom hook that runs a cleanup function when the component is unmounted.",
+  "props": [
+    {
+      "name": "func",
+      "description": "The cleanup function to be executed on unmount.",
+      "type": "() => void",
+      "required": true,
+      "default": ""
+    }
+  ],
+  "returns": [
+    {
+      "name": "return",
+      "description": "Hook return value",
+      "type": "void",
+      "required": true
+    }
+  ]
+}
