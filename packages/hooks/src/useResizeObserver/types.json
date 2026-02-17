@@ -46,5 +46,6 @@
       "type": "number | undefined",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

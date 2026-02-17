@@ -2,5 +2,42 @@
   "name": "useBattery",
   "description": "",
   "props": [],
-  "returns": []
+  "returns": [],
+  "types": [
+    {
+      "kind": "interface",
+      "name": "BatteryState",
+      "description": "Represents the state of the battery.",
+      "properties": [
+        {
+          "name": "charging",
+          "description": "A boolean value indicating whether the battery is currently being charged.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": true
+        },
+        {
+          "name": "chargingTime",
+          "description": "A number representing the remaining time in seconds until the battery is fully charged,\r or 0 if the battery is already fully charged.",
+          "type": "number",
+          "rawType": "number",
+          "required": true
+        },
+        {
+          "name": "dischargingTime",
+          "description": "A number representing the remaining time in seconds until the battery is completely discharged\r and the system will suspend.",
+          "type": "number",
+          "rawType": "number",
+          "required": true
+        },
+        {
+          "name": "level",
+          "description": "A number representing the system's battery charge level scaled to a value between 0.0 and 1.0.",
+          "type": "number",
+          "rawType": "number",
+          "required": true
+        }
+      ]
+    }
+  ]
 }

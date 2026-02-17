@@ -9,5 +9,6 @@
       "type": "UseSSRReturn",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

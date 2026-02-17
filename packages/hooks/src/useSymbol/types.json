@@ -9,5 +9,6 @@
       "type": "UseSymbolReturn",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

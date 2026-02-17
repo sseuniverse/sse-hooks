@@ -40,5 +40,6 @@
       "type": "T | null | undefined",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

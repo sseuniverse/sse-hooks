@@ -62,5 +62,6 @@
       "rawType": "[(node: Element | null) => void, boolean, IntersectionObserverEntry | undefined] & Object",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

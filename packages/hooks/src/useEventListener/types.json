@@ -38,5 +38,6 @@
       "type": "void",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

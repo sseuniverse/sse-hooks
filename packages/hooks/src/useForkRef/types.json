@@ -17,5 +17,6 @@
       "type": "(instance: Instance | null) => void | () => VoidOrUndefinedOnly | null",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

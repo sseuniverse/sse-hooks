@@ -48,5 +48,6 @@
       "rawType": "\"idle\" | \"loading\" | \"ready\" | \"error\"",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

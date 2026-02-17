@@ -17,5 +17,6 @@
       "type": "(args: Args) => R",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

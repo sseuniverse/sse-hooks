@@ -33,5 +33,6 @@
       "type": "Screen | undefined",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

@@ -41,5 +41,6 @@
       "type": "React.Dispatch<React.SetStateAction<number>>",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

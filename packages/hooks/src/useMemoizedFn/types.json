@@ -17,5 +17,6 @@
       "type": "PickFunction<T>",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

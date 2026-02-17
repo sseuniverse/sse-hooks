@@ -2,5 +2,6 @@
   "name": "usePortal",
   "description": "",
   "props": [],
-  "returns": []
+  "returns": [],
+  "types": []
 }

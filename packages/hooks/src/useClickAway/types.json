@@ -60,5 +60,42 @@
       "type": "Ref<Element>",
       "required": true
     }
+  ],
+  "types": [
+    {
+      "kind": "interface",
+      "name": "UseClickAwayOptions",
+      "description": "Options for the `useClickAway` hook.",
+      "properties": [
+        {
+          "name": "disableReactTree",
+          "description": "If `true`, the React tree is ignored and only the DOM tree is considered.\r This prop changes how portaled elements are handled.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        },
+        {
+          "name": "mouseEvent",
+          "description": "The mouse event to listen to. You can disable the listener by providing `false`.",
+          "type": "false | ClickAwayMouseEventHandler",
+          "rawType": "false | \"onClick\" | \"onMouseDown\" | \"onMouseUp\" | \"onPointerDown\" | \"onPointerUp\"",
+          "required": false
+        },
+        {
+          "name": "ref",
+          "description": "An external ref to merge with the hook's internal ref.\r Useful if you need to access the DOM element outside of this hook.",
+          "type": "Ref<Element>",
+          "rawType": "Ref<Element>",
+          "required": false
+        },
+        {
+          "name": "touchEvent",
+          "description": "The touch event to listen to. You can disable the listener by providing `false`.",
+          "type": "false | ClickAwayTouchEventHandler",
+          "rawType": "false | \"onTouchStart\" | \"onTouchEnd\"",
+          "required": false
+        }
+      ]
+    }
   ]
 }

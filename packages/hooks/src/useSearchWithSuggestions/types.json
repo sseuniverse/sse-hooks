@@ -31,5 +31,6 @@
       "type": "UseSearchSuggestionsResult<T>",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

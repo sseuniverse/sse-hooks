@@ -47,5 +47,6 @@
       "type": "MediaStream | null",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

@@ -67,5 +67,6 @@
       "type": "DebouncedState<(value: T) => void>",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

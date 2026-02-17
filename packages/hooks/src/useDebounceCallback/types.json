@@ -55,5 +55,6 @@
       "rawType": "(args: Parameters<T>) => ReturnType<T> | undefined & ControlFunctions",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

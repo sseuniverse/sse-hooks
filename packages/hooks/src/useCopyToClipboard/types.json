@@ -17,5 +17,6 @@
       "rawType": "(text: string) => Promise<boolean>",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

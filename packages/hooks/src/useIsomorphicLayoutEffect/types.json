@@ -2,5 +2,6 @@
   "name": "useIsomorphicLayoutEffect",
   "description": "",
   "props": [],
-  "returns": []
+  "returns": [],
+  "types": []
 }

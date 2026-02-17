@@ -29,5 +29,6 @@
       "type": "Dispatch<SetStateAction<boolean>>",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

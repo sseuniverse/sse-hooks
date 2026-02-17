@@ -17,5 +17,6 @@
       "type": "UseMediaQualityReturn",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }

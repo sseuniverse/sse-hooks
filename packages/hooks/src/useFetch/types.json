@@ -77,5 +77,112 @@
       "type": "() => void",
       "required": true
     }
+  ],
+  "types": [
+    {
+      "kind": "interface",
+      "name": "UseFetchOptions",
+      "description": "Options for customizing the behavior of the useFetch hook.\r Extends the standard [`RequestInit`](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit) interface.",
+      "properties": [
+        {
+          "name": "immediate",
+          "description": "If `true`, the fetch request will be executed immediately upon mounting or when the URL changes.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": false
+        },
+        {
+          "name": "onError",
+          "description": "Callback function invoked when the request fails.",
+          "type": "(error: Error) => void",
+          "rawType": "(error: Error) => void",
+          "required": false
+        },
+        {
+          "name": "onSuccess",
+          "description": "Callback function invoked when the request completes successfully.",
+          "type": "(data: any) => void",
+          "rawType": "(data: any) => void",
+          "required": false
+        }
+      ]
+    },
+    {
+      "kind": "interface",
+      "name": "UseFetchReturn",
+      "description": "The return value of the useFetch hook, including state and control methods.",
+      "properties": [
+        {
+          "name": "abort",
+          "description": "Aborts the current request if it is pending.",
+          "type": "() => void",
+          "rawType": "() => void",
+          "required": true
+        },
+        {
+          "name": "data",
+          "description": "The data received from the response, or null if not yet received.",
+          "type": "T | null",
+          "rawType": "T | null",
+          "required": true
+        },
+        {
+          "name": "error",
+          "description": "The error object if the request failed, or null if successful.",
+          "type": "Error | null",
+          "rawType": "Error | null",
+          "required": true
+        },
+        {
+          "name": "execute",
+          "description": "Manually triggers the fetch request.",
+          "type": "(url: string, options: RequestInit) => Promise<T | null>",
+          "rawType": "(url: string, options: RequestInit) => Promise<T | null>",
+          "required": true
+        },
+        {
+          "name": "loading",
+          "description": "Indicates if the request is currently in progress.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": true
+        },
+        {
+          "name": "reset",
+          "description": "Resets the state to its initial values (data: null, loading: false, error: null).",
+          "type": "() => void",
+          "rawType": "() => void",
+          "required": true
+        }
+      ]
+    },
+    {
+      "kind": "interface",
+      "name": "UseFetchState",
+      "description": "The state representation of the fetch request.",
+      "properties": [
+        {
+          "name": "data",
+          "description": "The data received from the response, or null if not yet received.",
+          "type": "T | null",
+          "rawType": "T | null",
+          "required": true
+        },
+        {
+          "name": "error",
+          "description": "The error object if the request failed, or null if successful.",
+          "type": "Error | null",
+          "rawType": "Error | null",
+          "required": true
+        },
+        {
+          "name": "loading",
+          "description": "Indicates if the request is currently in progress.",
+          "type": "boolean",
+          "rawType": "boolean",
+          "required": true
+        }
+      ]
+    }
   ]
 }

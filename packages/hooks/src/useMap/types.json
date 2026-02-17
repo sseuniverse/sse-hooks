@@ -19,5 +19,6 @@
       "rawType": "[Omit<Map<K, V>, \"set\" | \"clear\" | \"delete\">, UseMapActions<K, V>]",
       "required": true
     }
-  ]
+  ],
+  "types": []
 }
