@@ -5,7 +5,7 @@ import prettier from "prettier";
 
 // --- CONFIGURATION ---
 const TEMP_DIR = "./generated/typedoc";
-const INPUT_JSON = "./generated/typedoc/all.json"; // Path defined in your typedoc.json
+const INPUT_JSON = "./generated/typedoc/all.json";
 const OUTPUT_DIR = "./app/www/content/docs/2.hooks";
 const README_MAIN = "./README.md";
 const README_HOOKS = "./packages/hooks/README.md";
@@ -45,7 +45,7 @@ function parseType(typeObj) {
   if (typeObj.type === "reference") return typeObj.name;
   if (typeObj.type === "array") return `${parseType(typeObj.elementType)}[]`;
   if (typeObj.type === "reflection" && typeObj.declaration) {
-    if (typeObj.declaration.signatures) return "Function"; // Callback
+    if (typeObj.declaration.signatures) return "Function"; 
     return "Object";
   }
   return "any";
@@ -85,9 +85,6 @@ function parseExample(blockTags) {
   return content.trim();
 }
 
-/**
- * Fetch GitHub tags to determine "New" hooks
- */
 async function getNewHooksList() {
   try {
     console.log("🔍 Fetching release tags from GitHub...");
@@ -147,9 +144,6 @@ function parseFrontMatter(fileContent) {
   return { attributes, body };
 }
 
-/**
- * GENERATE .navigation.yml
- */
 function generateNavigationFile() {
   const content = `title: Hooks
 icon: i-lucide-square-function
@@ -158,18 +152,12 @@ icon: i-lucide-square-function
   console.log("✅ Generated .navigation.yml");
 }
 
-/**
- * GENERATE 0.index.md
- */
 function generateIndexFile(hooks) {
-  // Group hooks by category
   const categorizedHooks = {};
 
-  // Initialize categories
   Object.keys(CATEGORY_MAP).forEach((key) => (categorizedHooks[key] = []));
 
   hooks.forEach((hook) => {
-    // Determine category key (default to uncategorized if not found in map)
     const catKey = CATEGORY_MAP[hook.category]
       ? hook.category
       : "uncategorized";
@@ -186,15 +174,11 @@ navigation: false
 
 `;
 
-  // Build sections based on CATEGORY_MAP order
   for (const [key, title] of Object.entries(CATEGORY_MAP)) {
     const categoryHooks = categorizedHooks[key];
 
     if (categoryHooks && categoryHooks.length > 0) {
-      indexContent += `## ${title.split(" ")[1] || title}
-
-::card-group
-`;
+      indexContent += `## ${title.split(" ")[1] || title}\n\n::card-group\n`;
 
       categoryHooks.forEach((hook) => {
         indexContent += `  :::card
@@ -253,7 +237,6 @@ async function main() {
 
     hooks.sort((a, b) => a.name.localeCompare(b.name));
 
-    // Store categorized links for README
     const processedHooks = [];
     const categorizedLinks = {};
     Object.keys(CATEGORY_MAP).forEach((k) => (categorizedLinks[k] = []));
@@ -266,10 +249,11 @@ async function main() {
 
       const kebabName = camelToKebab(name);
 
-      // 1. Get Auto-Generated Info
       const autoSummary = parseComment(signature.comment);
       const autoCategory = parseCategory(signature.comment?.blockTags);
-      const autoDesc = autoSummary.split(".")[0] + ".";
+      
+      // Removed the `.split(".")[0]` to keep the full description
+      const autoDesc = autoSummary; 
       const isNew = hasData && !oldHooks.has(name);
       const example = await prettier.format(
         parseExample(signature.comment?.blockTags),
@@ -289,58 +273,44 @@ async function main() {
         manualData = parseFrontMatter(fs.readFileSync(manualDocPath, "utf-8"));
       }
 
-      const finalTitle =
-        manualData.attributes.title || manualData.attributes.name || name;
-
-      const finalCategory = manualData.attributes.category
-        ? manualData.attributes.category.toLowerCase()
-        : autoCategory;
-
+      const finalTitle = manualData.attributes.title || manualData.attributes.name || name;
+      const finalCategory = manualData.attributes.category ? manualData.attributes.category.toLowerCase() : autoCategory;
       const finalDesc = manualData.attributes.description || autoDesc;
 
-      // Normalize category (default to utils if unknown, or keep uncategorized)
-      const validCategory = CATEGORY_MAP[finalCategory]
-        ? finalCategory
-        : "uncategorized";
+      const validCategory = CATEGORY_MAP[finalCategory] ? finalCategory : "uncategorized";
 
-      // Save processed data
       processedHooks.push({
         name: finalTitle,
         kebabName,
         category: validCategory,
-        shortDesc: finalDesc,
+        // Shortened desc for the index card previews
+        shortDesc: finalDesc.split(".")[0] + ".", 
       });
 
+      // --- 1. Extract MDN Link ---
+      const mdnMatch = finalDesc.match(/https:\/\/developer\.mozilla\.org[^\s)\]]+/);
+      const mdnUrl = mdnMatch ? mdnMatch[0] : null;
+
+      // --- 2. Dynamically build links YAML ---
+      let linksYaml = `links:\n  - label: GitHub\n    icon: i-simple-icons-github\n    to: https://github.com/sseuniverse/sse-hooks/blob/main/packages/hooks/src/${name}`;
+      
+      if (mdnUrl) {
+        linksYaml += `\n  - label: MDN Docs\n    icon: i-simple-icons-mdnwebdocs\n    to: ${mdnUrl}`;
+      }
+
+      // --- 3. Clean description for Frontmatter (SEO-friendly) ---
+      // We strip markdown links out of the frontmatter description and escape quotes to prevent YAML parsing errors
+      const safeDescForYaml = finalDesc
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // Strips markdown links, leaving just the text
+        .replace(/\n/g, " ")
+        .replace(/"/g, '\\"');
+
       // --- DOC FILE GENERATION ---
-      let apiSection = "";
-      if (signature.parameters?.length) {
-        apiSection += `### Parameters\n\n| Name | Type | Description |\n| :--- | :--- | :--- |\n`;
-        signature.parameters.forEach((p) => {
-          const pDesc = parseComment(p.comment).replace(/\n/g, " ");
-          apiSection += `| ${p.name} | \`${parseType(p.type)}\` | ${pDesc} |\n`;
-        });
-      }
-
-      const returnType = parseType(signature.type);
-      if (returnType !== "void") {
-        const returnTag = signature.comment?.blockTags?.find(
-          (t) => t.tag === "@returns",
-        );
-
-        const returnDesc = returnTag
-          ? returnTag.content.map((c) => c.text).join("")
-          : "";
-        apiSection += `\n### Return Value\n\nReturns \`${returnType}\`.\n\n${returnDesc}`;
-      }
-
       let middleContent = "";
 
       if (manualData.body) {
-        // If manual body exists, USE IT EXACTLY AS IS.
-        // We do NOT add a "## Usage" wrapper here, because your manual body likely has its own structure.
         middleContent = manualData.body;
       } else {
-        // If no manual body, fall back to the default generated usage section.
         middleContent = `
 \`\`\`tsx [example.ts]
 import { ${name} } from './{hooks file}'
@@ -350,14 +320,12 @@ ${example || "// See usage example in source"}
 `;
       }
 
+      // Injected the dynamic linksYaml and safe description
       const content = `---
 title: ${finalTitle}
-description: ${finalDesc.replace(/\n/g, " ")}${isNew ? "\nnavigation.badge: NEW" : ""}
+description: "${safeDescForYaml}"${isNew ? "\nnavigation.badge: NEW" : ""}
 category: ${validCategory}
-links:
-  - label: GitHub
-    icon: i-simple-icons-github
-    to: https://github.com/sseuniverse/sse-hooks/blob/main/packages/hooks/src/${name}
+${linksYaml}
 ---
 
 ## Installation
@@ -388,7 +356,13 @@ ${middleContent}
 
 ## API
 
-${apiSection || "No parameters."}
+### Parameters
+
+:component-props
+
+### Returns
+
+:component-props{type="returns"}
 
 ## Changelog
 
@@ -405,19 +379,16 @@ ${apiSection || "No parameters."}
       );
       console.log(`✅ [${index}] Generated ${name} ${isNew ? "(New)" : ""}`);
 
-      // Add to Category List
       categorizedLinks[validCategory].push(
-        `- [\`${name}\`](https://sse-hooks.vercel.app/docs/hooks/${kebabName}) — ${finalDesc}`,
+        `- [\`${name}\`](https://sse-hooks.vercel.app/docs/hooks/${kebabName}) — ${safeDescForYaml}`,
       );
 
       index++;
     }
 
-    // --- GENERATE SPECIAL FILES ---
     generateNavigationFile();
     generateIndexFile(processedHooks);
 
-    // 5. Update READMEs with Categorized Lists
     const readmeContent = generateReadmeContent(categorizedLinks);
     updateReadme(README_MAIN, readmeContent);
     updateReadme(README_HOOKS, readmeContent);
@@ -451,8 +422,8 @@ function updateReadme(filePath, newContent) {
   if (!fs.existsSync(filePath)) return;
 
   const content = fs.readFileSync(filePath, "utf-8");
-  const startMarker = "<!-- HOOKS:START -->";
-  const endMarker = "<!-- HOOKS:END -->";
+  const startMarker = "";
+  const endMarker = "";
 
   const regex = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`);
   const replacement = `${startMarker}\n\n${newContent}\n${endMarker}`;

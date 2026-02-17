@@ -50,55 +50,5 @@
       "required": true
     }
   ],
-  "types": [
-    {
-      "kind": "interface",
-      "name": "BaseConfig",
-      "description": "Configuration options for the useAutoSave hook.",
-      "properties": [
-        {
-          "name": "delay",
-          "description": "The debounce delay in milliseconds before triggering the onSave callback.",
-          "type": "number",
-          "rawType": "number",
-          "required": false
-        }
-      ]
-    },
-    {
-      "kind": "interface",
-      "name": "UseAutoSaveReturn",
-      "description": "The return object of the useAutoSave hook.",
-      "properties": [
-        {
-          "name": "data",
-          "description": "The current state of the data.",
-          "type": "T",
-          "rawType": "T",
-          "required": true
-        },
-        {
-          "name": "isSaving",
-          "description": "Indicates if a save operation is currently in progress.",
-          "type": "boolean",
-          "rawType": "boolean",
-          "required": true
-        },
-        {
-          "name": "onChange",
-          "description": "A smart change handler factory.\r Can be used with standard inputs `onChange(\"name\")` or direct values `onChange(\"age\")(30)`.",
-          "type": "(key: any) => (valueOrEvent: any) => void",
-          "rawType": "(key: any) => (valueOrEvent: any) => void",
-          "required": true
-        },
-        {
-          "name": "setData",
-          "description": "Standard React state setter for the data.",
-          "type": "Dispatch<SetStateAction<T>>",
-          "rawType": "Dispatch<SetStateAction<T>>",
-          "required": true
-        }
-      ]
-    }
-  ]
+  "types": []
 }
