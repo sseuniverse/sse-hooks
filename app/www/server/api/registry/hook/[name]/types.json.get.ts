@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
 
   // 2. Convert to camelCase to match your GitHub folder structure (e.g., "useBoolean")
   const folderName = camelCase(nameParam, { acronyms: ["DB", "KBD", "SSR"] });
-  const metaUrl = `${BASE_URL}/${folderName}/meta.json`;
+  const metaUrl = `${BASE_URL}/${folderName}/types.json`;
 
   try {
     // 3. Directly fetch the meta.json file from the server/repo

@@ -12,6 +12,7 @@ export const useHighlighter = async () => {
         "bash",
         "html",
         "ts",
+        "tsx",
         "typescript",
         "diff",
         "vue",
@@ -22,10 +23,12 @@ export const useHighlighter = async () => {
         "blade",
         "edge",
       ],
+
       themes: ["material-theme-palenight", "material-theme-lighter"],
       engine: createJavaScriptRegexEngine(),
     });
   }
+
   if (!highlighter) {
     highlighter = await promise;
   }

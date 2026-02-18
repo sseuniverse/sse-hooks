@@ -8,6 +8,8 @@ export default defineNuxtConfig({
     "nuxt-og-image",
     "nuxt-llms",
     "@nuxtjs/mcp-toolkit",
+    "@vueuse/nuxt",
+    "motion-v/nuxt",
   ],
 
   sourcemap: {
@@ -21,13 +23,55 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
+  app: {
+    rootAttrs: {
+      "data-vaul-drawer-wrapper": "",
+      class: "bg-default",
+    },
+  },
+
+  $development: {
+    site: {
+      url: "http://localhost:3000",
+    },
+  },
+
+  $production: {
+    site: {
+      url: "https://sse-hoooks.vercel.app",
+    },
+  },
+
   content: {
+    // documentDriven: true,
     build: {
       markdown: {
         toc: {
           searchDepth: 1,
         },
+        highlight: {
+          langs: [
+            "bash",
+            "ts",
+            "tsx",
+            "typescript",
+            "diff",
+            "vue",
+            "json",
+            "yml",
+            "css",
+            "mdc",
+            "blade",
+            "edge",
+          ],
+        },
       },
+    },
+  },
+
+  mdc: {
+    highlight: {
+      noApiRoute: false,
     },
   },
 
@@ -92,6 +136,23 @@ export default defineNuxtConfig({
           { field: "path", operator: "LIKE", value: "/docs/hooks%" },
         ],
       },
+    ],
+  },
+
+  image: {
+    format: ["webp", "jpeg", "jpg", "png", "svg"],
+    provider: "ipx",
+  },
+
+  fonts: {
+    families: [
+      { name: "Public Sans", provider: "google", global: true },
+      { name: "DM Sans", provider: "google", global: true },
+      { name: "Geist", provider: "google", global: true },
+      { name: "Inter", provider: "google", global: true },
+      { name: "Poppins", provider: "google", global: true },
+      { name: "Outfit", provider: "google", global: true },
+      { name: "Raleway", provider: "google", global: true },
     ],
   },
 

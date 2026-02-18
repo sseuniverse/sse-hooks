@@ -7,27 +7,27 @@ const items = computed(() => {
     { label: `v1.3.x`, active: true, color: 'primary' as const, checked: true, type: 'checkbox' as const },
   ]
 })
+
+      // :class="[open && 'bg-primary/15']"
+      // :ui="{
+      //   trailingIcon: ['transition-transform duration-200', open ? 'rotate-180' : undefined].filter(Boolean).join(' ')
+      // }"
 </script>
 
 <template>
-  <UDropdownMenu
+  <!-- <UDropdownMenu
     v-slot="{ open }"
     :modal="false"
     :items="items"
     :content="{ align: 'start' }"
     :ui="{ content: 'min-w-fit' }"
     size="xs"
-  >
+  > -->
     <UButton
-      :label="`v1.3.1`"
+      :label="`v1.4.0`"
       variant="subtle"
-      :trailing-icon="appConfig.ui.icons.chevronDown"
       size="xs"
       class="-mb-[6px] font-semibold rounded-full truncate"
-      :class="[open && 'bg-primary/15']"
-      :ui="{
-        trailingIcon: ['transition-transform duration-200', open ? 'rotate-180' : undefined].filter(Boolean).join(' ')
-      }"
     />
-  </UDropdownMenu>
+  <!-- </UDropdownMenu> -->
 </template>

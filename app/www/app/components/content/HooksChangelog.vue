@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { camelCase, kebabCase } from 'scule'
+import { camelCase, kebabCase } from '@ssets/scule'
 
 const props = defineProps<{
   prefix?: string
@@ -7,7 +7,7 @@ const props = defineProps<{
 
 const route = useRoute()
 const name = route.path.split('/').pop() ?? ''
-const camelName = camelCase(name)
+const camelName = camelCase(name, { acronyms: ["DB", "KBD", "SSR"] })
 const kebabName = kebabCase(name)
 
 const { data: commits } = await useLazyFetch<any[]>('/api/github/commits', {

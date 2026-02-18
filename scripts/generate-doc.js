@@ -45,7 +45,7 @@ function parseType(typeObj) {
   if (typeObj.type === "reference") return typeObj.name;
   if (typeObj.type === "array") return `${parseType(typeObj.elementType)}[]`;
   if (typeObj.type === "reflection" && typeObj.declaration) {
-    if (typeObj.declaration.signatures) return "Function"; 
+    if (typeObj.declaration.signatures) return "Function";
     return "Object";
   }
   return "any";
@@ -251,9 +251,9 @@ async function main() {
 
       const autoSummary = parseComment(signature.comment);
       const autoCategory = parseCategory(signature.comment?.blockTags);
-      
+
       // Removed the `.split(".")[0]` to keep the full description
-      const autoDesc = autoSummary; 
+      const autoDesc = autoSummary;
       const isNew = hasData && !oldHooks.has(name);
       const example = await prettier.format(
         parseExample(signature.comment?.blockTags),
@@ -273,27 +273,34 @@ async function main() {
         manualData = parseFrontMatter(fs.readFileSync(manualDocPath, "utf-8"));
       }
 
-      const finalTitle = manualData.attributes.title || manualData.attributes.name || name;
-      const finalCategory = manualData.attributes.category ? manualData.attributes.category.toLowerCase() : autoCategory;
+      const finalTitle =
+        manualData.attributes.title || manualData.attributes.name || name;
+      const finalCategory = manualData.attributes.category
+        ? manualData.attributes.category.toLowerCase()
+        : autoCategory;
       const finalDesc = manualData.attributes.description || autoDesc;
 
-      const validCategory = CATEGORY_MAP[finalCategory] ? finalCategory : "uncategorized";
+      const validCategory = CATEGORY_MAP[finalCategory]
+        ? finalCategory
+        : "uncategorized";
 
       processedHooks.push({
         name: finalTitle,
         kebabName,
         category: validCategory,
         // Shortened desc for the index card previews
-        shortDesc: finalDesc.split(".")[0] + ".", 
+        shortDesc: finalDesc.split(".")[0] + ".",
       });
 
       // --- 1. Extract MDN Link ---
-      const mdnMatch = finalDesc.match(/https:\/\/developer\.mozilla\.org[^\s)\]]+/);
+      const mdnMatch = finalDesc.match(
+        /https:\/\/developer\.mozilla\.org[^\s)\]]+/,
+      );
       const mdnUrl = mdnMatch ? mdnMatch[0] : null;
 
       // --- 2. Dynamically build links YAML ---
       let linksYaml = `links:\n  - label: GitHub\n    icon: i-simple-icons-github\n    to: https://github.com/sseuniverse/sse-hooks/blob/main/packages/hooks/src/${name}`;
-      
+
       if (mdnUrl) {
         linksYaml += `\n  - label: MDN Docs\n    icon: i-simple-icons-mdnwebdocs\n    to: ${mdnUrl}`;
       }
@@ -364,6 +371,8 @@ ${middleContent}
 
 :component-props{type="returns"}
 
+### Types Aliases
+
 :component-types
 
 ## Changelog
@@ -424,8 +433,8 @@ function updateReadme(filePath, newContent) {
   if (!fs.existsSync(filePath)) return;
 
   const content = fs.readFileSync(filePath, "utf-8");
-  const startMarker = "";
-  const endMarker = "";
+  const startMarker = "<!-- HOOKS:START -->";
+  const endMarker = "<!-- HOOKS:END -->";
 
   const regex = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`);
   const replacement = `${startMarker}\n\n${newContent}\n${endMarker}`;
