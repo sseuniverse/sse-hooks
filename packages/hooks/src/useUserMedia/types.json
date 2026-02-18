@@ -64,5 +64,27 @@
       "required": true
     }
   ],
-  "types": []
+  "types": [
+    {
+      "kind": "interface",
+      "name": "UseUserMediaConstraints",
+      "description": "Constraints for the `useUserMedia` hook.\r Defines the video and audio settings for the media stream.",
+      "properties": [
+        {
+          "name": "audio",
+          "description": "Boolean or specific constraints for the audio track.",
+          "type": "boolean | MediaTrackConstraints",
+          "rawType": "boolean | MediaTrackConstraints",
+          "required": false
+        },
+        {
+          "name": "video",
+          "description": "Boolean or specific constraints for the video track.",
+          "type": "boolean | MediaTrackConstraints",
+          "rawType": "boolean | MediaTrackConstraints",
+          "required": false
+        }
+      ]
+    }
+  ]
 }

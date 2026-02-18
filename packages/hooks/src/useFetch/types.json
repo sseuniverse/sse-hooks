@@ -78,34 +78,5 @@
       "required": true
     }
   ],
-  "types": [
-    {
-      "kind": "interface",
-      "name": "UseFetchState",
-      "description": "The state representation of the fetch request.",
-      "properties": [
-        {
-          "name": "data",
-          "description": "The data received from the response, or null if not yet received.",
-          "type": "T | null",
-          "rawType": "T | null",
-          "required": true
-        },
-        {
-          "name": "error",
-          "description": "The error object if the request failed, or null if successful.",
-          "type": "Error | null",
-          "rawType": "Error | null",
-          "required": true
-        },
-        {
-          "name": "loading",
-          "description": "Indicates if the request is currently in progress.",
-          "type": "boolean",
-          "rawType": "boolean",
-          "required": true
-        }
-      ]
-    }
-  ]
+  "types": []
 }

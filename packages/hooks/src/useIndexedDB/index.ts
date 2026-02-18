@@ -1,3 +1,1 @@
-// This file is auto-generated. Do not edit manually.
-
-export * from './useIndexedDB';
+export * from './useIndexedDb';

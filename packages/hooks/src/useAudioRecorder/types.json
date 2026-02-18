@@ -145,5 +145,34 @@
       "required": true
     }
   ],
-  "types": []
+  "types": [
+    {
+      "kind": "interface",
+      "name": "AudioAnalysisData",
+      "description": "Audio analysis data returned when `enableAnalysis` is true.",
+      "properties": [
+        {
+          "name": "frequencyData",
+          "description": "Frequency domain data (FFT).",
+          "type": "Uint8Array",
+          "rawType": "Uint8Array",
+          "required": true
+        },
+        {
+          "name": "timeData",
+          "description": "Time domain waveform data.",
+          "type": "Uint8Array",
+          "rawType": "Uint8Array",
+          "required": true
+        },
+        {
+          "name": "volume",
+          "description": "Calculated RMS volume level.",
+          "type": "number",
+          "rawType": "number",
+          "required": true
+        }
+      ]
+    }
+  ]
 }

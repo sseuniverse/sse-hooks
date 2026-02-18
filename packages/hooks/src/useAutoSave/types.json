@@ -50,5 +50,20 @@
       "required": true
     }
   ],
-  "types": []
+  "types": [
+    {
+      "kind": "interface",
+      "name": "BaseConfig",
+      "description": "Configuration options for the useAutoSave hook.",
+      "properties": [
+        {
+          "name": "delay",
+          "description": "The debounce delay in milliseconds before triggering the onSave callback.",
+          "type": "number",
+          "rawType": "number",
+          "required": false
+        }
+      ]
+    }
+  ]
 }

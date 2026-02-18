@@ -118,5 +118,92 @@
       "required": true
     }
   ],
-  "types": []
+  "types": [
+    {
+      "kind": "interface",
+      "name": "MediaImage",
+      "description": "Represents an image associated with the media (e.g., album art).",
+      "properties": [
+        {
+          "name": "sizes",
+          "description": "The sizes of the image (e.g., \"96x96\").",
+          "type": "string",
+          "rawType": "string",
+          "required": false
+        },
+        {
+          "name": "src",
+          "description": "The URL of the image.",
+          "type": "string",
+          "rawType": "string",
+          "required": true
+        },
+        {
+          "name": "type",
+          "description": "The MIME type of the image (e.g., \"image/png\").",
+          "type": "string",
+          "rawType": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "kind": "interface",
+      "name": "MediaMetadataInit",
+      "description": "Metadata for the current media session.",
+      "properties": [
+        {
+          "name": "album",
+          "description": "The album name.",
+          "type": "string",
+          "rawType": "string",
+          "required": false
+        },
+        {
+          "name": "artist",
+          "description": "The artist name.",
+          "type": "string",
+          "rawType": "string",
+          "required": false
+        },
+        {
+          "name": "artwork",
+          "description": "An array of artwork images.",
+          "type": "MediaImage[]",
+          "rawType": "MediaImage[]",
+          "required": false,
+          "schema": [
+            {
+              "name": "sizes",
+              "description": "The sizes of the image (e.g., \"96x96\").",
+              "type": "string",
+              "rawType": "string",
+              "required": false
+            },
+            {
+              "name": "src",
+              "description": "The URL of the image.",
+              "type": "string",
+              "rawType": "string",
+              "required": true
+            },
+            {
+              "name": "type",
+              "description": "The MIME type of the image (e.g., \"image/png\").",
+              "type": "string",
+              "rawType": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "title",
+          "description": "The title of the media.",
+          "type": "string",
+          "rawType": "string",
+          "required": false
+        }
+      ]
+    }
+  ]
 }

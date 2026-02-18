@@ -1,4 +1,9 @@
-import fs, { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
+import fs, {
+  readFileSync,
+  writeFileSync,
+  existsSync,
+  mkdirSync,
+} from "node:fs";
 import { execSync } from "node:child_process";
 import { join } from "node:path";
 
@@ -8,7 +13,6 @@ const __dirname = process.cwd();
 const TEMP_DIR = "./generated";
 const INPUT_FILE = join(__dirname, "generated", "typedoc", "all.json");
 const BASE_OUTPUT_DIR = join(__dirname, "packages", "hooks", "src");
-const ALL_TYPES_FILE = join(__dirname, "types-all.json");
 
 // --- Helpers ---
 function getCommentText(comment) {
@@ -27,13 +31,14 @@ function resolveType(t, usedTypes) {
   if (t.type === "reference") {
     // [NEW] Register the type name as "used"
     if (usedTypes && t.name) usedTypes.add(t.name);
-    
+
     const args = t.typeArguments
-      ? `<${t.typeArguments.map(a => resolveType(a, usedTypes)).join(", ")}>`
+      ? `<${t.typeArguments.map((a) => resolveType(a, usedTypes)).join(", ")}>`
       : "";
     return `${t.name}${args}`;
   }
-  if (t.type === "union") return t.types.map(a => resolveType(a, usedTypes)).join(" | ");
+  if (t.type === "union")
+    return t.types.map((a) => resolveType(a, usedTypes)).join(" | ");
   if (t.type === "array") return `${resolveType(t.elementType, usedTypes)}[]`;
   if (t.type === "literal")
     return typeof t.value === "string" ? `"${t.value}"` : String(t.value);
@@ -47,8 +52,10 @@ function resolveType(t, usedTypes) {
     }
     return "Object";
   }
-  if (t.type === "tuple") return `[${t.elements.map(a => resolveType(a, usedTypes)).join(", ")}]`;
-  if (t.type === "intersection") return t.types.map(a => resolveType(a, usedTypes)).join(" & ");
+  if (t.type === "tuple")
+    return `[${t.elements.map((a) => resolveType(a, usedTypes)).join(", ")}]`;
+  if (t.type === "intersection")
+    return t.types.map((a) => resolveType(a, usedTypes)).join(" & ");
   return "any";
 }
 
@@ -175,11 +182,10 @@ function extractReturnProps(retType, declarations, usedTypes) {
 function generateNuxtUiLikeTypes() {
   try {
     execSync("npx typedoc", { stdio: "inherit" });
-    
+
     const rawData = readFileSync(INPUT_FILE, "utf-8");
     const typeDocData = JSON.parse(rawData);
 
-    const allHooksMeta = [];
     const modulesMap = new Map();
 
     if (typeDocData.children) {
@@ -206,7 +212,7 @@ function generateNuxtUiLikeTypes() {
         description: "",
         props: [],
         returns: [],
-        types: [], 
+        types: [],
       };
 
       // 1. Process Props and Returns FIRST (this populates usedTypes)
@@ -238,13 +244,39 @@ function generateNuxtUiLikeTypes() {
         });
       }
 
-      // 2. NOW Extract Standalone Declarations 
+      // 2. NOW Extract Standalone Declarations
       declarations.forEach((d) => {
+        // Skip the main hook function
         if (d.name === hookName && d.kind === 64) return;
-        
-        // [NEW] The magic filter! If the type was tracked during props/returns extraction, skip it.
-        if (usedTypes.has(d.name)) return;
 
+        const isTypeUsed = usedTypes.has(d.name);
+
+        /**
+         * Identify redundant interfaces that are already explained in props/returns.
+         * - UseAudioRecorderOptions is already in 'props[0].schema'
+         * - UseAudioRecorderReturn is already in the 'returns' array
+         */
+        const isOptionsInterface =
+          d.name === `${hookName[0].toUpperCase()}${hookName.slice(1)}Options`;
+        const isReturnInterface =
+          d.name === `${hookName[0].toUpperCase()}${hookName.slice(1)}Return`;
+
+        // We only want complex structures like 'AudioAnalysisData' that aren't the main Input/Output interfaces
+        const isComplexType =
+          (d.kind === 256 || d.kind === 8) &&
+          !isOptionsInterface &&
+          !isReturnInterface;
+
+        /**
+         * Logic:
+         * 1. If it's a simple used type (like AudioMimeType), skip it (it's already inlined as a union string).
+         * 2. If it's an unused type, skip it to keep the JSON clean.
+         * 3. Only proceed if it's a "Complex Type" (Interface/Enum) that isn't redundant.
+         */
+        if (isTypeUsed && !isComplexType) return;
+        if (!isTypeUsed) return;
+
+        // --- Process Interfaces (e.g., AudioAnalysisData) ---
         if (d.kind === 256) {
           meta.types.push({
             kind: "interface",
@@ -253,14 +285,15 @@ function generateNuxtUiLikeTypes() {
             properties: (d.children || []).map((child) => ({
               name: child.name,
               description: getCommentText(child.comment),
-              type: resolveType(child.type), // Note: no need to pass usedTypes here anymore
+              type: resolveType(child.type),
               rawType: expandType(child.type, declarations),
               required: !child.flags?.isOptional,
-              schema: resolveSchema(child.type, declarations)
+              schema: resolveSchema(child.type, declarations),
             })),
           });
         }
 
+        // --- Process Type Aliases ---
         if (d.kind === 4194304) {
           const resolved = resolveType(d.type);
           const expanded = expandType(d.type, declarations);
@@ -270,20 +303,24 @@ function generateNuxtUiLikeTypes() {
             description: getCommentText(d.comment),
             type: resolved,
             ...(resolved !== expanded ? { rawType: expanded } : {}),
-            schema: resolveSchema(d.type, declarations)
+            schema: resolveSchema(d.type, declarations),
           });
         }
 
+        // --- Process Enums ---
         if (d.kind === 8) {
           meta.types.push({
             kind: "enum",
             name: d.name,
             description: getCommentText(d.comment),
             members: (d.children || []).map((child) => {
-              const val = child.type && child.type.value !== undefined 
-                ? child.type.value 
-                : child.defaultValue !== undefined ? child.defaultValue : child.name;
-              
+              const val =
+                child.type && child.type.value !== undefined
+                  ? child.type.value
+                  : child.defaultValue !== undefined
+                    ? child.defaultValue
+                    : child.name;
+
               return {
                 name: child.name,
                 description: getCommentText(child.comment),
@@ -294,8 +331,6 @@ function generateNuxtUiLikeTypes() {
         }
       });
 
-      allHooksMeta.push(meta);
-
       const hookDir = join(BASE_OUTPUT_DIR, hookName);
       if (!existsSync(hookDir)) mkdirSync(hookDir, { recursive: true });
 
@@ -303,13 +338,6 @@ function generateNuxtUiLikeTypes() {
       writeFileSync(specificFilePath, JSON.stringify(meta, null, 2), "utf-8");
       console.log(`Generated: ${specificFilePath}`);
     });
-
-    writeFileSync(
-      ALL_TYPES_FILE,
-      JSON.stringify(allHooksMeta, null, 2),
-      "utf-8",
-    );
-    console.log(`\nSuccessfully generated combined types-all.json!`);
   } catch (err) {
     console.error("Error generating UI types:", err);
   } finally {

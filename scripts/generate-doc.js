@@ -330,7 +330,7 @@ ${linksYaml}
 
 ## Installation
 
-::code-group
+::code-group{sync="pm"}
 
 \`\`\`bash [npm]
 npx sse-hooks add ${kebabName}
@@ -363,6 +363,8 @@ ${middleContent}
 ### Returns
 
 :component-props{type="returns"}
+
+:component-types
 
 ## Changelog
 
