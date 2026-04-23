@@ -34,12 +34,6 @@ type UseWindowSizeOptions<InitializeWithValue extends boolean | undefined> = {
 
 const IS_SERVER = typeof window === "undefined";
 
-// SSR version of useWindowSize.
-export function useWindowSize(options: UseWindowSizeOptions<false>): WindowSize;
-// CSR version of useWindowSize.
-export function useWindowSize(
-  options?: Partial<UseWindowSizeOptions<true>>,
-): WindowSize<number>;
 /**
  * Custom hook that tracks the size of the window.
  *
@@ -54,6 +48,10 @@ export function useWindowSize(
  * console.log(`Window size: ${width} x ${height}`);
  * ```
  */
+export function useWindowSize(options: UseWindowSizeOptions<false>): WindowSize;
+export function useWindowSize(
+  options?: Partial<UseWindowSizeOptions<true>>,
+): WindowSize<number>;
 export function useWindowSize(
   options: Partial<UseWindowSizeOptions<boolean>> = {},
 ): WindowSize | WindowSize<number> {

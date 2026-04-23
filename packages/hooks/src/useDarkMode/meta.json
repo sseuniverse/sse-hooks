@@ -10,8 +10,72 @@
     "use-local-storage",
     "use-media-query"
   ],
+  "api": {
+    "tags": {
+      "category": "dom",
+      "public": true,
+      "see": "[Documentation](/docs/use-dark-mode)",
+      "example": "```tsx\r\nconst { isDarkMode, toggle, enable, disable, set } = useDarkMode({ defaultValue: true });\r\n```"
+    },
+    "parameters": [
+      {
+        "name": "options",
+        "type": "DarkModeOptions",
+        "isOptional": true,
+        "defaultValue": "{}",
+        "properties": [
+          {
+            "name": "defaultValue",
+            "type": "boolean | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "localStorageKey",
+            "type": "string | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "initializeWithValue",
+            "type": "boolean | undefined",
+            "isOptional": true
+          }
+        ]
+      }
+    ],
+    "returnType": {
+      "name": "DarkModeReturn",
+      "properties": [
+        {
+          "name": "isDarkMode",
+          "type": "boolean",
+          "isOptional": false
+        },
+        {
+          "name": "toggle",
+          "type": "() => void",
+          "isOptional": false
+        },
+        {
+          "name": "enable",
+          "type": "() => void",
+          "isOptional": false
+        },
+        {
+          "name": "disable",
+          "type": "() => void",
+          "isOptional": false
+        },
+        {
+          "name": "set",
+          "type": "(value: boolean) => void",
+          "isOptional": false
+        }
+      ]
+    }
+  },
   "file": {
-    "content": "import { useIsomorphicLayoutEffect } from \"./use-isomorphic-layout-effect\";\nimport { useLocalStorage } from \"./use-local-storage\";\nimport { useMediaQuery } from \"./use-media-query\";\n\nconst COLOR_SCHEME_QUERY = \"(prefers-color-scheme: dark)\";\nconst LOCAL_STORAGE_KEY = \"sse-hooks-dark-mode\";\n\ntype DarkModeOptions = {\n  defaultValue?: boolean;\n\n  localStorageKey?: string;\n\n  initializeWithValue?: boolean;\n};\n\ntype DarkModeReturn = {\n  isDarkMode: boolean;\n\n  toggle: () => void;\n\n  enable: () => void;\n\n  disable: () => void;\n\n  set: (value: boolean) => void;\n};\n\nexport function useDarkMode(options: DarkModeOptions = {}): DarkModeReturn {\n  const {\n    defaultValue,\n    localStorageKey = LOCAL_STORAGE_KEY,\n    initializeWithValue = true,\n  } = options;\n\n  const isDarkOS = useMediaQuery(COLOR_SCHEME_QUERY, {\n    initializeWithValue,\n    defaultValue,\n  });\n  const [isDarkMode, setDarkMode] = useLocalStorage<boolean>(\n    localStorageKey,\n    defaultValue ?? isDarkOS ?? false,\n    { initializeWithValue },\n  );\n\n  useIsomorphicLayoutEffect(() => {\n    if (isDarkOS !== isDarkMode) {\n      setDarkMode(isDarkOS);\n    }\n  }, [isDarkOS]);\n\n  return {\n    isDarkMode,\n    toggle: () => {\n      setDarkMode((prev) => !prev);\n    },\n    enable: () => {\n      setDarkMode(true);\n    },\n    disable: () => {\n      setDarkMode(false);\n    },\n    set: (value) => {\n      setDarkMode(value);\n    },\n  };\n}\n",
+    "path": "use-dark-mode.ts",
+    "content": "// This file is auto-generated. Do not edit manually.\n\nimport { useIsomorphicLayoutEffect } from \"./use-isomorphic-layout-effect\";\nimport { useLocalStorage } from \"./use-local-storage\";\nimport { useMediaQuery } from \"./use-media-query\";\n\nconst COLOR_SCHEME_QUERY = \"(prefers-color-scheme: dark)\";\nconst LOCAL_STORAGE_KEY = \"sse-hooks-dark-mode\";\n\n/** The hook options. */\ntype DarkModeOptions = {\n  /**\n   * The initial value of the dark mode.\n   * @default false\n   */\n  defaultValue?: boolean;\n  /**\n   * The key to use in the local storage.\n   * @default 'sse-hooks-dark-mode'\n   */\n  localStorageKey?: string;\n  /**\n   * If `true` (default), the hook will initialize reading `localStorage`.\n   * In SSR, you should set it to `false`, returning the `defaultValue` or `false` initially.\n   * @default true\n   */\n  initializeWithValue?: boolean;\n};\n\n/** The hook return type. */\ntype DarkModeReturn = {\n  /** The current state of the dark mode. */\n  isDarkMode: boolean;\n  /** Function to toggle the dark mode. */\n  toggle: () => void;\n  /** Function to enable the dark mode. */\n  enable: () => void;\n  /** Function to disable the dark mode. */\n  disable: () => void;\n  /** Function to set a specific value to the dark mode. */\n  set: (value: boolean) => void;\n};\n\n/**\n * Custom hook that returns the current state of the dark mode.\n *\n * @category dom\n * @param {?DarkModeOptions} [options] - The initial value of the dark mode, default `false`.\n * @returns {DarkModeReturn} An object containing the dark mode's state and its controllers.\n * @public\n * @see [Documentation](/docs/use-dark-mode)\n * @example\n * ```tsx\n * const { isDarkMode, toggle, enable, disable, set } = useDarkMode({ defaultValue: true });\n * ```\n */\nexport function useDarkMode(options: DarkModeOptions = {}): DarkModeReturn {\n  const {\n    defaultValue,\n    localStorageKey = LOCAL_STORAGE_KEY,\n    initializeWithValue = true,\n  } = options;\n\n  const isDarkOS = useMediaQuery(COLOR_SCHEME_QUERY, {\n    initializeWithValue,\n    defaultValue,\n  });\n  const [isDarkMode, setDarkMode] = useLocalStorage<boolean>(\n    localStorageKey,\n    defaultValue ?? isDarkOS ?? false,\n    { initializeWithValue },\n  );\n\n  // Update darkMode if os prefers changes\n  useIsomorphicLayoutEffect(() => {\n    if (isDarkOS !== isDarkMode) {\n      setDarkMode(isDarkOS);\n    }\n  }, [isDarkOS]);\n\n  return {\n    isDarkMode,\n    toggle: () => {\n      setDarkMode((prev) => !prev);\n    },\n    enable: () => {\n      setDarkMode(true);\n    },\n    disable: () => {\n      setDarkMode(false);\n    },\n    set: (value) => {\n      setDarkMode(value);\n    },\n  };\n}\n",
     "js": "import { useIsomorphicLayoutEffect } from \"./use-isomorphic-layout-effect\";\nimport { useLocalStorage } from \"./use-local-storage\";\nimport { useMediaQuery } from \"./use-media-query\";\nconst COLOR_SCHEME_QUERY = \"(prefers-color-scheme: dark)\";\nconst LOCAL_STORAGE_KEY = \"sse-hooks-dark-mode\";\nexport function useDarkMode(options = {}) {\n    const { defaultValue, localStorageKey = LOCAL_STORAGE_KEY, initializeWithValue = true, } = options;\n    const isDarkOS = useMediaQuery(COLOR_SCHEME_QUERY, {\n        initializeWithValue,\n        defaultValue,\n    });\n    const [isDarkMode, setDarkMode] = useLocalStorage(localStorageKey, defaultValue ?? isDarkOS ?? false, { initializeWithValue });\n    useIsomorphicLayoutEffect(() => {\n        if (isDarkOS !== isDarkMode) {\n            setDarkMode(isDarkOS);\n        }\n    }, [isDarkOS]);\n    return {\n        isDarkMode,\n        toggle: () => {\n            setDarkMode((prev) => !prev);\n        },\n        enable: () => {\n            setDarkMode(true);\n        },\n        disable: () => {\n            setDarkMode(false);\n        },\n        set: (value) => {\n            setDarkMode(value);\n        },\n    };\n}"
   }
 }

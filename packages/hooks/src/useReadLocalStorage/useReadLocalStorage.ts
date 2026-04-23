@@ -15,16 +15,6 @@ type Options<T, InitializeWithValue extends boolean | undefined> = {
   initializeWithValue: InitializeWithValue;
 };
 
-// SSR version
-export function useReadLocalStorage<T>(
-  key: string,
-  options: Options<T, false>,
-): T | null | undefined;
-// CSR version
-export function useReadLocalStorage<T>(
-  key: string,
-  options?: Partial<Options<T, true>>,
-): T | null;
 /**
  * Custom hook that reads a value from [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), closely related to [`useLocalStorage()`](/docs/use-local-storage).
  * 
@@ -41,6 +31,16 @@ export function useReadLocalStorage<T>(
  * // Access the stored data from local storage.
  * ```
  */
+// SSR version
+export function useReadLocalStorage<T>(
+  key: string,
+  options: Options<T, false>,
+): T | null | undefined;
+// CSR version
+export function useReadLocalStorage<T>(
+  key: string,
+  options?: Partial<Options<T, true>>,
+): T | null;
 export function useReadLocalStorage<T>(
   key: string,
   options: Partial<Options<T, boolean>> = {},

@@ -8,8 +8,70 @@
     "react"
   ],
   "registryDependencies": [],
+  "api": {
+    "tags": {},
+    "parameters": [],
+    "returnType": {
+      "name": "UseNetworkInformationReturn",
+      "properties": [
+        {
+          "name": "networkInfo",
+          "type": "NetworkInformation | null",
+          "isOptional": false,
+          "properties": [
+            {
+              "name": "downlink",
+              "type": "number | undefined",
+              "isOptional": true
+            },
+            {
+              "name": "downlinkMax",
+              "type": "number | undefined",
+              "isOptional": true
+            },
+            {
+              "name": "effectiveType",
+              "type": "\"2g\" | \"3g\" | \"4g\" | \"slow-2g\" | undefined",
+              "isOptional": true
+            },
+            {
+              "name": "rtt",
+              "type": "number | undefined",
+              "isOptional": true
+            },
+            {
+              "name": "saveData",
+              "type": "boolean | undefined",
+              "isOptional": true
+            },
+            {
+              "name": "type",
+              "type": "\"bluetooth\" | \"cellular\" | \"ethernet\" | \"none\" | \"wifi\" | \"wimax\" | \"other\" | \"unknown\" | undefined",
+              "isOptional": true
+            }
+          ]
+        },
+        {
+          "name": "isOnline",
+          "type": "boolean",
+          "isOptional": false
+        },
+        {
+          "name": "isSupported",
+          "type": "boolean",
+          "isOptional": false
+        },
+        {
+          "name": "refresh",
+          "type": "() => void",
+          "isOptional": false
+        }
+      ]
+    }
+  },
   "file": {
-    "content": "export interface NetworkInformation {\n  downlink?: number;\n  downlinkMax?: number;\n  effectiveType?: \"2g\" | \"3g\" | \"4g\" | \"slow-2g\";\n  rtt?: number;\n  saveData?: boolean;\n  type?:\n    | \"bluetooth\"\n    | \"cellular\"\n    | \"ethernet\"\n    | \"none\"\n    | \"wifi\"\n    | \"wimax\"\n    | \"other\"\n    | \"unknown\";\n}\n\nexport interface UseNetworkInformationReturn {\n  networkInfo: NetworkInformation | null;\n\n  isOnline: boolean;\n\n  isSupported: boolean;\n\n  refresh: () => void;\n}\n\nimport { useCallback, useEffect, useState } from \"react\";\n\ndeclare global {\n  interface Navigator {\n    connection?: NetworkInformation;\n  }\n}\n\nexport const useNetworkInformation = (): UseNetworkInformationReturn => {\n  const [networkInfo, setNetworkInfo] = useState<NetworkInformation | null>(\n    null,\n  );\n\n  const [isOnline, setIsOnline] = useState<boolean>(\n    typeof navigator !== \"undefined\" ? navigator.onLine : true,\n  );\n\n  const isSupported =\n    typeof navigator !== \"undefined\" &&\n    \"connection\" in navigator &&\n    navigator.connection !== undefined;\n\n  const updateNetworkInfo = useCallback(() => {\n    if (!isSupported || !navigator.connection) return;\n\n    const connection = navigator.connection;\n\n    setNetworkInfo({\n      downlink: connection.downlink,\n      downlinkMax: connection.downlinkMax,\n      effectiveType: connection.effectiveType,\n      rtt: connection.rtt,\n      saveData: connection.saveData,\n      type: connection.type,\n    });\n  }, [isSupported]);\n\n  const handleOnlineStatusChange = useCallback(() => {\n    setIsOnline(navigator.onLine);\n  }, []);\n\n  const handleConnectionChange = useCallback(() => {\n    updateNetworkInfo();\n  }, [updateNetworkInfo]);\n\n  useEffect(() => {\n    if (typeof window === \"undefined\") return;\n\n    updateNetworkInfo();\n\n    window.addEventListener(\"online\", handleOnlineStatusChange);\n    window.addEventListener(\"offline\", handleOnlineStatusChange);\n\n    if (isSupported) {\n      const connection = (navigator as any).connection;\n      connection.addEventListener(\"change\", handleConnectionChange);\n    }\n\n    return () => {\n      window.removeEventListener(\"online\", handleOnlineStatusChange);\n      window.removeEventListener(\"offline\", handleOnlineStatusChange);\n\n      if (isSupported) {\n        const connection = (navigator as any).connection;\n        connection.removeEventListener(\"change\", handleConnectionChange);\n      }\n    };\n  }, [\n    isSupported,\n    updateNetworkInfo,\n    handleOnlineStatusChange,\n    handleConnectionChange,\n  ]);\n\n  return {\n    networkInfo,\n    isOnline,\n    isSupported,\n    refresh: updateNetworkInfo,\n  };\n};\n",
+    "path": "use-network-information.ts",
+    "content": "// This file is auto-generated. Do not edit manually.\n\nexport interface NetworkInformation {\n  downlink?: number;\n  downlinkMax?: number;\n  effectiveType?: \"2g\" | \"3g\" | \"4g\" | \"slow-2g\";\n  rtt?: number;\n  saveData?: boolean;\n  type?:\n    | \"bluetooth\"\n    | \"cellular\"\n    | \"ethernet\"\n    | \"none\"\n    | \"wifi\"\n    | \"wimax\"\n    | \"other\"\n    | \"unknown\";\n}\n\nexport interface UseNetworkInformationReturn {\n  /** Detailed information about the network connection. */\n  networkInfo: NetworkInformation | null;\n  /** Whether the browser detects an internet connection. */\n  isOnline: boolean;\n  /** Whether the Network Information API is supported in this browser. */\n  isSupported: boolean;\n  /** Function to manually update the network information. */\n  refresh: () => void;\n}\n\nimport { useCallback, useEffect, useState } from \"react\";\n\ndeclare global {\n  interface Navigator {\n    connection?: NetworkInformation;\n  }\n}\n\n/**\n * Custom hook that tracks the device's network connection status and details (speed, type)\n * using the Network Information API.\n * @category network\n * @returns {UseNetworkInformationReturn} The network state, connection details, and support status.\n * @public\n * @see [Documentation](/docs/use-network-information)\n * @example\n * ```tsx\n * const { isOnline, networkInfo } = useNetworkInformation();\n * if (!isOnline) return <div>You are offline</div>;\n * return (\n * <div>\n * Connection: {networkInfo?.effectiveType} ({networkInfo?.downlink} Mbps)\n * </div>\n * );\n * ```\n */\nexport const useNetworkInformation = (): UseNetworkInformationReturn => {\n  const [networkInfo, setNetworkInfo] = useState<NetworkInformation | null>(\n    null,\n  );\n\n  const [isOnline, setIsOnline] = useState<boolean>(\n    typeof navigator !== \"undefined\" ? navigator.onLine : true,\n  );\n\n  const isSupported =\n    typeof navigator !== \"undefined\" &&\n    \"connection\" in navigator &&\n    navigator.connection !== undefined;\n\n  const updateNetworkInfo = useCallback(() => {\n    if (!isSupported || !navigator.connection) return;\n\n    const connection = navigator.connection;\n\n    setNetworkInfo({\n      downlink: connection.downlink,\n      downlinkMax: connection.downlinkMax,\n      effectiveType: connection.effectiveType,\n      rtt: connection.rtt,\n      saveData: connection.saveData,\n      type: connection.type,\n    });\n  }, [isSupported]);\n\n  const handleOnlineStatusChange = useCallback(() => {\n    setIsOnline(navigator.onLine);\n  }, []);\n\n  const handleConnectionChange = useCallback(() => {\n    updateNetworkInfo();\n  }, [updateNetworkInfo]);\n\n  useEffect(() => {\n    if (typeof window === \"undefined\") return;\n\n    updateNetworkInfo();\n\n    window.addEventListener(\"online\", handleOnlineStatusChange);\n    window.addEventListener(\"offline\", handleOnlineStatusChange);\n\n    if (isSupported) {\n      const connection = (navigator as any).connection;\n      connection.addEventListener(\"change\", handleConnectionChange);\n    }\n\n    return () => {\n      window.removeEventListener(\"online\", handleOnlineStatusChange);\n      window.removeEventListener(\"offline\", handleOnlineStatusChange);\n\n      if (isSupported) {\n        const connection = (navigator as any).connection;\n        connection.removeEventListener(\"change\", handleConnectionChange);\n      }\n    };\n  }, [\n    isSupported,\n    updateNetworkInfo,\n    handleOnlineStatusChange,\n    handleConnectionChange,\n  ]);\n\n  return {\n    networkInfo,\n    isOnline,\n    isSupported,\n    refresh: updateNetworkInfo,\n  };\n};\n",
     "js": "import { useCallback, useEffect, useState } from \"react\";\nexport const useNetworkInformation = () => {\n    const [networkInfo, setNetworkInfo] = useState(null);\n    const [isOnline, setIsOnline] = useState(typeof navigator !== \"undefined\" ? navigator.onLine : true);\n    const isSupported = typeof navigator !== \"undefined\" &&\n        \"connection\" in navigator &&\n        navigator.connection !== undefined;\n    const updateNetworkInfo = useCallback(() => {\n        if (!isSupported || !navigator.connection)\n            return;\n        const connection = navigator.connection;\n        setNetworkInfo({\n            downlink: connection.downlink,\n            downlinkMax: connection.downlinkMax,\n            effectiveType: connection.effectiveType,\n            rtt: connection.rtt,\n            saveData: connection.saveData,\n            type: connection.type,\n        });\n    }, [isSupported]);\n    const handleOnlineStatusChange = useCallback(() => {\n        setIsOnline(navigator.onLine);\n    }, []);\n    const handleConnectionChange = useCallback(() => {\n        updateNetworkInfo();\n    }, [updateNetworkInfo]);\n    useEffect(() => {\n        if (typeof window === \"undefined\")\n            return;\n        updateNetworkInfo();\n        window.addEventListener(\"online\", handleOnlineStatusChange);\n        window.addEventListener(\"offline\", handleOnlineStatusChange);\n        if (isSupported) {\n            const connection = navigator.connection;\n            connection.addEventListener(\"change\", handleConnectionChange);\n        }\n        return () => {\n            window.removeEventListener(\"online\", handleOnlineStatusChange);\n            window.removeEventListener(\"offline\", handleOnlineStatusChange);\n            if (isSupported) {\n                const connection = navigator.connection;\n                connection.removeEventListener(\"change\", handleConnectionChange);\n            }\n        };\n    }, [\n        isSupported,\n        updateNetworkInfo,\n        handleOnlineStatusChange,\n        handleConnectionChange,\n    ]);\n    return {\n        networkInfo,\n        isOnline,\n        isSupported,\n        refresh: updateNetworkInfo,\n    };\n};"
   }
 }

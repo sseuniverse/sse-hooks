@@ -26,8 +26,8 @@
   "scripts": {
     "build": "unbuild",
     "build:index": "node ./scripts/generate-index.js",
-    "meta:gen": "node scripts/generate-meta.js --create",
-    "meta:rm": "node scripts/generate-meta.js --rm"
+    "meta:gen": "tsx scripts/generate.ts --create",
+    "meta:rm": "tsx scripts/generate.ts --rm"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.9",

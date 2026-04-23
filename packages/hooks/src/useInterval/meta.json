@@ -10,8 +10,32 @@
   "registryDependencies": [
     "use-isomorphic-layout-effect"
   ],
+  "api": {
+    "tags": {
+      "category": "effect",
+      "public": true,
+      "see": "[Documentation](/docs/use-interval)",
+      "example": "```tsx\r\nconst handleInterval = () => {\r\n  // Code to be executed at each interval\r\n};\r\nuseInterval(handleInterval, 1000);\r\n```"
+    },
+    "parameters": [
+      {
+        "name": "callback",
+        "type": "() => void",
+        "isOptional": false
+      },
+      {
+        "name": "delay",
+        "type": "number | null",
+        "isOptional": false
+      }
+    ],
+    "returnType": {
+      "name": "void"
+    }
+  },
   "file": {
-    "content": "import { useEffect, useRef } from \"react\";\nimport { useIsomorphicLayoutEffect } from \"./use-isomorphic-layout-effect\";\n\nexport function useInterval(callback: () => void, delay: number | null) {\n  const savedCallback = useRef(callback);\n\n  useIsomorphicLayoutEffect(() => {\n    savedCallback.current = callback;\n  }, [callback]);\n\n  useEffect(() => {\n    if (delay === null) {\n      return;\n    }\n\n    const id = setInterval(() => {\n      savedCallback.current();\n    }, delay);\n\n    return () => {\n      clearInterval(id);\n    };\n  }, [delay]);\n}\n",
+    "path": "use-interval.ts",
+    "content": "// This file is auto-generated. Do not edit manually.\n\nimport { useEffect, useRef } from \"react\";\nimport { useIsomorphicLayoutEffect } from \"./use-isomorphic-layout-effect\";\n\n/**\n * Custom hook that creates an interval that invokes a callback function at a specified delay using the [`setInterval API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval).\n *\n * @category effect\n * @param {() => void} callback - The function to be invoked at each interval.\n * @param {number | null} delay - The time, in milliseconds, between each invocation of the callback. Use `null` to clear the interval.\n * @public\n * @see [Documentation](/docs/use-interval)\n * @example\n * ```tsx\n * const handleInterval = () => {\n *   // Code to be executed at each interval\n * };\n * useInterval(handleInterval, 1000);\n * ```\n */\nexport function useInterval(callback: () => void, delay: number | null) {\n  const savedCallback = useRef(callback);\n\n  // Remember the latest callback if it changes.\n  useIsomorphicLayoutEffect(() => {\n    savedCallback.current = callback;\n  }, [callback]);\n\n  // Set up the interval.\n  useEffect(() => {\n    // Don't schedule if no delay is specified.\n    // Note: 0 is a valid value for delay.\n    if (delay === null) {\n      return;\n    }\n\n    const id = setInterval(() => {\n      savedCallback.current();\n    }, delay);\n\n    return () => {\n      clearInterval(id);\n    };\n  }, [delay]);\n}\n",
     "js": "import { useEffect, useRef } from \"react\";\nimport { useIsomorphicLayoutEffect } from \"./use-isomorphic-layout-effect\";\nexport function useInterval(callback, delay) {\n    const savedCallback = useRef(callback);\n    useIsomorphicLayoutEffect(() => {\n        savedCallback.current = callback;\n    }, [callback]);\n    useEffect(() => {\n        if (delay === null) {\n            return;\n        }\n        const id = setInterval(() => {\n            savedCallback.current();\n        }, delay);\n        return () => {\n            clearInterval(id);\n        };\n    }, [delay]);\n}"
   }
 }

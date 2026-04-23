@@ -8,8 +8,27 @@
     "react"
   ],
   "registryDependencies": [],
+  "api": {
+    "tags": {
+      "category": "dom",
+      "template": "- The type of the value being referenced (usually a DOM element).",
+      "public": true,
+      "example": "```tsx\r\nconst rootRef = React.useRef<Instance>(null);\r\nconst refFork = useForkRef(rootRef, props.ref);\r\n\r\nreturn (\r\n  <Root {...props} ref={refFork} />\r\n);\r\n```"
+    },
+    "parameters": [
+      {
+        "name": "...refs",
+        "type": "Array<React.Ref<Instance> | undefined>",
+        "isOptional": true
+      }
+    ],
+    "returnType": {
+      "name": "React.RefCallback<Instance> | null"
+    }
+  },
   "file": {
-    "content": "import React from \"react\";\n\nexport function useForkRef<Instance>(\n  ...refs: Array<React.Ref<Instance> | undefined>\n): React.RefCallback<Instance> | null {\n  const cleanupRef = React.useRef<() => void>(undefined);\n\n  const refEffect = React.useCallback((instance: Instance) => {\n    const cleanups = refs.map((ref) => {\n      if (ref == null) {\n        return null;\n      }\n\n      if (typeof ref === \"function\") {\n        const refCallback = ref;\n        const refCleanup: void | (() => void) = refCallback(instance);\n        return typeof refCleanup === \"function\"\n          ? refCleanup\n          : () => {\n              refCallback(null);\n            };\n      }\n\n      ref.current = instance;\n      return () => {\n        ref.current = null;\n      };\n    });\n\n    return () => {\n      cleanups.forEach((refCleanup) => refCleanup?.());\n    };\n  }, refs);\n\n  return React.useMemo(() => {\n    if (refs.every((ref) => ref == null)) {\n      return null;\n    }\n\n    return (value) => {\n      if (cleanupRef.current) {\n        cleanupRef.current();\n        cleanupRef.current = undefined;\n      }\n\n      if (value != null) {\n        cleanupRef.current = refEffect(value);\n      }\n    };\n  }, refs);\n}\n",
+    "path": "use-fork-ref.ts",
+    "content": "// This file is auto-generated. Do not edit manually.\n\nimport React from \"react\";\n\n/**\n * Merges refs into a single memoized callback ref or `null`.\n *\n * @category dom\n * @template Instance - The type of the value being referenced (usually a DOM element).\n * @param {Array<React.Ref<Instance> | undefined>} refs The ref array.\n * @returns {React.RefCallback<Instance> | null} The new ref callback.\n * @public\n * @example\n * ```tsx\n * const rootRef = React.useRef<Instance>(null);\n * const refFork = useForkRef(rootRef, props.ref);\n *\n * return (\n *   <Root {...props} ref={refFork} />\n * );\n * ```\n *\n */\nexport function useForkRef<Instance>(\n  ...refs: Array<React.Ref<Instance> | undefined>\n): React.RefCallback<Instance> | null {\n  const cleanupRef = React.useRef<() => void>(undefined);\n\n  const refEffect = React.useCallback((instance: Instance) => {\n    const cleanups = refs.map((ref) => {\n      if (ref == null) {\n        return null;\n      }\n\n      if (typeof ref === \"function\") {\n        const refCallback = ref;\n        const refCleanup: void | (() => void) = refCallback(instance);\n        return typeof refCleanup === \"function\"\n          ? refCleanup\n          : () => {\n              refCallback(null);\n            };\n      }\n\n      ref.current = instance;\n      return () => {\n        ref.current = null;\n      };\n    });\n\n    return () => {\n      cleanups.forEach((refCleanup) => refCleanup?.());\n    };\n  }, refs);\n\n  return React.useMemo(() => {\n    if (refs.every((ref) => ref == null)) {\n      return null;\n    }\n\n    return (value) => {\n      if (cleanupRef.current) {\n        cleanupRef.current();\n        cleanupRef.current = undefined;\n      }\n\n      if (value != null) {\n        cleanupRef.current = refEffect(value);\n      }\n    };\n  }, refs);\n}\n",
     "js": "import React from \"react\";\nexport function useForkRef(...refs) {\n    const cleanupRef = React.useRef(undefined);\n    const refEffect = React.useCallback((instance) => {\n        const cleanups = refs.map((ref) => {\n            if (ref == null) {\n                return null;\n            }\n            if (typeof ref === \"function\") {\n                const refCallback = ref;\n                const refCleanup = refCallback(instance);\n                return typeof refCleanup === \"function\"\n                    ? refCleanup\n                    : () => {\n                        refCallback(null);\n                    };\n            }\n            ref.current = instance;\n            return () => {\n                ref.current = null;\n            };\n        });\n        return () => {\n            cleanups.forEach((refCleanup) => refCleanup?.());\n        };\n    }, refs);\n    return React.useMemo(() => {\n        if (refs.every((ref) => ref == null)) {\n            return null;\n        }\n        return (value) => {\n            if (cleanupRef.current) {\n                cleanupRef.current();\n                cleanupRef.current = undefined;\n            }\n            if (value != null) {\n                cleanupRef.current = refEffect(value);\n            }\n        };\n    }, refs);\n}"
   }
 }

@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
  * // Use isClient to conditionally render or execute code specific to the client side.
  * ```
  */
-export function useIsClient() {
+export function useIsClient(): boolean {
   const [isClient, setClient] = useState(false);
 
   useEffect(() => {

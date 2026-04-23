@@ -10,8 +10,32 @@
   "registryDependencies": [
     "use-isomorphic-layout-effect"
   ],
+  "api": {
+    "tags": {
+      "category": "effect",
+      "public": true,
+      "see": "[Documentation](/docs/use-timeout)",
+      "example": "```tsx\r\n// Usage of useTimeout hook\r\nuseTimeout(() => {\r\n  // Code to be executed after the specified delay\r\n}, 1000); // Set a timeout of 1000 milliseconds (1 second)\r\n```"
+    },
+    "parameters": [
+      {
+        "name": "callback",
+        "type": "() => void",
+        "isOptional": false
+      },
+      {
+        "name": "delay",
+        "type": "number | null",
+        "isOptional": false
+      }
+    ],
+    "returnType": {
+      "name": "void"
+    }
+  },
   "file": {
-    "content": "import { useEffect, useRef } from \"react\";\n\nimport { useIsomorphicLayoutEffect } from \"./use-isomorphic-layout-effect\";\n\nexport function useTimeout(callback: () => void, delay: number | null): void {\n  const savedCallback = useRef(callback);\n\n  useIsomorphicLayoutEffect(() => {\n    savedCallback.current = callback;\n  }, [callback]);\n\n  useEffect(() => {\n    if (!delay && delay !== 0) {\n      return;\n    }\n\n    const id = setTimeout(() => {\n      savedCallback.current();\n    }, delay);\n\n    return () => {\n      clearTimeout(id);\n    };\n  }, [delay]);\n}\n",
+    "path": "use-timeout.ts",
+    "content": "// This file is auto-generated. Do not edit manually.\n\nimport { useEffect, useRef } from \"react\";\n\nimport { useIsomorphicLayoutEffect } from \"./use-isomorphic-layout-effect\";\n\n/**\n * Custom hook that handles timeouts in React components using the [`setTimeout API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout).\n *\n * @category effect\n * @param {() => void} callback - The function to be executed when the timeout elapses.\n * @param {number | null} delay - The duration (in milliseconds) for the timeout. Set to `null` to clear the timeout.\n * @returns {void} This hook does not return anything.\n * @public\n * @see [Documentation](/docs/use-timeout)\n * @example\n * ```tsx\n * // Usage of useTimeout hook\n * useTimeout(() => {\n *   // Code to be executed after the specified delay\n * }, 1000); // Set a timeout of 1000 milliseconds (1 second)\n * ```\n */\nexport function useTimeout(callback: () => void, delay: number | null): void {\n  const savedCallback = useRef(callback);\n\n  // Remember the latest callback if it changes.\n  useIsomorphicLayoutEffect(() => {\n    savedCallback.current = callback;\n  }, [callback]);\n\n  // Set up the timeout.\n  useEffect(() => {\n    // Don't schedule if no delay is specified.\n    // Note: 0 is a valid value for delay.\n    if (!delay && delay !== 0) {\n      return;\n    }\n\n    const id = setTimeout(() => {\n      savedCallback.current();\n    }, delay);\n\n    return () => {\n      clearTimeout(id);\n    };\n  }, [delay]);\n}\n",
     "js": "import { useEffect, useRef } from \"react\";\nimport { useIsomorphicLayoutEffect } from \"./use-isomorphic-layout-effect\";\nexport function useTimeout(callback, delay) {\n    const savedCallback = useRef(callback);\n    useIsomorphicLayoutEffect(() => {\n        savedCallback.current = callback;\n    }, [callback]);\n    useEffect(() => {\n        if (!delay && delay !== 0) {\n            return;\n        }\n        const id = setTimeout(() => {\n            savedCallback.current();\n        }, delay);\n        return () => {\n            clearTimeout(id);\n        };\n    }, [delay]);\n}"
   }
 }

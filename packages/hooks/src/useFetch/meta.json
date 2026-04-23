@@ -8,8 +8,152 @@
     "react"
   ],
   "registryDependencies": [],
+  "api": {
+    "tags": {
+      "category": "network",
+      "template": "- The type of the data expected from the response.",
+      "public": true,
+      "example": "```tsx\r\ninterface User {\r\nid: number;\r\nname: string;\r\n}\r\n\r\nconst { data, loading, error, execute } = useFetch<User>('https://api.example.com/user/1', {\r\nimmediate: true,\r\nonSuccess: (data) => console.log('User loaded:', data),\r\n});\r\n```"
+    },
+    "parameters": [
+      {
+        "name": "url",
+        "type": "string",
+        "isOptional": true
+      },
+      {
+        "name": "options",
+        "type": "UseFetchOptions",
+        "isOptional": true,
+        "defaultValue": "{}",
+        "properties": [
+          {
+            "name": "immediate",
+            "type": "boolean | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "onSuccess",
+            "type": "((data: any) => void) | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "onError",
+            "type": "((error: Error) => void) | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "body",
+            "type": "BodyInit | null | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "cache",
+            "type": "RequestCache | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "credentials",
+            "type": "RequestCredentials | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "headers",
+            "type": "HeadersInit | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "integrity",
+            "type": "string | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "keepalive",
+            "type": "boolean | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "method",
+            "type": "string | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "mode",
+            "type": "RequestMode | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "priority",
+            "type": "RequestPriority | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "redirect",
+            "type": "RequestRedirect | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "referrer",
+            "type": "string | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "referrerPolicy",
+            "type": "ReferrerPolicy | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "signal",
+            "type": "AbortSignal | null | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "window",
+            "type": "null | undefined",
+            "isOptional": true
+          }
+        ]
+      }
+    ],
+    "returnType": {
+      "name": "UseFetchReturn<T>",
+      "properties": [
+        {
+          "name": "execute",
+          "type": "(url?: string | undefined, options?: RequestInit | undefined) => Promise<T | null>",
+          "isOptional": false
+        },
+        {
+          "name": "abort",
+          "type": "() => void",
+          "isOptional": false
+        },
+        {
+          "name": "reset",
+          "type": "() => void",
+          "isOptional": false
+        },
+        {
+          "name": "data",
+          "type": "T | null",
+          "isOptional": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "isOptional": false
+        },
+        {
+          "name": "error",
+          "type": "Error | null",
+          "isOptional": false
+        }
+      ]
+    }
+  },
   "file": {
-    "content": "import { useState, useEffect, useCallback, useRef } from \"react\";\n\nexport interface UseFetchOptions extends RequestInit {\n  immediate?: boolean;\n\n  onSuccess?: (data: any) => void;\n\n  onError?: (error: Error) => void;\n}\n\nexport interface UseFetchState<T> {\n  data: T | null;\n\n  loading: boolean;\n\n  error: Error | null;\n}\n\nexport interface UseFetchReturn<T> extends UseFetchState<T> {\n  execute: (url?: string, options?: RequestInit) => Promise<T | null>;\n\n  abort: () => void;\n\n  reset: () => void;\n}\n\nexport function useFetch<T = any>(\n  url?: string,\n  options: UseFetchOptions = {},\n): UseFetchReturn<T> {\n  const [state, setState] = useState<UseFetchState<T>>({\n    data: null,\n    loading: false,\n    error: null,\n  });\n\n  const abortControllerRef = useRef<AbortController | null>(null);\n  const optionsRef = useRef(options);\n\n  useEffect(() => {\n    optionsRef.current = options;\n  }, [options]);\n\n  const execute = useCallback(\n    async (\n      executeUrl?: string,\n      executeOptions?: RequestInit,\n    ): Promise<T | null> => {\n      const targetUrl = executeUrl || url;\n\n      if (!targetUrl) {\n        const error = new Error(\"No URL provided\");\n        setState((prev) => ({ ...prev, error, loading: false }));\n        optionsRef.current.onError?.(error);\n        throw error;\n      }\n\n      if (abortControllerRef.current) {\n        abortControllerRef.current.abort();\n      }\n\n      abortControllerRef.current = new AbortController();\n\n      setState((prev) => ({ ...prev, loading: true, error: null }));\n\n      try {\n        const { immediate, onSuccess, onError, ...fetchOptions } =\n          optionsRef.current;\n\n        const response = await fetch(targetUrl, {\n          ...fetchOptions,\n          ...executeOptions,\n          signal: abortControllerRef.current.signal,\n        });\n\n        if (!response.ok) {\n          throw new Error(`HTTP error! status: ${response.status}`);\n        }\n\n        let data: T;\n        const contentType = response.headers.get(\"content-type\");\n\n        if (contentType && contentType.includes(\"application/json\")) {\n          data = await response.json();\n        } else {\n          data = (await response.text()) as T;\n        }\n\n        setState({ data, loading: false, error: null });\n        onSuccess?.(data);\n        return data;\n      } catch (error) {\n        const fetchError = error as Error;\n\n        if (fetchError.name !== \"AbortError\") {\n          setState((prev) => ({ ...prev, loading: false, error: fetchError }));\n          optionsRef.current.onError?.(fetchError);\n        }\n\n        throw fetchError;\n      }\n    },\n    [url],\n  );\n\n  const abort = useCallback(() => {\n    if (abortControllerRef.current) {\n      abortControllerRef.current.abort();\n      abortControllerRef.current = null;\n    }\n  }, []);\n\n  const reset = useCallback(() => {\n    abort();\n    setState({ data: null, loading: false, error: null });\n  }, [abort]);\n\n  useEffect(() => {\n    if (options.immediate && url) {\n      execute();\n    }\n  }, [url, options.immediate, execute]);\n\n  useEffect(() => {\n    return () => {\n      abort();\n    };\n  }, [abort]);\n\n  return {\n    ...state,\n    execute,\n    abort,\n    reset,\n  };\n}\n\nexport function useGet<T = any>(url?: string, options: UseFetchOptions = {}) {\n  return useFetch<T>(url, { ...options, method: \"GET\" });\n}\n\nexport function usePost<T = any>(url?: string, options: UseFetchOptions = {}) {\n  return useFetch<T>(url, { ...options, method: \"POST\" });\n}\n\nexport function usePut<T = any>(url?: string, options: UseFetchOptions = {}) {\n  return useFetch<T>(url, { ...options, method: \"PUT\" });\n}\n\nexport function useDelete<T = any>(\n  url?: string,\n  options: UseFetchOptions = {},\n) {\n  return useFetch<T>(url, { ...options, method: \"DELETE\" });\n}\n",
+    "path": "use-fetch.ts",
+    "content": "// This file is auto-generated. Do not edit manually.\n\nimport { useState, useEffect, useCallback, useRef } from \"react\";\n\n/**\n * Options for customizing the behavior of the useFetch hook.\n * Extends the standard [`RequestInit`](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit) interface.\n */\nexport interface UseFetchOptions extends RequestInit {\n  /**\n   * If `true`, the fetch request will be executed immediately upon mounting or when the URL changes.\n   * @default false\n   */\n  immediate?: boolean;\n  /**\n   * Callback function invoked when the request completes successfully.\n   * @param data - The parsed response data.\n   */\n  onSuccess?: (data: any) => void;\n  /**\n   * Callback function invoked when the request fails.\n   * @param error - The error object.\n   */\n  onError?: (error: Error) => void;\n}\n\n/**\n * The state representation of the fetch request.\n * @template T - The type of the data.\n */\nexport interface UseFetchState<T> {\n  /** The data received from the response, or null if not yet received. */\n  data: T | null;\n  /** Indicates if the request is currently in progress. */\n  loading: boolean;\n  /** The error object if the request failed, or null if successful. */\n  error: Error | null;\n}\n\n/**\n * The return value of the useFetch hook, including state and control methods.\n * @template T - The type of the data.\n */\nexport interface UseFetchReturn<T> extends UseFetchState<T> {\n  /**\n   * Manually triggers the fetch request.\n   * @param {string} [url] - Optional override URL.\n   * @param {RequestInit} [options] - Optional override options.\n   * @returns {Promise<T | null>} A promise that resolves to the data or null.\n   */\n  execute: (url?: string, options?: RequestInit) => Promise<T | null>;\n  /** Aborts the current request if it is pending. */\n  abort: () => void;\n  /** Resets the state to its initial values (data: null, loading: false, error: null). */\n  reset: () => void;\n}\n\n/**\n * Custom hook that provides a wrapper around the native [`fetch API`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to handle HTTP requests with state management, abort capability, and TypeScript support.\n *\n * @category network\n * @template T - The type of the data expected from the response.\n * @param {string} [url] - The URL to fetch.\n * @param {UseFetchOptions} [options] - Options for customizing the request and hook behavior (optional).\n * @returns {UseFetchReturn<T>} An object containing the fetched data, loading status, error, and methods to control the request.\n * @public\n * @example\n * ```tsx\n * interface User {\n * id: number;\n * name: string;\n * }\n *\n * const { data, loading, error, execute } = useFetch<User>('https://api.example.com/user/1', {\n * immediate: true,\n * onSuccess: (data) => console.log('User loaded:', data),\n * });\n * ```\n */\nexport function useFetch<T = any>(\n  url?: string,\n  options: UseFetchOptions = {},\n): UseFetchReturn<T> {\n  const [state, setState] = useState<UseFetchState<T>>({\n    data: null,\n    loading: false,\n    error: null,\n  });\n\n  const abortControllerRef = useRef<AbortController | null>(null);\n  const optionsRef = useRef(options);\n\n  // Update options ref when options change\n  useEffect(() => {\n    optionsRef.current = options;\n  }, [options]);\n\n  const execute = useCallback(\n    async (\n      executeUrl?: string,\n      executeOptions?: RequestInit,\n    ): Promise<T | null> => {\n      const targetUrl = executeUrl || url;\n\n      if (!targetUrl) {\n        const error = new Error(\"No URL provided\");\n        setState((prev) => ({ ...prev, error, loading: false }));\n        optionsRef.current.onError?.(error);\n        throw error;\n      }\n\n      // Abort previous request if it exists\n      if (abortControllerRef.current) {\n        abortControllerRef.current.abort();\n      }\n\n      // Create new abort controller\n      abortControllerRef.current = new AbortController();\n\n      setState((prev) => ({ ...prev, loading: true, error: null }));\n\n      try {\n        const { immediate, onSuccess, onError, ...fetchOptions } =\n          optionsRef.current;\n\n        const response = await fetch(targetUrl, {\n          ...fetchOptions,\n          ...executeOptions,\n          signal: abortControllerRef.current.signal,\n        });\n\n        if (!response.ok) {\n          throw new Error(`HTTP error! status: ${response.status}`);\n        }\n\n        // Try to parse as JSON, fallback to text\n        let data: T;\n        const contentType = response.headers.get(\"content-type\");\n\n        if (contentType && contentType.includes(\"application/json\")) {\n          data = await response.json();\n        } else {\n          data = (await response.text()) as T;\n        }\n\n        setState({ data, loading: false, error: null });\n        onSuccess?.(data);\n        return data;\n      } catch (error) {\n        const fetchError = error as Error;\n\n        // Don't update state if request was aborted\n        if (fetchError.name !== \"AbortError\") {\n          setState((prev) => ({ ...prev, loading: false, error: fetchError }));\n          optionsRef.current.onError?.(fetchError);\n        }\n\n        throw fetchError;\n      }\n    },\n    [url],\n  );\n\n  const abort = useCallback(() => {\n    if (abortControllerRef.current) {\n      abortControllerRef.current.abort();\n      abortControllerRef.current = null;\n    }\n  }, []);\n\n  const reset = useCallback(() => {\n    abort();\n    setState({ data: null, loading: false, error: null });\n  }, [abort]);\n\n  // Execute immediately if immediate option is true and url is provided\n  useEffect(() => {\n    if (options.immediate && url) {\n      execute();\n    }\n  }, [url, options.immediate, execute]);\n\n  // Cleanup on unmount\n  useEffect(() => {\n    return () => {\n      abort();\n    };\n  }, [abort]);\n\n  return {\n    ...state,\n    execute,\n    abort,\n    reset,\n  };\n}\n\n// Convenience hooks for specific HTTP methods\nexport function useGet<T = any>(url?: string, options: UseFetchOptions = {}) {\n  return useFetch<T>(url, { ...options, method: \"GET\" });\n}\n\nexport function usePost<T = any>(url?: string, options: UseFetchOptions = {}) {\n  return useFetch<T>(url, { ...options, method: \"POST\" });\n}\n\nexport function usePut<T = any>(url?: string, options: UseFetchOptions = {}) {\n  return useFetch<T>(url, { ...options, method: \"PUT\" });\n}\n\nexport function useDelete<T = any>(\n  url?: string,\n  options: UseFetchOptions = {},\n) {\n  return useFetch<T>(url, { ...options, method: \"DELETE\" });\n}\n",
     "js": "import { useState, useEffect, useCallback, useRef } from \"react\";\nexport function useFetch(url, options = {}) {\n    const [state, setState] = useState({\n        data: null,\n        loading: false,\n        error: null,\n    });\n    const abortControllerRef = useRef(null);\n    const optionsRef = useRef(options);\n    useEffect(() => {\n        optionsRef.current = options;\n    }, [options]);\n    const execute = useCallback(async (executeUrl, executeOptions) => {\n        const targetUrl = executeUrl || url;\n        if (!targetUrl) {\n            const error = new Error(\"No URL provided\");\n            setState((prev) => ({ ...prev, error, loading: false }));\n            optionsRef.current.onError?.(error);\n            throw error;\n        }\n        if (abortControllerRef.current) {\n            abortControllerRef.current.abort();\n        }\n        abortControllerRef.current = new AbortController();\n        setState((prev) => ({ ...prev, loading: true, error: null }));\n        try {\n            const { immediate, onSuccess, onError, ...fetchOptions } = optionsRef.current;\n            const response = await fetch(targetUrl, {\n                ...fetchOptions,\n                ...executeOptions,\n                signal: abortControllerRef.current.signal,\n            });\n            if (!response.ok) {\n                throw new Error(`HTTP error! status: ${response.status}`);\n            }\n            let data;\n            const contentType = response.headers.get(\"content-type\");\n            if (contentType && contentType.includes(\"application/json\")) {\n                data = await response.json();\n            }\n            else {\n                data = (await response.text());\n            }\n            setState({ data, loading: false, error: null });\n            onSuccess?.(data);\n            return data;\n        }\n        catch (error) {\n            const fetchError = error;\n            if (fetchError.name !== \"AbortError\") {\n                setState((prev) => ({ ...prev, loading: false, error: fetchError }));\n                optionsRef.current.onError?.(fetchError);\n            }\n            throw fetchError;\n        }\n    }, [url]);\n    const abort = useCallback(() => {\n        if (abortControllerRef.current) {\n            abortControllerRef.current.abort();\n            abortControllerRef.current = null;\n        }\n    }, []);\n    const reset = useCallback(() => {\n        abort();\n        setState({ data: null, loading: false, error: null });\n    }, [abort]);\n    useEffect(() => {\n        if (options.immediate && url) {\n            execute();\n        }\n    }, [url, options.immediate, execute]);\n    useEffect(() => {\n        return () => {\n            abort();\n        };\n    }, [abort]);\n    return {\n        ...state,\n        execute,\n        abort,\n        reset,\n    };\n}\nexport function useGet(url, options = {}) {\n    return useFetch(url, { ...options, method: \"GET\" });\n}\nexport function usePost(url, options = {}) {\n    return useFetch(url, { ...options, method: \"POST\" });\n}\nexport function usePut(url, options = {}) {\n    return useFetch(url, { ...options, method: \"PUT\" });\n}\nexport function useDelete(url, options = {}) {\n    return useFetch(url, { ...options, method: \"DELETE\" });\n}"
   }
 }

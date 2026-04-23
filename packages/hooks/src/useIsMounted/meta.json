@@ -8,8 +8,21 @@
     "react"
   ],
   "registryDependencies": [],
+  "api": {
+    "tags": {
+      "category": "lifecycle",
+      "public": true,
+      "see": "[Documentation](/docs/use-is-mounted)",
+      "example": "```tsx\r\nconst isComponentMounted = useIsMounted();\r\n// Use isComponentMounted() to check if the component is currently mounted before performing certain actions.\r\n```"
+    },
+    "parameters": [],
+    "returnType": {
+      "name": "() => boolean"
+    }
+  },
   "file": {
-    "content": "import { useCallback, useEffect, useRef } from \"react\";\n\nexport function useIsMounted(): () => boolean {\n  const isMounted = useRef(false);\n\n  useEffect(() => {\n    isMounted.current = true;\n\n    return () => {\n      isMounted.current = false;\n    };\n  }, []);\n\n  return useCallback(() => isMounted.current, []);\n}\n",
+    "path": "use-is-mounted.ts",
+    "content": "// This file is auto-generated. Do not edit manually.\n\nimport { useCallback, useEffect, useRef } from \"react\";\n\n/**\n * Custom hook that determines if the component is currently mounted.\n *\n * @category lifecycle\n * @returns {() => boolean} A function that returns a boolean value indicating whether the component is mounted.\n * @public\n * @see [Documentation](/docs/use-is-mounted)\n * @example\n * ```tsx\n * const isComponentMounted = useIsMounted();\n * // Use isComponentMounted() to check if the component is currently mounted before performing certain actions.\n * ```\n */\nexport function useIsMounted(): () => boolean {\n  const isMounted = useRef(false);\n\n  useEffect(() => {\n    isMounted.current = true;\n\n    return () => {\n      isMounted.current = false;\n    };\n  }, []);\n\n  return useCallback(() => isMounted.current, []);\n}\n",
     "js": "import { useCallback, useEffect, useRef } from \"react\";\nexport function useIsMounted() {\n    const isMounted = useRef(false);\n    useEffect(() => {\n        isMounted.current = true;\n        return () => {\n            isMounted.current = false;\n        };\n    }, []);\n    return useCallback(() => isMounted.current, []);\n}"
   }
 }

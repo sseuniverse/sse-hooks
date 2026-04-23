@@ -8,8 +8,55 @@
     "react"
   ],
   "registryDependencies": [],
+  "api": {
+    "tags": {
+      "category": "state",
+      "throws": "Will throw an error if `defaultValue` is an invalid boolean value.",
+      "public": true,
+      "example": "```tsx\r\nconst { value, setTrue, setFalse, toggle } = useBoolean(true);\r\n```"
+    },
+    "parameters": [
+      {
+        "name": "defaultValue",
+        "type": "boolean",
+        "isOptional": true,
+        "defaultValue": "false"
+      }
+    ],
+    "returnType": {
+      "name": "UseBooleanReturn",
+      "properties": [
+        {
+          "name": "value",
+          "type": "boolean",
+          "isOptional": false
+        },
+        {
+          "name": "setValue",
+          "type": "React.Dispatch<React.SetStateAction<boolean>>",
+          "isOptional": false
+        },
+        {
+          "name": "setTrue",
+          "type": "() => void",
+          "isOptional": false
+        },
+        {
+          "name": "setFalse",
+          "type": "() => void",
+          "isOptional": false
+        },
+        {
+          "name": "toggle",
+          "type": "() => void",
+          "isOptional": false
+        }
+      ]
+    }
+  },
   "file": {
-    "content": "import React, { useCallback, useState } from \"react\";\n\ntype UseBooleanReturn = {\n  value: boolean;\n\n  setValue: React.Dispatch<React.SetStateAction<boolean>>;\n\n  setTrue: () => void;\n\n  setFalse: () => void;\n\n  toggle: () => void;\n};\n\nexport function useBoolean(defaultValue = false): UseBooleanReturn {\n  if (typeof defaultValue !== \"boolean\") {\n    throw new Error(\"defaultValue must be `true` or `false`\");\n  }\n  const [value, setValue] = useState(defaultValue);\n\n  const setTrue = useCallback(() => {\n    setValue(true);\n  }, []);\n\n  const setFalse = useCallback(() => {\n    setValue(false);\n  }, []);\n\n  const toggle = useCallback(() => {\n    setValue((x) => !x);\n  }, []);\n\n  return { value, setValue, setTrue, setFalse, toggle };\n}\n",
+    "path": "use-boolean.ts",
+    "content": "// This file is auto-generated. Do not edit manually.\n\nimport React, { useCallback, useState } from \"react\";\n\n/** The useBoolean return type. */\ntype UseBooleanReturn = {\n  /** The current boolean state value. */\n  value: boolean;\n  /** Function to set the boolean state directly. */\n  setValue: React.Dispatch<React.SetStateAction<boolean>>;\n  /** Function to set the boolean state to `true`. */\n  setTrue: () => void;\n  /** Function to set the boolean state to `false`. */\n  setFalse: () => void;\n  /** Function to toggle the boolean state. */\n  toggle: () => void;\n};\n\n/**\n * Custom hook that handles boolean state with useful utility functions.\n *\n * @category state\n * @param {boolean} [defaultValue] - The initial value for the boolean state (default is `false`).\n * @returns {UseBooleanReturn} An object containing the boolean state value and utility functions to manipulate the state.\n * @throws Will throw an error if `defaultValue` is an invalid boolean value.\n * @public\n * @example\n * ```tsx\n * const { value, setTrue, setFalse, toggle } = useBoolean(true);\n * ```\n */\nexport function useBoolean(defaultValue = false): UseBooleanReturn {\n  if (typeof defaultValue !== \"boolean\") {\n    throw new Error(\"defaultValue must be `true` or `false`\");\n  }\n  const [value, setValue] = useState(defaultValue);\n\n  const setTrue = useCallback(() => {\n    setValue(true);\n  }, []);\n\n  const setFalse = useCallback(() => {\n    setValue(false);\n  }, []);\n\n  const toggle = useCallback(() => {\n    setValue((x) => !x);\n  }, []);\n\n  return { value, setValue, setTrue, setFalse, toggle };\n}\n",
     "js": "import { useCallback, useState } from \"react\";\nexport function useBoolean(defaultValue = false) {\n    if (typeof defaultValue !== \"boolean\") {\n        throw new Error(\"defaultValue must be `true` or `false`\");\n    }\n    const [value, setValue] = useState(defaultValue);\n    const setTrue = useCallback(() => {\n        setValue(true);\n    }, []);\n    const setFalse = useCallback(() => {\n        setValue(false);\n    }, []);\n    const toggle = useCallback(() => {\n        setValue((x) => !x);\n    }, []);\n    return { value, setValue, setTrue, setFalse, toggle };\n}"
   }
 }

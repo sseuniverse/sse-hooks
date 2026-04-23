@@ -23,10 +23,6 @@ type UseScreenOptions<InitializeWithValue extends boolean | undefined> = {
 
 const IS_SERVER = typeof window === "undefined";
 
-// SSR version of useScreen.
-export function useScreen(options: UseScreenOptions<false>): Screen | undefined;
-// CSR version of useScreen.
-export function useScreen(options?: Partial<UseScreenOptions<true>>): Screen;
 /**
  * Custom hook that tracks the [`screen`](https://developer.mozilla.org/en-US/docs/Web/API/Window/screen) dimensions and properties.
  * 
@@ -41,6 +37,8 @@ export function useScreen(options?: Partial<UseScreenOptions<true>>): Screen;
  * // Access properties of the current screen, such as width and height.
  * ```
  */
+export function useScreen(options: UseScreenOptions<false>): Screen | undefined;
+export function useScreen(options?: Partial<UseScreenOptions<true>>): Screen;
 export function useScreen(
   options: Partial<UseScreenOptions<boolean>> = {},
 ): Screen | undefined {

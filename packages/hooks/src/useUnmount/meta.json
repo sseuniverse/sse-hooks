@@ -8,8 +8,27 @@
     "react"
   ],
   "registryDependencies": [],
+  "api": {
+    "tags": {
+      "category": "lifecycle",
+      "public": true,
+      "see": "[Documentation](/docs/use-unmount)",
+      "example": "```tsx\r\nuseUnmount(() => {\r\n  // Cleanup logic here\r\n});\r\n```"
+    },
+    "parameters": [
+      {
+        "name": "func",
+        "type": "() => void",
+        "isOptional": false
+      }
+    ],
+    "returnType": {
+      "name": "void"
+    }
+  },
   "file": {
-    "content": "import { useEffect, useRef } from \"react\";\n\nexport function useUnmount(func: () => void) {\n  const funcRef = useRef(func);\n\n  funcRef.current = func;\n\n  useEffect(\n    () => () => {\n      funcRef.current();\n    },\n    [],\n  );\n}\n",
+    "path": "use-unmount.ts",
+    "content": "// This file is auto-generated. Do not edit manually.\n\nimport { useEffect, useRef } from \"react\";\n\n/**\n * Custom hook that runs a cleanup function when the component is unmounted.\n *\n * @category lifecycle\n * @param {() => void} func - The cleanup function to be executed on unmount.\n * @public\n * @see [Documentation](/docs/use-unmount)\n * @example\n * ```tsx\n * useUnmount(() => {\n *   // Cleanup logic here\n * });\n * ```\n */\nexport function useUnmount(func: () => void) {\n  const funcRef = useRef(func);\n\n  funcRef.current = func;\n\n  useEffect(\n    () => () => {\n      funcRef.current();\n    },\n    [],\n  );\n}\n",
     "js": "import { useEffect, useRef } from \"react\";\nexport function useUnmount(func) {\n    const funcRef = useRef(func);\n    funcRef.current = func;\n    useEffect(() => () => {\n        funcRef.current();\n    }, []);\n}"
   }
 }

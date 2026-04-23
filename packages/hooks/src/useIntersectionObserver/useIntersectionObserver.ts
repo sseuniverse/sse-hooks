@@ -68,6 +68,8 @@ type IntersectionReturn = [
 
 /**
  * Custom hook that tracks the intersection of a DOM element with its containing element or the viewport using the [`Intersection Observer API`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
+ * 
+ * @category dom
  * @param {UseIntersectionObserverOptions} options - The options for the Intersection Observer.
  * @returns {IntersectionReturn} The ref callback, a boolean indicating if the element is intersecting, and the intersection observer entry.
  * @public
