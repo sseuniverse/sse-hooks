@@ -40,6 +40,7 @@ export interface HookMeta {
     parameters: HookProperty[];
     returnType: {
       name: string;
+      description?: string; // Added to match the new @returns description parsing
       properties?: HookProperty[];
     };
   };
