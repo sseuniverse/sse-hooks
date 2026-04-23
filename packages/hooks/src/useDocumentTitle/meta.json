@@ -18,22 +18,26 @@
       "see": "[Documentation](/docs/use-document-title)",
       "example": "```tsx\r\nuseDocumentTitle('My new title');\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "title",
         "type": "string",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The title to set."
       },
       {
         "name": "options",
         "type": "UseDocumentTitleOptions",
         "isOptional": true,
         "defaultValue": "{}",
+        "description": "- The options.",
         "properties": [
           {
             "name": "preserveTitleOnUnmount",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Whether to keep the title after unmounting the component (default is `true`)."
           }
         ]
       }

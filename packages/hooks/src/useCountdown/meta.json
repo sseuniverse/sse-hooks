@@ -19,6 +19,14 @@
       "see": "[Documentation](/docs/use-countdown)",
       "example": "```tsx\r\nconst [counter, { start, stop, reset }] = useCountdown({\r\n  countStart: 10,\r\n  intervalMs: 1000,\r\n  isIncrement: false,\r\n});\r\n```"
     },
+    "types": [
+      {
+        "name": "CountdownControllers",
+        "description": "The countdown's controllers.",
+        "kind": "alias",
+        "type": "CountdownControllers"
+      }
+    ],
     "parameters": [
       {
         "name": "{\r\n  countStart,\r\n  countStop = 0,\r\n  intervalMs = 1000,\r\n  isIncrement = false,\r\n}",
@@ -28,28 +36,36 @@
           {
             "name": "countStart",
             "type": "number",
-            "isOptional": false
+            "isOptional": false,
+            "description": "The countdown's starting number, initial value of the returned number."
           },
           {
             "name": "intervalMs",
             "type": "number | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The countdown's interval, in milliseconds.",
+            "defaultValue": "1000"
           },
           {
             "name": "isIncrement",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "True if the countdown is increment.",
+            "defaultValue": "false"
           },
           {
             "name": "countStop",
             "type": "number | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The countdown's stopping number. Pass `-Infinity` to decrease forever.",
+            "defaultValue": "0"
           }
         ]
       }
     ],
     "returnType": {
-      "name": "[number, CountdownControllers]"
+      "name": "[number, CountdownControllers]",
+      "description": "An array containing the countdown's count and its controllers."
     }
   },
   "file": {

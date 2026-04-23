@@ -9,15 +9,23 @@
   ],
   "registryDependencies": [],
   "api": {
-    "tags": {},
+    "tags": {
+      "category": "network",
+      "public": true,
+      "see": "[Documentation](/docs/use-network-information)",
+      "example": "```tsx\r\nconst { isOnline, networkInfo } = useNetworkInformation();\r\nif (!isOnline) return <div>You are offline</div>;\r\nreturn (\r\n<div>\r\nConnection: {networkInfo?.effectiveType} ({networkInfo?.downlink} Mbps)\r\n</div>\r\n);\r\n```"
+    },
+    "types": [],
     "parameters": [],
     "returnType": {
       "name": "UseNetworkInformationReturn",
+      "description": "The network state, connection details, and support status.",
       "properties": [
         {
           "name": "networkInfo",
           "type": "NetworkInformation | null",
           "isOptional": false,
+          "description": "Detailed information about the network connection.",
           "properties": [
             {
               "name": "downlink",
@@ -54,17 +62,20 @@
         {
           "name": "isOnline",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether the browser detects an internet connection."
         },
         {
           "name": "isSupported",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether the Network Information API is supported in this browser."
         },
         {
           "name": "refresh",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to manually update the network information."
         }
       ]
     }

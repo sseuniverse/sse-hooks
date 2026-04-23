@@ -17,11 +17,13 @@
       "see": "[Documentation](/docs/use-media-query)",
       "example": "```tsx\r\nconst isSmallScreen = useMediaQuery('(max-width: 600px)');\r\n// Use `isSmallScreen` to conditionally apply styles or logic based on the screen size.\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "query",
         "type": "string",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The media query to track."
       },
       {
         "name": "{\r\n    defaultValue = false,\r\n    initializeWithValue = true,\r\n  }",
@@ -32,18 +34,23 @@
           {
             "name": "defaultValue",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The default value to return if the hook is being run on the server.",
+            "defaultValue": "false"
           },
           {
             "name": "initializeWithValue",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If `true` (default), the hook will initialize reading the media query. In SSR, you should set it to `false`, returning `options.defaultValue` or `false` initially.",
+            "defaultValue": "true"
           }
         ]
       }
     ],
     "returnType": {
-      "name": "boolean"
+      "name": "boolean",
+      "description": "The current state of the media query (true if the query matches, false otherwise)."
     }
   },
   "file": {

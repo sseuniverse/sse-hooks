@@ -14,37 +14,56 @@
       "see": "[Documentation](/docs/use-script)",
       "example": "const scriptStatus = useScript('https://example.com/script.js', { removeOnUnmount: true });\r\n// Access the status of the script loading (e.g., 'loading', 'ready', 'error')."
     },
+    "types": [
+      {
+        "name": "UseScriptStatus",
+        "description": "Script loading status.",
+        "kind": "union",
+        "values": [
+          "idle",
+          "loading",
+          "ready",
+          "error"
+        ]
+      }
+    ],
     "parameters": [
       {
         "name": "src",
         "type": "string | null",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The source URL of the script to load. Set to `null` or omit to prevent loading (optional)."
       },
       {
         "name": "options",
         "type": "UseScriptOptions",
         "isOptional": true,
+        "description": "- Additional options for controlling script loading (optional).",
         "properties": [
           {
             "name": "shouldPreventLoad",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If `true`, prevents the script from being loaded (optional)."
           },
           {
             "name": "removeOnUnmount",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If `true`, removes the script from the DOM when the component unmounts (optional)."
           },
           {
             "name": "id",
             "type": "string | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Script's `id` (optional)."
           }
         ]
       }
     ],
     "returnType": {
-      "name": "UseScriptStatus"
+      "name": "UseScriptStatus",
+      "description": "The status of the script loading, which can be one of 'idle', 'loading', 'ready', or 'error'."
     }
   },
   "file": {

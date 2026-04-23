@@ -15,21 +15,48 @@
       "public": true,
       "example": "```tsx\r\nconst users = [\r\n{ id: 1, name: \"Alice\", role: \"admin\" },\r\n{ id: 2, name: \"Bob\", role: \"user\" }\r\n];\r\nconst {\r\ninputProps,\r\nghostText,\r\nfilteredData,\r\nisSuggestionAvailable\r\n} = useSearchWithSuggestions(\r\nusers,\r\n[\"name\"], // Default search key\r\n{\r\ncommands: [\r\n// Typing \":role admin\" will filter by role\r\n{ trigger: \"role\", scope: \"role\" },\r\n// Typing \":admins\" will run a custom filter function\r\n{ trigger: \"admins\", filter: (u) => u.role === \"admin\" }\r\n]\r\n}\r\n);\r\nreturn (\r\n<div className=\"search-container\">\r\n<div className=\"input-wrapper relative\">\r\n\r\n// Ghost Layout\r\n<input\r\nclassName=\"absolute text-gray-300 bg-transparent pointer-events-none\"\r\nvalue={ghostText}\r\nreadOnly\r\n/>\r\n// The Actual Input\r\n<input\r\nclassName=\"relative bg-transparent\"\r\n{...inputProps}\r\n/>\r\n</div>\r\n<ul>\r\n{filteredData.map(u => <li key={u.id}>{u.name}</li>)}\r\n</ul>\r\n</div>\r\n);\r\n```"
     },
+    "types": [
+      {
+        "name": "CommandConfig",
+        "description": "",
+        "kind": "union",
+        "values": [
+          "ScopedCommand<T>",
+          "FilterCommand<T>"
+        ]
+      },
+      {
+        "name": "ScopedCommand",
+        "description": "",
+        "kind": "alias",
+        "type": "ScopedCommand<T>"
+      },
+      {
+        "name": "FilterCommand",
+        "description": "",
+        "kind": "alias",
+        "type": "FilterCommand<T>"
+      }
+    ],
     "parameters": [
       {
         "name": "data",
         "type": "T[]",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The array of data objects to search through."
       },
       {
         "name": "searchKeys",
         "type": "readonly K[]",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- An array of keys (e.g., `['name', 'email']`) to search against by default."
       },
       {
         "name": "config",
         "type": "BaseSearchConfig<T>",
         "isOptional": true,
+        "defaultValue": "{}",
+        "description": "- Optional configuration object.",
         "properties": [
           {
             "name": "commands",
@@ -39,18 +66,21 @@
           {
             "name": "fuzzy",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If true, fuzzy matching is used instead of strict startsWith."
           },
           {
             "name": "maxResults",
             "type": "number | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Maximum number of results to return."
           }
         ]
       }
     ],
     "returnType": {
       "name": "UseSearchSuggestionsResult<T>",
+      "description": "Object containing query state, filtered results, and UI props.",
       "properties": [
         {
           "name": "query",
@@ -65,22 +95,26 @@
         {
           "name": "filteredData",
           "type": "T[]",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The filtered dataset based on the current query/command."
         },
         {
           "name": "ghostText",
           "type": "string",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The text that completes the user's current input (for \"ghost\" overlays)."
         },
         {
           "name": "isSuggestionAvailable",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "True if a suggestion (ghost text) is ready to be tabbed."
         },
         {
           "name": "inputProps",
           "type": "{ value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void; placeholder?: string | undefined; }",
           "isOptional": false,
+          "description": "Props to spread onto the <input> element.",
           "properties": [
             {
               "name": "value",
@@ -107,7 +141,8 @@
         {
           "name": "activeCommand",
           "type": "string | null",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The active command trigger (if any), e.g., \":user\"."
         }
       ]
     }

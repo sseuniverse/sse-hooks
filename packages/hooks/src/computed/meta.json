@@ -10,6 +10,45 @@
   "registryDependencies": [],
   "api": {
     "tags": {},
+    "types": [
+      {
+        "name": "ComputedGetter",
+        "description": "",
+        "kind": "alias",
+        "type": "ComputedGetter<T>"
+      },
+      {
+        "name": "WritableComputedOptions",
+        "description": "",
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "get",
+            "type": "ComputedGetter<T>",
+            "isOptional": false,
+            "description": ""
+          },
+          {
+            "name": "set",
+            "type": "ComputedSetter<T>",
+            "isOptional": false,
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "DebuggerEvent",
+        "description": "",
+        "kind": "alias",
+        "type": "DebuggerEvent"
+      },
+      {
+        "name": "ComputedSetter",
+        "description": "",
+        "kind": "alias",
+        "type": "ComputedSetter<T>"
+      }
+    ],
     "parameters": [
       {
         "name": "getterOrOptions",

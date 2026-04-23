@@ -15,11 +15,13 @@
       "see": "[Documentation](/docs/use-unmount)",
       "example": "```tsx\r\nuseUnmount(() => {\r\n  // Cleanup logic here\r\n});\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "func",
         "type": "() => void",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The cleanup function to be executed on unmount."
       }
     ],
     "returnType": {

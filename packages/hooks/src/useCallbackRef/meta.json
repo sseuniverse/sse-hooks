@@ -15,15 +15,18 @@
       "public": true,
       "example": "```tsx\r\nconst handleClick = useCallbackRef((event: MouseEvent) => {\r\n  console.log(\"Clicked!\", event);\r\n});\r\n\r\nuseEffect(() => {\r\n  window.addEventListener(\"click\", handleClick);\r\n  return () => window.removeEventListener(\"click\", handleClick);\r\n}, []);\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "callback",
         "type": "T | undefined",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The callback function to store in a ref. It can be undefined."
       }
     ],
     "returnType": {
-      "name": "T"
+      "name": "T",
+      "description": "T A stable function reference that always calls the latest callback."
     }
   },
   "file": {

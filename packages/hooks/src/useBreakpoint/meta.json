@@ -10,6 +10,7 @@
   ],
   "api": {
     "tags": {},
+    "types": [],
     "parameters": [
       {
         "name": "breakpoints",
@@ -38,17 +39,20 @@
         {
           "name": "isGreater",
           "type": "(k: BreakPointsKey) => boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Utility function that returns a boolean if screen width is greater than given breakpoint."
         },
         {
           "name": "isSmaller",
           "type": "(k: BreakPointsKey) => boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Utility function that returns a boolean if screen width is smaller than given breakpoint."
         },
         {
           "name": "isInBetween",
           "type": "(a: BreakPointsKey, b: BreakPointsKey) => boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Utility function that returns a boolean if screen width is between two given breakpoint."
         }
       ]
     }

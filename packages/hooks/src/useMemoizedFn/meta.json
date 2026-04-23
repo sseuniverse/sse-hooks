@@ -14,15 +14,25 @@
       "public": true,
       "example": "```tsx\r\nconst [state, setState] = useState(0);\r\n// The identity of 'callback' never changes, but it always logs the latest 'state'\r\nconst callback = useMemoizedFn(() => {\r\nconsole.log('Current state:', state);\r\n});\r\nreturn <ExpensiveComponent onClick={callback} />;\r\n```"
     },
+    "types": [
+      {
+        "name": "PickFunction",
+        "description": "",
+        "kind": "alias",
+        "type": "PickFunction<T>"
+      }
+    ],
     "parameters": [
       {
         "name": "fn",
         "type": "T",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The function to be memoized."
       }
     ],
     "returnType": {
-      "name": "PickFunction<T>"
+      "name": "PickFunction<T>",
+      "description": "A persistent function that internally calls the latest version of the passed function."
     }
   },
   "file": {

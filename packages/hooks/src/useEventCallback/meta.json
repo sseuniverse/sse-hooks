@@ -18,15 +18,18 @@
       "see": "[Documentation](/docs/use-event-callback)",
       "example": "```tsx\r\nconst handleClick = useEventCallback((event) => {\r\n  // Handle the event here\r\n});\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "fn",
-        "type": "(...args: Args) => R",
-        "isOptional": false
+        "type": "((...args: Args) => R) | undefined",
+        "isOptional": false,
+        "description": "- The callback function."
       }
     ],
     "returnType": {
-      "name": "(...args: Args) => R"
+      "name": "((...args: Args) => R) | undefined",
+      "description": "A memoized event callback function."
     }
   },
   "file": {

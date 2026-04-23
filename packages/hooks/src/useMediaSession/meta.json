@@ -9,93 +9,195 @@
   ],
   "registryDependencies": [],
   "api": {
-    "tags": {},
+    "tags": {
+      "category": "sensors",
+      "public": true,
+      "example": "```tsx\r\nconst MyPlayer = () => {\r\nconst { setMetadata, setPlaybackState } = useMediaSession({\r\nplaybackState: \"playing\",\r\nmetadata: {\r\ntitle: \"Awesome Song\",\r\nartist: \"Cool Artist\",\r\nalbum: \"Best Hits\",\r\nartwork: [{ src: \"/album-art.jpg\", sizes: \"512x512\", type: \"image/jpeg\" }]\r\n},\r\nactionHandlers: {\r\nplay: () => console.log(\"Play clicked\"),\r\npause: () => console.log(\"Pause clicked\"),\r\nnexttrack: () => console.log(\"Next track clicked\"),\r\n}\r\n});\r\n\r\nreturn <div>Now Playing...</div>;\r\n};\r\n```"
+    },
+    "types": [
+      {
+        "name": "MediaImage",
+        "description": "Represents an image associated with the media (e.g., album art).",
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "src",
+            "type": "string",
+            "isOptional": false,
+            "description": "The URL of the image."
+          },
+          {
+            "name": "sizes",
+            "type": "string | undefined",
+            "isOptional": true,
+            "description": "The sizes of the image (e.g., \"96x96\")."
+          },
+          {
+            "name": "type",
+            "type": "string | undefined",
+            "isOptional": true,
+            "description": "The MIME type of the image (e.g., \"image/png\")."
+          }
+        ]
+      },
+      {
+        "name": "MediaSessionPlaybackState",
+        "description": "The current playback state of the media session.",
+        "kind": "union",
+        "values": [
+          "none",
+          "paused",
+          "playing"
+        ]
+      },
+      {
+        "name": "MediaMetadataInit",
+        "description": "Metadata for the current media session.",
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "title",
+            "type": "string | undefined",
+            "isOptional": true,
+            "description": "The title of the media."
+          },
+          {
+            "name": "artist",
+            "type": "string | undefined",
+            "isOptional": true,
+            "description": "The artist name."
+          },
+          {
+            "name": "album",
+            "type": "string | undefined",
+            "isOptional": true,
+            "description": "The album name."
+          },
+          {
+            "name": "artwork",
+            "type": "MediaImage[] | undefined",
+            "isOptional": true,
+            "description": "An array of artwork images."
+          }
+        ]
+      },
+      {
+        "name": "MediaSessionAction",
+        "description": "Supported media session actions.",
+        "kind": "union",
+        "values": [
+          "play",
+          "pause",
+          "stop",
+          "seekbackward",
+          "seekforward",
+          "seekto",
+          "skipad",
+          "previoustrack",
+          "nexttrack"
+        ]
+      },
+      {
+        "name": "MediaSessionActionHandler",
+        "description": "Handler function for media session actions.",
+        "kind": "alias",
+        "type": "MediaSessionActionHandler"
+      }
+    ],
     "parameters": [
       {
         "name": "options",
         "type": "UseMediaSessionOptions",
         "isOptional": true,
+        "description": "- Initial configuration for the media session.",
         "properties": [
           {
             "name": "metadata",
             "type": "MediaMetadataInit | undefined",
             "isOptional": true,
+            "description": "Initial metadata to set for the session.",
             "properties": [
               {
                 "name": "title",
                 "type": "string | undefined",
-                "isOptional": true
+                "isOptional": true,
+                "description": "The title of the media."
               },
               {
                 "name": "artist",
                 "type": "string | undefined",
-                "isOptional": true
+                "isOptional": true,
+                "description": "The artist name."
               },
               {
                 "name": "album",
                 "type": "string | undefined",
-                "isOptional": true
+                "isOptional": true,
+                "description": "The album name."
               },
               {
                 "name": "artwork",
                 "type": "MediaImage[] | undefined",
-                "isOptional": true
+                "isOptional": true,
+                "description": "An array of artwork images."
               }
             ]
           },
           {
             "name": "playbackState",
             "type": "MediaSessionPlaybackState | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Initial playback state."
           },
           {
             "name": "actionHandlers",
             "type": "Partial<Record<MediaSessionAction, MediaSessionActionHandler>> | undefined",
             "isOptional": true,
+            "description": "Initial action handlers to register.",
             "properties": [
               {
                 "name": "play",
-                "type": "any",
+                "type": "unknown",
                 "isOptional": true
               },
               {
                 "name": "pause",
-                "type": "any",
+                "type": "unknown",
                 "isOptional": true
               },
               {
                 "name": "stop",
-                "type": "any",
+                "type": "unknown",
                 "isOptional": true
               },
               {
                 "name": "seekbackward",
-                "type": "any",
+                "type": "unknown",
                 "isOptional": true
               },
               {
                 "name": "seekforward",
-                "type": "any",
+                "type": "unknown",
                 "isOptional": true
               },
               {
                 "name": "seekto",
-                "type": "any",
+                "type": "unknown",
                 "isOptional": true
               },
               {
                 "name": "skipad",
-                "type": "any",
+                "type": "unknown",
                 "isOptional": true
               },
               {
                 "name": "previoustrack",
-                "type": "any",
+                "type": "unknown",
                 "isOptional": true
               },
               {
                 "name": "nexttrack",
-                "type": "any",
+                "type": "unknown",
                 "isOptional": true
               }
             ]
@@ -105,31 +207,37 @@
     ],
     "returnType": {
       "name": "UseMediaSessionReturn",
+      "description": "Object containing methods to control the media session and a flag indicating support.",
       "properties": [
         {
           "name": "isSupported",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether the Media Session API is supported in the current environment."
         },
         {
           "name": "setMetadata",
           "type": "(metadata: MediaMetadataInit) => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to update the media metadata."
         },
         {
           "name": "setPlaybackState",
           "type": "(state: MediaSessionPlaybackState) => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to update the playback state."
         },
         {
           "name": "setActionHandler",
           "type": "(action: MediaSessionAction, handler: MediaSessionActionHandler | null) => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to set a specific action handler."
         },
         {
           "name": "clearActionHandlers",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to clear all registered action handlers."
         }
       ]
     }

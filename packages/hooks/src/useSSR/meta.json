@@ -7,45 +7,59 @@
   "dependencies": [],
   "registryDependencies": [],
   "api": {
-    "tags": {},
+    "tags": {
+      "category": "utilities",
+      "public": true,
+      "see": "[Documentation](/docs/use-ssr)",
+      "example": "```tsx\r\nconst { isBrowser, isServer } = useSSR();\r\nif (isServer) {\r\nreturn <StaticLoader />;\r\n}\r\nreturn <ClientComponent />;\r\n```"
+    },
+    "types": [],
     "parameters": [],
     "returnType": {
       "name": "UseSSRReturn",
+      "description": "Object containing boolean flags for the current environment.",
       "properties": [
         {
           "name": "isBrowser",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether code is running in the browser."
         },
         {
           "name": "isServer",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether code is running on the server."
         },
         {
           "name": "isNative",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether code is running in a Native environment (e.g. React Native)."
         },
         {
           "name": "device",
           "type": "Device",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The detected device type."
         },
         {
           "name": "canUseWorkers",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether Web Workers are supported."
         },
         {
           "name": "canUseEventListeners",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether window.addEventListener is available."
         },
         {
           "name": "canUseViewport",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether window.screen is available."
         }
       ]
     }

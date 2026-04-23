@@ -19,43 +19,60 @@
       "see": "[Documentation](/docs/use-debounce-callback)",
       "example": "```tsx\r\nconst debouncedCallback = useDebounceCallback(\r\n  (searchTerm) => {\r\n    // Perform search after user stops typing for 500 milliseconds\r\n    searchApi(searchTerm);\r\n  },\r\n  500\r\n);\r\n\r\n// Later in the component\r\ndebouncedCallback('react hooks'); // Will invoke the callback after 500 milliseconds of inactivity.\r\n```"
     },
+    "types": [
+      {
+        "name": "DebouncedState",
+        "description": "Represents the state and control functions of a debounced callback.\r\nSubsequent calls to the debounced function return the result of the last invocation.\r\nNote: If there are no previous invocations, the result will be undefined.\r\nEnsure proper handling in your code.",
+        "kind": "alias",
+        "type": "DebouncedState<T>"
+      }
+    ],
     "parameters": [
       {
         "name": "func",
         "type": "T",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The callback function to be debounced."
       },
       {
         "name": "delay",
         "type": "number",
         "isOptional": true,
-        "defaultValue": "500"
+        "defaultValue": "500",
+        "description": "- The delay in milliseconds before the callback is invoked (default is `500` milliseconds)."
       },
       {
         "name": "options",
         "type": "DebounceOptions",
         "isOptional": true,
+        "description": "- Options to control the behavior of the debounced function.",
         "properties": [
           {
             "name": "leading",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Determines whether the function should be invoked on the leading edge of the timeout.",
+            "defaultValue": "false"
           },
           {
             "name": "trailing",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Determines whether the function should be invoked on the trailing edge of the timeout.",
+            "defaultValue": "false"
           },
           {
             "name": "maxWait",
             "type": "number | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The maximum time the specified function is allowed to be delayed before it is invoked."
           }
         ]
       }
     ],
     "returnType": {
-      "name": "DebouncedState<T>"
+      "name": "DebouncedState<T>",
+      "description": "A debounced version of the original callback along with control functions."
     }
   },
   "file": {

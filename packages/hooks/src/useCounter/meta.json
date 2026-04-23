@@ -15,40 +15,48 @@
       "see": "[Documentation](/docs/use-counter)",
       "example": "```tsx\r\nconst { count, increment, decrement, reset, setCount } = useCounter(5);\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "initialValue",
         "type": "number",
-        "isOptional": true
+        "isOptional": true,
+        "description": "- The initial value for the counter."
       }
     ],
     "returnType": {
       "name": "UseCounterReturn",
+      "description": "An object containing the current count and functions to interact with the counter.",
       "properties": [
         {
           "name": "count",
           "type": "number",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The current count value."
         },
         {
           "name": "increment",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to increment the counter by 1."
         },
         {
           "name": "decrement",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to decrement the counter by 1."
         },
         {
           "name": "reset",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to reset the counter to its initial value."
         },
         {
           "name": "setCount",
           "type": "React.Dispatch<React.SetStateAction<number>>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to set a specific value to the counter."
         }
       ]
     }

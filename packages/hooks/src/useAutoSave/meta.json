@@ -18,45 +18,69 @@
       "public": true,
       "example": "```tsx\r\nconst { data, onChange, isSaving } = useAutoSave(\r\n{ title: \"My Draft\", content: \"\", isOpen: true },\r\nasync (cleanData) => {\r\n// 'isOpen' is excluded, so cleanData only has title and content\r\nawait api.saveDraft(cleanData);\r\n},\r\n{ delay: 2000, exclude: [\"isOpen\"] }\r\n);\r\n\r\nreturn (\r\n<input\r\nvalue={data.title}\r\nonChange={onChange(\"title\")} // Handles event automatically\r\n/>\r\n);\r\n```"
     },
+    "types": [
+      {
+        "name": "BaseConfig",
+        "description": "Configuration options for the useAutoSave hook.",
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "delay",
+            "type": "number | undefined",
+            "isOptional": true,
+            "description": "The debounce delay in milliseconds before triggering the onSave callback."
+          }
+        ]
+      }
+    ],
     "parameters": [
       {
         "name": "initialData",
         "type": "T",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The initial state of the data object."
       },
       {
         "name": "onSave",
-        "type": "(data: Omit<T, K>) => Promise<void> | void",
-        "isOptional": false
+        "type": "(data: T | Omit<T, K>) => Promise<void> | void",
+        "isOptional": false,
+        "description": "- The async function to call when data changes. Receives the clean data payload."
       },
       {
         "name": "config",
-        "type": "BaseConfig & { exclude: readonly K[] }",
-        "isOptional": false
+        "type": "BaseConfig & { exclude?: readonly K[] }",
+        "isOptional": true,
+        "defaultValue": "{}",
+        "description": "- Configuration options."
       }
     ],
     "returnType": {
       "name": "UseAutoSaveReturn<T>",
+      "description": "Object containing data, setters, and saving state.",
       "properties": [
         {
           "name": "data",
           "type": "T",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The current state of the data."
         },
         {
           "name": "setData",
           "type": "React.Dispatch<React.SetStateAction<T>>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Standard React state setter for the data."
         },
         {
           "name": "onChange",
           "type": "(key: keyof T) => (valueOrEvent: any) => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "A smart change handler factory.\r\nCan be used with standard inputs `onChange(\"name\")` or direct values `onChange(\"age\")(30)`."
         },
         {
           "name": "isSaving",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Indicates if a save operation is currently in progress."
         }
       ]
     }

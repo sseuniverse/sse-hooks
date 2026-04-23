@@ -15,6 +15,14 @@
       "see": "[Documentation](/docs/use-intersection-observer)",
       "example": "```tsx\r\n// Example 1\r\nconst [ref, isIntersecting, entry] = useIntersectionObserver({ threshold: 0.5 });\r\n```\r\n\r\n```tsx\r\n// Example 2\r\nconst { ref, isIntersecting, entry } = useIntersectionObserver({ threshold: 0.5 });\r\n```"
     },
+    "types": [
+      {
+        "name": "IntersectionReturn",
+        "description": "The return type of the useIntersectionObserver hook.\r\n\r\nSupports both tuple and object destructing.",
+        "kind": "alias",
+        "type": "IntersectionReturn"
+      }
+    ],
     "parameters": [
       {
         "name": "{\r\n  threshold = 0,\r\n  root = null,\r\n  rootMargin = \"0%\",\r\n  freezeOnceVisible = false,\r\n  initialIsIntersecting = false,\r\n  onChange,\r\n}",
@@ -25,38 +33,51 @@
           {
             "name": "root",
             "type": "Element | Document | null | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The element that is used as the viewport for checking visibility of the target.",
+            "defaultValue": "null"
           },
           {
             "name": "rootMargin",
             "type": "string | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "A margin around the root.",
+            "defaultValue": "'0%'"
           },
           {
             "name": "threshold",
             "type": "number | number[] | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "A threshold indicating the percentage of the target's visibility needed to trigger the callback.",
+            "defaultValue": "0"
           },
           {
             "name": "freezeOnceVisible",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If true, freezes the intersection state once the element becomes visible.",
+            "defaultValue": "false"
           },
           {
             "name": "onChange",
             "type": "((isIntersecting: boolean, entry: IntersectionObserverEntry) => void) | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "A callback function to be invoked when the intersection state changes.",
+            "defaultValue": "undefined"
           },
           {
             "name": "initialIsIntersecting",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The initial state of the intersection.",
+            "defaultValue": "false"
           }
         ]
       }
     ],
     "returnType": {
-      "name": "IntersectionReturn"
+      "name": "IntersectionReturn",
+      "description": "The ref callback, a boolean indicating if the element is intersecting, and the intersection observer entry."
     }
   },
   "file": {

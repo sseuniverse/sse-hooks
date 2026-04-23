@@ -18,32 +18,39 @@
       "see": "[Documentation](/docs/use-read-local-storage)",
       "example": "```tsx\r\nconst storedData = useReadLocalStorage('myKey');\r\n// Access the stored data from local storage.\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "key",
         "type": "string",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The key associated with the value in local storage."
       },
       {
         "name": "options",
-        "type": "Options<T, false>",
-        "isOptional": false,
+        "type": "Partial<Options<T, boolean>>",
+        "isOptional": true,
+        "defaultValue": "{}",
+        "description": "- Additional options for reading the value (optional).",
         "properties": [
           {
             "name": "deserializer",
             "type": "((value: string) => T) | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Custom deserializer function to convert the stored string value to the desired type (optional)."
           },
           {
             "name": "initializeWithValue",
-            "type": "false",
-            "isOptional": false
+            "type": "boolean | undefined",
+            "isOptional": true,
+            "description": "If `true` (default), the hook will initialize reading the local storage. In SSR, you should set it to `false`, returning `undefined` initially."
           }
         ]
       }
     ],
     "returnType": {
-      "name": "T | null | undefined"
+      "name": "T | null | undefined",
+      "description": "The stored value, or null if the key is not present or an error occurs."
     }
   },
   "file": {

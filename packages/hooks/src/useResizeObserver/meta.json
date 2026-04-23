@@ -18,49 +18,59 @@
       "see": "[Documentation](/docs/use-resize-observer)",
       "example": "```tsx\r\nconst myRef = useRef(null);\r\nconst { width = 0, height = 0 } = useResizeObserver({\r\n  ref: myRef,\r\n  box: 'content-box',\r\n});\r\n\r\n<div ref={myRef}>Hello, world!</div>\r\n```"
     },
+    "types": [
+      {
+        "name": "Size",
+        "description": "The size of the observed element.",
+        "kind": "alias",
+        "type": "Size"
+      }
+    ],
     "parameters": [
       {
         "name": "options",
         "type": "UseResizeObserverOptions<T>",
         "isOptional": false,
+        "description": "- The options for the ResizeObserver.",
         "properties": [
           {
             "name": "ref",
             "type": "React.RefObject<T>",
             "isOptional": false,
-            "properties": [
-              {
-                "name": "current",
-                "type": "T",
-                "isOptional": false
-              }
-            ]
+            "description": "The ref of the element to observe."
           },
           {
             "name": "onResize",
             "type": "((size: Size) => void) | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "When using `onResize`, the hook doesn't re-render on element size changes; it delegates handling to the provided callback.",
+            "defaultValue": "undefined"
           },
           {
             "name": "box",
             "type": "\"border-box\" | \"content-box\" | \"device-pixel-content-box\" | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The box model to use for the ResizeObserver.",
+            "defaultValue": "'content-box'"
           }
         ]
       }
     ],
     "returnType": {
       "name": "Size",
+      "description": "- The size of the observed element.",
       "properties": [
         {
           "name": "width",
           "type": "number | undefined",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The width of the observed element."
         },
         {
           "name": "height",
           "type": "number | undefined",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The height of the observed element."
         }
       ]
     }

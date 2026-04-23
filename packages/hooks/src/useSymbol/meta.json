@@ -15,39 +15,47 @@
       "see": "[Documentation](/docs/use-symbol)",
       "example": "```tsx\r\nconst { createSymbol, wellKnownSymbols } = useSymbol();\r\nconst myId = createSymbol('my-id');\r\nconsole.log(wellKnownSymbols.iterator); // Symbol(Symbol.iterator)\r\n```"
     },
+    "types": [],
     "parameters": [],
     "returnType": {
       "name": "UseSymbolReturn",
+      "description": "Utilities for creating, retrieving, and managing symbols.",
       "properties": [
         {
           "name": "createSymbol",
           "type": "(description?: string | undefined) => symbol",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Creates a new unique symbol and adds it to the local registry."
         },
         {
           "name": "getGlobalSymbol",
           "type": "(key: string) => symbol",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Returns a symbol from the global symbol registry."
         },
         {
           "name": "getSymbolKey",
           "type": "(symbol: symbol) => string | undefined",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Returns the key for a global symbol."
         },
         {
           "name": "isSymbol",
           "type": "(value: any) => value is symbol",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Checks if a value is a symbol."
         },
         {
           "name": "getDescription",
           "type": "(symbol: symbol) => string | undefined",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Gets the description of a symbol."
         },
         {
           "name": "wellKnownSymbols",
           "type": "{ iterator: symbol; asyncIterator: symbol; hasInstance: symbol; isConcatSpreadable: symbol; species: symbol; toPrimitive: symbol; toStringTag: symbol; unscopables: symbol; match: symbol; matchAll: symbol; replace: symbol; search: symbol; split: symbol; }",
           "isOptional": false,
+          "description": "A collection of standard JavaScript well-known symbols.",
           "properties": [
             {
               "name": "iterator",
@@ -119,22 +127,26 @@
         {
           "name": "symbols",
           "type": "symbol[]",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Array of symbols created via createSymbol in this instance."
         },
         {
           "name": "addSymbol",
           "type": "(symbol: symbol) => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Manually adds a symbol to the local registry."
         },
         {
           "name": "removeSymbol",
           "type": "(symbol: symbol) => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Removes a symbol from the local registry."
         },
         {
           "name": "clearSymbols",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Clears all symbols from the local registry."
         }
       ]
     }

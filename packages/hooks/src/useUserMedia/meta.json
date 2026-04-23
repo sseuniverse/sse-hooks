@@ -9,59 +9,96 @@
   ],
   "registryDependencies": [],
   "api": {
-    "tags": {},
+    "tags": {
+      "category": "sensors",
+      "public": true,
+      "example": "```tsx\r\nconst { stream, error, startCapture, stopCapture } = useUserMedia();\r\n\r\nreturn (\r\n<div>\r\n{error && <p>Error: {error}</p>}\r\n<video\r\nautoPlay\r\nmuted\r\nplaysInline\r\nref={(node) => {\r\nif (node && stream) node.srcObject = stream;\r\n}}\r\n/>\r\n<button onClick={() => startCapture()}>Start Camera</button>\r\n<button onClick={stopCapture}>Stop Camera</button>\r\n</div>\r\n);\r\n```"
+    },
+    "types": [
+      {
+        "name": "UseUserMediaConstraints",
+        "description": "Constraints for the `useUserMedia` hook.\r\nDefines the video and audio settings for the media stream.",
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "video",
+            "type": "boolean | MediaTrackConstraints | undefined",
+            "isOptional": true,
+            "description": "Boolean or specific constraints for the video track."
+          },
+          {
+            "name": "audio",
+            "type": "boolean | MediaTrackConstraints | undefined",
+            "isOptional": true,
+            "description": "Boolean or specific constraints for the audio track."
+          }
+        ]
+      }
+    ],
     "parameters": [
       {
         "name": "initialConstraints",
         "type": "UseUserMediaConstraints",
         "isOptional": true,
         "defaultValue": "DEFAULT_CONSTRAINTS",
+        "description": "- The initial constraints for audio and video.",
         "properties": [
           {
             "name": "video",
             "type": "boolean | MediaTrackConstraints | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Boolean or specific constraints for the video track.",
+            "defaultValue": "true"
           },
           {
             "name": "audio",
             "type": "boolean | MediaTrackConstraints | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Boolean or specific constraints for the audio track.",
+            "defaultValue": "true"
           }
         ]
       }
     ],
     "returnType": {
       "name": "UseUserMediaReturn",
+      "description": "An object containing the stream, error state, and control functions.",
       "properties": [
         {
           "name": "stream",
           "type": "MediaStream | null",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The current MediaStream object, or null if no stream is active."
         },
         {
           "name": "error",
           "type": "string | null",
-          "isOptional": false
+          "isOptional": false,
+          "description": "An error message string if the media capture failed, or null otherwise."
         },
         {
           "name": "isLoading",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "A boolean indicating if the media stream is currently loading (requesting permission)."
         },
         {
           "name": "isSupported",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "A boolean indicating if the `getUserMedia` API is supported in the current environment."
         },
         {
           "name": "startCapture",
           "type": "(constraints?: UseUserMediaConstraints | undefined) => Promise<void>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to start capturing media. Accepts optional constraints to override defaults."
         },
         {
           "name": "stopCapture",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to stop the current media capture and release tracks."
         }
       ]
     }

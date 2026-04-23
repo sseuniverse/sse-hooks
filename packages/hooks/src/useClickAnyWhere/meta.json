@@ -15,11 +15,13 @@
       "see": "[Documentation](/docs/use-click-any-where)",
       "example": "```tsx\r\nconst handleClick = (event) => {\r\n  console.log('Document clicked!', event);\r\n};\r\n\r\n// Attach click event handler to document\r\nuseClickAnywhere(handleClick);\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "handler",
         "type": "(event: MouseEvent) => void",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The function to be called when a click event is detected anywhere on the document."
       }
     ],
     "returnType": {

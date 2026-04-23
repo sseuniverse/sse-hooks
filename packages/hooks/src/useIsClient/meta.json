@@ -15,9 +15,11 @@
       "see": "[Documentation](/docs/use-is-client)",
       "example": "```tsx\r\nconst isClient = useIsClient();\r\n// Use isClient to conditionally render or execute code specific to the client side.\r\n```"
     },
+    "types": [],
     "parameters": [],
     "returnType": {
-      "name": "boolean"
+      "name": "boolean",
+      "description": "A boolean value indicating whether the code is running on the client side."
     }
   },
   "file": {

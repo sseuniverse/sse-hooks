@@ -18,6 +18,18 @@
       "see": "[Documentation](/docs/use-ternary-dark-mode)",
       "example": "```tsx\r\nconst { isDarkMode, ternaryDarkMode, setTernaryDarkMode, toggleTernaryDarkMode } = useTernaryDarkMode({ defaultValue: 'dark' });\r\n// Access and use the dark mode state and provided helper functions.\r\n```"
     },
+    "types": [
+      {
+        "name": "TernaryDarkMode",
+        "description": "Ternary dark mode options.",
+        "kind": "union",
+        "values": [
+          "system",
+          "dark",
+          "light"
+        ]
+      }
+    ],
     "parameters": [
       {
         "name": "{\r\n  defaultValue = \"system\",\r\n  localStorageKey = LOCAL_STORAGE_KEY,\r\n  initializeWithValue = true,\r\n}",
@@ -28,43 +40,54 @@
           {
             "name": "defaultValue",
             "type": "TernaryDarkMode | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The default value for the dark mode.",
+            "defaultValue": "'system'"
           },
           {
             "name": "localStorageKey",
             "type": "string | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The key for storing dark mode preference in local storage.",
+            "defaultValue": "'sse-hooks-ternary-dark-mode'"
           },
           {
             "name": "initializeWithValue",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If `true` (default), the hook will initialize reading `localStorage`. In SSR, you should set it to `false`, returning default values initially.",
+            "defaultValue": "true"
           }
         ]
       }
     ],
     "returnType": {
       "name": "TernaryDarkModeReturn",
+      "description": "An object containing the dark mode state and helper functions.",
       "properties": [
         {
           "name": "isDarkMode",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The current state of the dark mode."
         },
         {
           "name": "ternaryDarkMode",
           "type": "TernaryDarkMode",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The current state of the dark mode."
         },
         {
           "name": "setTernaryDarkMode",
           "type": "React.Dispatch<React.SetStateAction<TernaryDarkMode>>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "A function to set the dark mode state."
         },
         {
           "name": "toggleTernaryDarkMode",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "A function to toggle the dark mode state."
         }
       ]
     }

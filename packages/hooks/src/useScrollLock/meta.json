@@ -17,48 +17,60 @@
       "see": "[Documentation](/docs/use-scroll-lock)",
       "example": "```tsx\r\n// Manually lock and unlock the scroll\r\nconst { lock, unlock } = useScrollLock({ autoLock: false })\r\n\r\nreturn (\r\n <div>\r\n  <button onClick={lock}>Lock</button>\r\n  <button onClick={unlock}>Unlock</button>\r\n </div>\r\n)\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "options",
         "type": "UseScrollLockOptions",
         "isOptional": true,
         "defaultValue": "{}",
+        "description": "- Options to configure the hook, by default it will lock the scroll automatically.",
         "properties": [
           {
             "name": "autoLock",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Whether to lock the scroll initially.",
+            "defaultValue": "true"
           },
           {
             "name": "lockTarget",
             "type": "string | HTMLElement | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The target element to lock the scroll (default is the body element).",
+            "defaultValue": "document.body"
           },
           {
             "name": "widthReflow",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Whether to prevent width reflow when locking the scroll.",
+            "defaultValue": "true"
           }
         ]
       }
     ],
     "returnType": {
       "name": "UseScrollLockReturn",
+      "description": "- An object containing the lock and unlock functions.",
       "properties": [
         {
           "name": "isLocked",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether the scroll is locked."
         },
         {
           "name": "lock",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Lock the scroll."
         },
         {
           "name": "unlock",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Unlock the scroll."
         }
       ]
     }

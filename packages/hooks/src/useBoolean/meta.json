@@ -15,41 +15,49 @@
       "public": true,
       "example": "```tsx\r\nconst { value, setTrue, setFalse, toggle } = useBoolean(true);\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "defaultValue",
         "type": "boolean",
         "isOptional": true,
-        "defaultValue": "false"
+        "defaultValue": "false",
+        "description": "- The initial value for the boolean state (default is `false`)."
       }
     ],
     "returnType": {
       "name": "UseBooleanReturn",
+      "description": "An object containing the boolean state value and utility functions to manipulate the state.",
       "properties": [
         {
           "name": "value",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The current boolean state value."
         },
         {
           "name": "setValue",
           "type": "React.Dispatch<React.SetStateAction<boolean>>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to set the boolean state directly."
         },
         {
           "name": "setTrue",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to set the boolean state to `true`."
         },
         {
           "name": "setFalse",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to set the boolean state to `false`."
         },
         {
           "name": "toggle",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to toggle the boolean state."
         }
       ]
     }

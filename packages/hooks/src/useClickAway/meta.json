@@ -17,43 +17,76 @@
       "public": true,
       "example": "```tsx\r\nconst handleClickAway = () => {\r\nconsole.log('Clicked outside!');\r\nsetOpen(false);\r\n};\r\n\r\nconst { ref, listenerProps } = useClickAway(handleClickAway);\r\n\r\nreturn (\r\n<div ref={ref} {...listenerProps}>\r\nI will detect clicks outside of me.\r\n</div>\r\n);\r\n```"
     },
+    "types": [
+      {
+        "name": "ClickAwayMouseEventHandler",
+        "description": "Supported mouse events for the click-away listener.",
+        "kind": "union",
+        "values": [
+          "onClick",
+          "onMouseDown",
+          "onMouseUp",
+          "onPointerDown",
+          "onPointerUp"
+        ]
+      },
+      {
+        "name": "ClickAwayTouchEventHandler",
+        "description": "Supported touch events for the click-away listener.",
+        "kind": "union",
+        "values": [
+          "onTouchStart",
+          "onTouchEnd"
+        ]
+      }
+    ],
     "parameters": [
       {
         "name": "onClickAway",
         "type": "(event: MouseEvent | TouchEvent) => void",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The callback function to be called when a click outside is detected."
       },
       {
         "name": "options",
         "type": "UseClickAwayOptions",
         "isOptional": true,
         "defaultValue": "{}",
+        "description": "- Configuration options for the hook.",
         "properties": [
           {
             "name": "disableReactTree",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If `true`, the React tree is ignored and only the DOM tree is considered.\r\nThis prop changes how portaled elements are handled.",
+            "defaultValue": "false"
           },
           {
             "name": "mouseEvent",
             "type": "false | ClickAwayMouseEventHandler | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The mouse event to listen to. You can disable the listener by providing `false`.",
+            "defaultValue": "'onClick'"
           },
           {
             "name": "touchEvent",
             "type": "false | ClickAwayTouchEventHandler | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The touch event to listen to. You can disable the listener by providing `false`.",
+            "defaultValue": "'onTouchEnd'"
           },
           {
             "name": "ref",
             "type": "React.Ref<Element> | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "An external ref to merge with the hook's internal ref.\r\nUseful if you need to access the DOM element outside of this hook."
           }
         ]
       }
     ],
     "returnType": {
       "name": "{ ref: React.Ref<Element>; listenerProps: Record<string, any> }",
+      "description": "An object containing the `ref` to attach to the target element and `listenerProps` to spread.",
       "properties": [
         {
           "name": "ref",

@@ -18,22 +18,18 @@
       "see": "[Documentation](/docs/use-hover)",
       "example": "```tsx\r\nconst buttonRef = useRef<HTMLButtonElement>(null);\r\nconst isHovered = useHover(buttonRef);\r\n// Access the isHovered variable to determine if the button is being hovered over.\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "elementRef",
         "type": "RefObject<T>",
         "isOptional": false,
-        "properties": [
-          {
-            "name": "current",
-            "type": "T",
-            "isOptional": false
-          }
-        ]
+        "description": "- The ref object for the DOM element to track."
       }
     ],
     "returnType": {
-      "name": "boolean"
+      "name": "boolean",
+      "description": "A boolean value indicating whether the element is being hovered over."
     }
   },
   "file": {

@@ -15,9 +15,11 @@
       "see": "[Documentation](/docs/use-is-mounted)",
       "example": "```tsx\r\nconst isComponentMounted = useIsMounted();\r\n// Use isComponentMounted() to check if the component is currently mounted before performing certain actions.\r\n```"
     },
+    "types": [],
     "parameters": [],
     "returnType": {
-      "name": "() => boolean"
+      "name": "() => boolean",
+      "description": "A function that returns a boolean value indicating whether the component is mounted."
     }
   },
   "file": {

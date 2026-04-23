@@ -9,31 +9,53 @@
   ],
   "registryDependencies": [],
   "api": {
-    "tags": {},
+    "tags": {
+      "category": "utilities",
+      "public": true,
+      "see": "[Documentation](/docs/use-media-quality)",
+      "example": "```tsx\r\nconst { quality, setQuality, isChanging } = useMediaQuality(userVideoStream);\r\nconst handleHDClick = () => {\r\nsetQuality('high'); // Switches to 1280x720\r\n};\r\n```"
+    },
+    "types": [
+      {
+        "name": "MediaQuality",
+        "description": "",
+        "kind": "union",
+        "values": [
+          "low",
+          "medium",
+          "high"
+        ]
+      }
+    ],
     "parameters": [
       {
         "name": "stream",
         "type": "MediaStream | null",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The MediaStream containing the video track to adjust."
       }
     ],
     "returnType": {
       "name": "UseMediaQualityReturn",
+      "description": "The current quality state and a setter function.",
       "properties": [
         {
           "name": "quality",
           "type": "MediaQuality",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The current quality preset being used."
         },
         {
           "name": "isChanging",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether the constraints are currently being applied to the track."
         },
         {
           "name": "setQuality",
           "type": "(level: MediaQuality) => Promise<void>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to change the video quality."
         }
       ]
     }

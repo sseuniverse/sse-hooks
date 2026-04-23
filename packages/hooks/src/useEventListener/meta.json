@@ -18,33 +18,31 @@
       "see": "[Documentation](/docs/use-event-listener)",
       "example": "```tsx\r\n// Example 3: Attach an element event listener\r\nconst buttonRef = useRef<HTMLButtonElement>(null);\r\nuseEventListener('click', handleButtonClick, buttonRef);\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "eventName",
-        "type": "K",
-        "isOptional": false
+        "type": "KW | KH | KM",
+        "isOptional": false,
+        "description": "- The name of the event to listen for."
       },
       {
         "name": "handler",
-        "type": "(event: MediaQueryListEventMap[K]) => void",
-        "isOptional": false
+        "type": "(\r\n    event:\r\n      | WindowEventMap[KW]\r\n      | HTMLElementEventMap[KH]\r\n      | SVGElementEventMap[KH]\r\n      | MediaQueryListEventMap[KM]\r\n      | Event,\r\n  ) => void",
+        "isOptional": false,
+        "description": "- The event handler function."
       },
       {
         "name": "element",
-        "type": "RefObject<MediaQueryList>",
-        "isOptional": false,
-        "properties": [
-          {
-            "name": "current",
-            "type": "MediaQueryList",
-            "isOptional": false
-          }
-        ]
+        "type": "RefObject<T>",
+        "isOptional": true,
+        "description": "- The DOM element or media query list to attach the event listener to (optional)."
       },
       {
         "name": "options",
         "type": "boolean | AddEventListenerOptions",
-        "isOptional": true
+        "isOptional": true,
+        "description": "- An options object that specifies characteristics about the event listener (optional)."
       }
     ],
     "returnType": {

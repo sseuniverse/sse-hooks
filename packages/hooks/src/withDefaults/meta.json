@@ -10,6 +10,26 @@
   "registryDependencies": [],
   "api": {
     "tags": {},
+    "types": [
+      {
+        "name": "DefineProps",
+        "description": "",
+        "kind": "alias",
+        "type": "DefineProps<T, BKeys>"
+      },
+      {
+        "name": "InferDefaults",
+        "description": "",
+        "kind": "alias",
+        "type": "InferDefaults<T>"
+      },
+      {
+        "name": "PropsWithDefaults",
+        "description": "",
+        "kind": "alias",
+        "type": "PropsWithDefaults<T, Defaults, BKeys>"
+      }
+    ],
     "parameters": [
       {
         "name": "props",

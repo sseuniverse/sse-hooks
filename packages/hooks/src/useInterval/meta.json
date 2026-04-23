@@ -17,16 +17,19 @@
       "see": "[Documentation](/docs/use-interval)",
       "example": "```tsx\r\nconst handleInterval = () => {\r\n  // Code to be executed at each interval\r\n};\r\nuseInterval(handleInterval, 1000);\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "callback",
         "type": "() => void",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The function to be invoked at each interval."
       },
       {
         "name": "delay",
         "type": "number | null",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The time, in milliseconds, between each invocation of the callback. Use `null` to clear the interval."
       }
     ],
     "returnType": {

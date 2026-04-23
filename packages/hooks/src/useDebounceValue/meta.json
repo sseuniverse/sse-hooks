@@ -18,47 +18,58 @@
       "see": "[Documentation](/docs/use-debounce-value)",
       "example": "```tsx\r\nconst [debouncedValue, updateDebouncedValue] = useDebounceValue(inputValue, 500, { leading: true });\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "initialValue",
         "type": "T | (() => T)",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The value to be debounced."
       },
       {
         "name": "delay",
         "type": "number",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The delay in milliseconds before the value is updated (default is 500ms)."
       },
       {
         "name": "options",
         "type": "UseDebounceValueOptions<T>",
         "isOptional": true,
+        "description": "- Optional configurations for the debouncing behavior.",
         "properties": [
           {
             "name": "leading",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Determines whether the function should be invoked on the leading edge of the timeout.",
+            "defaultValue": "false"
           },
           {
             "name": "trailing",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Determines whether the function should be invoked on the trailing edge of the timeout.",
+            "defaultValue": "false"
           },
           {
             "name": "maxWait",
             "type": "number | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The maximum time the specified function is allowed to be delayed before it is invoked."
           },
           {
             "name": "equalityFn",
             "type": "((left: T, right: T) => boolean) | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "A function to determine if the value has changed. Defaults to a function that checks if the value is strictly equal to the previous value."
           }
         ]
       }
     ],
     "returnType": {
-      "name": "[T, DebouncedState<(value: T) => void>]"
+      "name": "[T, DebouncedState<(value: T) => void>]",
+      "description": "An array containing the debounced value and the function to update it."
     }
   },
   "file": {

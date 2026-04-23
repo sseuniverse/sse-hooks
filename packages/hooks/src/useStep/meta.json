@@ -15,15 +15,25 @@
       "see": "[Documentation](/docs/use-step)",
       "example": "```tsx\r\nconst [currentStep, { goToNextStep, goToPrevStep, reset, canGoToNextStep, canGoToPrevStep, setStep }] = useStep(3);\r\n// Access and use the current step and provided helper functions.\r\n```"
     },
+    "types": [
+      {
+        "name": "UseStepActions",
+        "description": "Represents the second element of the output of the `useStep` hook.",
+        "kind": "alias",
+        "type": "UseStepActions"
+      }
+    ],
     "parameters": [
       {
         "name": "maxStep",
         "type": "number",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The maximum step in the process."
       }
     ],
     "returnType": {
-      "name": "[number, UseStepActions]"
+      "name": "[number, UseStepActions]",
+      "description": "An tuple containing the current step and helper functions for navigating steps."
     }
   },
   "file": {

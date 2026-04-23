@@ -17,58 +17,72 @@
       "see": "[Documentation](/docs/use-dark-mode)",
       "example": "```tsx\r\nconst { isDarkMode, toggle, enable, disable, set } = useDarkMode({ defaultValue: true });\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "options",
         "type": "DarkModeOptions",
         "isOptional": true,
         "defaultValue": "{}",
+        "description": "- The initial value of the dark mode, default `false`.",
         "properties": [
           {
             "name": "defaultValue",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The initial value of the dark mode.",
+            "defaultValue": "false"
           },
           {
             "name": "localStorageKey",
             "type": "string | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The key to use in the local storage.",
+            "defaultValue": "'sse-hooks-dark-mode'"
           },
           {
             "name": "initializeWithValue",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If `true` (default), the hook will initialize reading `localStorage`.\r\nIn SSR, you should set it to `false`, returning the `defaultValue` or `false` initially.",
+            "defaultValue": "true"
           }
         ]
       }
     ],
     "returnType": {
       "name": "DarkModeReturn",
+      "description": "An object containing the dark mode's state and its controllers.",
       "properties": [
         {
           "name": "isDarkMode",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The current state of the dark mode."
         },
         {
           "name": "toggle",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to toggle the dark mode."
         },
         {
           "name": "enable",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to enable the dark mode."
         },
         {
           "name": "disable",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to disable the dark mode."
         },
         {
           "name": "set",
           "type": "(value: boolean) => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to set a specific value to the dark mode."
         }
       ]
     }

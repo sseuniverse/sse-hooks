@@ -15,15 +15,18 @@
       "public": true,
       "example": "```tsx\r\nconst rootRef = React.useRef<Instance>(null);\r\nconst refFork = useForkRef(rootRef, props.ref);\r\n\r\nreturn (\r\n  <Root {...props} ref={refFork} />\r\n);\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "...refs",
         "type": "Array<React.Ref<Instance> | undefined>",
-        "isOptional": true
+        "isOptional": true,
+        "description": "The ref array."
       }
     ],
     "returnType": {
-      "name": "React.RefCallback<Instance> | null"
+      "name": "React.RefCallback<Instance> | null",
+      "description": "The new ref callback."
     }
   },
   "file": {

@@ -15,22 +15,26 @@
       "see": "[Documentation](/docs/use-role-guard)",
       "example": "```tsx\r\nconst { hasAccess, user, isLoading } = useRoleGuard(['admin', 'editor'], {\r\nredirectTo: '/login'\r\n});\r\nif (isLoading) return <Loader />;\r\nif (!hasAccess) return null; // Will redirect automatically\r\nreturn <AdminPanel user={user} />;\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "requiredRoles",
         "type": "string[]",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The list of roles required to access the resource."
       },
       {
         "name": "options",
         "type": "UseRoleGuardOptions",
         "isOptional": true,
         "defaultValue": "{}",
+        "description": "- Configuration options including user object and redirect paths.",
         "properties": [
           {
             "name": "user",
             "type": "User | null | undefined",
             "isOptional": true,
+            "description": "The user object. If not provided, attempts to read from session storage.",
             "properties": [
               {
                 "name": "id",
@@ -47,53 +51,65 @@
           {
             "name": "redirectTo",
             "type": "string | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "URL to redirect to if access is denied.",
+            "defaultValue": "\"/unauthorized\""
           },
           {
             "name": "fallbackComponent",
             "type": "React.ComponentType<{}> | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Component to render while loading or if unauthorized (not fully implemented in hook logic, mainly for HOCs)."
           },
           {
             "name": "onUnauthorized",
             "type": "(() => void) | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Callback fired when access is denied."
           },
           {
             "name": "sessionKey",
             "type": "string | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The key used to fetch user data from sessionStorage.",
+            "defaultValue": "\"user\""
           }
         ]
       }
     ],
     "returnType": {
       "name": "UseRoleGuardReturn",
+      "description": "Access status, user data, and role checking utilities.",
       "properties": [
         {
           "name": "hasAccess",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether the user has the required roles."
         },
         {
           "name": "hasAnyRole",
           "type": "(roles: string[]) => boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Checks if the user has at least one of the provided roles."
         },
         {
           "name": "hasAllRoles",
           "type": "(roles: string[]) => boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Checks if the user has all of the provided roles."
         },
         {
           "name": "isLoading",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether user data is being loaded."
         },
         {
           "name": "user",
           "type": "User | null",
           "isOptional": false,
+          "description": "The current user object.",
           "properties": [
             {
               "name": "id",
@@ -110,12 +126,14 @@
         {
           "name": "checkAccess",
           "type": "(requiredRoles: string[]) => boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Manually checks access against a specific set of roles."
         },
         {
           "name": "redirect",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Function to trigger the redirect manually."
         }
       ]
     }

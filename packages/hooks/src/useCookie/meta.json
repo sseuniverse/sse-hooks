@@ -19,83 +19,101 @@
       "see": "[Documentation](/docs/use-cookie)",
       "example": "```tsx\r\n// Creates a cookie named \"__Secure-token\"\r\nconst [token, setToken] = useCookie('token', '', {\r\nprefix: '__Secure-',\r\nsecure: true,\r\n});\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "key",
         "type": "string",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The base name of the cookie."
       },
       {
         "name": "initialValue",
         "type": "T | (() => T)",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The initial value of the state."
       },
       {
         "name": "options",
         "type": "UseCookieOptions<T>",
         "isOptional": true,
         "defaultValue": "{}",
+        "description": "- Options for customization.",
         "properties": [
           {
             "name": "serializer",
             "type": "((value: T) => string) | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "A function to serialize the value before storing it."
           },
           {
             "name": "deserializer",
             "type": "((value: string) => T) | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "A function to deserialize the stored value."
           },
           {
             "name": "initializeWithValue",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If `true` (default), the hook will initialize reading the cookie.",
+            "defaultValue": "true"
           },
           {
             "name": "prefix",
             "type": "string | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "A prefix to be prepended to the key (e.g., \"myApp_\").\r\nUseful for namespacing or complying with cookie prefixes like `__Secure-` or `__Host-`."
           },
           {
             "name": "path",
             "type": "string | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The path within the site for which the cookie is valid.",
+            "defaultValue": "\"/\""
           },
           {
             "name": "domain",
             "type": "string | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The domain for which the cookie is valid."
           },
           {
             "name": "expires",
             "type": "Date | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The expiration date of the cookie."
           },
           {
             "name": "maxAge",
             "type": "number | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The maximum age of the cookie in seconds."
           },
           {
             "name": "secure",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If `true`, the cookie is only transmitted over secure protocols (HTTPS)."
           },
           {
             "name": "sameSite",
             "type": "\"lax\" | \"strict\" | \"none\" | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Controls whether the cookie is sent with cross-site requests."
           },
           {
             "name": "defaultValue",
             "type": "T | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The default value to return if the cookie is not found."
           }
         ]
       }
     ],
     "returnType": {
-      "name": "[T, Dispatch<SetStateAction<T>>, () => void]"
+      "name": "[T, Dispatch<SetStateAction<T>>, () => void]",
+      "description": "A tuple containing the stored value, a setter, and a remover."
     }
   },
   "file": {

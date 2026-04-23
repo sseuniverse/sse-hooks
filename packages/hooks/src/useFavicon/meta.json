@@ -18,27 +18,32 @@
       "see": "[Documentation](/docs/use-favicon)",
       "example": "```tsx\r\n// Basic usage\r\nuseFavicon('/assets/favicon-dark.ico');\r\n// With options\r\nuseFavicon('/assets/notification-badge.ico', {\r\npreserveFaviconOnUnmount: false, // Revert when component unmounts\r\ntype: 'image/png'\r\n});\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "href",
         "type": "string",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The URL of the favicon to set."
       },
       {
         "name": "options",
         "type": "UseFaviconOptions",
         "isOptional": true,
         "defaultValue": "{}",
+        "description": "- Configuration options.",
         "properties": [
           {
             "name": "preserveFaviconOnUnmount",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Whether to keep the favicon after unmounting the component (default is `true`).\r\nIf `false`, the favicon will revert to what it was before this hook mounted."
           },
           {
             "name": "type",
             "type": "string | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The MIME type of the favicon (default is `image/x-icon`)."
           }
         ]
       }

@@ -15,32 +15,39 @@
       "public": true,
       "example": "```tsx\r\ninterface User {\r\nid: number;\r\nname: string;\r\n}\r\n\r\nconst { data, loading, error, execute } = useFetch<User>('https://api.example.com/user/1', {\r\nimmediate: true,\r\nonSuccess: (data) => console.log('User loaded:', data),\r\n});\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "url",
         "type": "string",
-        "isOptional": true
+        "isOptional": true,
+        "description": "- The URL to fetch."
       },
       {
         "name": "options",
         "type": "UseFetchOptions",
         "isOptional": true,
         "defaultValue": "{}",
+        "description": "- Options for customizing the request and hook behavior (optional).",
         "properties": [
           {
             "name": "immediate",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If `true`, the fetch request will be executed immediately upon mounting or when the URL changes.",
+            "defaultValue": "false"
           },
           {
             "name": "onSuccess",
             "type": "((data: any) => void) | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Callback function invoked when the request completes successfully."
           },
           {
             "name": "onError",
             "type": "((error: Error) => void) | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Callback function invoked when the request fails."
           },
           {
             "name": "body",
@@ -117,36 +124,43 @@
     ],
     "returnType": {
       "name": "UseFetchReturn<T>",
+      "description": "An object containing the fetched data, loading status, error, and methods to control the request.",
       "properties": [
         {
           "name": "execute",
           "type": "(url?: string | undefined, options?: RequestInit | undefined) => Promise<T | null>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Manually triggers the fetch request."
         },
         {
           "name": "abort",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Aborts the current request if it is pending."
         },
         {
           "name": "reset",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Resets the state to its initial values (data: null, loading: false, error: null)."
         },
         {
           "name": "data",
           "type": "T | null",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The data received from the response, or null if not yet received."
         },
         {
           "name": "loading",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Indicates if the request is currently in progress."
         },
         {
           "name": "error",
           "type": "Error | null",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The error object if the request failed, or null if successful."
         }
       ]
     }

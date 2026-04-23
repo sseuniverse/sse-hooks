@@ -18,60 +18,70 @@
       "see": "[Documentation](/docs/use-key)",
       "example": "```tsx\r\nconst { bindings } = useKey({\r\n// Simple binding\r\n\"Escape\": () => setModalOpen(false),\r\n\r\n// Modifier binding with config\r\n\"Ctrl+S\": {\r\naction: (e) => saveDocument(),\r\npreventDefault: true,\r\ndescription: \"Save changes\",\r\ncategory: \"File\"\r\n},\r\n\r\n// Sequence binding (Gmail style)\r\n\"g i\": {\r\naction: () => navigate(\"/inbox\"),\r\ndescription: \"Go to Inbox\",\r\ncategory: \"Navigation\"\r\n}\r\n}, {\r\ndebug: true,\r\nallowInInputs: false\r\n});\r\n```"
     },
+    "types": [
+      {
+        "name": "KeyMap",
+        "description": "",
+        "kind": "alias",
+        "type": "KeyMap"
+      }
+    ],
     "parameters": [
       {
         "name": "keyMap",
         "type": "KeyMap",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- An object defining the key bindings and their actions."
       },
       {
         "name": "options",
         "type": "UseKeyOptions",
         "isOptional": true,
         "defaultValue": "{}",
+        "description": "- Global configuration options.",
         "properties": [
           {
             "name": "target",
             "type": "React.RefObject<HTMLElement> | null | undefined",
             "isOptional": true,
-            "properties": [
-              {
-                "name": "current",
-                "type": "HTMLElement",
-                "isOptional": false
-              }
-            ]
+            "description": "DOM target to listen on (default: window)"
           },
           {
             "name": "event",
             "type": "\"keydown\" | \"keyup\" | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Event type (default: keydown)"
           },
           {
             "name": "enabled",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Global toggle to disable all hooks"
           },
           {
             "name": "debug",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If true, logs key presses to console"
           },
           {
             "name": "sequenceTimeout",
             "type": "number | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Time in ms to wait for a sequence (e.g. \"g g\")"
           },
           {
             "name": "filter",
             "type": "((e: React.KeyboardEvent<Element>) => boolean) | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Custom filter: return false to skip the event"
           }
         ]
       }
     ],
     "returnType": {
       "name": "{ bindings: { keys: string; category: string; description: string; }[]; }",
+      "description": "Metadata about the registered bindings for UI display.",
       "properties": [
         {
           "name": "bindings",

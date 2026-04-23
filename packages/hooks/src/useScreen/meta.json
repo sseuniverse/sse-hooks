@@ -19,62 +19,77 @@
       "see": "[Documentation](/docs/use-screen)",
       "example": "```tsx\r\nconst currentScreen = useScreen();\r\n// Access properties of the current screen, such as width and height.\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "options",
-        "type": "UseScreenOptions<false>",
-        "isOptional": false,
+        "type": "Partial<UseScreenOptions<boolean>>",
+        "isOptional": true,
+        "defaultValue": "{}",
+        "description": "- The options for customizing the behavior of the hook (optional).",
         "properties": [
           {
             "name": "initializeWithValue",
-            "type": "false",
-            "isOptional": false
+            "type": "boolean | undefined",
+            "isOptional": true,
+            "description": "If `true` (default), the hook will initialize reading the screen dimensions. In SSR, you should set it to `false`, returning `undefined` initially.",
+            "defaultValue": "true"
           },
           {
             "name": "debounceDelay",
             "type": "number | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The delay in milliseconds before the state is updated (disabled by default for retro-compatibility).",
+            "defaultValue": "undefined"
           }
         ]
       }
     ],
     "returnType": {
       "name": "Screen | undefined",
+      "description": "The current `Screen` object representing the screen dimensions and properties, or `undefined` if not available.",
       "properties": [
         {
           "name": "availHeight",
           "type": "number",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The read-only Screen interface's **`availHeight`** property returns the height, in CSS pixels, of the space available for Web content on the screen. Since Screen is exposed on the Window interface's window.screen property, you access availHeight using window.screen.availHeight.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/Screen/availHeight)"
         },
         {
           "name": "availWidth",
           "type": "number",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The **`Screen.availWidth`** property returns the amount of horizontal space (in CSS pixels) available to the window.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/Screen/availWidth)"
         },
         {
           "name": "colorDepth",
           "type": "number",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The **`Screen.colorDepth`** read-only property returns the color depth of the screen. Per the CSSOM, some implementations return 24 for compatibility reasons. See the browser compatibility section for those that don't.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/Screen/colorDepth)"
         },
         {
           "name": "height",
           "type": "number",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The **`Screen.height`** read-only property returns the height of the screen in CSS pixels.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/Screen/height)"
         },
         {
           "name": "orientation",
           "type": "ScreenOrientation",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The **`orientation`** read-only property of the Screen interface returns the current orientation of the screen.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/Screen/orientation)"
         },
         {
           "name": "pixelDepth",
           "type": "number",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Returns the bit depth of the screen. Per the CSSOM, some implementations return 24 for compatibility reasons. See the browser compatibility section for those that don't.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/Screen/pixelDepth)"
         },
         {
           "name": "width",
           "type": "number",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The **`Screen.width`** read-only property returns the width of the screen in CSS pixels.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/Screen/width)"
         }
       ]
     }

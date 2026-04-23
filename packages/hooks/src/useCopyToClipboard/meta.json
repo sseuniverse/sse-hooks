@@ -14,9 +14,27 @@
       "public": true,
       "example": "```tsx\r\nconst [copiedText, copyToClipboard] = useCopyToClipboard();\r\nconst textToCopy = 'Hello, world!';\r\n\r\n// Attempt to copy text to the clipboard\r\ncopyToClipboard(textToCopy)\r\n  .then(success => {\r\n    if (success) {\r\n      console.log(`Text \"${textToCopy}\" copied to clipboard successfully.`);\r\n    } else {\r\n      console.error('Failed to copy text to clipboard.');\r\n    }\r\n  });\r\n```"
     },
+    "types": [
+      {
+        "name": "CopiedValue",
+        "description": "The copied text as `string` or `null` if nothing has been copied yet.",
+        "kind": "union",
+        "values": [
+          "string",
+          "null"
+        ]
+      },
+      {
+        "name": "CopyFn",
+        "description": "Function to copy text to the clipboard.",
+        "kind": "alias",
+        "type": "CopyFn"
+      }
+    ],
     "parameters": [],
     "returnType": {
-      "name": "[CopiedValue, CopyFn]"
+      "name": "[CopiedValue, CopyFn]",
+      "description": "An tuple containing the copied text and a function to copy text to the clipboard."
     }
   },
   "file": {

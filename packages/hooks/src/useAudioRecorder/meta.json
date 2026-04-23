@@ -11,141 +11,203 @@
     "with-defaults"
   ],
   "api": {
-    "tags": {},
+    "tags": {
+      "category": "sensors",
+      "throws": "Will set an error if audio recording is not supported or permission is denied.",
+      "public": true,
+      "example": "```tsx\r\nconst {\r\n  isRecording,\r\n  startRecording,\r\n  stopRecording,\r\n  audioUrl,\r\n} = useAudioRecorder({ enableAnalysis: true });\r\n```"
+    },
+    "types": [
+      {
+        "name": "AudioMimeType",
+        "description": "Supported audio MIME types for recording.",
+        "kind": "union",
+        "values": [
+          "audio/webm",
+          "audio/webm;codecs=opus",
+          "audio/webm;codecs=vorbis",
+          "audio/ogg",
+          "audio/ogg;codecs=opus",
+          "audio/ogg;codecs=vorbis",
+          "application/ogg",
+          "audio/mp4",
+          "audio/mp4;codecs=mp4a.40.2",
+          "audio/aac",
+          "audio/x-m4a",
+          "audio/mpeg",
+          "audio/mp3",
+          "audio/wav",
+          "audio/x-wav",
+          "audio/wave",
+          "audio/flac",
+          "audio/3gpp",
+          "audio/3gpp2"
+        ]
+      }
+    ],
     "parameters": [
       {
         "name": "options",
         "type": "UseAudioRecorderOptions",
         "isOptional": true,
         "defaultValue": "{}",
+        "description": "- Configuration options for audio recording.",
         "properties": [
           {
             "name": "audioBitsPerSecond",
             "type": "number | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Audio bitrate in bits per second.",
+            "defaultValue": "128000"
           },
           {
             "name": "mimeType",
             "type": "AudioMimeType | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "MIME type for the recorded audio.",
+            "defaultValue": "\"audio/webm\""
           },
           {
             "name": "timeslice",
             "type": "number | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "Timeslice (ms) for MediaRecorder data chunks."
           },
           {
             "name": "enableAnalysis",
             "type": "boolean | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "If set, enables real-time audio analysis during recording."
           },
           {
             "name": "fftSize",
             "type": "number | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "FFT size for audio analysis.",
+            "defaultValue": "2048"
           }
         ]
       }
     ],
     "returnType": {
       "name": "UseAudioRecorderReturn",
+      "description": "Object containing recording state, audio data, and control methods.",
       "properties": [
         {
           "name": "isSupported",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether audio recording is supported in the current browser."
         },
         {
           "name": "isRecording",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether recording is currently active."
         },
         {
           "name": "isPaused",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Whether recording is currently paused."
         },
         {
           "name": "stream",
           "type": "MediaStream | null",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Active media stream."
         },
         {
           "name": "mediaRecorder",
           "type": "MediaRecorder | null",
-          "isOptional": false
+          "isOptional": false,
+          "description": "MediaRecorder instance."
         },
         {
           "name": "audioBlob",
           "type": "Blob | null",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Final recorded audio blob."
         },
         {
           "name": "audioUrl",
           "type": "string | null",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Object URL for the recorded audio."
         },
         {
           "name": "duration",
           "type": "number",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Duration of the recording in seconds."
         },
         {
           "name": "error",
           "type": "string | null",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Error message if recording fails."
         },
         {
           "name": "analysisData",
           "type": "AudioAnalysisData | null",
           "isOptional": false,
+          "description": "Live audio analysis data.",
           "properties": [
             {
               "name": "frequencyData",
               "type": "Uint8Array<ArrayBufferLike>",
-              "isOptional": false
+              "isOptional": false,
+              "description": "Frequency domain data (FFT)."
             },
             {
               "name": "timeData",
               "type": "Uint8Array<ArrayBufferLike>",
-              "isOptional": false
+              "isOptional": false,
+              "description": "Time domain waveform data."
             },
             {
               "name": "volume",
               "type": "number",
-              "isOptional": false
+              "isOptional": false,
+              "description": "Calculated RMS volume level."
             }
           ]
         },
         {
           "name": "startRecording",
           "type": "() => Promise<void>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Starts audio recording."
         },
         {
           "name": "stopRecording",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Stops audio recording."
         },
         {
           "name": "pauseRecording",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Pauses the recording."
         },
         {
           "name": "resumeRecording",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Resumes a paused recording."
         },
         {
           "name": "clearRecording",
           "type": "() => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Clears the current recording state."
         },
         {
           "name": "downloadRecording",
           "type": "(filename?: string | undefined) => void",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Downloads the recording as a file."
         }
       ]
     }

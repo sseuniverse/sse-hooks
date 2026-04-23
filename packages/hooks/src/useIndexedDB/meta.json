@@ -15,78 +15,94 @@
       "public": true,
       "example": "```tsx\r\ninterface UserProfile {\r\nname: string;\r\nage: number;\r\n}\r\n\r\nconst { setItem, getItem, data } = useIndexedDB<UserProfile>('myAppDB', 'profiles');\r\n\r\nconst saveProfile = async () => {\r\nawait setItem('user_1', { name: 'Alice', age: 30 });\r\n};\r\n```"
     },
+    "types": [],
     "parameters": [
       {
         "name": "databaseName",
         "type": "string",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The name of the IndexedDB database."
       },
       {
         "name": "storeName",
         "type": "string",
-        "isOptional": false
+        "isOptional": false,
+        "description": "- The name of the object store within the database."
       },
       {
         "name": "options",
         "type": "UseIndexedDBOptions",
         "isOptional": true,
         "defaultValue": "{}",
+        "description": "- Configuration options for the database connection (optional).",
         "properties": [
           {
             "name": "version",
             "type": "number | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "The version of the database. Changing this triggers an upgrade.",
+            "defaultValue": "1"
           },
           {
             "name": "onUpgradeNeeded",
             "type": "((db: IDBDatabase, oldVersion: number, newVersion: number) => void) | undefined",
-            "isOptional": true
+            "isOptional": true,
+            "description": "A callback function executed when the database version changes or is created.\r\nUse this to create or modify object stores."
           }
         ]
       }
     ],
     "returnType": {
       "name": "UseIndexedDBReturn<T>",
+      "description": "An object containing the current data state, error state, loading state, and methods to interact with the database.",
       "properties": [
         {
           "name": "data",
           "type": "T | null",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The most recently accessed or modified data item."
         },
         {
           "name": "error",
           "type": "string | null",
-          "isOptional": false
+          "isOptional": false,
+          "description": "The error message if an operation failed, or null if successful."
         },
         {
           "name": "loading",
           "type": "boolean",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Indicates if the database is initializing or an operation is in progress."
         },
         {
           "name": "setItem",
           "type": "(key: string, value: T) => Promise<void>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Stores a value in the database under the specified key."
         },
         {
           "name": "getItem",
           "type": "(key: string) => Promise<T | null>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Retrieves a value from the database by its key."
         },
         {
           "name": "removeItem",
           "type": "(key: string) => Promise<void>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Removes an item from the database by its key."
         },
         {
           "name": "clear",
           "type": "() => Promise<void>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Removes all items from the current object store."
         },
         {
           "name": "getAllKeys",
           "type": "() => Promise<string[]>",
-          "isOptional": false
+          "isOptional": false,
+          "description": "Retrieves all keys currently stored in the object store."
         }
       ]
     }
