@@ -1,50 +1,71 @@
 <script setup lang="ts">
-import { kebabCase } from 'scule'
-import type { HookProperty, HookTypeMeta } from '~/composables/fetchComponentMeta'
+import { kebabCase } from "scule";
+import type {
+  HookProperty,
+  HookTypeMeta,
+} from "~/composables/fetchComponentMeta";
 
 const props = defineProps<{
-  // 1. Broaden the type to accept our new standalone types
-  prop: HookProperty | HookTypeMeta | Record<string, any>
-  ignore?: string[]
-}>()
+  prop: HookProperty | HookTypeMeta | Record<string, any>;
+  ignore?: string[];
+}>();
 
-const route = useRoute()
-const hookName = route.path.split('/').pop() ?? ''
+const route = useRoute();
+const hookName = route.path.split("/").pop() ?? "";
 
 const schemaProps = computed(() => {
-  // 2. Safely check if schema exists and is an array
-  if (!props.prop?.schema || !Array.isArray(props.prop.schema)) {
-    return []
+  // Gracefully handle both the new 'properties' array and the old 'schema' array
+  const propsArray = props.prop?.properties || props.prop?.schema;
+  if (!propsArray || !Array.isArray(propsArray)) {
+    return [];
   }
 
-  return props.prop.schema
+  return propsArray
     .filter((p: any) => !props.ignore?.includes(p.name))
     .map((p: any) => {
-      let description = p.description || ''
-      
-      if (p.default) {
-        description = description ? `${description} Defaults to \`${p.default}\`{lang="ts-type"}.` : `Defaults to \`${p.default}\`{lang="ts-type"}.`
+      let description = p.description || "";
+
+      const def = p.defaultValue ?? p.default;
+
+      // If a default value exists, append it to the description just like Nuxt UI
+      if (def && def !== "undefined") {
+        const defaultText = `Defaults to \`${def}\`.`;
+        description = description
+          ? `${description} ${defaultText}`
+          : defaultText;
       }
 
       return {
         ...p,
         description,
-        // 3. Fallback to 'any' to avoid rendering undefined strings in the UI
-        displayType: p.rawType || p.type || 'any'
-      }
-    })
-})
+        displayType: p.type || p.rawType || "any",
+      };
+    });
+});
 </script>
 
 <template>
-  <ProseCollapsible v-if="schemaProps?.length" class="mt-1 mb-0">
-    <ProseUl>
+  <ProseCollapsible v-if="schemaProps?.length" class="mt-2 mb-0">
+    <ProseUl class="space-y-3">
       <ProseLi v-for="schemaProp in schemaProps" :key="schemaProp.name">
-        <HighlightInlineType :type="`${schemaProp.name}${!schemaProp.required ? '?' : ''}: ${schemaProp.displayType}`" />
+        <div class="flex flex-col gap-1.5 mt-1">
+          <HighlightInlineType
+            :type="`${schemaProp.name}${schemaProp.isOptional || schemaProp.required === false ? '?' : ''}: ${schemaProp.displayType}`"
+          />
 
-        <MDC v-if="schemaProp.description" :value="schemaProp.description" class="text-gray-500 dark:text-gray-400 text-sm mt-1" :cache-key="`${kebabCase(hookName)}-${prop.name || 'schema'}-${schemaProp.name}-description`" />
-        
-        <ComponentPropsSchema v-if="schemaProp.schema?.length" :prop="schemaProp" />
+          <MDC
+            v-if="schemaProp.description"
+            :value="schemaProp.description"
+            class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"
+            tag="div"
+            :cache-key="`${kebabCase(hookName)}-${prop.name || 'schema'}-prop-${schemaProp.name}-description`"
+          />
+
+          <ComponentPropsSchema
+            v-if="schemaProp.properties?.length || schemaProp.schema?.length"
+            :prop="schemaProp"
+          />
+        </div>
       </ProseLi>
     </ProseUl>
   </ProseCollapsible>

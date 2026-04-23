@@ -61,7 +61,7 @@ export default defineAppConfig({
     title: "Table of Contents",
     bottom: {
       title: "Community",
-      edit: "https://github.com/sseuniverse/sse-hooks/edit/main/app/www/content/docs",
+      edit: "https://github.com/sseuniverse/sse-hooks/edit/main/app/www/content",
       links: [
         {
           icon: "i-lucide-star",
