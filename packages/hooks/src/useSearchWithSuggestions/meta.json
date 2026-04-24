@@ -29,13 +29,26 @@
         "name": "ScopedCommand",
         "description": "",
         "kind": "alias",
-        "type": "ScopedCommand<T>"
+        "type": "\"BaseCommand & { /** Limits search to a specific key in the data object. */ scope: keyof T; filter?: never; }\""
       },
       {
         "name": "FilterCommand",
         "description": "",
         "kind": "alias",
-        "type": "FilterCommand<T>"
+        "type": "\"BaseCommand & { /** Custom filter function for this command. */ filter: (item: T) => boolean; scope?: never; }\""
+      },
+      {
+        "name": "BaseCommand",
+        "description": "",
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "trigger",
+            "type": "string",
+            "isOptional": false,
+            "description": "The string trigger (e.g., \":user\"). Auto-prefixed with \":\" if missing."
+          }
+        ]
       }
     ],
     "parameters": [
@@ -112,7 +125,7 @@
         },
         {
           "name": "inputProps",
-          "type": "{ value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void; placeholder?: string | undefined; }",
+          "type": "\"{ value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void; placeholder?: string | undefined; }\"",
           "isOptional": false,
           "description": "Props to spread onto the <input> element.",
           "properties": [

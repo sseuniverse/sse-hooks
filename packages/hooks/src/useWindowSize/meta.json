@@ -23,8 +23,21 @@
       {
         "name": "WindowSize",
         "description": "Represent the dimension of the window.",
-        "kind": "alias",
-        "type": "WindowSize<T>"
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "width",
+            "type": "T",
+            "isOptional": false,
+            "description": "The width of the window."
+          },
+          {
+            "name": "height",
+            "type": "T",
+            "isOptional": false,
+            "description": "The height of the window."
+          }
+        ]
       }
     ],
     "parameters": [

@@ -15,19 +15,37 @@
         "name": "DefineProps",
         "description": "",
         "kind": "alias",
-        "type": "DefineProps<T, BKeys>"
+        "type": "\"Readonly<T> & { readonly [K in BKeys]-?: boolean; }\""
       },
       {
         "name": "InferDefaults",
         "description": "",
-        "kind": "alias",
-        "type": "InferDefaults<T>"
+        "kind": "interface",
+        "properties": []
       },
       {
         "name": "PropsWithDefaults",
         "description": "",
         "kind": "alias",
-        "type": "PropsWithDefaults<T, Defaults, BKeys>"
+        "type": "\"T extends unknown ? Readonly<MappedOmit<T, keyof Defaults>> & { readonly [K in keyof Defaults as K extends keyof T ? K : never]-?: K extends keyof T ? Defaults[K] extends undefined ? IfAny<Defaults[K], NotUndefined<T[K]>, T[K]> : NotUndefined<T[K]> : never; } & { readonly [K in BKeys]-?: K extends keyof Defaults ? Defaults[K] extends undefined ? boolean | undefined : boolean : boolean; } : never\""
+      },
+      {
+        "name": "MappedOmit",
+        "description": "",
+        "kind": "interface",
+        "properties": []
+      },
+      {
+        "name": "IfAny",
+        "description": "",
+        "kind": "alias",
+        "type": "0 extends 1 & T ? Y : N"
+      },
+      {
+        "name": "NotUndefined",
+        "description": "",
+        "kind": "alias",
+        "type": "T extends undefined ? never : T"
       }
     ],
     "parameters": [

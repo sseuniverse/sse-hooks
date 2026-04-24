@@ -15,7 +15,7 @@
         "name": "ComputedGetter",
         "description": "",
         "kind": "alias",
-        "type": "ComputedGetter<T>"
+        "type": "(oldValue?: T) => T"
       },
       {
         "name": "WritableComputedOptions",
@@ -40,13 +40,93 @@
         "name": "DebuggerEvent",
         "description": "",
         "kind": "alias",
-        "type": "DebuggerEvent"
+        "type": "\"{ effect: Subscriber; } & DebuggerEventExtraInfo\""
       },
       {
         "name": "ComputedSetter",
         "description": "",
         "kind": "alias",
-        "type": "ComputedSetter<T>"
+        "type": "(newValue: T) => void"
+      },
+      {
+        "name": "Subscriber",
+        "description": "",
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "deps",
+            "type": "Link | undefined",
+            "isOptional": true,
+            "description": ""
+          },
+          {
+            "name": "depsTail",
+            "type": "Link | undefined",
+            "isOptional": true,
+            "description": ""
+          },
+          {
+            "name": "flags",
+            "type": "EffectFlags",
+            "isOptional": false,
+            "description": ""
+          },
+          {
+            "name": "next",
+            "type": "Subscriber | undefined",
+            "isOptional": true,
+            "description": ""
+          },
+          {
+            "name": "onTrack",
+            "type": "((event: DebuggerEvent) => void) | undefined",
+            "isOptional": true,
+            "description": ""
+          },
+          {
+            "name": "onTrigger",
+            "type": "((event: DebuggerEvent) => void) | undefined",
+            "isOptional": true,
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "DebuggerEventExtraInfo",
+        "description": "",
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "target",
+            "type": "object",
+            "isOptional": false
+          },
+          {
+            "name": "type",
+            "type": "TrackOpTypes | TriggerOpTypes",
+            "isOptional": false
+          },
+          {
+            "name": "key",
+            "type": "any",
+            "isOptional": false
+          },
+          {
+            "name": "newValue",
+            "type": "any",
+            "isOptional": true
+          },
+          {
+            "name": "oldValue",
+            "type": "any",
+            "isOptional": true
+          },
+          {
+            "name": "oldTarget",
+            "type": "Map<any, any> | Set<any> | undefined",
+            "isOptional": true
+          }
+        ]
       }
     ],
     "parameters": [

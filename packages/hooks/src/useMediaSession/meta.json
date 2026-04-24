@@ -45,9 +45,9 @@
         "description": "The current playback state of the media session.",
         "kind": "union",
         "values": [
-          "none",
-          "paused",
-          "playing"
+          "\"none\"",
+          "\"paused\"",
+          "\"playing\""
         ]
       },
       {
@@ -86,22 +86,22 @@
         "description": "Supported media session actions.",
         "kind": "union",
         "values": [
-          "play",
-          "pause",
-          "stop",
-          "seekbackward",
-          "seekforward",
-          "seekto",
-          "skipad",
-          "previoustrack",
-          "nexttrack"
+          "\"play\"",
+          "\"pause\"",
+          "\"stop\"",
+          "\"seekbackward\"",
+          "\"seekforward\"",
+          "\"seekto\"",
+          "\"skipad\"",
+          "\"previoustrack\"",
+          "\"nexttrack\""
         ]
       },
       {
         "name": "MediaSessionActionHandler",
         "description": "Handler function for media session actions.",
         "kind": "alias",
-        "type": "MediaSessionActionHandler"
+        "type": "(details?: any) => void"
       }
     ],
     "parameters": [

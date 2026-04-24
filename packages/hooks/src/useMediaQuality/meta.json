@@ -21,9 +21,9 @@
         "description": "",
         "kind": "union",
         "values": [
-          "low",
-          "medium",
-          "high"
+          "\"low\"",
+          "\"medium\"",
+          "\"high\""
         ]
       }
     ],

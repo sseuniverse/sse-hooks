@@ -24,9 +24,9 @@
         "description": "Ternary dark mode options.",
         "kind": "union",
         "values": [
-          "system",
-          "dark",
-          "light"
+          "\"system\"",
+          "\"dark\"",
+          "\"light\""
         ]
       }
     ],

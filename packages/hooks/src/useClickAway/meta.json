@@ -23,11 +23,11 @@
         "description": "Supported mouse events for the click-away listener.",
         "kind": "union",
         "values": [
-          "onClick",
-          "onMouseDown",
-          "onMouseUp",
-          "onPointerDown",
-          "onPointerUp"
+          "\"onClick\"",
+          "\"onMouseDown\"",
+          "\"onMouseUp\"",
+          "\"onPointerDown\"",
+          "\"onPointerUp\""
         ]
       },
       {
@@ -35,8 +35,8 @@
         "description": "Supported touch events for the click-away listener.",
         "kind": "union",
         "values": [
-          "onTouchStart",
-          "onTouchEnd"
+          "\"onTouchStart\"",
+          "\"onTouchEnd\""
         ]
       }
     ],
@@ -85,7 +85,7 @@
       }
     ],
     "returnType": {
-      "name": "{ ref: React.Ref<Element>; listenerProps: Record<string, any> }",
+      "name": "\"{ ref: React.Ref<Element>; listenerProps: Record<string, any> }\"",
       "description": "An object containing the `ref` to attach to the target element and `listenerProps` to spread.",
       "properties": [
         {

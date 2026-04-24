@@ -19,8 +19,45 @@
       {
         "name": "UseStepActions",
         "description": "Represents the second element of the output of the `useStep` hook.",
-        "kind": "alias",
-        "type": "UseStepActions"
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "goToNextStep",
+            "type": "() => void",
+            "isOptional": false,
+            "description": "Go to the next step in the process."
+          },
+          {
+            "name": "goToPrevStep",
+            "type": "() => void",
+            "isOptional": false,
+            "description": "Go to the previous step in the process."
+          },
+          {
+            "name": "reset",
+            "type": "() => void",
+            "isOptional": false,
+            "description": "Reset the step to the initial step."
+          },
+          {
+            "name": "canGoToNextStep",
+            "type": "boolean",
+            "isOptional": false,
+            "description": "Check if the next step is available."
+          },
+          {
+            "name": "canGoToPrevStep",
+            "type": "boolean",
+            "isOptional": false,
+            "description": "Check if the previous step is available."
+          },
+          {
+            "name": "setStep",
+            "type": "React.Dispatch<React.SetStateAction<number>>",
+            "isOptional": false,
+            "description": "Set the current step to a specific value."
+          }
+        ]
       }
     ],
     "parameters": [

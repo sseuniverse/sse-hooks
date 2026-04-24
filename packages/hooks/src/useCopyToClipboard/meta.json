@@ -28,7 +28,7 @@
         "name": "CopyFn",
         "description": "Function to copy text to the clipboard.",
         "kind": "alias",
-        "type": "CopyFn"
+        "type": "(text: string) => Promise<boolean>"
       }
     ],
     "parameters": [],

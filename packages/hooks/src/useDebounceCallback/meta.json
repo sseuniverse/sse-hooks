@@ -24,7 +24,32 @@
         "name": "DebouncedState",
         "description": "Represents the state and control functions of a debounced callback.\r\nSubsequent calls to the debounced function return the result of the last invocation.\r\nNote: If there are no previous invocations, the result will be undefined.\r\nEnsure proper handling in your code.",
         "kind": "alias",
-        "type": "DebouncedState<T>"
+        "type": "((\r\n  ...args: Parameters<T>\r\n) => ReturnType<T> | undefined) &\r\n  ControlFunctions"
+      },
+      {
+        "name": "ControlFunctions",
+        "description": "Functions to manage a debounced callback.",
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "cancel",
+            "type": "() => void",
+            "isOptional": false,
+            "description": "Cancels pending function invocations."
+          },
+          {
+            "name": "flush",
+            "type": "() => void",
+            "isOptional": false,
+            "description": "Immediately invokes pending function invocations."
+          },
+          {
+            "name": "isPending",
+            "type": "() => boolean",
+            "isOptional": false,
+            "description": "Checks if there are any pending function invocations."
+          }
+        ]
       }
     ],
     "parameters": [

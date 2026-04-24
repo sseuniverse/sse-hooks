@@ -61,7 +61,7 @@
       }
     ],
     "returnType": {
-      "name": "{ stream: MediaStream | null; error: string | null; isLoading: boolean; isSupported: boolean; startCapture: (options?: UseScreenShareOptions) => Promise<void>; stopCapture: () => void; }",
+      "name": "\"{ stream: MediaStream | null; error: string | null; isLoading: boolean; isSupported: boolean; startCapture: (options?: UseScreenShareOptions) => Promise<void>; stopCapture: () => void; }\"",
       "description": "An object containing the stream, error state, and control functions.",
       "properties": [
         {

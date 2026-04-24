@@ -19,7 +19,7 @@
         "name": "PickFunction",
         "description": "",
         "kind": "alias",
-        "type": "PickFunction<T>"
+        "type": "(\r\n  this: ThisParameterType<T>,\r\n  ...args: Parameters<T>\r\n) => ReturnType<T>"
       }
     ],
     "parameters": [

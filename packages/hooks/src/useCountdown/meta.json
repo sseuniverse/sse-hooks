@@ -23,8 +23,27 @@
       {
         "name": "CountdownControllers",
         "description": "The countdown's controllers.",
-        "kind": "alias",
-        "type": "CountdownControllers"
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "startCountdown",
+            "type": "() => void",
+            "isOptional": false,
+            "description": "Start the countdown."
+          },
+          {
+            "name": "stopCountdown",
+            "type": "() => void",
+            "isOptional": false,
+            "description": "Stop the countdown."
+          },
+          {
+            "name": "resetCountdown",
+            "type": "() => void",
+            "isOptional": false,
+            "description": "Reset the countdown."
+          }
+        ]
       }
     ],
     "parameters": [

@@ -20,10 +20,10 @@
         "description": "Script loading status.",
         "kind": "union",
         "values": [
-          "idle",
-          "loading",
-          "ready",
-          "error"
+          "\"idle\"",
+          "\"loading\"",
+          "\"ready\"",
+          "\"error\""
         ]
       }
     ],

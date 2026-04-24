@@ -10,6 +10,14 @@ import {
 import { NATIVE_TYPES } from "./constants";
 import { cleanTypeString } from "./helpers";
 
+// Helper to prevent MDX from evaluating object types as JSX expressions
+function escapeMdxType(str: string): string {
+  if (str.includes("{") && str.includes("}")) {
+    return `"${str.replace(/\s+/g, " ").trim()}"`;
+  }
+  return str;
+}
+
 export function getPropertiesFromType(
   baseType: Type,
   depth = 0,
@@ -39,7 +47,7 @@ export function getPropertiesFromType(
 
     if (nodeForType) {
       const propType = prop.getTypeAtLocation(nodeForType);
-      typeText = cleanTypeString(propType.getText());
+      typeText = escapeMdxType(cleanTypeString(propType.getText()));
       const filePath = nodeForType
         .getSourceFile()
         .getFilePath()
@@ -116,25 +124,52 @@ function extractAllLocalTypes(sourceFile: SourceFile) {
 
   for (const file of filesToScan) {
     for (const typeAlias of file.getTypeAliases()) {
-      if (seenNames.has(typeAlias.getName())) continue;
-      seenNames.add(typeAlias.getName());
+      const aliasName = typeAlias.getName();
+      if (seenNames.has(aliasName)) continue;
+      seenNames.add(aliasName);
 
       const typeNode = typeAlias.getTypeNode();
+      const theType = typeAlias.getType();
+
+      // Use typeNode text to get the actual signature (e.g. `(text: string) => Promise<boolean>`)
+      // instead of the compiler returning the self-referenced name (`CopyFn`).
+      const rawText = typeNode ? typeNode.getText() : theType.getText();
+      const resolvedTypeString = cleanTypeString(rawText);
+
+      // Prevent redundant self-referencing types
+      if (
+        aliasName.trim() === resolvedTypeString.trim() &&
+        (!typeNode || !Node.isUnionTypeNode(typeNode))
+      ) {
+        continue;
+      }
+
+      const isObjectLike =
+        theType.isObject() &&
+        !theType.isArray() &&
+        !theType.isTuple() &&
+        theType.getCallSignatures().length === 0;
+
       if (typeNode && Node.isUnionTypeNode(typeNode)) {
         customTypes.push({
-          name: typeAlias.getName(),
+          name: aliasName,
           description: typeAlias.getJsDocs()[0]?.getDescription().trim() || "",
           kind: "union",
-          values: typeNode
-            .getTypeNodes()
-            .map((n) => n.getText().replace(/['"]/g, "")),
+          values: typeNode.getTypeNodes().map((n) => n.getText()), // Removed quote-stripping regex to preserve double quotes
+        });
+      } else if (isObjectLike) {
+        customTypes.push({
+          name: aliasName,
+          description: typeAlias.getJsDocs()[0]?.getDescription().trim() || "",
+          kind: "interface", // Map object-literal types to interface properties arrays
+          properties: getPropertiesFromType(theType) || [],
         });
       } else {
         customTypes.push({
-          name: typeAlias.getName(),
+          name: aliasName,
           description: typeAlias.getJsDocs()[0]?.getDescription().trim() || "",
           kind: "alias",
-          type: cleanTypeString(typeAlias.getType().getText()),
+          type: escapeMdxType(resolvedTypeString),
         });
       }
     }
@@ -149,7 +184,7 @@ function extractAllLocalTypes(sourceFile: SourceFile) {
         kind: "interface",
         properties: iface.getProperties().map((p) => ({
           name: p.getName(),
-          type: cleanTypeString(p.getType().getText()),
+          type: escapeMdxType(cleanTypeString(p.getType().getText())),
           isOptional: p.hasQuestionToken(),
           description: p.getJsDocs()[0]?.getDescription().trim() || "",
         })),
@@ -288,8 +323,8 @@ export function getHookApi(sourceFile: SourceFile, hookName: string) {
 
     return {
       name: pName,
-      type: cleanTypeString(
-        p.getTypeNode()?.getText() || p.getType().getText(p),
+      type: escapeMdxType(
+        cleanTypeString(p.getTypeNode()?.getText() || p.getType().getText(p)),
       ),
       isOptional: p.isOptional(),
       ...(defVal !== undefined && { defaultValue: defVal }),
@@ -301,8 +336,11 @@ export function getHookApi(sourceFile: SourceFile, hookName: string) {
   // 2. Calculate Return Type NEXT
   const returnProps = getPropertiesFromType(func.getReturnType());
   const returnType = {
-    name: cleanTypeString(
-      func.getReturnTypeNode()?.getText() || func.getReturnType().getText(func),
+    name: escapeMdxType(
+      cleanTypeString(
+        func.getReturnTypeNode()?.getText() ||
+          func.getReturnType().getText(func),
+      ),
     ),
     ...(returnDescription && { description: returnDescription }),
     ...(returnProps && returnProps.length > 0 && { properties: returnProps }),

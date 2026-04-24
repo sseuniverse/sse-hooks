@@ -22,8 +22,21 @@
       {
         "name": "Size",
         "description": "The size of the observed element.",
-        "kind": "alias",
-        "type": "Size"
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "width",
+            "type": "number | undefined",
+            "isOptional": false,
+            "description": "The width of the observed element."
+          },
+          {
+            "name": "height",
+            "type": "number | undefined",
+            "isOptional": false,
+            "description": "The height of the observed element."
+          }
+        ]
       }
     ],
     "parameters": [

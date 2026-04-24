@@ -30,7 +30,38 @@
         "name": "UseMapReturn",
         "description": "Represents the return type of the `useMap` hook.\r\nWe hide some setters from the returned map to disable autocompletion.",
         "kind": "alias",
-        "type": "UseMapReturn<K, V>"
+        "type": "[\r\n  Omit<Map<K, V>, \"set\" | \"clear\" | \"delete\">,\r\n  UseMapActions<K, V>,\r\n]"
+      },
+      {
+        "name": "UseMapActions",
+        "description": "Represents the actions available to interact with the map state.",
+        "kind": "interface",
+        "properties": [
+          {
+            "name": "set",
+            "type": "(key: K, value: V) => void",
+            "isOptional": false,
+            "description": "Set a key-value pair in the map."
+          },
+          {
+            "name": "setAll",
+            "type": "(entries: MapOrEntries<K, V>) => void",
+            "isOptional": false,
+            "description": "Set all key-value pairs in the map."
+          },
+          {
+            "name": "remove",
+            "type": "(key: K) => void",
+            "isOptional": false,
+            "description": "Remove a key-value pair from the map."
+          },
+          {
+            "name": "reset",
+            "type": "() => void",
+            "isOptional": false,
+            "description": "Reset the map to an empty state."
+          }
+        ]
       }
     ],
     "parameters": [
