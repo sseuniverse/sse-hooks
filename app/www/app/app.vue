@@ -1,52 +1,72 @@
 <script setup lang="ts">
-import { withoutTrailingSlash } from 'ufo'
-import colors from 'tailwindcss/colors'
+import colors from "tailwindcss/colors";
 
-const route = useRoute()
-const appConfig = useAppConfig()
-const colorMode = useColorMode()
+const route = useRoute();
+const appConfig = useAppConfig();
+const colorMode = useColorMode();
 
-const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs', ['category', 'description']))
-const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs', {
-  ignoredTags: ['style']
-}), {
-  server: false
-})
+const { data: navigation } = await useAsyncData("navigation", () =>
+  queryCollectionNavigation("docs", ["category", "description"]),
+);
 
-const color = computed(() => colorMode.value === 'dark' ? (colors as any)[appConfig.ui.colors.neutral][900] : 'white')
-const radius = computed(() => `:root { --ui-radius: ${appConfig.theme.radius}rem; }`)
-const blackAsPrimary = computed(() => appConfig.theme.blackAsPrimary ? `:root { --ui-primary: black; } .dark { --ui-primary: white; }` : ':root {}')
-const font = computed(() => `:root { --font-sans: '${appConfig.theme.font}', sans-serif; }`)
+// const { data: files } = useLazyAsyncData(
+//   "search",
+//   () =>
+//     queryCollectionSearchSections("docs", {
+//       ignoredTags: ["style"],
+//     }),
+//   {
+//     server: false,
+//   },
+// );
+
+const color = computed(() =>
+  colorMode.value === "dark"
+    ? (colors as any)[appConfig.ui.colors.neutral][900]
+    : "white",
+);
+const radius = computed(
+  () => `:root { --ui-radius: ${appConfig.theme.radius}rem; }`,
+);
+const blackAsPrimary = computed(() =>
+  appConfig.theme.blackAsPrimary
+    ? `:root { --ui-primary: black; } .dark { --ui-primary: white; }`
+    : ":root {}",
+);
+const font = computed(
+  () => `:root { --font-sans: '${appConfig.theme.font}', sans-serif; }`,
+);
 
 useHead({
   meta: [
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    { key: 'theme-color', name: 'theme-color', content: color }
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { key: "theme-color", name: "theme-color", content: color },
   ],
   link: [
-    // { rel: 'icon', type: 'image/svg+xml', href: '/icon.svg' },
-    { rel: 'canonical', href: `https://ui.nuxt.com${withoutTrailingSlash(route.path)}` }
+    { rel: "icon", type: "image/svg+xml", href: "/icon.svg" },
+    // { rel: 'canonical', href: `https://ui.nuxt.com${withoutTrailingSlash(route.path)}` }
   ],
   style: [
-    { innerHTML: radius, id: 'nuxt-ui-radius', tagPriority: -2 },
-    { innerHTML: blackAsPrimary, id: 'nuxt-ui-black-as-primary', tagPriority: -2 },
-    { innerHTML: font, id: 'nuxt-ui-font', tagPriority: -2 }
+    { innerHTML: radius, id: "nuxt-ui-radius", tagPriority: -2 },
+    {
+      innerHTML: blackAsPrimary,
+      id: "nuxt-ui-black-as-primary",
+      tagPriority: -2,
+    },
+    { innerHTML: font, id: "nuxt-ui-font", tagPriority: -2 },
   ],
   htmlAttrs: {
-    lang: 'en'
-  }
-})
+    lang: "en",
+  },
+});
 
 useServerSeoMeta({
-  ogSiteName: 'SSE Hooks',
-  twitterCard: 'summary_large_image'
-})
+  ogSiteName: "SSE Hooks",
+  twitterCard: "summary_large_image",
+});
 
-// useFaviconFromTheme()
-
-const { rootNavigation } = useNavigation(navigation)
-
-provide('navigation', rootNavigation)
+const { rootNavigation } = useNavigation(navigation);
+provide("navigation", rootNavigation);
 </script>
 
 <template>

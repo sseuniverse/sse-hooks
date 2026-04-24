@@ -1,72 +1,79 @@
 <script setup lang="ts">
-import { joinURL } from 'ufo'
-import { kebabCase } from 'scule'
-import type { ContentNavigationItem } from '@nuxt/content'
+import { joinURL } from "ufo";
+import { kebabCase } from "scule";
+import type { ContentNavigationItem } from "@nuxt/content";
 
-const route = useRoute()
-const site = useSiteConfig()
+const route = useRoute();
+const site = useSiteConfig();
 
 definePageMeta({
-  layout: 'docs'
-})
+  layout: "docs",
+});
 
-// Fetch Page Data
-const { data: page } = await useAsyncData(kebabCase(route.path), () => queryCollection('docs').path(route.path).first())
+const { data: page } = await useAsyncData(kebabCase(route.path), () =>
+  queryCollection("docs").path(route.path).first(),
+);
 if (!page.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Page not found",
+    fatal: true,
+  });
 }
 
-// Navigation Logic
-const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
-const { findSurround, findBreadcrumb } = useNavigation(navigation!)
+const navigation = inject<Ref<ContentNavigationItem[]>>("navigation");
+const { findSurround, findBreadcrumb } = useNavigation(navigation!);
 
-const breadcrumb = computed(() => findBreadcrumb(page.value?.path as string))
-const surround = computed(() => findSurround(page.value?.path as string))
+const breadcrumb = computed(() => findBreadcrumb(page.value?.path as string));
+const surround = computed(() => findSurround(page.value?.path as string));
 
 // SEO Metadata
-const title = page.value?.seo?.title ?? page.value?.title
-const description = page.value?.seo?.description ?? page.value?.description
+const title = page.value?.seo?.title ?? page.value?.title;
+const description = page.value?.seo?.description ?? page.value?.description;
 
 useSeoMeta({
   title,
   ogTitle: title,
   description,
-  ogDescription: description
-})
+  ogDescription: description,
+});
 
 // OG Image Generation
 
-defineOgImageComponent('Docs', {
+defineOgImageComponent("Docs", {
   title: page.value.title,
   description: page.value.description,
-  headline: breadcrumb.value?.[breadcrumb.value.length - 1]?.label || 'Docs'
-})
+  headline: breadcrumb.value?.[breadcrumb.value.length - 1]?.label || "Docs",
+});
 
 // Pre-render logic
-const path = computed(() => route.path.replace(/\/$/, ''))
-prerenderRoutes([joinURL('/raw', `${path.value}.md`)])
+const path = computed(() => route.path.replace(/\/$/, ""));
+prerenderRoutes([joinURL("/raw", `${path.value}.md`)]);
 
 useHead({
   link: [
     {
-      rel: 'alternate',
-      href: joinURL(site.url, 'raw', `${path.value}.md`),
-      type: 'text/markdown'
-    }
-  ]
-})
+      rel: "alternate",
+      href: joinURL(site.url, "raw", `${path.value}.md`),
+      type: "text/markdown",
+    },
+  ],
+});
 
-const communityLinks = computed(() => [{
-  icon: 'i-lucide-file-pen',
-  label: 'Edit this page',
-  to: `https://github.com/sseuniverse/sse-hooks/edit/main/app/www/content/docs/${page?.value?.stem}.md`,
-  target: '_blank'
-}, {
-  icon: 'i-lucide-star',
-  label: 'Star on GitHub',
-  to: `https://github.com/sseuniverse/sse-hooks`,
-  target: '_blank'
-}])
+const communityLinks = computed(() => [
+  {
+    icon: "i-lucide-file-pen",
+    label: "Edit this page",
+    to: `https://github.com/sseuniverse/sse-hooks/edit/main/app/www/content/${page?.value?.stem}.md`,
+    target: "_blank",
+  },
+  {
+    icon: "i-lucide-star",
+    label: "Star on GitHub",
+    to: `https://github.com/sseuniverse/sse-hooks`,
+    target: "_blank",
+  },
+]);
 </script>
 
 <template>
@@ -77,7 +84,12 @@ const communityLinks = computed(() => [{
       </template>
 
       <template #description>
-        <MDC v-if="page.description" :value="page.description" unwrap="p" :cache-key="`${kebabCase(route.path)}-description`" />
+        <MDC
+          v-if="page.description"
+          :value="page.description"
+          unwrap="p"
+          :cache-key="`${kebabCase(route.path)}-description`"
+        />
       </template>
 
       <template #links>
@@ -90,7 +102,11 @@ const communityLinks = computed(() => [{
           v-bind="link"
         >
           <template v-if="link.avatar" #leading>
-            <UAvatar v-bind="link.avatar" size="2xs" :alt="`${link.label} avatar`" />
+            <UAvatar
+              v-bind="link.avatar"
+              size="2xs"
+              :alt="`${link.label} avatar`"
+            />
           </template>
         </UButton>
         <PageHeaderLinks />
@@ -102,7 +118,7 @@ const communityLinks = computed(() => [{
 
       <USeparator v-if="surround?.filter(Boolean).length" />
 
-      <UContentSurround :surround="(surround as any)" />
+      <UContentSurround :surround="surround as any" />
     </UPageBody>
 
     <template v-if="page?.body?.toc?.links?.length" #right>

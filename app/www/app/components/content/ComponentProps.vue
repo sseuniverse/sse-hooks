@@ -20,19 +20,16 @@ const props = withDefaults(
 
 const route = useRoute();
 
-// Gets the hook name from the URL, e.g., 'use-boolean'
 const name = props.slug ?? route.path.split("/").pop() ?? "";
-
 const meta = await fetchHookMeta(name);
 
-// Dynamically target 'parameters'/'props' or 'returnType.properties'/'returns'
 const metaData = computed(() => {
   const sourceData =
     props.type === "returns"
       ? meta?.api?.returnType?.properties || meta?.returns
       : meta?.api?.parameters || meta?.props;
 
-  if (!sourceData) {
+  if (!sourceData || !Array.isArray(sourceData)) {
     return [];
   }
 
@@ -41,7 +38,7 @@ const metaData = computed(() => {
     .map((item: HookProperty) => {
       return {
         ...item,
-        displayType: item.type || item.rawType,
+        displayType: item.type,
       };
     })
     .sort((a, b) => {
@@ -89,7 +86,6 @@ const metaData = computed(() => {
             />
 
             <ComponentPropsLinks :prop="item" />
-
             <ComponentPropsSchema
               v-if="item.properties?.length || item.schema?.length"
               :prop="item"

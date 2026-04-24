@@ -1,9 +1,5 @@
 export default defineAppConfig({
   ui: {
-    // colors: {
-    //   primary: 'green',
-    //   neutral: 'slate'
-    // },
     footer: {
       slots: {
         root: "border-t border-default",
@@ -57,21 +53,21 @@ export default defineAppConfig({
       },
     ],
   },
-  toc: {
-    title: "Table of Contents",
-    bottom: {
-      title: "Community",
-      edit: "https://github.com/sseuniverse/sse-hooks/edit/main/app/www/content",
-      links: [
-        {
-          icon: "i-lucide-star",
-          label: "Star on GitHub",
-          to: "https://github.com/sseuniverse/sse-hooks",
-          target: "_blank",
-        },
-      ],
-    },
-  },
+  // toc: {
+  //   title: "Table of Contents",
+  //   bottom: {
+  //     title: "Community",
+  //     edit: "https://github.com/sseuniverse/sse-hooks/edit/main/app/www/content",
+  //     links: [
+  //       {
+  //         icon: "i-lucide-star",
+  //         label: "Star on GitHub",
+  //         to: "https://github.com/sseuniverse/sse-hooks",
+  //         target: "_blank",
+  //       },
+  //     ],
+  //   },
+  // },
   toaster: {
     position: "bottom-right" as const,
     duration: 5000,

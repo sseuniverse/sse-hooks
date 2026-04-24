@@ -16,7 +16,7 @@ const categories: CategoryTypes = {
     { id: "storage", title: "Storage" },
     { id: "network", title: "Network" },
     { id: "utilities", title: "Utilities" },
-    { id: "uncategorized", title: "Uncategorized" }
+    { id: "uncategorized", title: "Uncategorized" },
   ],
 };
 
@@ -24,7 +24,7 @@ function groupChildrenByCategory(
   items: ContentNavigationItem[],
   slug: string,
 ): ContentNavigationItem[] {
-  if (!items.length) {
+  if (!items || !items.length) {
     return [];
   }
 
@@ -87,17 +87,17 @@ function groupChildrenByCategory(
   return groups;
 }
 
-function resolveNavigationIcon(item: ContentNavigationItem) {
-  let icon = item.icon;
-  // You can customize icons here based on your paths if needed
-  if (item.path.startsWith("/docs/hooks")) {
-    icon = "i-lucide-square-function";
-  }
-  return {
-    ...item,
-    icon,
-  };
-}
+// function resolveNavigationIcon(item: ContentNavigationItem) {
+//   let icon = item.icon;
+//   // You can customize icons here based on your paths if needed
+//   if (item.path.startsWith("/docs/hooks")) {
+//     icon = "i-lucide-square-function";
+//   }
+//   return {
+//     ...item,
+//     icon,
+//   };
+// }
 
 function processNavigationItem(
   item: ContentNavigationItem,
@@ -162,7 +162,9 @@ export const useNavigation = (
       indexAsChild: true,
     });
 
-    return mapContentNavigation(breadcrumb).map(({ icon, ...link }) => link);
+    return (
+      mapContentNavigation(breadcrumb)?.map(({ icon, ...link }) => link) || []
+    );
   }
 
   return {

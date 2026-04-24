@@ -3,11 +3,11 @@ export interface HookProperty {
   type: string;
   description?: string;
   isOptional?: boolean;
-  required?: boolean; // legacy
+  required?: boolean;
   defaultValue?: string;
-  default?: string; // legacy
+  default?: string;
   properties?: HookProperty[];
-  schema?: HookProperty[]; // legacy
+  schema?: HookProperty[];
   tags?: Record<string, string | boolean>;
 }
 
@@ -15,12 +15,12 @@ export interface HookTypeMeta {
   kind: "interface" | "type" | "enum" | "union" | "alias";
   name: string;
   description?: string;
-  properties?: HookProperty[]; // For 'interface'
-  members?: { name: string; description?: string; value: string | number }[]; // For 'enum'
-  type?: string; // For 'type' alias
-  rawType?: string; // legacy
-  values?: string[]; // For 'union'
-  schema?: HookProperty[]; // legacy
+  properties?: HookProperty[];
+  members?: { name: string; description?: string; value: string | number }[];
+  type?: string;
+  rawType?: string;
+  values?: string[];
+  schema?: HookProperty[];
 }
 
 export interface HookMeta {
@@ -31,16 +31,16 @@ export interface HookMeta {
   description: string;
   dependencies?: string[];
   registryDependencies?: string[];
-  props?: HookProperty[]; // legacy
-  returns?: HookProperty[]; // legacy
-  types?: HookTypeMeta[]; // legacy
+  props?: HookProperty[];
+  returns?: HookProperty[];
+  types?: HookTypeMeta[];
   api?: {
     tags?: Record<string, string | boolean>;
     types?: HookTypeMeta[];
     parameters: HookProperty[];
     returnType: {
       name: string;
-      description?: string; // Added to match the new @returns description parsing
+      description?: string;
       properties?: HookProperty[];
     };
   };

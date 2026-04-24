@@ -9,33 +9,49 @@ const props = defineProps<{
 
 const route = useRoute();
 const name = props.slug ?? route.path.split("/").pop() ?? "";
-
 const meta = await fetchHookMeta(name);
 
 const typesData = computed(() => {
-  // Fallback to support both nested api.types and legacy types array
   const src = meta?.api?.types || meta?.types;
   if (!src) return [];
   return src.filter((t: any) => !props.ignore?.includes(t.name));
 });
+
+const formatUnion = (values: string[]) => {
+  if (!values || values.length === 0) return "any";
+  if (values.length <= 3 && values.join(" | ").length < 40) {
+    return values.join(" | ");
+  }
+
+  return `\n  | ` + values.join(`\n  | `);
+};
 </script>
 
 <template>
-  <div v-if="typesData.length" class="space-y-12">
+  <div v-if="typesData.length" class="space-y-16">
     <div
       v-for="typeDef in typesData"
       :key="typeDef.name"
-      class="scroll-mt-32"
+      class="scroll-mt-32 flex flex-col gap-4"
       :id="kebabCase(typeDef.name)"
     >
-      <ProseH4 :id="kebabCase(typeDef.name)">
-        {{ typeDef.name }}
-      </ProseH4>
-      <MDC
-        v-if="typeDef.description"
-        :value="typeDef.description"
-        class="text-gray-500 dark:text-gray-400 text-sm mb-4"
-      />
+      <div>
+        <div class="flex items-center gap-3">
+          <ProseH4 :id="kebabCase(typeDef.name)" class="!my-0">
+            {{ typeDef.name }}
+          </ProseH4>
+          <span
+            class="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-medium bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 border border-gray-200 dark:border-gray-700 capitalize"
+          >
+            {{ typeDef.kind === "alias" ? "type" : typeDef.kind }}
+          </span>
+        </div>
+        <MDC
+          v-if="typeDef.description"
+          :value="typeDef.description"
+          class="text-gray-500 dark:text-gray-400 text-sm mt-2"
+        />
+      </div>
 
       <ProseTable v-if="typeDef.kind === 'interface'">
         <ProseThead>
@@ -50,20 +66,18 @@ const typesData = computed(() => {
             :key="prop.name"
           >
             <ProseTd>
-              <ProseCode
-                >{{ prop.name
-                }}{{
-                  prop.isOptional || prop.required === false ? "?" : ""
-                }}</ProseCode
-              >
+              <ProseCode>
+                {{ prop.name
+                }}{{ prop.isOptional || prop.required === false ? "?" : "" }}
+              </ProseCode>
             </ProseTd>
             <ProseTd>
-              <div class="flex flex-col gap-1">
-                <HighlightInlineType :type="prop.type || prop.rawType" />
+              <div class="flex flex-col gap-1.5">
+                <HighlightInlineType :type="prop.type" />
                 <MDC
                   v-if="prop.description"
                   :value="prop.description"
-                  class="text-gray-500 dark:text-gray-400 text-sm"
+                  class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"
                 />
                 <ComponentPropsSchema
                   v-if="prop.properties?.length || prop.schema?.length"
@@ -109,26 +123,28 @@ const typesData = computed(() => {
         </ProseTbody>
       </ProseTable>
 
-      <div
-        v-else-if="typeDef.kind === 'union'"
-        class="p-4 rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50"
-      >
-        <HighlightInlineType
-          :type="`type ${typeDef.name} = ${typeDef.values?.join(' | ') || typeDef.type || typeDef.rawType}`"
+      <div v-else-if="typeDef.kind === 'union'" class="w-full">
+        <MDC
+          :value="`\`\`\`ts\ntype ${typeDef.name} = ${typeDef.values ? formatUnion(typeDef.values) : typeDef.type};\n\`\`\``"
         />
       </div>
 
       <div
         v-else-if="typeDef.kind === 'alias' || typeDef.kind === 'type'"
-        class="p-4 rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50"
+        class="w-full flex flex-col gap-4"
       >
-        <HighlightInlineType
-          :type="`type ${typeDef.name} = ${typeDef.type || typeDef.rawType}`"
+        <MDC
+          :value="`\`\`\`ts\ntype ${typeDef.name} = ${typeDef.type};\n\`\`\``"
         />
         <div
           v-if="typeDef.properties?.length || typeDef.schema?.length"
-          class="mt-4"
+          class="mt-2"
         >
+          <div
+            class="text-sm font-semibold text-gray-900 dark:text-gray-200 mb-3"
+          >
+            Properties
+          </div>
           <ComponentPropsSchema :prop="typeDef" />
         </div>
       </div>

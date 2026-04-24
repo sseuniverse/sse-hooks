@@ -14,7 +14,6 @@ const route = useRoute();
 const hookName = route.path.split("/").pop() ?? "";
 
 const schemaProps = computed(() => {
-  // Gracefully handle both the new 'properties' array and the old 'schema' array
   const propsArray = props.prop?.properties || props.prop?.schema;
   if (!propsArray || !Array.isArray(propsArray)) {
     return [];
@@ -24,7 +23,6 @@ const schemaProps = computed(() => {
     .filter((p: any) => !props.ignore?.includes(p.name))
     .map((p: any) => {
       let description = p.description || "";
-
       const def = p.defaultValue ?? p.default;
 
       // If a default value exists, append it to the description just like Nuxt UI
@@ -38,7 +36,7 @@ const schemaProps = computed(() => {
       return {
         ...p,
         description,
-        displayType: p.type || p.rawType || "any",
+        displayType: p.type || "any",
       };
     });
 });
