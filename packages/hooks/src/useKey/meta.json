@@ -22,8 +22,63 @@
       {
         "name": "KeyMap",
         "description": "",
+        "kind": "alias",
+        "type": "Record<string, KeyHandler | KeyConfig>"
+      },
+      {
+        "name": "KeyHandler",
+        "description": "",
+        "kind": "alias",
+        "type": "(event: React.KeyboardEvent) => void"
+      },
+      {
+        "name": "KeyConfig",
+        "description": "",
         "kind": "interface",
-        "properties": []
+        "properties": [
+          {
+            "name": "action",
+            "type": "KeyHandler",
+            "isOptional": false,
+            "description": "The function to call"
+          },
+          {
+            "name": "description",
+            "type": "string | undefined",
+            "isOptional": true,
+            "description": "Description for UI (e.g. \"Save File\")"
+          },
+          {
+            "name": "category",
+            "type": "string | undefined",
+            "isOptional": true,
+            "description": "Category for UI (e.g. \"Navigation\")"
+          },
+          {
+            "name": "preventDefault",
+            "type": "boolean | undefined",
+            "isOptional": true,
+            "description": "Prevent default browser behavior"
+          },
+          {
+            "name": "stopPropagation",
+            "type": "boolean | undefined",
+            "isOptional": true,
+            "description": "Stop event propagation"
+          },
+          {
+            "name": "once",
+            "type": "boolean | undefined",
+            "isOptional": true,
+            "description": "Only fire this hotkey once, then disable it"
+          },
+          {
+            "name": "allowInInputs",
+            "type": "boolean | undefined",
+            "isOptional": true,
+            "description": "Allow this hotkey inside inputs/textareas"
+          }
+        ]
       }
     ],
     "parameters": [

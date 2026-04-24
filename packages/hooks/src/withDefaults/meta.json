@@ -20,8 +20,8 @@
       {
         "name": "InferDefaults",
         "description": "",
-        "kind": "interface",
-        "properties": []
+        "kind": "alias",
+        "type": "\"{ [K in keyof T]?: InferDefault<T, T[K]>; }\""
       },
       {
         "name": "PropsWithDefaults",
@@ -30,10 +30,19 @@
         "type": "\"T extends unknown ? Readonly<MappedOmit<T, keyof Defaults>> & { readonly [K in keyof Defaults as K extends keyof T ? K : never]-?: K extends keyof T ? Defaults[K] extends undefined ? IfAny<Defaults[K], NotUndefined<T[K]>, T[K]> : NotUndefined<T[K]> : never; } & { readonly [K in BKeys]-?: K extends keyof Defaults ? Defaults[K] extends undefined ? boolean | undefined : boolean : boolean; } : never\""
       },
       {
+        "name": "InferDefault",
+        "description": "",
+        "kind": "union",
+        "values": [
+          "((props: P) => T & {})",
+          "(T extends NativeType ? T : never)"
+        ]
+      },
+      {
         "name": "MappedOmit",
         "description": "",
-        "kind": "interface",
-        "properties": []
+        "kind": "alias",
+        "type": "\"{ [P in keyof T as P extends K ? never : P]: T[P]; }\""
       },
       {
         "name": "IfAny",
@@ -46,6 +55,20 @@
         "description": "",
         "kind": "alias",
         "type": "T extends undefined ? never : T"
+      },
+      {
+        "name": "NativeType",
+        "description": "",
+        "kind": "union",
+        "values": [
+          "null",
+          "undefined",
+          "number",
+          "string",
+          "boolean",
+          "symbol",
+          "Function"
+        ]
       }
     ],
     "parameters": [

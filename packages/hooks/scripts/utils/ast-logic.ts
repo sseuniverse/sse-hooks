@@ -104,6 +104,7 @@ function extractAllLocalTypes(sourceFile: SourceFile) {
   const filesToScan = new Set<SourceFile>();
   const scanQueue = [sourceFile];
 
+  // Map all imported local files
   while (scanQueue.length > 0) {
     const currentFile = scanQueue.pop()!;
     if (filesToScan.has(currentFile)) continue;
@@ -113,9 +114,7 @@ function extractAllLocalTypes(sourceFile: SourceFile) {
       const moduleSpecifier = importDecl.getModuleSpecifierValue();
       if (moduleSpecifier.startsWith("./")) {
         const importedSource = importDecl.getModuleSpecifierSourceFile();
-        if (importedSource) {
-          scanQueue.push(importedSource);
-        }
+        if (importedSource) scanQueue.push(importedSource);
       }
     }
   }
@@ -131,8 +130,6 @@ function extractAllLocalTypes(sourceFile: SourceFile) {
       const typeNode = typeAlias.getTypeNode();
       const theType = typeAlias.getType();
 
-      // Use typeNode text to get the actual signature (e.g. `(text: string) => Promise<boolean>`)
-      // instead of the compiler returning the self-referenced name (`CopyFn`).
       const rawText = typeNode ? typeNode.getText() : theType.getText();
       const resolvedTypeString = cleanTypeString(rawText);
 
@@ -144,25 +141,30 @@ function extractAllLocalTypes(sourceFile: SourceFile) {
         continue;
       }
 
+      // Try extracting properties first to prevent empty interfaces
+      const extractedProps = getPropertiesFromType(theType);
+
       const isObjectLike =
         theType.isObject() &&
         !theType.isArray() &&
         !theType.isTuple() &&
-        theType.getCallSignatures().length === 0;
+        theType.getCallSignatures().length === 0 &&
+        extractedProps !== undefined &&
+        extractedProps.length > 0;
 
       if (typeNode && Node.isUnionTypeNode(typeNode)) {
         customTypes.push({
           name: aliasName,
           description: typeAlias.getJsDocs()[0]?.getDescription().trim() || "",
           kind: "union",
-          values: typeNode.getTypeNodes().map((n) => n.getText()), // Removed quote-stripping regex to preserve double quotes
+          values: typeNode.getTypeNodes().map((n) => n.getText()), // Double quotes preserved
         });
       } else if (isObjectLike) {
         customTypes.push({
           name: aliasName,
           description: typeAlias.getJsDocs()[0]?.getDescription().trim() || "",
-          kind: "interface", // Map object-literal types to interface properties arrays
-          properties: getPropertiesFromType(theType) || [],
+          kind: "interface",
+          properties: extractedProps,
         });
       } else {
         customTypes.push({
@@ -196,6 +198,7 @@ function extractAllLocalTypes(sourceFile: SourceFile) {
 }
 
 /**
+ * STRICT GARBAGE COLLECTION:
  * Filters the exhaustive list of types down to ONLY the types that are
  * referenced (directly or deeply nested) but NOT expanded inline.
  */
@@ -205,6 +208,7 @@ function filterUsedTypes(allTypes: any[], parameters: any[], returnType: any) {
   const queue: string[] = [];
 
   const extractNames = (str: string) => {
+    // This perfectly extracts internal references like "KeyHandler" from "Record<string, KeyHandler>"
     const matches = str.match(/\b[a-zA-Z_][a-zA-Z0-9_]*\b/g) || [];
     for (const match of matches) {
       if (typeMap.has(match) && !usedNames.has(match)) {
@@ -219,27 +223,22 @@ function filterUsedTypes(allTypes: any[], parameters: any[], returnType: any) {
     const hasInlineProperties =
       Array.isArray(obj.properties) && obj.properties.length > 0;
 
-    // If the object's properties were NOT expanded inline, we extract its type string
     if (!hasInlineProperties) {
       if (obj.type && typeof obj.type === "string") {
         extractNames(obj.type);
       } else if (isRootReturnType && obj.name && typeof obj.name === "string") {
-        // The returnType object uniquely stores its type signature in the 'name' field
         extractNames(obj.name);
       }
     }
 
-    // Always recursively check expanded properties for nested custom types
     if (hasInlineProperties) {
       obj.properties.forEach((prop: any) => traverseProps(prop, false));
     }
   };
 
-  // 1. Seed the process with parameters and returnType
   parameters.forEach((p) => traverseProps(p, false));
   traverseProps(returnType, true);
 
-  // 2. Process the queue (BFS) to find deeply nested types
   while (queue.length > 0) {
     const currentName = queue.shift()!;
     const typeDef = typeMap.get(currentName)!;
@@ -256,7 +255,6 @@ function filterUsedTypes(allTypes: any[], parameters: any[], returnType: any) {
     }
   }
 
-  // 3. Return only the types that were actually used and not expanded
   return Array.from(usedNames).map((name) => typeMap.get(name));
 }
 
@@ -314,7 +312,6 @@ export function getHookApi(sourceFile: SourceFile, hookName: string) {
 
   if (!func) return undefined;
 
-  // 1. Calculate parameters FIRST
   const parameters = func.getParameters().map((p) => {
     const pName = p.isRestParameter() ? `...${p.getName()}` : p.getName();
     const desc = paramDescriptions[p.getName()];
@@ -333,7 +330,6 @@ export function getHookApi(sourceFile: SourceFile, hookName: string) {
     };
   });
 
-  // 2. Calculate Return Type NEXT
   const returnProps = getPropertiesFromType(func.getReturnType());
   const returnType = {
     name: escapeMdxType(
@@ -346,7 +342,6 @@ export function getHookApi(sourceFile: SourceFile, hookName: string) {
     ...(returnProps && returnProps.length > 0 && { properties: returnProps }),
   };
 
-  // 3. Extract all possible types, then filter down to ONLY used, unexpanded ones
   const actualSourceFile = implDecl.getSourceFile();
   const allLocalTypes = extractAllLocalTypes(actualSourceFile);
   const usedTypes = filterUsedTypes(allLocalTypes, parameters, returnType);
