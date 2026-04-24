@@ -1,4 +1,4 @@
-import { useAudioRecorder } from "../packages/hooks/src/useAudioRecorder";
+import { useAudioRecorder } from "@/hooks/useAudioRecorder";
 
 export function AudioRecorderExample() {
   const {
