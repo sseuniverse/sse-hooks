@@ -11,12 +11,12 @@ import { NATIVE_TYPES } from "./constants";
 import { cleanTypeString } from "./helpers";
 
 // Helper to prevent MDX from evaluating object types as JSX expressions
-function escapeMdxType(str: string): string {
-  if (str.includes("{") && str.includes("}")) {
-    return `"${str.replace(/\s+/g, " ").trim()}"`;
-  }
-  return str;
-}
+// function escapeMdxType(str: string): string {
+//   if (str.includes("{") && str.includes("}")) {
+//     return `"${str.replace(/\s+/g, " ").trim()}"`;
+//   }
+//   return str;
+// }
 
 export function getPropertiesFromType(
   baseType: Type,
@@ -47,7 +47,7 @@ export function getPropertiesFromType(
 
     if (nodeForType) {
       const propType = prop.getTypeAtLocation(nodeForType);
-      typeText = escapeMdxType(cleanTypeString(propType.getText()));
+      typeText = cleanTypeString(propType.getText());
       const filePath = nodeForType
         .getSourceFile()
         .getFilePath()
@@ -171,7 +171,7 @@ function extractAllLocalTypes(sourceFile: SourceFile) {
           name: aliasName,
           description: typeAlias.getJsDocs()[0]?.getDescription().trim() || "",
           kind: "alias",
-          type: escapeMdxType(resolvedTypeString),
+          type: resolvedTypeString,
         });
       }
     }
@@ -186,7 +186,7 @@ function extractAllLocalTypes(sourceFile: SourceFile) {
         kind: "interface",
         properties: iface.getProperties().map((p) => ({
           name: p.getName(),
-          type: escapeMdxType(cleanTypeString(p.getType().getText())),
+          type: cleanTypeString(p.getType().getText()),
           isOptional: p.hasQuestionToken(),
           description: p.getJsDocs()[0]?.getDescription().trim() || "",
         })),
@@ -320,8 +320,8 @@ export function getHookApi(sourceFile: SourceFile, hookName: string) {
 
     return {
       name: pName,
-      type: escapeMdxType(
-        cleanTypeString(p.getTypeNode()?.getText() || p.getType().getText(p)),
+      type: cleanTypeString(
+        p.getTypeNode()?.getText() || p.getType().getText(p),
       ),
       isOptional: p.isOptional(),
       ...(defVal !== undefined && { defaultValue: defVal }),
@@ -332,11 +332,8 @@ export function getHookApi(sourceFile: SourceFile, hookName: string) {
 
   const returnProps = getPropertiesFromType(func.getReturnType());
   const returnType = {
-    name: escapeMdxType(
-      cleanTypeString(
-        func.getReturnTypeNode()?.getText() ||
-          func.getReturnType().getText(func),
-      ),
+    name: cleanTypeString(
+      func.getReturnTypeNode()?.getText() || func.getReturnType().getText(func),
     ),
     ...(returnDescription && { description: returnDescription }),
     ...(returnProps && returnProps.length > 0 && { properties: returnProps }),

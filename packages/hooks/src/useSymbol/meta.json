@@ -53,7 +53,7 @@
         },
         {
           "name": "wellKnownSymbols",
-          "type": "\"{ iterator: symbol; asyncIterator: symbol; hasInstance: symbol; isConcatSpreadable: symbol; species: symbol; toPrimitive: symbol; toStringTag: symbol; unscopables: symbol; match: symbol; matchAll: symbol; replace: symbol; search: symbol; split: symbol; }\"",
+          "type": "{ iterator: symbol; asyncIterator: symbol; hasInstance: symbol; isConcatSpreadable: symbol; species: symbol; toPrimitive: symbol; toStringTag: symbol; unscopables: symbol; match: symbol; matchAll: symbol; replace: symbol; search: symbol; split: symbol; }",
           "isOptional": false,
           "description": "A collection of standard JavaScript well-known symbols.",
           "properties": [

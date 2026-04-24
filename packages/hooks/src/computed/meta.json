@@ -40,7 +40,7 @@
         "name": "DebuggerEvent",
         "description": "",
         "kind": "alias",
-        "type": "\"{ effect: Subscriber; } & DebuggerEventExtraInfo\""
+        "type": "{\r\n  effect: Subscriber;\r\n} & DebuggerEventExtraInfo"
       },
       {
         "name": "ComputedSetter",

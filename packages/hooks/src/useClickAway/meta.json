@@ -85,7 +85,7 @@
       }
     ],
     "returnType": {
-      "name": "\"{ ref: React.Ref<Element>; listenerProps: Record<string, any> }\"",
+      "name": "{ ref: React.Ref<Element>; listenerProps: Record<string, any> }",
       "description": "An object containing the `ref` to attach to the target element and `listenerProps` to spread.",
       "properties": [
         {

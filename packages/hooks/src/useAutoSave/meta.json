@@ -48,7 +48,7 @@
       },
       {
         "name": "config",
-        "type": "\"BaseConfig & { exclude?: readonly K[] }\"",
+        "type": "BaseConfig & { exclude?: readonly K[] }",
         "isOptional": true,
         "defaultValue": "{}",
         "description": "- Configuration options."

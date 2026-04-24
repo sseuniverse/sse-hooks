@@ -19,7 +19,7 @@
       }
     ],
     "returnType": {
-      "name": "\"{ useGreater: (k: BreakPointsKey) => boolean; useSmaller: (k: BreakPointsKey) => boolean; useBetween: (a: BreakPointsKey, b: BreakPointsKey) => boolean; isGreater(k: BreakPointsKey): boolean; isSmaller(k: BreakPointsKey): boolean; isInBetween(a: BreakPointsKey, b: BreakPointsKey): boolean; }\"",
+      "name": "{ useGreater: (k: BreakPointsKey) => boolean; useSmaller: (k: BreakPointsKey) => boolean; useBetween: (a: BreakPointsKey, b: BreakPointsKey) => boolean; isGreater(k: BreakPointsKey): boolean; isSmaller(k: BreakPointsKey): boolean; isInBetween(a: BreakPointsKey, b: BreakPointsKey): boolean; }",
       "properties": [
         {
           "name": "useGreater",

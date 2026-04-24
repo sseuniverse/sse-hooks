@@ -135,12 +135,12 @@
       }
     ],
     "returnType": {
-      "name": "\"{ bindings: { keys: string; category: string; description: string; }[]; }\"",
+      "name": "{ bindings: { keys: string; category: string; description: string; }[]; }",
       "description": "Metadata about the registered bindings for UI display.",
       "properties": [
         {
           "name": "bindings",
-          "type": "\"{ keys: string; category: string; description: string; }[]\"",
+          "type": "{ keys: string; category: string; description: string; }[]",
           "isOptional": false
         }
       ]

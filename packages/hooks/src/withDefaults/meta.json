@@ -15,19 +15,19 @@
         "name": "DefineProps",
         "description": "",
         "kind": "alias",
-        "type": "\"Readonly<T> & { readonly [K in BKeys]-?: boolean; }\""
+        "type": "Readonly<T> & {\r\n  readonly [K in BKeys]-?: boolean;\r\n}"
       },
       {
         "name": "InferDefaults",
         "description": "",
         "kind": "alias",
-        "type": "\"{ [K in keyof T]?: InferDefault<T, T[K]>; }\""
+        "type": "{\r\n  [K in keyof T]?: InferDefault<T, T[K]>;\r\n}"
       },
       {
         "name": "PropsWithDefaults",
         "description": "",
         "kind": "alias",
-        "type": "\"T extends unknown ? Readonly<MappedOmit<T, keyof Defaults>> & { readonly [K in keyof Defaults as K extends keyof T ? K : never]-?: K extends keyof T ? Defaults[K] extends undefined ? IfAny<Defaults[K], NotUndefined<T[K]>, T[K]> : NotUndefined<T[K]> : never; } & { readonly [K in BKeys]-?: K extends keyof Defaults ? Defaults[K] extends undefined ? boolean | undefined : boolean : boolean; } : never\""
+        "type": "T extends unknown\r\n  ? Readonly<MappedOmit<T, keyof Defaults>> & {\r\n      readonly [K in keyof Defaults as K extends keyof T\r\n        ? K\r\n        : never]-?: K extends keyof T\r\n        ? Defaults[K] extends undefined\r\n          ? IfAny<Defaults[K], NotUndefined<T[K]>, T[K]>\r\n          : NotUndefined<T[K]>\r\n        : never;\r\n    } & {\r\n      readonly [K in BKeys]-?: K extends keyof Defaults\r\n        ? Defaults[K] extends undefined\r\n          ? boolean | undefined\r\n          : boolean\r\n        : boolean;\r\n    }\r\n  : never"
       },
       {
         "name": "InferDefault",
@@ -42,7 +42,7 @@
         "name": "MappedOmit",
         "description": "",
         "kind": "alias",
-        "type": "\"{ [P in keyof T as P extends K ? never : P]: T[P]; }\""
+        "type": "{\r\n  [P in keyof T as P extends K ? never : P]: T[P];\r\n}"
       },
       {
         "name": "IfAny",

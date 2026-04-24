@@ -29,13 +29,13 @@
         "name": "ScopedCommand",
         "description": "",
         "kind": "alias",
-        "type": "\"BaseCommand & { /** Limits search to a specific key in the data object. */ scope: keyof T; filter?: never; }\""
+        "type": "BaseCommand & {\r\n  /** Limits search to a specific key in the data object. */\r\n  scope: keyof T;\r\n  filter?: never;\r\n}"
       },
       {
         "name": "FilterCommand",
         "description": "",
         "kind": "alias",
-        "type": "\"BaseCommand & { /** Custom filter function for this command. */ filter: (item: T) => boolean; scope?: never; }\""
+        "type": "BaseCommand & {\r\n  /** Custom filter function for this command. */\r\n  filter: (item: T) => boolean;\r\n  scope?: never;\r\n}"
       },
       {
         "name": "BaseCommand",
@@ -125,7 +125,7 @@
         },
         {
           "name": "inputProps",
-          "type": "\"{ value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void; placeholder?: string | undefined; }\"",
+          "type": "{ value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void; placeholder?: string | undefined; }",
           "isOptional": false,
           "description": "Props to spread onto the <input> element.",
           "properties": [

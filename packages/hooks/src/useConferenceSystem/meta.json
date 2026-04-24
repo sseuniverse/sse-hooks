@@ -45,7 +45,7 @@
       "properties": [
         {
           "name": "camera",
-          "type": "\"{ stream: MediaStream | null; start: (constraints?: UseUserMediaConstraints | undefined) => Promise<void>; stop: () => void; isActive: boolean; error: string | null; isLoading: boolean; }\"",
+          "type": "{ stream: MediaStream | null; start: (constraints?: UseUserMediaConstraints | undefined) => Promise<void>; stop: () => void; isActive: boolean; error: string | null; isLoading: boolean; }",
           "isOptional": false,
           "description": "Camera management and state",
           "properties": [
@@ -89,7 +89,7 @@
         },
         {
           "name": "screen",
-          "type": "\"{ stream: MediaStream | null; start: (options?: UseScreenShareOptions | undefined) => Promise<void>; stop: () => void; isActive: boolean; error: string | null; }\"",
+          "type": "{ stream: MediaStream | null; start: (options?: UseScreenShareOptions | undefined) => Promise<void>; stop: () => void; isActive: boolean; error: string | null; }",
           "isOptional": false,
           "description": "Screen sharing management and state",
           "properties": [
@@ -127,7 +127,7 @@
         },
         {
           "name": "quality",
-          "type": "\"{ current: MediaQuality; isChanging: boolean; set: (level: MediaQuality) => Promise<void>; isAuto: boolean; toggleAuto: () => void; }\"",
+          "type": "{ current: MediaQuality; isChanging: boolean; set: (level: MediaQuality) => Promise<void>; isAuto: boolean; toggleAuto: () => void; }",
           "isOptional": false,
           "description": "Media quality management",
           "properties": [
@@ -165,7 +165,7 @@
         },
         {
           "name": "network",
-          "type": "\"{ isOnline: boolean; speed: number; type: string; }\"",
+          "type": "{ isOnline: boolean; speed: number; type: string; }",
           "isOptional": false,
           "description": "Network status and telemetry",
           "properties": [

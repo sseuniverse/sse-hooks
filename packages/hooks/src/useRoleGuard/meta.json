@@ -57,7 +57,7 @@
           },
           {
             "name": "fallbackComponent",
-            "type": "\"React.ComponentType<{}> | undefined\"",
+            "type": "React.ComponentType<{}> | undefined",
             "isOptional": true,
             "description": "Component to render while loading or if unauthorized (not fully implemented in hook logic, mainly for HOCs)."
           },
