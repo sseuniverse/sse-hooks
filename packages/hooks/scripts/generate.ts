@@ -23,6 +23,7 @@ const bundleHook = (
   processedFiles = new Set<string>(),
   registryDeps = new Set<string>(),
   externalNpmDeps = new Set<string>(),
+  collectedImports = new Set<string>(),
 ): string => {
   const filePath = path.resolve(dir, fileName);
   if (processedFiles.has(filePath) || !fs.existsSync(filePath)) return "";
@@ -36,24 +37,30 @@ const bundleHook = (
     if (importPath.startsWith("../")) {
       const kebabName = toKebabCase(importPath.split("/")[1]);
       registryDeps.add(kebabName);
-      return match.replace(importPath, `./${kebabName}`);
+      collectedImports.add(match.replace(importPath, `./${kebabName}`).trim());
+      return "";
     } else if (importPath.startsWith("./")) {
       const resolvedPath = path.resolve(dir, importPath);
       const ext = [".ts", ".tsx", ".d.ts", "/index.ts", ""].find((e) =>
         fs.existsSync(resolvedPath + e),
       );
-      return ext !== undefined
-        ? bundleHook(
-            dir,
-            importPath + ext,
-            processedFiles,
-            registryDeps,
-            externalNpmDeps,
-          )
-        : match;
+      if (ext !== undefined) {
+        return bundleHook(
+          dir,
+          importPath + ext,
+          processedFiles,
+          registryDeps,
+          externalNpmDeps,
+          collectedImports,
+        );
+      } else {
+        collectedImports.add(match.trim());
+        return "";
+      }
     } else {
       externalNpmDeps.add(importPath);
-      return match;
+      collectedImports.add(match.trim());
+      return "";
     }
   });
 };
@@ -95,7 +102,7 @@ const generateMeta = async () => {
 
     let cleanTs = rawBundledTs.replace(/export \* from .+/g, "").trim();
     try {
-      cleanTs = await formatCode(cleanTs);
+      cleanTs = await formatCode(cleanTs, "ts");
     } catch (e) {}
 
     const hookMeta: HookMeta = {
@@ -110,7 +117,7 @@ const generateMeta = async () => {
       file: {
         path: `${kebabName}.ts`,
         content: cleanTs,
-        js: transpileToJs(cleanTs),
+        js: await formatCode(transpileToJs(cleanTs), "js"),
       },
     };
 

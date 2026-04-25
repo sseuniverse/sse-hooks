@@ -16,7 +16,7 @@
   },
   "file": {
     "path": "use-isomorphic-layout-effect.ts",
-    "content": "// This file is auto-generated. Do not edit manually.\n\nimport { useEffect, useLayoutEffect } from \"react\";\n\n/**\n * Custom hook that uses either `useLayoutEffect` or `useEffect` based on the environment (client-side or server-side).\n * @param {Function} effect - The effect function to be executed.\n * @param {Array<any>} [dependencies] - An array of dependencies for the effect (optional).\n * @public\n * @see [Documentation](/docs/use-isomorphic-layout-effect)\n * @example\n * ```tsx\n * useIsomorphicLayoutEffect(() => {\n *   // Code to be executed during the layout phase on the client side\n * }, [dependency1, dependency2]);\n * ```\n */\nexport const useIsomorphicLayoutEffect =\n  typeof window !== \"undefined\" ? useLayoutEffect : useEffect;\n",
-    "js": "import { useEffect, useLayoutEffect } from \"react\";\nexport const useIsomorphicLayoutEffect = typeof window !== \"undefined\" ? useLayoutEffect : useEffect;"
+    "content": "/**\n * Custom hook that uses either `useLayoutEffect` or `useEffect` based on the environment (client-side or server-side).\n * @param {Function} effect - The effect function to be executed.\n * @param {Array<any>} [dependencies] - An array of dependencies for the effect (optional).\n * @public\n * @see [Documentation](/docs/use-isomorphic-layout-effect)\n * @example\n * ```tsx\n * useIsomorphicLayoutEffect(() => {\n *   // Code to be executed during the layout phase on the client side\n * }, [dependency1, dependency2]);\n * ```\n */\nexport const useIsomorphicLayoutEffect =\n  typeof window !== \"undefined\" ? useLayoutEffect : useEffect;\n",
+    "js": "export const useIsomorphicLayoutEffect =\n  typeof window !== \"undefined\" ? useLayoutEffect : useEffect;\n"
   }
 }

@@ -24,7 +24,7 @@
   },
   "file": {
     "path": "use-is-client.ts",
-    "content": "// This file is auto-generated. Do not edit manually.\n\nimport { useEffect, useState } from \"react\";\n\n/**\n * Custom hook that determines if the code is running on the client side (in the browser).\n *\n * @category lifecycle\n * @returns {boolean} A boolean value indicating whether the code is running on the client side.\n * @public\n * @see [Documentation](/docs/use-is-client)\n * @example\n * ```tsx\n * const isClient = useIsClient();\n * // Use isClient to conditionally render or execute code specific to the client side.\n * ```\n */\nexport function useIsClient(): boolean {\n  const [isClient, setClient] = useState(false);\n\n  useEffect(() => {\n    setClient(true);\n  }, []);\n\n  return isClient;\n}\n",
-    "js": "import { useEffect, useState } from \"react\";\nexport function useIsClient() {\n    const [isClient, setClient] = useState(false);\n    useEffect(() => {\n        setClient(true);\n    }, []);\n    return isClient;\n}"
+    "content": "/**\n * Custom hook that determines if the code is running on the client side (in the browser).\n *\n * @category lifecycle\n * @returns {boolean} A boolean value indicating whether the code is running on the client side.\n * @public\n * @see [Documentation](/docs/use-is-client)\n * @example\n * ```tsx\n * const isClient = useIsClient();\n * // Use isClient to conditionally render or execute code specific to the client side.\n * ```\n */\nexport function useIsClient(): boolean {\n  const [isClient, setClient] = useState(false);\n\n  useEffect(() => {\n    setClient(true);\n  }, []);\n\n  return isClient;\n}\n",
+    "js": "export function useIsClient() {\n  const [isClient, setClient] = useState(false);\n  useEffect(() => {\n    setClient(true);\n  }, []);\n  return isClient;\n}\n"
   }
 }

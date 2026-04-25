@@ -44,7 +44,7 @@ export const errorMessage1 =
  * );
  * ```
  */
-export default function usePortal({
+export function usePortal({
   closeOnOutsideClick = true,
   closeOnEsc = true,
   bindTo, // attach the portal to this node in the DOM

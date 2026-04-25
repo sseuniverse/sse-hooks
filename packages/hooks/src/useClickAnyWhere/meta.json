@@ -30,7 +30,7 @@
   },
   "file": {
     "path": "use-click-any-where.ts",
-    "content": "// This file is auto-generated. Do not edit manually.\n\nimport { useEventListener } from \"./use-event-listener\";\n\n/**\n * Custom hook that handles click events anywhere on the document.\n *\n * @category dom\n * @param {Function} handler - The function to be called when a click event is detected anywhere on the document.\n * @public\n * @see [Documentation](/docs/use-click-any-where)\n * @example\n * ```tsx\n * const handleClick = (event) => {\n *   console.log('Document clicked!', event);\n * };\n *\n * // Attach click event handler to document\n * useClickAnywhere(handleClick);\n * ```\n */\nexport function useClickAnyWhere(handler: (event: MouseEvent) => void) {\n  useEventListener(\"click\", (event) => {\n    handler(event);\n  });\n}\n",
-    "js": "import { useEventListener } from \"./use-event-listener\";\nexport function useClickAnyWhere(handler) {\n    useEventListener(\"click\", (event) => {\n        handler(event);\n    });\n}"
+    "content": "/**\n * Custom hook that handles click events anywhere on the document.\n *\n * @category dom\n * @param {Function} handler - The function to be called when a click event is detected anywhere on the document.\n * @public\n * @see [Documentation](/docs/use-click-any-where)\n * @example\n * ```tsx\n * const handleClick = (event) => {\n *   console.log('Document clicked!', event);\n * };\n *\n * // Attach click event handler to document\n * useClickAnywhere(handleClick);\n * ```\n */\nexport function useClickAnyWhere(handler: (event: MouseEvent) => void) {\n  useEventListener(\"click\", (event) => {\n    handler(event);\n  });\n}\n",
+    "js": "export function useClickAnyWhere(handler) {\n  useEventListener(\"click\", (event) => {\n    handler(event);\n  });\n}\n"
   }
 }

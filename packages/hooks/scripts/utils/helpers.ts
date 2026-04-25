@@ -38,9 +38,13 @@ export const transpileToJs = (tsCode: string): string => {
   return result.outputText.trim();
 };
 
-export const formatCode = async (content: string): Promise<string> => {
+export const formatCode = async (
+  content: string,
+  lang: "ts" | "js" = "ts",
+): Promise<string> => {
+  const parser = lang === "ts" ? "typescript" : "babel";
   return await prettier.format(content, {
-    parser: "typescript",
+    parser,
     semi: true,
     singleQuote: false,
     trailingComma: "all",
