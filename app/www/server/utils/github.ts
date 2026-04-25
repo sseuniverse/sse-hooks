@@ -22,13 +22,12 @@ export const ghMarkdown = cachedFunction(
       body: {
         text: markdown,
         context: repo,
-        mode: "gfm", // Use GitHub Flavored Markdown
+        mode: "gfm",
       },
     });
   },
   {
-    // Caching options
-    maxAge: 60 * 60, // Cache for 1 hour
+    maxAge: 60 * 60,
     name: "markdown",
     getKey: (_markdown, repo, id) => repo + "/" + id,
   },

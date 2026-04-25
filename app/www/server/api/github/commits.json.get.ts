@@ -16,16 +16,23 @@ export default defineCachedEventHandler(
       });
     }
 
-    const octokit = new Octokit({ auth: process.env.NUXT_GITHUB_TOKEN });
+    const octokit = new Octokit({
+      auth: process.env.NUXT_GITHUB_TOKEN,
+      request: { timeout: 10_000 },
+    });
 
     const allCommits = await Promise.all(
       paths.map((path) =>
-        octokit.paginate(octokit.rest.repos.listCommits, {
-          owner: "sseuniverse",
-          repo: "sse-hooks",
-          path,
-          since: "2025-03-12T14:33:00Z",
-        }),
+        octokit.rest.repos
+          .listCommits({
+            owner: "sseuniverse",
+            repo: "sse-hooks",
+            path,
+            since: "2025-03-12T14:33:00Z",
+            per_page: 100,
+          })
+          .then((res) => res.data)
+          .catch(() => []),
       ),
     );
 
@@ -33,6 +40,7 @@ export default defineCachedEventHandler(
       string,
       { sha: string; date: string; message: string }
     >();
+
     for (const commits of allCommits) {
       for (const commit of commits) {
         if (!uniqueCommits.has(commit.sha)) {
@@ -50,7 +58,7 @@ export default defineCachedEventHandler(
     );
   },
   {
-    maxAge: 60 * 60, // 1 hour
+    maxAge: 60 * 60,
     getKey: (event) => {
       const query = getQuery(event) as { path: string | string[] };
       const paths = Array.isArray(query.path) ? query.path : [query.path];

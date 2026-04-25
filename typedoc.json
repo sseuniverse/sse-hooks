@@ -9,6 +9,8 @@
   "entryPoints": ["packages/hooks/src/**/*.ts"],
   "entryPointStrategy": "expand",
 
+  "skipErrorChecking": true,
+
   "json": "./generated/typedoc/all.json",
   "out": "./generated/typedoc",
   "readme": "none",
@@ -17,7 +19,9 @@
   "exclude": [
     "packages/hooks/src/**/demo.*",
     "packages/hooks/src/**/test.*",
-    "packages/hooks/src/**/index.ts"
+    "packages/hooks/src/**/index.ts",
+    "packages/hooks/scripts/**/*.ts",
+    "packages/hooks/scripts/generate.ts"
   ],
 
   "externalPattern": ["**/node_modules/**"],

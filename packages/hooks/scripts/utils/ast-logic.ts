@@ -6,6 +6,7 @@ import {
   FunctionDeclaration,
   ArrowFunction,
   FunctionExpression,
+  PropertySignature,
 } from "ts-morph";
 import { NATIVE_TYPES } from "./constants";
 import { cleanTypeString } from "./helpers";
@@ -184,7 +185,7 @@ function extractAllLocalTypes(sourceFile: SourceFile) {
         name: iface.getName(),
         description: iface.getJsDocs()[0]?.getDescription().trim() || "",
         kind: "interface",
-        properties: iface.getProperties().map((p) => ({
+        properties: iface.getProperties().map((p: PropertySignature) => ({
           name: p.getName(),
           type: cleanTypeString(p.getType().getText()),
           isOptional: p.hasQuestionToken(),

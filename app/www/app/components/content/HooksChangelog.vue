@@ -1,6 +1,27 @@
 <script setup lang="ts">
 import { camelCase } from "@ssets/scule";
 
+interface Commit {
+  sha: string;
+  date: string;
+  message: string;
+}
+
+interface Release {
+  tag_name: string;
+  published_at: string;
+  html_url: string;
+}
+
+interface ReleaseGroup {
+  tag: string;
+  url?: string;
+  icon?: string;
+  title: string;
+  commits: Commit[];
+  published_at?: string;
+}
+
 const props = defineProps<{
   prefix?: string;
 }>();
@@ -9,62 +30,154 @@ const route = useRoute();
 const name = route.path.split("/").pop() ?? "";
 const camelName = camelCase(name, { acronyms: ["DB", "KBD", "SSR"] });
 
-const { data: commits } = await useLazyFetch<any[]>("/api/github/commits", {
-  key: `hook-changelog-${name}`,
-  query: {
-    path: [
-      `packages/hooks/src/${camelName}/${camelName}.ts`,
-      `packages/hooks/src/${camelName}/index.ts`,
-      `packages/hooks/src/${camelName}/utils`,
-      `packages/hooks/src/${camelName}/misc`,
-    ],
+const { data: releases } = useLazyFetch<Release[]>(
+  "/api/github/releases.json",
+  {
+    server: false,
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key],
   },
+);
+
+const { data: commits } = await useLazyFetch<any[]>(
+  "/api/github/commits.json",
+  {
+    key: `hook-changelog-${name}`,
+    query: {
+      path: [
+        `packages/hooks/src/${camelName}/${camelName}.ts`,
+        `packages/hooks/src/${camelName}/index.ts`,
+        `packages/hooks/src/${camelName}/utils`,
+        `packages/hooks/src/${camelName}/misc`,
+      ],
+    },
+    server: false,
+    getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key],
+  },
+);
+
+const groupedByRelease = computed<ReleaseGroup[]>(() => {
+  if (!commits.value?.length) return [];
+
+  const sortedReleases = (releases.value ?? [])
+    .filter((r) => r.published_at)
+    .sort(
+      (a, b) =>
+        new Date(b.published_at).getTime() - new Date(a.published_at).getTime(),
+    );
+
+  const releasesOldestFirst = [...sortedReleases].reverse();
+  const groups: ReleaseGroup[] = [];
+  const unreleased: Commit[] = [];
+
+  for (const commit of commits.value) {
+    const commitDate = new Date(commit.date).getTime();
+    const release = releasesOldestFirst.find(
+      (r) => new Date(r.published_at).getTime() >= commitDate,
+    );
+
+    if (release) {
+      const majorTag = release.tag_name.replace(/-(alpha|beta|rc)\.\d+$/, "");
+      let group = groups.find((g) => g.tag === majorTag);
+      if (!group) {
+        group = {
+          tag: majorTag,
+          title: majorTag,
+          icon: "i-lucide-tag",
+          published_at: release.published_at,
+          url: release.html_url,
+          commits: [],
+        };
+        groups.push(group);
+      }
+      if (new Date(release.published_at) > new Date(group.published_at!)) {
+        group.published_at = release.published_at;
+        group.url = release.html_url;
+      }
+      group.commits.push(commit);
+    } else {
+      unreleased.push(commit);
+    }
+  }
+
+  const result: ReleaseGroup[] = [];
+  if (unreleased.length) {
+    result.push({
+      tag: "unreleased",
+      title: "Soon",
+      icon: "i-lucide-tag",
+      commits: unreleased,
+    });
+  }
+
+  const uniqueTags = [
+    ...new Set(
+      sortedReleases.map((r) =>
+        r.tag_name.replace(/-(alpha|beta|rc)\.\d+$/, ""),
+      ),
+    ),
+  ];
+  groups.sort((a, b) => uniqueTags.indexOf(a.tag) - uniqueTags.indexOf(b.tag));
+  result.push(...groups);
+
+  return result;
 });
 
-function normalizeCommitMessage(commit: { sha: string; message: string }) {
+function normalizeCommitMessage(commit: Commit) {
   const repoUrl = "https://github.com/sseuniverse/sse-hooks";
   const prefix = `[\`${commit.sha.slice(0, 5)}\`](${repoUrl}/commit/${commit.sha})`;
 
-  // Clean up message and format links/code
   const content = commit.message
-    .replace(/\(.*?\)/, "")
-    .replace(
-      /#(\d+)/g,
-      `<a href='${repoUrl}/issues/$1' class="text-primary-500">#$1</a>`,
-    )
-    .replace(
-      /`(.*?)`/g,
-      '<code class="text-xs font-mono bg-gray-100 dark:bg-gray-800 px-1 rounded">$1</code>',
-    );
+    .replace(/#(\d+)/g, `<a href=\'${repoUrl}/issues/$1\'>#$1</a>`)
+    .replace(/`(.*?)`/g, '<code class="text-xs">$1</code>');
 
   return `${prefix} — ${content}`;
 }
 </script>
 
 <template>
-  <div v-if="!commits?.length" class="text-sm text-gray-500 py-4 italic">
-    No recent changes.
-  </div>
+  <div v-if="!commits?.length">No recent changes</div>
 
-  <div v-else class="flex flex-col gap-2 relative mt-4">
-    <div
-      class="bg-gray-200 dark:bg-gray-800 w-px h-full absolute left-[11px] top-2 z-[-1]"
-    />
-
-    <div
-      v-for="commit of commits"
-      :key="commit.sha"
-      class="flex gap-3 items-start"
-    >
-      <div
-        class="bg-primary-500 ring-4 ring-white dark:ring-gray-950 size-2 mt-1.5 mx-[7px] rounded-full shrink-0"
+  <UTimeline
+    v-else
+    :items="groupedByRelease"
+    size="xs"
+    :ui="{
+      root: '',
+      wrapper: 'mt-0 pb-0',
+      title: 'mb-1.5 flex items-center justify-between',
+    }"
+  >
+    <template #title="{ item }">
+      <UBadge
+        v-if="item.tag === 'unreleased'"
+        color="neutral"
+        variant="subtle"
+        :label="item.title"
+        class="w-12.5 justify-center"
       />
+      <NuxtLink v-else :to="item.url" target="_blank" class="hover:underline">
+        <UBadge variant="subtle" :label="item.tag" />
+      </NuxtLink>
 
-      <MDC
-        :value="normalizeCommitMessage(commit)"
-        class="text-sm leading-6 [&_a]:underline"
-        tag="div"
-      />
-    </div>
-  </div>
+      <time
+        v-if="item.published_at"
+        :datetime="item.published_at"
+        class="text-xs text-dimmed font-normal"
+      >
+        {{ useTimeAgo(new Date(item.published_at)) }}
+      </time>
+    </template>
+
+    <template #description="{ item }">
+      <ul class="flex flex-col gap-1.5">
+        <li v-for="commit of item.commits" :key="commit.sha">
+          <MDC
+            :value="normalizeCommitMessage(commit)"
+            class="text-sm [&_code]:text-xs"
+            unwrap="p"
+          />
+        </li>
+      </ul>
+    </template>
+  </UTimeline>
 </template>

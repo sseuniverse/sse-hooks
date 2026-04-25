@@ -71,20 +71,6 @@ function parseCategory(blockTags) {
     : "uncategorized";
 }
 
-function parseExample(blockTags) {
-  if (!blockTags) return "";
-  const example = blockTags.find((t) => t.tag === "@example");
-  if (!example) return "";
-
-  let content = example.content
-    .map((c) => c.text)
-    .join("")
-    .trim();
-
-  content = content.replace(/^```[\w-]*\r?\n/gm, "").replace(/```\s*$/gm, "");
-  return content.trim();
-}
-
 async function getNewHooksList() {
   try {
     console.log("🔍 Fetching release tags from GitHub...");
@@ -252,19 +238,8 @@ async function main() {
       const autoSummary = parseComment(signature.comment);
       const autoCategory = parseCategory(signature.comment?.blockTags);
 
-      // Removed the `.split(".")[0]` to keep the full description
       const autoDesc = autoSummary;
       const isNew = hasData && !oldHooks.has(name);
-      const example = await prettier.format(
-        parseExample(signature.comment?.blockTags),
-        {
-          parser: "typescript",
-          semi: true,
-          singleQuote: false,
-          trailingComma: "all",
-          printWidth: 80,
-        },
-      );
 
       const manualDocPath = path.join(HOOKS_SRC_DIR, name, "docs.md");
       let manualData = { attributes: {}, body: "" };
@@ -288,7 +263,6 @@ async function main() {
         name: finalTitle,
         kebabName,
         category: validCategory,
-        // Shortened desc for the index card previews
         shortDesc: finalDesc.split(".")[0] + ".",
       });
 
@@ -311,21 +285,6 @@ async function main() {
         .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // Strips markdown links, leaving just the text
         .replace(/\n/g, " ")
         .replace(/"/g, '\\"');
-
-      // --- DOC FILE GENERATION ---
-      let middleContent = "";
-
-      if (manualData.body) {
-        middleContent = manualData.body;
-      } else {
-        middleContent = `
-\`\`\`tsx [example.ts]
-import { ${name} } from './{hooks file}'
-
-${example || "// See usage example in source"}
-\`\`\`
-`;
-      }
 
       // Injected the dynamic linksYaml and safe description
       const content = `---
@@ -359,7 +318,7 @@ bunx sse-hooks add ${kebabName}
 
 ## Usage
 
-${middleContent}
+:hooks-example
 
 ## API
 
@@ -374,6 +333,10 @@ ${middleContent}
 ### Types Aliases
 
 :component-types
+
+## Code
+
+:hooks-code
 
 ## Changelog
 
