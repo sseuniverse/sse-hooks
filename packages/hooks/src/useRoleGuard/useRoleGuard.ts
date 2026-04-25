@@ -8,17 +8,8 @@ import { User, UseRoleGuardOptions, UseRoleGuardReturn } from "./types";
  * @param {string[]} requiredRoles - The list of roles required to access the resource.
  * @param {UseRoleGuardOptions} [options={}] - Configuration options including user object and redirect paths.
  * @returns {UseRoleGuardReturn} Access status, user data, and role checking utilities.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-role-guard)
  * @public
- * @see [Documentation](/docs/use-role-guard)
- * @example
- * ```tsx
- * const { hasAccess, user, isLoading } = useRoleGuard(['admin', 'editor'], {
- * redirectTo: '/login'
- * });
- * if (isLoading) return <Loader />;
- * if (!hasAccess) return null; // Will redirect automatically
- * return <AdminPanel user={user} />;
- * ```
  */
 export function useRoleGuard(
   requiredRoles: string[],

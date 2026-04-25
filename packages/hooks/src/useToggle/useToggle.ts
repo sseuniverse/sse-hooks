@@ -7,17 +7,9 @@ import type { Dispatch, SetStateAction } from "react";
  *
  * @category state
  * @param {boolean} [defaultValue] - The initial value for the toggle state.
- * @returns {[boolean, () => void, Dispatch<SetStateAction<boolean>>]} A tuple containing the current state,
- * a function to toggle the state, and a function to set the state explicitly.
+ * @returns {[boolean, () => void, Dispatch<SetStateAction<boolean>>]} A tuple containing the current state, a function to toggle the state, and a function to set the state explicitly.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-toggle)
  * @public
- * @see [Documentation](/docs/use-toggle)
- * @example
- * ```tsx
- * const [isToggled, toggle, setToggle] = useToggle(); // Initial value is false
- * // OR
- * const [isToggled, toggle, setToggle] = useToggle(true); // Initial value is true
- * // Use isToggled in your component, toggle to switch the state, setToggle to set the state explicitly.
- * ```
  */
 export function useToggle(
   defaultValue?: boolean,

@@ -40,38 +40,11 @@ export function useKeyListener(
  * @category sensors
  * @param {KeyMap} keyMap - An object defining the key bindings and their actions.
  * @param {UseKeyOptions} [options] - Global configuration options.
- * @returns {{ bindings: Array<{ keys: string, category: string, description: string }> }}
- * Metadata about the registered bindings for UI display.
+ * @returns {{ bindings: Array<{ keys: string, category: string, description: string }> }} - Metadata about the registered bindings for UI display.
  *
  * @throws Will log a warning in debug mode if a key combination is invalid.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-key)
  * @public
- * @see [Documentation](/docs/use-key)
- *
- * @example
- * ```tsx
- * const { bindings } = useKey({
- * // Simple binding
- * "Escape": () => setModalOpen(false),
- *
- * // Modifier binding with config
- * "Ctrl+S": {
- * action: (e) => saveDocument(),
- * preventDefault: true,
- * description: "Save changes",
- * category: "File"
- * },
- *
- * // Sequence binding (Gmail style)
- * "g i": {
- * action: () => navigate("/inbox"),
- * description: "Go to Inbox",
- * category: "Navigation"
- * }
- * }, {
- * debug: true,
- * allowInInputs: false
- * });
- * ```
  */
 export function useKey(keyMap: KeyMap, options: UseKeyOptions = {}) {
   const { debug = false, sequenceTimeout = 1000, filter } = options;

@@ -22,17 +22,12 @@ type SetStepCallbackType = (step: number | ((step: number) => number)) => void;
 
 /**
  * Custom hook that manages and navigates between steps in a multi-step process.
- * 
+ *
  * @category state
  * @param {number} maxStep - The maximum step in the process.
  * @returns {[number, UseStepActions]} An tuple containing the current step and helper functions for navigating steps.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-step)
  * @public
- * @see [Documentation](/docs/use-step)
- * @example
- * ```tsx
- * const [currentStep, { goToNextStep, goToPrevStep, reset, canGoToNextStep, canGoToPrevStep, setStep }] = useStep(3);
- * // Access and use the current step and provided helper functions.
- * ```
  */
 export function useStep(maxStep: number): [number, UseStepActions] {
   const [currentStep, setCurrentStep] = useState(1);
@@ -42,7 +37,6 @@ export function useStep(maxStep: number): [number, UseStepActions] {
 
   const setStep = useCallback<SetStepCallbackType>(
     (step) => {
-      // Allow value to be a function so we have the same API as useState
       const newStep = step instanceof Function ? step(currentStep) : step;
 
       if (newStep >= 1 && newStep <= maxStep) {

@@ -40,29 +40,12 @@ const IS_SERVER = typeof window === "undefined";
 
 /**
  * A custom hook that locks and unlocks scroll.
- * 
+ *
  * @category dom
  * @param {UseScrollLockOptions} [options] - Options to configure the hook, by default it will lock the scroll automatically.
  * @returns {UseScrollLockReturn} - An object containing the lock and unlock functions.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-scroll-lock)
  * @public
- * @see [Documentation](/docs/use-scroll-lock)
- * @example
- * ```tsx
- * // Lock the scroll when the modal is mounted, and unlock it when it's unmounted
- * useScrollLock()
- * ```
- * @example
- * ```tsx
- * // Manually lock and unlock the scroll
- * const { lock, unlock } = useScrollLock({ autoLock: false })
- *
- * return (
- *  <div>
- *   <button onClick={lock}>Lock</button>
- *   <button onClick={unlock}>Unlock</button>
- *  </div>
- * )
- * ```
  */
 export function useScrollLock(
   options: UseScrollLockOptions = {},

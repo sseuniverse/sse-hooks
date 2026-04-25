@@ -15,22 +15,8 @@ import {
  * @param {UseConferenceSystemOptions} [options={}] - Configuration options for the conference system.
  * @param {boolean} [options.defaultAutoQuality=true] - Whether to enable network-based quality scaling by default.
  * @returns {UseConferenceSystemReturns} An object containing camera, screen, quality, and network state controllers.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-conference-system)
  * @public
- * @see [Documentation](/docs/use-conference-system)
- * @example
- * ```tsx
- * const { camera, screen, quality, network } = useConferenceSystem({
- * defaultAutoQuality: true
- * });
- * return (
- * <div>
- * <video ref={v => v.srcObject = camera.stream} autoPlay />
- * <button onClick={camera.start}>Start Camera</button>
- * <p>Current Quality: {quality.current} (Auto: {quality.isAuto ? 'On' : 'Off'})</p>
- * <p>Network Speed: {network.speed} Mbps</p>
- * </div>
- * );
- * ```
  */
 export const useConferenceSystem = (
   options: UseConferenceSystemOptions = {},

@@ -3,20 +3,14 @@ import { useIsomorphicLayoutEffect } from "../useIsomorphicLayoutEffect";
 
 /**
  * Custom hook that creates a memoized event callback.
- * 
+ *
  * @category utilities
  * @template Args - An array of argument types for the event callback.
  * @template R - The return type of the event callback.
  * @param {(...args: Args) => R} fn - The callback function.
  * @returns {(...args: Args) => R} A memoized event callback function.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-event-callback)
  * @public
- * @see [Documentation](/docs/use-event-callback)
- * @example
- * ```tsx
- * const handleClick = useEventCallback((event) => {
- *   // Handle the event here
- * });
- * ```
  */
 export function useEventCallback<Args extends unknown[], R>(
   fn: (...args: Args) => R,

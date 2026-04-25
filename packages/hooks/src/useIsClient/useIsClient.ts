@@ -5,13 +5,8 @@ import { useEffect, useState } from "react";
  *
  * @category lifecycle
  * @returns {boolean} A boolean value indicating whether the code is running on the client side.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-is-client)
  * @public
- * @see [Documentation](/docs/use-is-client)
- * @example
- * ```tsx
- * const isClient = useIsClient();
- * // Use isClient to conditionally render or execute code specific to the client side.
- * ```
  */
 export function useIsClient(): boolean {
   const [isClient, setClient] = useState(false);

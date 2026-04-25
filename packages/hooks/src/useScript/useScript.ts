@@ -21,15 +21,12 @@ const cachedScriptStatuses = new Map<string, UseScriptStatus | undefined>();
  * @param {string} src - The source URL of the script to get.
  * @returns {{ node: HTMLScriptElement | null, status: UseScriptStatus | undefined }} The script element and its loading status.
  * @public
- * @example
- * ```tsx
- * const script = getScriptNode(src);
- * ```
  */
 function getScriptNode(src: string) {
   const node: HTMLScriptElement | null = document.querySelector(
     `script[src="${src}"]`,
   );
+
   const status = node?.getAttribute("data-status") as
     | UseScriptStatus
     | undefined;
@@ -42,15 +39,13 @@ function getScriptNode(src: string) {
 
 /**
  * Custom hook that dynamically loads scripts and tracking their loading status.
- * 
+ *
  * @category dom
  * @param {string | null} src - The source URL of the script to load. Set to `null` or omit to prevent loading (optional).
  * @param {UseScriptOptions} [options] - Additional options for controlling script loading (optional).
- * @returns {UseScriptStatus} The status of the script loading, which can be one of 'idle', 'loading', 'ready', or 'error'.
- * @see [Documentation](/docs/use-script)
- * @example
- * const scriptStatus = useScript('https://example.com/script.js', { removeOnUnmount: true });
- * // Access the status of the script loading (e.g., 'loading', 'ready', 'error').
+ * @returns {UseScriptStatus} The status of the script loading, which can be one of 'idle', 'loading', 'ready', or 'error'1.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-script)
+ * @public
  */
 export function useScript(
   src: string | null,

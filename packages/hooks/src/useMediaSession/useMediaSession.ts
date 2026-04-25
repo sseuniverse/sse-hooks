@@ -6,30 +6,10 @@ import { UseMediaSessionOptions, UseMediaSessionReturn } from "./types";
  * It allows you to customize media notifications and handle media control events (like play, pause, next track) from the system's notification area or lock screen.
  *
  * @category sensors
- * @param options - Initial configuration for the media session.
- * @returns Object containing methods to control the media session and a flag indicating support.
+ * @param {UseMediaSessionOptions} options - Initial configuration for the media session.
+ * @returns {UseMediaSessionReturn} Object containing methods to control the media session and a flag indicating support.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-media-session)
  * @public
- * @example
- * ```tsx
- * const MyPlayer = () => {
- * const { setMetadata, setPlaybackState } = useMediaSession({
- * playbackState: "playing",
- * metadata: {
- * title: "Awesome Song",
- * artist: "Cool Artist",
- * album: "Best Hits",
- * artwork: [{ src: "/album-art.jpg", sizes: "512x512", type: "image/jpeg" }]
- * },
- * actionHandlers: {
- * play: () => console.log("Play clicked"),
- * pause: () => console.log("Pause clicked"),
- * nexttrack: () => console.log("Next track clicked"),
- * }
- * });
- *
- * return <div>Now Playing...</div>;
- * };
- * ```
  */
 export const useMediaSession = (
   options?: UseMediaSessionOptions,

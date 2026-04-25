@@ -64,27 +64,15 @@ interface UseIndexedDBReturn<T> {
 
 /**
  * Custom hook that provides an interface to the [`IndexedDB API`](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) for client-side storage of significant amounts of structured data.
- * 
+ *
  * @category storage
  * @template T - The type of the data to be stored.
  * @param {string} databaseName - The name of the IndexedDB database.
  * @param {string} storeName - The name of the object store within the database.
  * @param {UseIndexedDBOptions} [options] - Configuration options for the database connection (optional).
  * @returns {UseIndexedDBReturn<T>} An object containing the current data state, error state, loading state, and methods to interact with the database.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-indexed-db)
  * @public
- * @example
- * ```tsx
- * interface UserProfile {
- * name: string;
- * age: number;
- * }
- *
- * const { setItem, getItem, data } = useIndexedDB<UserProfile>('myAppDB', 'profiles');
- *
- * const saveProfile = async () => {
- * await setItem('user_1', { name: 'Alice', age: 30 });
- * };
- * ```
  */
 export function useIndexedDB<T>(
   databaseName: string,

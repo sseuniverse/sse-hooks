@@ -40,13 +40,8 @@ const IS_SERVER = typeof window === "undefined";
  * @category sensors
  * @param {?UseWindowSizeOptions} [options] - The options for customizing the behavior of the hook (optional).
  * @returns {object} An object containing the width and height of the window.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-window-size)
  * @public
- * @see [Documentation](/docs/use-window-size)
- * @example
- * ```tsx
- * const { width = 0, height = 0 } = useWindowSize();
- * console.log(`Window size: ${width} x ${height}`);
- * ```
  */
 export function useWindowSize(options: UseWindowSizeOptions<false>): WindowSize;
 export function useWindowSize(

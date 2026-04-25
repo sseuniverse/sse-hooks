@@ -14,43 +14,21 @@ import { useIsomorphicLayoutEffect } from "../useIsomorphicLayoutEffect";
  * @param {(event: WindowEventMap[KW] | HTMLElementEventMap[KH] | SVGElementEventMap[KH] | MediaQueryListEventMap[KM] | Event) => void} handler - The event handler function.
  * @param {RefObject<T>} [element] - The DOM element or media query list to attach the event listener to (optional).
  * @param {boolean | AddEventListenerOptions} [options] - An options object that specifies characteristics about the event listener (optional).
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-event-listener)
  * @public
- * @see [Documentation](/docs/use-event-listener)
- * @example
- * ```tsx
- * // Example 1: Attach a window event listener
- * useEventListener('resize', handleResize);
- * ```
- * @example
- * ```tsx
- * // Example 2: Attach a document event listener with options
- * const elementRef = useRef(document);
- * useEventListener('click', handleClick, elementRef, { capture: true });
- * ```
- * @example
- * ```tsx
- * // Example 3: Attach an element event listener
- * const buttonRef = useRef<HTMLButtonElement>(null);
- * useEventListener('click', handleButtonClick, buttonRef);
- * ```
  */
-// MediaQueryList Event based useEventListener interface
 function useEventListener<K extends keyof MediaQueryListEventMap>(
   eventName: K,
   handler: (event: MediaQueryListEventMap[K]) => void,
   element: RefObject<MediaQueryList>,
   options?: boolean | AddEventListenerOptions,
 ): void;
-
-// Window Event based useEventListener interface
 function useEventListener<K extends keyof WindowEventMap>(
   eventName: K,
   handler: (event: WindowEventMap[K]) => void,
   element?: undefined,
   options?: boolean | AddEventListenerOptions,
 ): void;
-
-// Element Event based useEventListener interface
 function useEventListener<
   K extends keyof HTMLElementEventMap & keyof SVGElementEventMap,
   T extends Element = K extends keyof HTMLElementEventMap

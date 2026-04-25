@@ -32,20 +32,15 @@ const IS_SERVER = typeof window === "undefined";
 
 /**
  * Custom hook that uses the [`sessionStorage API`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) to persist state across page reloads.
- * 
+ *
  * @category storage
  * @template T - The type of the state to be stored in session storage.
  * @param {string} key - The key under which the value will be stored in session storage.
  * @param {T | (() => T)} initialValue - The initial value of the state or a function that returns the initial value.
  * @param {?UseSessionStorageOptions<T>} [options] - Options for customizing the behavior of serialization and deserialization (optional).
  * @returns {[T, Dispatch<SetStateAction<T>>, () => void]} A tuple containing the stored value, a function to set the value and a function to remove the key from storage.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-session-storage)
  * @public
- * @see [Documentation](/docs/use-session-storage)
- * @example
- * ```tsx
- * const [count, setCount, removeCount] = useSessionStorage('count', 0);
- * // Access the `count` value, the `setCount` function to update it and `removeCount` function to remove the key from storage.
- * ```
  */
 export function useSessionStorage<T>(
   key: string,

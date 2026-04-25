@@ -47,28 +47,15 @@ export type DebouncedState<T extends (...args: any) => ReturnType<T>> = ((
 
 /**
  * Custom hook that creates a debounced version of a callback function.
- * 
+ *
  * @category effect
  * @template T - Type of the original callback function.
  * @param {T} func - The callback function to be debounced.
  * @param {number} delay - The delay in milliseconds before the callback is invoked (default is `500` milliseconds).
  * @param {DebounceOptions} [options] - Options to control the behavior of the debounced function.
  * @returns {DebouncedState<T>} A debounced version of the original callback along with control functions.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-debounce-callback)
  * @public
- * @see [Documentation](/docs/use-debounce-callback)
- * @example
- * ```tsx
- * const debouncedCallback = useDebounceCallback(
- *   (searchTerm) => {
- *     // Perform search after user stops typing for 500 milliseconds
- *     searchApi(searchTerm);
- *   },
- *   500
- * );
- *
- * // Later in the component
- * debouncedCallback('react hooks'); // Will invoke the callback after 500 milliseconds of inactivity.
- * ```
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useDebounceCallback<T extends (...args: any) => ReturnType<T>>(

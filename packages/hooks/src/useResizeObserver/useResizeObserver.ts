@@ -39,18 +39,8 @@ const initialSize: Size = {
  * @category sensors
  * @param {UseResizeObserverOptions<T>} options - The options for the ResizeObserver.
  * @returns {Size} - The size of the observed element.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-resize-observer)
  * @public
- * @see [Documentation](/docs/use-resize-observer)
- * @example
- * ```tsx
- * const myRef = useRef(null);
- * const { width = 0, height = 0 } = useResizeObserver({
- *   ref: myRef,
- *   box: 'content-box',
- * });
- *
- * <div ref={myRef}>Hello, world!</div>
- * ```
  */
 export function useResizeObserver<T extends HTMLElement = HTMLElement>(
   options: UseResizeObserverOptions<T>,

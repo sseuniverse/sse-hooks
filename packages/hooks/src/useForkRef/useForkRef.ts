@@ -7,17 +7,8 @@ import React from "react";
  * @template Instance - The type of the value being referenced (usually a DOM element).
  * @param {Array<React.Ref<Instance> | undefined>} refs The ref array.
  * @returns {React.RefCallback<Instance> | null} The new ref callback.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-fork-ref)
  * @public
- * @example
- * ```tsx
- * const rootRef = React.useRef<Instance>(null);
- * const refFork = useForkRef(rootRef, props.ref);
- *
- * return (
- *   <Root {...props} ref={refFork} />
- * );
- * ```
- *
  */
 export function useForkRef<Instance>(
   ...refs: Array<React.Ref<Instance> | undefined>

@@ -13,16 +13,8 @@ import {
  * @param {UseAudioRecorderOptions} [options] - Configuration options for audio recording.
  * @returns {UseAudioRecorderReturn} Object containing recording state, audio data, and control methods.
  * @throws Will set an error if audio recording is not supported or permission is denied.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-audio-recorder)
  * @public
- * @example
- * ```tsx
- * const {
- *   isRecording,
- *   startRecording,
- *   stopRecording,
- *   audioUrl,
- * } = useAudioRecorder({ enableAnalysis: true });
- * ```
  */
 export const useAudioRecorder = (
   options: UseAudioRecorderOptions = {},

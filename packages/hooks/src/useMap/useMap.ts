@@ -36,19 +36,14 @@ type UseMapReturn<K, V> = [
 
 /**
  * Custom hook that manages a key-value [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) state with setter actions.
- * 
+ *
  * @category state
  * @template K - The type of keys in the map.
  * @template V - The type of values in the map.
  * @param {MapOrEntries<K, V>} [initialState] - The initial state of the map as a Map or an array of key-value pairs (optional).
  * @returns {UseMapReturn<K, V>} A tuple containing the map state and actions to interact with the map.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-map)
  * @public
- * @see [Documentation](/docs/use-map)
- * @example
- * ```tsx
- * const [map, mapActions] = useMap();
- * // Access the `map` state and use `mapActions` to set, remove, or reset entries.
- * ```
  */
 export function useMap<K, V>(
   initialState: MapOrEntries<K, V> = new Map(),

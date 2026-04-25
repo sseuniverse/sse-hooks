@@ -25,17 +25,12 @@ const IS_SERVER = typeof window === "undefined";
 
 /**
  * Custom hook that tracks the [`screen`](https://developer.mozilla.org/en-US/docs/Web/API/Window/screen) dimensions and properties.
- * 
+ *
  * @category sensors
  * @param {?UseScreenOptions} [options] - The options for customizing the behavior of the hook (optional).
  * @returns {Screen | undefined} The current `Screen` object representing the screen dimensions and properties, or `undefined` if not available.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-screen)
  * @public
- * @see [Documentation](/docs/use-screen)
- * @example
- * ```tsx
- * const currentScreen = useScreen();
- * // Access properties of the current screen, such as width and height.
- * ```
  */
 export function useScreen(options: UseScreenOptions<false>): Screen | undefined;
 export function useScreen(options?: Partial<UseScreenOptions<true>>): Screen;

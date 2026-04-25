@@ -11,9 +11,8 @@
   "api": {
     "tags": {
       "category": "state",
-      "public": true,
-      "see": "[Documentation](/docs/use-counter)",
-      "example": "```tsx\r\nconst { count, increment, decrement, reset, setCount } = useCounter(5);\r\n```"
+      "see": "[Documentation](https://sse-hooks.vercel.app/docs/hooks/use-counter)",
+      "public": true
     },
     "types": [],
     "parameters": [
@@ -63,7 +62,7 @@
   },
   "file": {
     "path": "use-counter.ts",
-    "content": "/** The hook return type. */\ntype UseCounterReturn = {\n  /** The current count value. */\n  count: number;\n  /** Function to increment the counter by 1. */\n  increment: () => void;\n  /** Function to decrement the counter by 1. */\n  decrement: () => void;\n  /** Function to reset the counter to its initial value. */\n  reset: () => void;\n  /** Function to set a specific value to the counter. */\n  setCount: React.Dispatch<React.SetStateAction<number>>;\n};\n\n/**\n * Custom hook that manages a counter with increment, decrement, reset, and setCount functionalities.\n *\n * @category state\n * @param {number} [initialValue] - The initial value for the counter.\n * @returns {UseCounterReturn} An object containing the current count and functions to interact with the counter.\n * @public\n * @see [Documentation](/docs/use-counter)\n * @example\n * ```tsx\n * const { count, increment, decrement, reset, setCount } = useCounter(5);\n * ```\n */\nexport function useCounter(initialValue?: number): UseCounterReturn {\n  const [count, setCount] = useState(initialValue ?? 0);\n\n  const increment = useCallback(() => {\n    setCount((x) => x + 1);\n  }, []);\n\n  const decrement = useCallback(() => {\n    setCount((x) => x - 1);\n  }, []);\n\n  const reset = useCallback(() => {\n    setCount(initialValue ?? 0);\n  }, [initialValue]);\n\n  return {\n    count,\n    increment,\n    decrement,\n    reset,\n    setCount,\n  };\n}\n",
+    "content": "/** The hook return type. */\ntype UseCounterReturn = {\n  /** The current count value. */\n  count: number;\n  /** Function to increment the counter by 1. */\n  increment: () => void;\n  /** Function to decrement the counter by 1. */\n  decrement: () => void;\n  /** Function to reset the counter to its initial value. */\n  reset: () => void;\n  /** Function to set a specific value to the counter. */\n  setCount: React.Dispatch<React.SetStateAction<number>>;\n};\n\n/**\n * Custom hook that manages a counter with increment, decrement, reset, and setCount functionalities.\n *\n * @category state\n * @param {number} [initialValue] - The initial value for the counter.\n * @returns {UseCounterReturn} An object containing the current count and functions to interact with the counter.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-counter)\n * @public\n */\nexport function useCounter(initialValue?: number): UseCounterReturn {\n  const [count, setCount] = useState(initialValue ?? 0);\n\n  const increment = useCallback(() => {\n    setCount((x) => x + 1);\n  }, []);\n\n  const decrement = useCallback(() => {\n    setCount((x) => x - 1);\n  }, []);\n\n  const reset = useCallback(() => {\n    setCount(initialValue ?? 0);\n  }, [initialValue]);\n\n  return {\n    count,\n    increment,\n    decrement,\n    reset,\n    setCount,\n  };\n}\n",
     "js": "export function useCounter(initialValue) {\n  const [count, setCount] = useState(initialValue ?? 0);\n  const increment = useCallback(() => {\n    setCount((x) => x + 1);\n  }, []);\n  const decrement = useCallback(() => {\n    setCount((x) => x - 1);\n  }, []);\n  const reset = useCallback(() => {\n    setCount(initialValue ?? 0);\n  }, [initialValue]);\n  return {\n    count,\n    increment,\n    decrement,\n    reset,\n    setCount,\n  };\n}\n"
   }
 }

@@ -13,27 +13,8 @@ const DEFAULT_CONSTRAINTS: UseUserMediaConstraints = {
  * @category sensors
  * @param initialConstraints - The initial constraints for audio and video.
  * @returns {UseUserMediaReturn} An object containing the stream, error state, and control functions.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-user-media)
  * @public
- * @example
- * ```tsx
- * const { stream, error, startCapture, stopCapture } = useUserMedia();
- *
- * return (
- * <div>
- * {error && <p>Error: {error}</p>}
- * <video
- * autoPlay
- * muted
- * playsInline
- * ref={(node) => {
- * if (node && stream) node.srcObject = stream;
- * }}
- * />
- * <button onClick={() => startCapture()}>Start Camera</button>
- * <button onClick={stopCapture}>Stop Camera</button>
- * </div>
- * );
- * ```
  */
 export const useUserMedia = (
   initialConstraints: UseUserMediaConstraints = DEFAULT_CONSTRAINTS,

@@ -26,28 +26,13 @@ export const errorMessage1 =
  * @category dom
  * @param {UsePortalOptions} [options={}] - Configuration options for the portal.
  * @returns {UsePortalObjectReturn & UsePortalArrayReturn} A hybrid object/array containing the Portal component, open/close functions, and refs.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-portal)
  * @public
- * @see [Documentation](/docs/use-portal)
- * @example
- * ```tsx
- * const { Portal, openPortal, closePortal, isOpen } = usePortal();
- * return (
- * <>
- * <button onClick={openPortal}>Open Modal</button>
- * <Portal>
- * <div className="modal">
- * <h1>Hello World</h1>
- * <button onClick={closePortal}>Close</button>
- * </div>
- * </Portal>
- * </>
- * );
- * ```
  */
 export function usePortal({
   closeOnOutsideClick = true,
   closeOnEsc = true,
-  bindTo, // attach the portal to this node in the DOM
+  bindTo,
   isOpen: defaultIsOpen = false,
   onOpen,
   onClose,

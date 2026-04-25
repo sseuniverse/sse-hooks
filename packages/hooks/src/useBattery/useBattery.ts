@@ -55,31 +55,13 @@ function useBatteryMock(): UseBatteryState {
 
 /**
  * Custom hook that tracks the state of the device's battery using the [Battery Status API](https://developer.mozilla.org/en-US/docs/Web/API/Battery_Status_API).
- *
  * It returns the battery level, charging status, charging time, and discharging time.
  * If the API is not supported, `isSupported` will be false.
  *
+ * @category sensors
  * @returns {UseBatteryState} The current state of the battery, including support and fetch status.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-battery)
  * @public
- * @example
- * ```tsx
- * const battery = useBattery();
- *
- * if (!battery.isSupported) {
- * return <p>Battery API is not supported on this device.</p>;
- * }
- *
- * if (!battery.fetched) {
- * return <p>Fetching battery status...</p>;
- * }
- *
- * return (
- * <div>
- * <p>Battery Level: {(battery.level * 100).toFixed(0)}%</p>
- * <p>Charging: {battery.charging ? 'Yes' : 'No'}</p>
- * </div>
- * );
- * ```
  */
 function useBattery(): UseBatteryState {
   const [state, setState] = useState<UseBatteryState>({

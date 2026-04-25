@@ -55,25 +55,14 @@ export interface UseFetchReturn<T> extends UseFetchState<T> {
 
 /**
  * Custom hook that provides a wrapper around the native [`fetch API`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to handle HTTP requests with state management, abort capability, and TypeScript support.
- * 
+ *
  * @category network
  * @template T - The type of the data expected from the response.
  * @param {string} [url] - The URL to fetch.
  * @param {UseFetchOptions} [options] - Options for customizing the request and hook behavior (optional).
  * @returns {UseFetchReturn<T>} An object containing the fetched data, loading status, error, and methods to control the request.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-fetch)
  * @public
- * @example
- * ```tsx
- * interface User {
- * id: number;
- * name: string;
- * }
- *
- * const { data, loading, error, execute } = useFetch<User>('https://api.example.com/user/1', {
- * immediate: true,
- * onSuccess: (data) => console.log('User loaded:', data),
- * });
- * ```
  */
 export function useFetch<T = any>(
   url?: string,

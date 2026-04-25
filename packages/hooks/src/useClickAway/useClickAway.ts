@@ -1,6 +1,6 @@
 import React from "react";
 import { useForkRef } from "../useForkRef";
-import ownerDocument from "./utils/ownerDocument";
+import ownerDocument from "./ownerDocument";
 import { useEventCallback } from "../useEventCallback";
 
 /**
@@ -73,22 +73,8 @@ function clickedRootScrollbar(event: MouseEvent, doc: Document) {
  * @param onClickAway - The callback function to be called when a click outside is detected.
  * @param options - Configuration options for the hook.
  * @returns {object} An object containing the `ref` to attach to the target element and `listenerProps` to spread.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-click-away)
  * @public
- * @example
- * ```tsx
- * const handleClickAway = () => {
- * console.log('Clicked outside!');
- * setOpen(false);
- * };
- *
- * const { ref, listenerProps } = useClickAway(handleClickAway);
- *
- * return (
- * <div ref={ref} {...listenerProps}>
- * I will detect clicks outside of me.
- * </div>
- * );
- * ```
  */
 export function useClickAway(
   onClickAway: (event: MouseEvent | TouchEvent) => void,

@@ -98,23 +98,15 @@ function buildCookie(
 
 /**
  * Custom hook that manages state synchronized with a browser [`cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies). It handles serialization, prefixes, updates across tabs, and custom event synchronization.
- * 
+ *
  * @category storage
  * @template T - The type of the state to be stored in the cookie.
  * @param {string} key - The base name of the cookie.
  * @param {T | (() => T)} initialValue - The initial value of the state.
  * @param {UseCookieOptions<T>} [options] - Options for customization.
  * @returns {[T, Dispatch<SetStateAction<T>>, () => void]} A tuple containing the stored value, a setter, and a remover.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-cookie)
  * @public
- * @see [Documentation](/docs/use-cookie)
- * @example
- * ```tsx
- * // Creates a cookie named "__Secure-token"
- * const [token, setToken] = useCookie('token', '', {
- * prefix: '__Secure-',
- * secure: true,
- * });
- * ```
  */
 export function useCookie<T>(
   key: string,

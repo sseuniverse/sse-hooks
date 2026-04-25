@@ -23,13 +23,25 @@ export type EventListenersRef = React.MutableRefObject<{
 }>;
 
 export type UsePortalOptions = {
-  /** Close the portal when clicking outside the portal content. @default true */
+  /**
+   * Close the portal when clicking outside the portal content.
+   * @default true
+   */
   closeOnOutsideClick?: boolean;
-  /** Close the portal when the Escape key is pressed. @default true */
+  /**
+   * Close the portal when the Escape key is pressed.
+   * @default true
+   */
   closeOnEsc?: boolean;
-  /** The DOM element to attach the portal to. @default document.body */
+  /**
+   * The DOM element to attach the portal to.
+   * @default document.body
+   */
   bindTo?: HTMLElement;
-  /** Initial open state. @default false */
+  /**
+   * Initial open state.
+   * @default false
+   */
   isOpen?: boolean;
   /** Callback fired when the portal opens. */
   onOpen?: CustomEventHandler;
@@ -37,7 +49,9 @@ export type UsePortalOptions = {
   onClose?: CustomEventHandler;
   /** Callback fired when the portal content is clicked. */
   onPortalClick?: CustomEventHandler;
-  /** Set to true if managing open state entirely outside this hook. @default false */
+  /** Set to true if managing open state entirely outside this hook.
+   * @default false
+   */
   programmaticallyOpen?: boolean;
 } & CustomEventHandlers;
 

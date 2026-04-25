@@ -46,13 +46,8 @@ export type TernaryDarkModeReturn = {
  * @category dom
  * @param {?TernaryDarkModeOptions | string} [options] - Options or the local storage key for the hook.
  * @returns {TernaryDarkModeReturn} An object containing the dark mode state and helper functions.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-ternary-dark-mode)
  * @public
- * @see [Documentation](/docs/use-ternary-dark-mode)
- * @example
- * ```tsx
- * const { isDarkMode, ternaryDarkMode, setTernaryDarkMode, toggleTernaryDarkMode } = useTernaryDarkMode({ defaultValue: 'dark' });
- * // Access and use the dark mode state and provided helper functions.
- * ```
  */
 export function useTernaryDarkMode({
   defaultValue = "system",

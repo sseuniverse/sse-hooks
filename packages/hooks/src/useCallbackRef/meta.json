@@ -3,7 +3,7 @@
   "name": "use-callback-ref",
   "type": "registry:hook",
   "title": "useCallbackRef",
-  "description": "A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a prop or avoid re-executing effects when passed as a dependency ```tsx const handleClick = useCallbackRef((event: MouseEvent) => {   console.log(\"Clicked!\", event); }); useEffect(() => {   window.addEventListener(\"click\", handleClick);   return () => window.removeEventListener(\"click\", handleClick); }, []); ```",
+  "description": "A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a prop or avoid re-executing effects when passed as a dependency",
   "dependencies": [
     "react"
   ],
@@ -12,8 +12,8 @@
     "tags": {
       "category": "utilities",
       "type": "- A function type that accepts any arguments and returns any value.",
-      "public": true,
-      "example": "```tsx\r\nconst handleClick = useCallbackRef((event: MouseEvent) => {\r\n  console.log(\"Clicked!\", event);\r\n});\r\n\r\nuseEffect(() => {\r\n  window.addEventListener(\"click\", handleClick);\r\n  return () => window.removeEventListener(\"click\", handleClick);\r\n}, []);\r\n```"
+      "see": "[Documentation](https://sse-hooks.vercel.app/docs/hooks/use-callback-ref)",
+      "public": true
     },
     "types": [],
     "parameters": [
@@ -31,7 +31,7 @@
   },
   "file": {
     "path": "use-callback-ref.ts",
-    "content": "/**\n * A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a prop or avoid re-executing effects when passed as a dependency\n *\n * @category utilities\n * @type T - A function type that accepts any arguments and returns any value.\n * @param callback - The callback function to store in a ref. It can be undefined.\n * @returns T A stable function reference that always calls the latest callback.\n *\n * @public\n * @example\n * ```tsx\n * const handleClick = useCallbackRef((event: MouseEvent) => {\n *   console.log(\"Clicked!\", event);\n * });\n *\n * useEffect(() => {\n *   window.addEventListener(\"click\", handleClick);\n *   return () => window.removeEventListener(\"click\", handleClick);\n * }, []);\n * ```\n */\nfunction useCallbackRef<T extends (...args: any[]) => any>(\n  callback: T | undefined,\n): T {\n  const callbackRef = React.useRef(callback);\n\n  React.useEffect(() => {\n    callbackRef.current = callback;\n  });\n\n  // https://github.com/facebook/react/issues/19240\n  return React.useMemo(\n    () => ((...args) => callbackRef.current?.(...args)) as T,\n    [],\n  );\n}\n\nexport { useCallbackRef };\n",
+    "content": "/**\n * A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a prop or avoid re-executing effects when passed as a dependency\n *\n * @category utilities\n * @type T - A function type that accepts any arguments and returns any value.\n * @param callback - The callback function to store in a ref. It can be undefined.\n * @returns T A stable function reference that always calls the latest callback.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-callback-ref)\n * @public\n */\nfunction useCallbackRef<T extends (...args: any[]) => any>(\n  callback: T | undefined,\n): T {\n  const callbackRef = React.useRef(callback);\n\n  React.useEffect(() => {\n    callbackRef.current = callback;\n  });\n\n  return React.useMemo(\n    () => ((...args) => callbackRef.current?.(...args)) as T,\n    [],\n  );\n}\n\nexport { useCallbackRef };\n",
     "js": "function useCallbackRef(callback) {\n  const callbackRef = React.useRef(callback);\n  React.useEffect(() => {\n    callbackRef.current = callback;\n  });\n  return React.useMemo(\n    () =>\n      (...args) =>\n        callbackRef.current?.(...args),\n    [],\n  );\n}\nexport { useCallbackRef };\n"
   }
 }

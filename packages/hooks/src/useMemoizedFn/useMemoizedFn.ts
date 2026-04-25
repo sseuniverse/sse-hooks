@@ -6,25 +6,17 @@ type PickFunction<T extends (this: any, ...args: any[]) => any> = (
 ) => ReturnType<T>;
 
 /**
- * A hook that returns a memoized version of a function. 
- * Unlike `useCallback`, the function identity remains stable across re-renders, 
+ * A hook that returns a memoized version of a function.
+ * Unlike `useCallback`, the function identity remains stable across re-renders,
  * but it always has access to the latest props and state without needing a dependency array.
- * This is particularly useful for passing callbacks to optimized child components 
+ * This is particularly useful for passing callbacks to optimized child components
  * to prevent unnecessary re-renders while avoiding closure staleness.
  *
  * @category utilities
  * @param fn - The function to be memoized.
  * @returns A persistent function that internally calls the latest version of the passed function.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-)
  * @public
- * @example
- * ```tsx
- * const [state, setState] = useState(0);
- * // The identity of 'callback' never changes, but it always logs the latest 'state'
- * const callback = useMemoizedFn(() => {
- * console.log('Current state:', state);
- * });
- * return <ExpensiveComponent onClick={callback} />;
- * ```
  */
 export function useMemoizedFn<T extends (this: any, ...args: any[]) => any>(
   fn: T,

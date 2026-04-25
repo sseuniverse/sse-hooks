@@ -27,19 +27,15 @@ type UseDebounceValueOptions<T> = {
 
 /**
  * Custom hook that returns a debounced version of the provided value, along with a function to update it.
- * 
+ *
  * @category effect
  * @template T - The type of the value.
  * @param {T | (() => T)} initialValue - The value to be debounced.
  * @param {number} delay - The delay in milliseconds before the value is updated (default is 500ms).
  * @param {object} [options] - Optional configurations for the debouncing behavior.
  * @returns {[T, DebouncedState<(value: T) => void>]} An array containing the debounced value and the function to update it.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-debounce-value)
  * @public
- * @see [Documentation](/docs/use-debounce-value)
- * @example
- * ```tsx
- * const [debouncedValue, updateDebouncedValue] = useDebounceValue(inputValue, 500, { leading: true });
- * ```
  */
 export function useDebounceValue<T>(
   initialValue: T | (() => T),

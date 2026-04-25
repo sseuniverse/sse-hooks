@@ -49,6 +49,17 @@ type PropsWithDefaults<
     }
   : never;
 
+/**
+ * Utility hook that merges default values into a props object, resolving function defaults and memoizing the result.
+ * @category utilities
+ * @template T - The type of the properties object.
+ * @template BKeys - The boolean keys within the properties object.
+ * @param {DefineProps<T, BKeys>} props - The base properties object.
+ * @param {InferDefaults<T>} defaults - An object containing default values or factory functions for the properties.
+ * @returns {PropsWithDefaults<T, InferDefaults<T>, BKeys>} A memoized props object with the default values applied.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/with-defaults)
+ * @public
+ */
 export function withDefaults<T, BKeys extends keyof T = never>(
   props: DefineProps<T, BKeys>,
   defaults: InferDefaults<T>,

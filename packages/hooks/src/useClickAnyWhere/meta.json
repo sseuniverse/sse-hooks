@@ -3,7 +3,7 @@
   "name": "use-click-any-where",
   "type": "registry:hook",
   "title": "useClickAnyWhere",
-  "description": "Custom hook that handles click events anywhere on the document. ```tsx const handleClick = (event) => {   console.log('Document clicked!', event); }; // Attach click event handler to document useClickAnywhere(handleClick); ```",
+  "description": "Custom hook that handles click events anywhere on the document.",
   "dependencies": [],
   "registryDependencies": [
     "use-event-listener"
@@ -11,9 +11,8 @@
   "api": {
     "tags": {
       "category": "dom",
-      "public": true,
-      "see": "[Documentation](/docs/use-click-any-where)",
-      "example": "```tsx\r\nconst handleClick = (event) => {\r\n  console.log('Document clicked!', event);\r\n};\r\n\r\n// Attach click event handler to document\r\nuseClickAnywhere(handleClick);\r\n```"
+      "see": "[Documentation](https://sse-hooks.vercel.app/docs/hooks/use-click-any-where)",
+      "public": true
     },
     "types": [],
     "parameters": [
@@ -30,7 +29,7 @@
   },
   "file": {
     "path": "use-click-any-where.ts",
-    "content": "/**\n * Custom hook that handles click events anywhere on the document.\n *\n * @category dom\n * @param {Function} handler - The function to be called when a click event is detected anywhere on the document.\n * @public\n * @see [Documentation](/docs/use-click-any-where)\n * @example\n * ```tsx\n * const handleClick = (event) => {\n *   console.log('Document clicked!', event);\n * };\n *\n * // Attach click event handler to document\n * useClickAnywhere(handleClick);\n * ```\n */\nexport function useClickAnyWhere(handler: (event: MouseEvent) => void) {\n  useEventListener(\"click\", (event) => {\n    handler(event);\n  });\n}\n",
+    "content": "/**\n * Custom hook that handles click events anywhere on the document.\n *\n * @category dom\n * @param {Function} handler - The function to be called when a click event is detected anywhere on the document.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-click-any-where)\n * @public\n */\nexport function useClickAnyWhere(handler: (event: MouseEvent) => void) {\n  useEventListener(\"click\", (event) => {\n    handler(event);\n  });\n}\n",
     "js": "export function useClickAnyWhere(handler) {\n  useEventListener(\"click\", (event) => {\n    handler(event);\n  });\n}\n"
   }
 }

@@ -3,19 +3,12 @@ import { useIsomorphicLayoutEffect } from "../useIsomorphicLayoutEffect";
 
 /**
  * Custom hook that creates an interval that invokes a callback function at a specified delay using the [`setInterval API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval).
- * 
+ *
  * @category effect
  * @param {() => void} callback - The function to be invoked at each interval.
  * @param {number | null} delay - The time, in milliseconds, between each invocation of the callback. Use `null` to clear the interval.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-interval)
  * @public
- * @see [Documentation](/docs/use-interval)
- * @example
- * ```tsx
- * const handleInterval = () => {
- *   // Code to be executed at each interval
- * };
- * useInterval(handleInterval, 1000);
- * ```
  */
 export function useInterval(callback: () => void, delay: number | null) {
   const savedCallback = useRef(callback);

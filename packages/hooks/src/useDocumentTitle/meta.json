@@ -14,9 +14,8 @@
   "api": {
     "tags": {
       "category": "dom",
-      "public": true,
-      "see": "[Documentation](/docs/use-document-title)",
-      "example": "```tsx\r\nuseDocumentTitle('My new title');\r\n```"
+      "see": "[Documentation](https://sse-hooks.vercel.app/docs/hooks/use-document-title)",
+      "public": true
     },
     "types": [],
     "parameters": [
@@ -48,7 +47,7 @@
   },
   "file": {
     "path": "use-document-title.ts",
-    "content": "/** Hook options. */\ntype UseDocumentTitleOptions = {\n  /** Whether to keep the title after unmounting the component (default is `true`). */\n  preserveTitleOnUnmount?: boolean;\n};\n\n/**\n * Custom hook that sets the document title.\n *\n * @category dom\n * @param {string} title - The title to set.\n * @param {?UseDocumentTitleOptions} [options] - The options.\n * @public\n * @see [Documentation](/docs/use-document-title)\n * @example\n * ```tsx\n * useDocumentTitle('My new title');\n * ```\n */\nexport function useDocumentTitle(\n  title: string,\n  options: UseDocumentTitleOptions = {},\n): void {\n  const { preserveTitleOnUnmount = true } = options;\n  const defaultTitle = useRef<string | null>(null);\n\n  useIsomorphicLayoutEffect(() => {\n    defaultTitle.current = window.document.title;\n  }, []);\n\n  useIsomorphicLayoutEffect(() => {\n    window.document.title = title;\n  }, [title]);\n\n  useUnmount(() => {\n    if (!preserveTitleOnUnmount && defaultTitle.current) {\n      window.document.title = defaultTitle.current;\n    }\n  });\n}\n",
+    "content": "/** Hook options. */\ntype UseDocumentTitleOptions = {\n  /** Whether to keep the title after unmounting the component (default is `true`). */\n  preserveTitleOnUnmount?: boolean;\n};\n\n/**\n * Custom hook that sets the document title.\n *\n * @category dom\n * @param {string} title - The title to set.\n * @param {?UseDocumentTitleOptions} [options] - The options.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-document-title)\n * @public\n */\nexport function useDocumentTitle(\n  title: string,\n  options: UseDocumentTitleOptions = {},\n): void {\n  const { preserveTitleOnUnmount = true } = options;\n  const defaultTitle = useRef<string | null>(null);\n\n  useIsomorphicLayoutEffect(() => {\n    defaultTitle.current = window.document.title;\n  }, []);\n\n  useIsomorphicLayoutEffect(() => {\n    window.document.title = title;\n  }, [title]);\n\n  useUnmount(() => {\n    if (!preserveTitleOnUnmount && defaultTitle.current) {\n      window.document.title = defaultTitle.current;\n    }\n  });\n}\n",
     "js": "export function useDocumentTitle(title, options = {}) {\n  const { preserveTitleOnUnmount = true } = options;\n  const defaultTitle = useRef(null);\n  useIsomorphicLayoutEffect(() => {\n    defaultTitle.current = window.document.title;\n  }, []);\n  useIsomorphicLayoutEffect(() => {\n    window.document.title = title;\n  }, [title]);\n  useUnmount(() => {\n    if (!preserveTitleOnUnmount && defaultTitle.current) {\n      window.document.title = defaultTitle.current;\n    }\n  });\n}\n"
   }
 }

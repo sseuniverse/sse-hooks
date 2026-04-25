@@ -3,7 +3,7 @@
   "name": "use-hover",
   "type": "registry:hook",
   "title": "useHover",
-  "description": "Custom hook that tracks whether a DOM element is being hovered over. ```tsx const buttonRef = useRef<HTMLButtonElement>(null); const isHovered = useHover(buttonRef); // Access the isHovered variable to determine if the button is being hovered over. ```",
+  "description": "Custom hook that tracks whether a DOM element is being hovered over.",
   "dependencies": [
     "react"
   ],
@@ -14,9 +14,8 @@
     "tags": {
       "template": "- The type of the DOM element. Defaults to `HTMLElement`.",
       "category": "sensors",
-      "public": true,
-      "see": "[Documentation](/docs/use-hover)",
-      "example": "```tsx\r\nconst buttonRef = useRef<HTMLButtonElement>(null);\r\nconst isHovered = useHover(buttonRef);\r\n// Access the isHovered variable to determine if the button is being hovered over.\r\n```"
+      "see": "[Documentation](https://sse-hooks.vercel.app/docs/hooks/use-hover)",
+      "public": true
     },
     "types": [],
     "parameters": [
@@ -34,7 +33,7 @@
   },
   "file": {
     "path": "use-hover.ts",
-    "content": "/**\n * Custom hook that tracks whether a DOM element is being hovered over.\n * @template T - The type of the DOM element. Defaults to `HTMLElement`.\n * @category sensors\n * @param {RefObject<T>} elementRef - The ref object for the DOM element to track.\n * @returns {boolean} A boolean value indicating whether the element is being hovered over.\n * @public\n * @see [Documentation](/docs/use-hover)\n * @example\n * ```tsx\n * const buttonRef = useRef<HTMLButtonElement>(null);\n * const isHovered = useHover(buttonRef);\n * // Access the isHovered variable to determine if the button is being hovered over.\n * ```\n */\nexport function useHover<T extends HTMLElement = HTMLElement>(\n  elementRef: RefObject<T>,\n): boolean {\n  const [value, setValue] = useState<boolean>(false);\n\n  const handleMouseEnter = () => {\n    setValue(true);\n  };\n  const handleMouseLeave = () => {\n    setValue(false);\n  };\n\n  useEventListener(\"mouseenter\", handleMouseEnter, elementRef);\n  useEventListener(\"mouseleave\", handleMouseLeave, elementRef);\n\n  return value;\n}\n",
+    "content": "/**\n * Custom hook that tracks whether a DOM element is being hovered over.\n * @template T - The type of the DOM element. Defaults to `HTMLElement`.\n * @category sensors\n * @param {RefObject<T>} elementRef - The ref object for the DOM element to track.\n * @returns {boolean} A boolean value indicating whether the element is being hovered over.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-hover)\n * @public\n */\nexport function useHover<T extends HTMLElement = HTMLElement>(\n  elementRef: RefObject<T>,\n): boolean {\n  const [value, setValue] = useState<boolean>(false);\n\n  const handleMouseEnter = () => {\n    setValue(true);\n  };\n  const handleMouseLeave = () => {\n    setValue(false);\n  };\n\n  useEventListener(\"mouseenter\", handleMouseEnter, elementRef);\n  useEventListener(\"mouseleave\", handleMouseLeave, elementRef);\n\n  return value;\n}\n",
     "js": "export function useHover(elementRef) {\n  const [value, setValue] = useState(false);\n  const handleMouseEnter = () => {\n    setValue(true);\n  };\n  const handleMouseLeave = () => {\n    setValue(false);\n  };\n  useEventListener(\"mouseenter\", handleMouseEnter, elementRef);\n  useEventListener(\"mouseleave\", handleMouseLeave, elementRef);\n  return value;\n}\n"
   }
 }

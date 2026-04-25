@@ -48,13 +48,13 @@ type UseIntersectionObserverOptions = {
 };
 
 /**
- * The return type of the useIntersectionObserver hook.
+ * The return type of the useIntersectionObserver hook. Supports both tuple and object destructing.
  *
- * Supports both tuple and object destructing.
  * @category sensors
  * @param {(node: Element | null) => void} ref - The ref callback function.
  * @param {boolean} isIntersecting - A boolean indicating if the element is intersecting.
  * @param {IntersectionObserverEntry | undefined} entry - The intersection observer Entry.
+ * @public
  */
 type IntersectionReturn = [
   (node?: Element | null) => void,
@@ -68,22 +68,12 @@ type IntersectionReturn = [
 
 /**
  * Custom hook that tracks the intersection of a DOM element with its containing element or the viewport using the [`Intersection Observer API`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
- * 
+ *
  * @category dom
  * @param {UseIntersectionObserverOptions} options - The options for the Intersection Observer.
  * @returns {IntersectionReturn} The ref callback, a boolean indicating if the element is intersecting, and the intersection observer entry.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-intersection-observer)
  * @public
- * @see [Documentation](/docs/use-intersection-observer)
- * @example
- * ```tsx
- * // Example 1
- * const [ref, isIntersecting, entry] = useIntersectionObserver({ threshold: 0.5 });
- * ```
- *
- * ```tsx
- * // Example 2
- * const { ref, isIntersecting, entry } = useIntersectionObserver({ threshold: 0.5 });
- * ```
  */
 export function useIntersectionObserver({
   threshold = 0,

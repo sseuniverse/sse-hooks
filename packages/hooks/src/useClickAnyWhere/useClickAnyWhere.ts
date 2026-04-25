@@ -5,17 +5,8 @@ import { useEventListener } from "../useEventListener";
  * 
  * @category dom
  * @param {Function} handler - The function to be called when a click event is detected anywhere on the document.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-click-any-where)
  * @public
- * @see [Documentation](/docs/use-click-any-where)
- * @example
- * ```tsx
- * const handleClick = (event) => {
- *   console.log('Document clicked!', event);
- * };
- *
- * // Attach click event handler to document
- * useClickAnywhere(handleClick);
- * ```
  */
 export function useClickAnyWhere(handler: (event: MouseEvent) => void) {
   useEventListener("click", (event) => {

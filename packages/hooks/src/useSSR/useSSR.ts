@@ -38,19 +38,10 @@ export const weAreServer = () => {
 };
 
 /**
- * Custom hook that detects the current environment (Browser, Server, or Native)
- * and capability support (Workers, EventListeners). useful for avoiding hydration mismatches.
+ * Custom hook that detects the current environment (Browser, Server, or Native) and capability support (Workers, EventListeners). useful for avoiding hydration mismatches.
  * @category utilities
  * @returns {UseSSRReturn} Object containing boolean flags for the current environment.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-ssr)
  * @public
- * @see [Documentation](/docs/use-ssr)
- * @example
- * ```tsx
- * const { isBrowser, isServer } = useSSR();
- * if (isServer) {
- * return <StaticLoader />;
- * }
- * return <ClientComponent />;
- * ```
  */
 export const useSSR = (): UseSSRReturn => useSSRObject;

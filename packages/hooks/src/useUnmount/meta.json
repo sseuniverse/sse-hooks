@@ -3,7 +3,7 @@
   "name": "use-unmount",
   "type": "registry:hook",
   "title": "useUnmount",
-  "description": "Custom hook that runs a cleanup function when the component is unmounted. ```tsx useUnmount(() => {   // Cleanup logic here }); ```",
+  "description": "Custom hook that runs a cleanup function when the component is unmounted.",
   "dependencies": [
     "react"
   ],
@@ -11,9 +11,8 @@
   "api": {
     "tags": {
       "category": "lifecycle",
-      "public": true,
-      "see": "[Documentation](/docs/use-unmount)",
-      "example": "```tsx\r\nuseUnmount(() => {\r\n  // Cleanup logic here\r\n});\r\n```"
+      "see": "[Documentation](https://sse-hooks.vercel.app/docs/hooks/use-unmount)",
+      "public": true
     },
     "types": [],
     "parameters": [
@@ -30,7 +29,7 @@
   },
   "file": {
     "path": "use-unmount.ts",
-    "content": "/**\n * Custom hook that runs a cleanup function when the component is unmounted.\n *\n * @category lifecycle\n * @param {() => void} func - The cleanup function to be executed on unmount.\n * @public\n * @see [Documentation](/docs/use-unmount)\n * @example\n * ```tsx\n * useUnmount(() => {\n *   // Cleanup logic here\n * });\n * ```\n */\nexport function useUnmount(func: () => void) {\n  const funcRef = useRef(func);\n\n  funcRef.current = func;\n\n  useEffect(\n    () => () => {\n      funcRef.current();\n    },\n    [],\n  );\n}\n",
+    "content": "/**\n * Custom hook that runs a cleanup function when the component is unmounted.\n *\n * @category lifecycle\n * @param {() => void} func - The cleanup function to be executed on unmount.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-unmount)\n * @public\n */\nexport function useUnmount(func: () => void) {\n  const funcRef = useRef(func);\n\n  funcRef.current = func;\n\n  useEffect(\n    () => () => {\n      funcRef.current();\n    },\n    [],\n  );\n}\n",
     "js": "export function useUnmount(func) {\n  const funcRef = useRef(func);\n  funcRef.current = func;\n  useEffect(\n    () => () => {\n      funcRef.current();\n    },\n    [],\n  );\n}\n"
   }
 }

@@ -29,15 +29,8 @@ const QUALITY_PRESETS: QualityPresetTypes = {
  * @category utilities
  * @param {MediaStream | null} stream - The MediaStream containing the video track to adjust.
  * @returns {UseMediaQualityReturn} The current quality state and a setter function.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-media-quality)
  * @public
- * @see [Documentation](/docs/use-media-quality)
- * @example
- * ```tsx
- * const { quality, setQuality, isChanging } = useMediaQuality(userVideoStream);
- * const handleHDClick = () => {
- * setQuality('high'); // Switches to 1280x720
- * };
- * ```
  */
 export const useMediaQuality = (
   stream: MediaStream | null,

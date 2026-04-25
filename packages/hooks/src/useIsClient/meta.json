@@ -3,7 +3,7 @@
   "name": "use-is-client",
   "type": "registry:hook",
   "title": "useIsClient",
-  "description": "Custom hook that determines if the code is running on the client side (in the browser). ```tsx const isClient = useIsClient(); // Use isClient to conditionally render or execute code specific to the client side. ```",
+  "description": "Custom hook that determines if the code is running on the client side (in the browser).",
   "dependencies": [
     "react"
   ],
@@ -11,9 +11,8 @@
   "api": {
     "tags": {
       "category": "lifecycle",
-      "public": true,
-      "see": "[Documentation](/docs/use-is-client)",
-      "example": "```tsx\r\nconst isClient = useIsClient();\r\n// Use isClient to conditionally render or execute code specific to the client side.\r\n```"
+      "see": "[Documentation](https://sse-hooks.vercel.app/docs/hooks/use-is-client)",
+      "public": true
     },
     "types": [],
     "parameters": [],
@@ -24,7 +23,7 @@
   },
   "file": {
     "path": "use-is-client.ts",
-    "content": "/**\n * Custom hook that determines if the code is running on the client side (in the browser).\n *\n * @category lifecycle\n * @returns {boolean} A boolean value indicating whether the code is running on the client side.\n * @public\n * @see [Documentation](/docs/use-is-client)\n * @example\n * ```tsx\n * const isClient = useIsClient();\n * // Use isClient to conditionally render or execute code specific to the client side.\n * ```\n */\nexport function useIsClient(): boolean {\n  const [isClient, setClient] = useState(false);\n\n  useEffect(() => {\n    setClient(true);\n  }, []);\n\n  return isClient;\n}\n",
+    "content": "/**\n * Custom hook that determines if the code is running on the client side (in the browser).\n *\n * @category lifecycle\n * @returns {boolean} A boolean value indicating whether the code is running on the client side.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-is-client)\n * @public\n */\nexport function useIsClient(): boolean {\n  const [isClient, setClient] = useState(false);\n\n  useEffect(() => {\n    setClient(true);\n  }, []);\n\n  return isClient;\n}\n",
     "js": "export function useIsClient() {\n  const [isClient, setClient] = useState(false);\n  useEffect(() => {\n    setClient(true);\n  }, []);\n  return isClient;\n}\n"
   }
 }

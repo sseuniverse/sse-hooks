@@ -16,16 +16,12 @@ type UseCounterReturn = {
 
 /**
  * Custom hook that manages a counter with increment, decrement, reset, and setCount functionalities.
- * 
+ *
  * @category state
  * @param {number} [initialValue] - The initial value for the counter.
  * @returns {UseCounterReturn} An object containing the current count and functions to interact with the counter.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-counter)
  * @public
- * @see [Documentation](/docs/use-counter)
- * @example
- * ```tsx
- * const { count, increment, decrement, reset, setCount } = useCounter(5);
- * ```
  */
 export function useCounter(initialValue?: number): UseCounterReturn {
   const [count, setCount] = useState(initialValue ?? 0);

@@ -3,7 +3,7 @@
   "name": "use-toggle",
   "type": "registry:hook",
   "title": "useToggle",
-  "description": "Custom hook that manages a boolean toggle state in React components. a function to toggle the state, and a function to set the state explicitly. ```tsx const [isToggled, toggle, setToggle] = useToggle(); // Initial value is false // OR const [isToggled, toggle, setToggle] = useToggle(true); // Initial value is true // Use isToggled in your component, toggle to switch the state, setToggle to set the state explicitly. ```",
+  "description": "Custom hook that manages a boolean toggle state in React components.",
   "dependencies": [
     "react"
   ],
@@ -11,9 +11,8 @@
   "api": {
     "tags": {
       "category": "state",
-      "public": true,
-      "see": "[Documentation](/docs/use-toggle)",
-      "example": "```tsx\r\nconst [isToggled, toggle, setToggle] = useToggle(); // Initial value is false\r\n// OR\r\nconst [isToggled, toggle, setToggle] = useToggle(true); // Initial value is true\r\n// Use isToggled in your component, toggle to switch the state, setToggle to set the state explicitly.\r\n```"
+      "see": "[Documentation](https://sse-hooks.vercel.app/docs/hooks/use-toggle)",
+      "public": true
     },
     "types": [],
     "parameters": [
@@ -26,12 +25,12 @@
     ],
     "returnType": {
       "name": "[boolean, () => void, Dispatch<SetStateAction<boolean>>]",
-      "description": "A tuple containing the current state,\r\na function to toggle the state, and a function to set the state explicitly."
+      "description": "A tuple containing the current state, a function to toggle the state, and a function to set the state explicitly."
     }
   },
   "file": {
     "path": "use-toggle.ts",
-    "content": "/**\n * Custom hook that manages a boolean toggle state in React components.\n *\n * @category state\n * @param {boolean} [defaultValue] - The initial value for the toggle state.\n * @returns {[boolean, () => void, Dispatch<SetStateAction<boolean>>]} A tuple containing the current state,\n * a function to toggle the state, and a function to set the state explicitly.\n * @public\n * @see [Documentation](/docs/use-toggle)\n * @example\n * ```tsx\n * const [isToggled, toggle, setToggle] = useToggle(); // Initial value is false\n * // OR\n * const [isToggled, toggle, setToggle] = useToggle(true); // Initial value is true\n * // Use isToggled in your component, toggle to switch the state, setToggle to set the state explicitly.\n * ```\n */\nexport function useToggle(\n  defaultValue?: boolean,\n): [boolean, () => void, Dispatch<SetStateAction<boolean>>] {\n  const [value, setValue] = useState(!!defaultValue);\n\n  const toggle = useCallback(() => {\n    setValue((x) => !x);\n  }, []);\n\n  return [value, toggle, setValue];\n}\n",
+    "content": "/**\n * Custom hook that manages a boolean toggle state in React components.\n *\n * @category state\n * @param {boolean} [defaultValue] - The initial value for the toggle state.\n * @returns {[boolean, () => void, Dispatch<SetStateAction<boolean>>]} A tuple containing the current state, a function to toggle the state, and a function to set the state explicitly.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-toggle)\n * @public\n */\nexport function useToggle(\n  defaultValue?: boolean,\n): [boolean, () => void, Dispatch<SetStateAction<boolean>>] {\n  const [value, setValue] = useState(!!defaultValue);\n\n  const toggle = useCallback(() => {\n    setValue((x) => !x);\n  }, []);\n\n  return [value, toggle, setValue];\n}\n",
     "js": "export function useToggle(defaultValue) {\n  const [value, setValue] = useState(!!defaultValue);\n  const toggle = useCallback(() => {\n    setValue((x) => !x);\n  }, []);\n  return [value, toggle, setValue];\n}\n"
   }
 }

@@ -8,14 +8,8 @@ import { useEventListener } from "../useEventListener";
  * @category sensors
  * @param {RefObject<T>} elementRef - The ref object for the DOM element to track.
  * @returns {boolean} A boolean value indicating whether the element is being hovered over.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-hover)
  * @public
- * @see [Documentation](/docs/use-hover)
- * @example
- * ```tsx
- * const buttonRef = useRef<HTMLButtonElement>(null);
- * const isHovered = useHover(buttonRef);
- * // Access the isHovered variable to determine if the button is being hovered over.
- * ```
  */
 export function useHover<T extends HTMLElement = HTMLElement>(
   elementRef: RefObject<T>,

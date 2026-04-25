@@ -38,20 +38,12 @@ type CountdownControllers = {
 
 /**
  * Custom hook that manages countdown.
- * 
+ *
  * @category effect
  * @param {CountdownOptions} countdownOptions - The countdown's options.
  * @returns {[number, CountdownControllers]} An array containing the countdown's count and its controllers.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-countdown)
  * @public
- * @see [Documentation](/docs/use-countdown)
- * @example
- * ```tsx
- * const [counter, { start, stop, reset }] = useCountdown({
- *   countStart: 10,
- *   intervalMs: 1000,
- *   isIncrement: false,
- * });
- * ```
  */
 
 export function useCountdown({

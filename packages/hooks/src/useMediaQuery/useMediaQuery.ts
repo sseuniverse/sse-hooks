@@ -24,13 +24,8 @@ const IS_SERVER = typeof window === "undefined";
  * @param {string} query - The media query to track.
  * @param {?UseMediaQueryOptions} [options] - The options for customizing the behavior of the hook (optional).
  * @returns {boolean} The current state of the media query (true if the query matches, false otherwise).
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-media-query)
  * @public
- * @see [Documentation](/docs/use-media-query)
- * @example
- * ```tsx
- * const isSmallScreen = useMediaQuery('(max-width: 600px)');
- * // Use `isSmallScreen` to conditionally apply styles or logic based on the screen size.
- * ```
  */
 export function useMediaQuery(
   query: string,

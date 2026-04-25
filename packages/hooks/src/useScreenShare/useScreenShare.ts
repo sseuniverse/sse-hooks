@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { UseScreenShareOptions } from "./types";
+import { UseScreenShareOptions, UseScreenShareReturn } from "./types";
 
 const DEFAULT_OPTIONS: UseScreenShareOptions = {
   video: true,
@@ -13,31 +13,12 @@ const DEFAULT_OPTIONS: UseScreenShareOptions = {
  * @category sensors
  * @param initialOptions - The initial options for screen sharing (video/audio).
  * @returns {UseScreenShareReturn} An object containing the stream, error state, and control functions.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-screen-share)
  * @public
- * @example
- * ```tsx
- * const { stream, error, startCapture, stopCapture } = useScreenShare();
- *
- * return (
- * <div>
- * {error && <p>Error: {error}</p>}
- * <video
- * autoPlay
- * muted
- * playsInline
- * ref={(node) => {
- * if (node && stream) node.srcObject = stream;
- * }}
- * />
- * <button onClick={() => startCapture()}>Share Screen</button>
- * <button onClick={stopCapture}>Stop Sharing</button>
- * </div>
- * );
- * ```
  */
 export function useScreenShare(
   initialOptions: UseScreenShareOptions = DEFAULT_OPTIONS,
-) {
+): UseScreenShareReturn {
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);

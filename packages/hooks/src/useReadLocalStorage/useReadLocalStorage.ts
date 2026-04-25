@@ -17,19 +17,14 @@ type Options<T, InitializeWithValue extends boolean | undefined> = {
 
 /**
  * Custom hook that reads a value from [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), closely related to [`useLocalStorage()`](/docs/use-local-storage).
- * 
+ *
  * @category storage
  * @template T - The type of the stored value.
  * @param {string} key - The key associated with the value in local storage.
  * @param {Options<T>} [options] - Additional options for reading the value (optional).
  * @returns {T | null | undefined} The stored value, or null if the key is not present or an error occurs.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-read-local-storage)
  * @public
- * @see [Documentation](/docs/use-read-local-storage)
- * @example
- * ```tsx
- * const storedData = useReadLocalStorage('myKey');
- * // Access the stored data from local storage.
- * ```
  */
 // SSR version
 export function useReadLocalStorage<T>(

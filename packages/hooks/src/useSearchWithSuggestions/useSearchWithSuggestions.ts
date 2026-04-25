@@ -19,52 +19,9 @@ import { filterList } from "./utils";
  * @param {number} [config.maxResults] - Limit the number of returned results for performance.
  *
  * @returns {UseSearchSuggestionsResult<T>} Object containing query state, filtered results, and UI props.
+ * 
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-search-with-suggestions)
  * @public
- * @example
- * ```tsx
- * const users = [
- * { id: 1, name: "Alice", role: "admin" },
- * { id: 2, name: "Bob", role: "user" }
- * ];
- * const {
- * inputProps,
- * ghostText,
- * filteredData,
- * isSuggestionAvailable
- * } = useSearchWithSuggestions(
- * users,
- * ["name"], // Default search key
- * {
- * commands: [
- * // Typing ":role admin" will filter by role
- * { trigger: "role", scope: "role" },
- * // Typing ":admins" will run a custom filter function
- * { trigger: "admins", filter: (u) => u.role === "admin" }
- * ]
- * }
- * );
- * return (
- * <div className="search-container">
- * <div className="input-wrapper relative">
- *
- * // Ghost Layout
- * <input
- * className="absolute text-gray-300 bg-transparent pointer-events-none"
- * value={ghostText}
- * readOnly
- * />
- * // The Actual Input
- * <input
- * className="relative bg-transparent"
- * {...inputProps}
- * />
- * </div>
- * <ul>
- * {filteredData.map(u => <li key={u.id}>{u.name}</li>)}
- * </ul>
- * </div>
- * );
- * ```
  */
 export function useSearchWithSuggestions<
   T extends Record<string, any>,
@@ -74,7 +31,6 @@ export function useSearchWithSuggestions<
   searchKeys: readonly K[],
   config?: BaseSearchConfig<T>,
 ): UseSearchSuggestionsResult<T>;
-
 export function useSearchWithSuggestions<
   T extends Record<string, any>,
   K extends keyof T = keyof T,

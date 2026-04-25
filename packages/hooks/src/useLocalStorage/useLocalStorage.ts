@@ -32,20 +32,15 @@ const IS_SERVER = typeof window === "undefined";
 
 /**
  * Custom hook that uses the [`localStorage API`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to persist state across page reloads.
- * 
+ *
  * @category storage
  * @template T - The type of the state to be stored in local storage.
  * @param {string} key - The key under which the value will be stored in local storage.
  * @param {T | (() => T)} initialValue - The initial value of the state or a function that returns the initial value.
  * @param {UseLocalStorageOptions<T>} [options] - Options for customizing the behavior of serialization and deserialization (optional).
  * @returns {[T, Dispatch<SetStateAction<T>>, () => void]} A tuple containing the stored value, a function to set the value and a function to remove the key from storage.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-local-storage)
  * @public
- * @see [Documentation](/docs/use-local-storage)
- * @example
- * ```tsx
- * const [count, setCount, removeCount] = useLocalStorage('count', 0);
- * // Access the `count` value, the `setCount` function to update it and `removeCount` function to remove the key from storage.
- * ```
  */
 export function useLocalStorage<T>(
   key: string,

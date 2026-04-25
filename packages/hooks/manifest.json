@@ -32,12 +32,12 @@
     },
     {
       "name": "use-callback-ref",
-      "description": "A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a prop or avoid re-executing effects when passed as a dependency ```tsx const handleClick = useCallbackRef((event: MouseEvent) => {   console.log(\"Clicked!\", event); }); useEffect(() => {   window.addEventListener(\"click\", handleClick);   return () => window.removeEventListener(\"click\", handleClick); }, []); ```",
+      "description": "A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a prop or avoid re-executing effects when passed as a dependency",
       "path": "src/useCallbackRef/meta.json"
     },
     {
       "name": "use-click-any-where",
-      "description": "Custom hook that handles click events anywhere on the document. ```tsx const handleClick = (event) => {   console.log('Document clicked!', event); }; // Attach click event handler to document useClickAnywhere(handleClick); ```",
+      "description": "Custom hook that handles click events anywhere on the document.",
       "path": "src/useClickAnyWhere/meta.json"
     },
     {
@@ -92,12 +92,12 @@
     },
     {
       "name": "use-event-callback",
-      "description": "Custom hook that creates a memoized event callback. ```tsx const handleClick = useEventCallback((event) => {   // Handle the event here }); ```",
+      "description": "Custom hook that creates a memoized event callback.",
       "path": "src/useEventCallback/meta.json"
     },
     {
       "name": "use-event-listener",
-      "description": "Custom hook that attaches event listeners to DOM elements, the window, or media query lists. ```tsx // Example 1: Attach a window event listener useEventListener('resize', handleResize); ``` ```tsx // Example 2: Attach a document event listener with options const elementRef = useRef(document); useEventListener('click', handleClick, elementRef, { capture: true }); ``` ```tsx // Example 3: Attach an element event listener const buttonRef = useRef<HTMLButtonElement>(null); useEventListener('click', handleButtonClick, buttonRef); ```",
+      "description": "Custom hook that attaches event listeners to DOM elements, the window, or media query lists.",
       "path": "src/useEventListener/meta.json"
     },
     {
@@ -112,12 +112,12 @@
     },
     {
       "name": "use-fork-ref",
-      "description": "Merges refs into a single memoized callback ref or `null`. ```tsx const rootRef = React.useRef<Instance>(null); const refFork = useForkRef(rootRef, props.ref); return (   <Root {...props} ref={refFork} /> ); ```",
+      "description": "Merges refs into a single memoized callback ref or `null`.",
       "path": "src/useForkRef/meta.json"
     },
     {
       "name": "use-hover",
-      "description": "Custom hook that tracks whether a DOM element is being hovered over. ```tsx const buttonRef = useRef<HTMLButtonElement>(null); const isHovered = useHover(buttonRef); // Access the isHovered variable to determine if the button is being hovered over. ```",
+      "description": "Custom hook that tracks whether a DOM element is being hovered over.",
       "path": "src/useHover/meta.json"
     },
     {
@@ -132,27 +132,27 @@
     },
     {
       "name": "use-interval",
-      "description": "Custom hook that creates an interval that invokes a callback function at a specified delay using the [`setInterval API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval). ```tsx const handleInterval = () => {   // Code to be executed at each interval }; useInterval(handleInterval, 1000); ```",
+      "description": "Custom hook that creates an interval that invokes a callback function at a specified delay using the [`setInterval API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval).",
       "path": "src/useInterval/meta.json"
     },
     {
       "name": "use-is-client",
-      "description": "Custom hook that determines if the code is running on the client side (in the browser). ```tsx const isClient = useIsClient(); // Use isClient to conditionally render or execute code specific to the client side. ```",
+      "description": "Custom hook that determines if the code is running on the client side (in the browser).",
       "path": "src/useIsClient/meta.json"
     },
     {
       "name": "use-is-mounted",
-      "description": "Custom hook that determines if the component is currently mounted. ```tsx const isComponentMounted = useIsMounted(); // Use isComponentMounted() to check if the component is currently mounted before performing certain actions. ```",
+      "description": "Custom hook that determines if the component is currently mounted.",
       "path": "src/useIsMounted/meta.json"
     },
     {
       "name": "use-isomorphic-layout-effect",
-      "description": "Custom hook that uses either `useLayoutEffect` or `useEffect` based on the environment (client-side or server-side). ```tsx useIsomorphicLayoutEffect(() => {   // Code to be executed during the layout phase on the client side }, [dependency1, dependency2]); ```",
+      "description": "Custom hook that uses either `useLayoutEffect` or `useEffect` based on the environment (client-side or server-side).",
       "path": "src/useIsomorphicLayoutEffect/meta.json"
     },
     {
       "name": "use-kbd",
-      "description": "Custom hook that detects the operating system (Mac vs. Windows/Linux) and provides a normalized map of keyboard keys (e.g., mapping \"Meta\" to \"Command\" on Mac and \"Ctrl\" on Windows). ```tsx const { isMac, getKbdKey } = useKbd(); // Returns \"⌘\" on Mac, \"Ctrl\" on Windows const metaSymbol = getKbdKey('meta'); return <div>Press {metaSymbol} + C to copy</div>; ```",
+      "description": "Custom hook that detects the operating system (Mac vs. Windows/Linux) and provides a normalized map of keyboard keys (e.g., mapping \"Meta\" to \"Command\" on Mac and \"Ctrl\" on Windows).",
       "path": "src/useKBD/meta.json"
     },
     {
@@ -187,7 +187,7 @@
     },
     {
       "name": "use-memoized-fn",
-      "description": "A hook that returns a memoized version of a function. Unlike `useCallback`, the function identity remains stable across re-renders, but it always has access to the latest props and state without needing a dependency array. This is particularly useful for passing callbacks to optimized child components to prevent unnecessary re-renders while avoiding closure staleness. ```tsx const [state, setState] = useState(0); // The identity of 'callback' never changes, but it always logs the latest 'state' const callback = useMemoizedFn(() => { console.log('Current state:', state); }); return <ExpensiveComponent onClick={callback} />; ```",
+      "description": "A hook that returns a memoized version of a function. Unlike `useCallback`, the function identity remains stable across re-renders, but it always has access to the latest props and state without needing a dependency array. This is particularly useful for passing callbacks to optimized child components to prevent unnecessary re-renders while avoiding closure staleness.",
       "path": "src/useMemoizedFn/meta.json"
     },
     {
@@ -267,17 +267,17 @@
     },
     {
       "name": "use-timeout",
-      "description": "Custom hook that handles timeouts in React components using the [`setTimeout API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout). ```tsx // Usage of useTimeout hook useTimeout(() => {   // Code to be executed after the specified delay }, 1000); // Set a timeout of 1000 milliseconds (1 second) ```",
+      "description": "Custom hook that handles timeouts in React components using the [`setTimeout API`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout).",
       "path": "src/useTimeout/meta.json"
     },
     {
       "name": "use-toggle",
-      "description": "Custom hook that manages a boolean toggle state in React components. a function to toggle the state, and a function to set the state explicitly. ```tsx const [isToggled, toggle, setToggle] = useToggle(); // Initial value is false // OR const [isToggled, toggle, setToggle] = useToggle(true); // Initial value is true // Use isToggled in your component, toggle to switch the state, setToggle to set the state explicitly. ```",
+      "description": "Custom hook that manages a boolean toggle state in React components.",
       "path": "src/useToggle/meta.json"
     },
     {
       "name": "use-unmount",
-      "description": "Custom hook that runs a cleanup function when the component is unmounted. ```tsx useUnmount(() => {   // Cleanup logic here }); ```",
+      "description": "Custom hook that runs a cleanup function when the component is unmounted.",
       "path": "src/useUnmount/meta.json"
     },
     {
@@ -292,7 +292,7 @@
     },
     {
       "name": "with-defaults",
-      "description": "",
+      "description": "Utility hook that merges default values into a props object, resolving function defaults and memoizing the result.",
       "path": "src/withDefaults/meta.json"
     }
   ],

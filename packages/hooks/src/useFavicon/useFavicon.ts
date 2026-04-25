@@ -21,18 +21,8 @@ export type UseFaviconOptions = {
  * @category dom
  * @param {string} href - The URL of the favicon to set.
  * @param {UseFaviconOptions} [options] - Configuration options.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-favicon)
  * @public
- * @see [Documentation](/docs/use-favicon)
- * @example
- * ```tsx
- * // Basic usage
- * useFavicon('/assets/favicon-dark.ico');
- * // With options
- * useFavicon('/assets/notification-badge.ico', {
- * preserveFaviconOnUnmount: false, // Revert when component unmounts
- * type: 'image/png'
- * });
- * ```
  */
 export function useFavicon(
   href: string,

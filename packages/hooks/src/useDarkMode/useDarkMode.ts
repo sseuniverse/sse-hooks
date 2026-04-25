@@ -41,16 +41,12 @@ type DarkModeReturn = {
 
 /**
  * Custom hook that returns the current state of the dark mode.
- * 
+ *
  * @category dom
  * @param {?DarkModeOptions} [options] - The initial value of the dark mode, default `false`.
  * @returns {DarkModeReturn} An object containing the dark mode's state and its controllers.
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-dark-mode)
  * @public
- * @see [Documentation](/docs/use-dark-mode)
- * @example
- * ```tsx
- * const { isDarkMode, toggle, enable, disable, set } = useDarkMode({ defaultValue: true });
- * ```
  */
 export function useDarkMode(options: DarkModeOptions = {}): DarkModeReturn {
   const {

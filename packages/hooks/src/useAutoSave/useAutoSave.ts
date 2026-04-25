@@ -18,28 +18,10 @@ import { useDebounceCallback } from "../useDebounceCallback";
  * @param {Object} [config] - Configuration options.
  * @param {number} [config.delay=1000] - Debounce delay in ms.
  * @param {K[]} [config.exclude] - Array of keys to exclude from the `onSave` payload (e.g., transient UI state).
- *
  * @returns {UseAutoSaveReturn<T>} Object containing data, setters, and saving state.
  *
+ * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-auto-save)
  * @public
- * @example
- * ```tsx
- * const { data, onChange, isSaving } = useAutoSave(
- * { title: "My Draft", content: "", isOpen: true },
- * async (cleanData) => {
- * // 'isOpen' is excluded, so cleanData only has title and content
- * await api.saveDraft(cleanData);
- * },
- * { delay: 2000, exclude: ["isOpen"] }
- * );
- *
- * return (
- * <input
- * value={data.title}
- * onChange={onChange("title")} // Handles event automatically
- * />
- * );
- * ```
  */
 export function useAutoSave<
   T extends Record<string, any>,
