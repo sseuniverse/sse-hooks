@@ -4,10 +4,26 @@ import { useKey } from "@/hooks/useKey";
 export function EscapeMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Close the menu when the 'Escape' key is pressed anywhere on the window
-  useKey("Escape", () => {
-    setIsOpen(false);
-  });
+  const { bindings } = useKey(
+    {
+      Escape: () => setIsOpen(false),
+      "Ctrl+S": {
+        action: (e) => saveDocument(),
+        preventDefault: true,
+        description: "Save changes",
+        category: "File",
+      },
+      "g i": {
+        action: () => navigate("/inbox"),
+        description: "Go to Inbox",
+        category: "Navigation",
+      },
+    },
+    {
+      debug: true,
+      allowInInputs: false,
+    },
+  );
 
   return (
     <div style={{ padding: "20px" }}>

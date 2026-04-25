@@ -202,6 +202,11 @@ async function main() {
     const data = JSON.parse(fs.readFileSync(INPUT_JSON, "utf-8"));
     const { oldHooks, hasData } = await getNewHooksList();
 
+    const allHookFolders = fs
+      .readdirSync(HOOKS_SRC_DIR, { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory() && dirent.name.startsWith("use"))
+      .map((dirent) => dirent.name);
+
     let hooks = [];
     if (data.children) {
       for (const module of data.children) {
@@ -222,21 +227,26 @@ async function main() {
     }
 
     hooks.sort((a, b) => a.name.localeCompare(b.name));
+    const typedocHookNames = new Set(hooks.map((h) => h.name));
+    const hooksMissedByTypeDoc = allHookFolders.filter(
+      (folderName) => !typedocHookNames.has(folderName),
+    );
 
     const processedHooks = [];
     const categorizedLinks = {};
     Object.keys(CATEGORY_MAP).forEach((k) => (categorizedLinks[k] = []));
 
     let index = 1;
+    const missingJSDocs = [];
 
     for (const hook of hooks) {
       const { name, signature } = hook;
       if (!signature) continue;
 
       const kebabName = camelToKebab(name);
-
       const autoSummary = parseComment(signature.comment);
       const autoCategory = parseCategory(signature.comment?.blockTags);
+      if (!autoSummary) missingJSDocs.push(name);
 
       const autoDesc = autoSummary;
       const isNew = hasData && !oldHooks.has(name);
@@ -366,6 +376,23 @@ bunx sse-hooks add ${kebabName}
     const readmeContent = generateReadmeContent(categorizedLinks);
     updateReadme(README_MAIN, readmeContent);
     updateReadme(README_HOOKS, readmeContent);
+
+    if (hooksMissedByTypeDoc.length > 0) {
+      console.log(
+        `\n🚨 Found ${hooksMissedByTypeDoc.length} hooks in the source folder that were completely MISSED by TypeDoc:`,
+      );
+      hooksMissedByTypeDoc.forEach((h) => console.log(`   - ${h}`));
+      console.log(
+        `   (Hint: Check if these are properly exported in your index.ts, or if they lack a "use" function in the AST.)`,
+      );
+    }
+
+    if (missingJSDocs.length > 0) {
+      console.log(
+        `\n⚠️  Found ${missingJSDocs.length} hooks missing JSDoc summaries:`,
+      );
+      missingJSDocs.forEach((h) => console.log(`   - ${h}`));
+    }
 
     console.log(`\n🎉 Documentation & Readmes updated!`);
   } catch (error) {
