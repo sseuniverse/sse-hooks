@@ -1,0 +1,37 @@
+{
+  "$schema": "https://sse-hooks.vercel.app/api/registry/schema/hook.json",
+  "name": "use-idle",
+  "type": "registry:hook",
+  "title": "useIdle",
+  "description": "Creates a throttled function that only invokes the provided callback at most once per every `ms` milliseconds.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [],
+  "api": {
+    "tags": {
+      "category": "sensors",
+      "see": "[Documentation](https://sse-hooks.vercel.app/docs/hooks/use-idle)",
+      "public": true
+    },
+    "types": [],
+    "parameters": [
+      {
+        "name": "ms",
+        "type": "number",
+        "isOptional": true,
+        "defaultValue": "1000 * 60",
+        "description": "- The time in milliseconds before the user is considered idle."
+      }
+    ],
+    "returnType": {
+      "name": "boolean",
+      "description": "A boolean value indicating if the user is currently idle."
+    }
+  },
+  "file": {
+    "path": "use-idle.ts",
+    "content": "/**\n * Creates a throttled function that only invokes the provided callback\n * at most once per every `ms` milliseconds.\n * @category utilities\n * @template T - The array of argument types for the callback.\n * @param {(...args: T) => void} cb - The callback function to throttle.\n * @param {number} ms - The number of milliseconds to throttle invocations to.\n * @returns {(...args: T) => void} A new throttled function.\n * @public\n */\nexport function throttle<T extends any[]>(\n  cb: (...args: T) => void,\n  ms: number,\n): (...args: T) => void {\n  let lastTime = 0;\n\n  return (...args: T) => {\n    const now = Date.now();\n    if (now - lastTime >= ms) {\n      cb(...args);\n      lastTime = now;\n    }\n  };\n}\n\n/**\n * Custom hook that tracks whether the user is idle based on activity events.\n * @category sensors\n * @param {number} [ms=60000] - The time in milliseconds before the user is considered idle.\n * @returns {boolean} A boolean value indicating if the user is currently idle.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-idle)\n * @public\n */\nexport function useIdle(ms: number = 1000 * 60): boolean {\n  const [idle, setIdle] = useState(false);\n\n  useEffect(() => {\n    let timeoutId: number;\n\n    const handleTimeout = () => {\n      setIdle(true);\n    };\n\n    const handleEvent = throttle(() => {\n      setIdle(false);\n      window.clearTimeout(timeoutId);\n      timeoutId = window.setTimeout(handleTimeout, ms);\n    }, 500);\n\n    const handleVisibilityChange = () => {\n      if (!document.hidden) {\n        handleEvent();\n      }\n    };\n\n    timeoutId = window.setTimeout(handleTimeout, ms);\n\n    window.addEventListener(\"mousemove\", handleEvent);\n    window.addEventListener(\"mousedown\", handleEvent);\n    window.addEventListener(\"resize\", handleEvent);\n    window.addEventListener(\"keydown\", handleEvent);\n    window.addEventListener(\"touchstart\", handleEvent);\n    window.addEventListener(\"wheel\", handleEvent);\n    document.addEventListener(\"visibilitychange\", handleVisibilityChange);\n\n    return () => {\n      window.removeEventListener(\"mousemove\", handleEvent);\n      window.removeEventListener(\"mousedown\", handleEvent);\n      window.removeEventListener(\"resize\", handleEvent);\n      window.removeEventListener(\"keydown\", handleEvent);\n      window.removeEventListener(\"touchstart\", handleEvent);\n      window.removeEventListener(\"wheel\", handleEvent);\n      document.removeEventListener(\"visibilitychange\", handleVisibilityChange);\n      window.clearTimeout(timeoutId);\n    };\n  }, [ms]);\n\n  return idle;\n}\n",
+    "js": "export function throttle(cb, ms) {\n  let lastTime = 0;\n  return (...args) => {\n    const now = Date.now();\n    if (now - lastTime >= ms) {\n      cb(...args);\n      lastTime = now;\n    }\n  };\n}\nexport function useIdle(ms = 1000 * 60) {\n  const [idle, setIdle] = useState(false);\n  useEffect(() => {\n    let timeoutId;\n    const handleTimeout = () => {\n      setIdle(true);\n    };\n    const handleEvent = throttle(() => {\n      setIdle(false);\n      window.clearTimeout(timeoutId);\n      timeoutId = window.setTimeout(handleTimeout, ms);\n    }, 500);\n    const handleVisibilityChange = () => {\n      if (!document.hidden) {\n        handleEvent();\n      }\n    };\n    timeoutId = window.setTimeout(handleTimeout, ms);\n    window.addEventListener(\"mousemove\", handleEvent);\n    window.addEventListener(\"mousedown\", handleEvent);\n    window.addEventListener(\"resize\", handleEvent);\n    window.addEventListener(\"keydown\", handleEvent);\n    window.addEventListener(\"touchstart\", handleEvent);\n    window.addEventListener(\"wheel\", handleEvent);\n    document.addEventListener(\"visibilitychange\", handleVisibilityChange);\n    return () => {\n      window.removeEventListener(\"mousemove\", handleEvent);\n      window.removeEventListener(\"mousedown\", handleEvent);\n      window.removeEventListener(\"resize\", handleEvent);\n      window.removeEventListener(\"keydown\", handleEvent);\n      window.removeEventListener(\"touchstart\", handleEvent);\n      window.removeEventListener(\"wheel\", handleEvent);\n      document.removeEventListener(\"visibilitychange\", handleVisibilityChange);\n      window.clearTimeout(timeoutId);\n    };\n  }, [ms]);\n  return idle;\n}\n"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://sse-hooks.vercel.app/api/registry/schema/hook.json",
+  "name": "use-supported",
+  "type": "registry:hook",
+  "title": "useSupported",
+  "description": "Custom hook that safely checks if a specific feature or browser API is supported.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "use-isomorphic-layout-effect"
+  ],
+  "api": {
+    "tags": {
+      "category": "utilities",
+      "see": "[Documentation](https://sse-hooks.vercel.app/docs/hooks/use-supported)",
+      "public": true
+    },
+    "types": [],
+    "parameters": [
+      {
+        "name": "callback",
+        "type": "() => unknown",
+        "isOptional": false,
+        "description": "- A function that attempts to access or use the feature/API."
+      },
+      {
+        "name": "sync",
+        "type": "boolean",
+        "isOptional": true,
+        "defaultValue": "false",
+        "description": "- If true, evaluates the support synchronously using `useIsomorphicLayoutEffect` instead of `useEffect`."
+      }
+    ],
+    "returnType": {
+      "name": "boolean",
+      "description": "True if the callback executes successfully and returns a truthy value, false otherwise."
+    }
+  },
+  "file": {
+    "path": "use-supported.ts",
+    "content": "/**\n * Custom hook that safely checks if a specific feature or browser API is supported.\n * @category utilities\n * @param {() => unknown} callback - A function that attempts to access or use the feature/API.\n * @param {boolean} [sync=false] - If true, evaluates the support synchronously using `useIsomorphicLayoutEffect` instead of `useEffect`.\n * @returns {boolean} True if the callback executes successfully and returns a truthy value, false otherwise.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-supported)\n * @public\n */\nexport function useSupported(callback: () => unknown, sync = false): boolean {\n  const [supported, setSupported] = useState(false);\n\n  const effect = sync ? useIsomorphicLayoutEffect : useEffect;\n\n  effect(() => {\n    try {\n      setSupported(Boolean(callback()));\n    } catch {\n      setSupported(false);\n    }\n  }, []);\n\n  return supported;\n}\n",
+    "js": "export function useSupported(callback, sync = false) {\n  const [supported, setSupported] = useState(false);\n  const effect = sync ? useIsomorphicLayoutEffect : useEffect;\n  effect(() => {\n    try {\n      setSupported(Boolean(callback()));\n    } catch {\n      setSupported(false);\n    }\n  }, []);\n  return supported;\n}\n"
+  }
+}

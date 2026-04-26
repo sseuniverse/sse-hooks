@@ -86,6 +86,11 @@
       "path": "src/useDebounceValue/meta.json"
     },
     {
+      "name": "use-deep-compare-effect",
+      "description": "Custom hook that serves as a drop-in replacement for `useEffect`, but uses deep comparison on its dependencies instead of reference equality.",
+      "path": "src/useDeepCompareEffect/meta.json"
+    },
+    {
       "name": "use-document-title",
       "description": "Hook options.",
       "path": "src/useDocumentTitle/meta.json"
@@ -111,14 +116,34 @@
       "path": "src/useFetch/meta.json"
     },
     {
+      "name": "use-focus",
+      "description": "Custom hook that tracks the focus state of a DOM element.",
+      "path": "src/useFocus/meta.json"
+    },
+    {
       "name": "use-fork-ref",
       "description": "Merges refs into a single memoized callback ref or `null`.",
       "path": "src/useForkRef/meta.json"
     },
     {
+      "name": "use-geolocation",
+      "description": "Custom hook that tracks the user's geographic location using the Geolocation API.",
+      "path": "src/useGeolocation/meta.json"
+    },
+    {
+      "name": "use-history-state",
+      "description": "Internal state structure for the history reducer.",
+      "path": "src/useHistoryState/meta.json"
+    },
+    {
       "name": "use-hover",
       "description": "Custom hook that tracks whether a DOM element is being hovered over.",
       "path": "src/useHover/meta.json"
+    },
+    {
+      "name": "use-idle",
+      "description": "Creates a throttled function that only invokes the provided callback at most once per every `ms` milliseconds.",
+      "path": "src/useIdle/meta.json"
     },
     {
       "name": "use-indexed-db",
@@ -256,6 +281,11 @@
       "path": "src/useStep/meta.json"
     },
     {
+      "name": "use-supported",
+      "description": "Custom hook that safely checks if a specific feature or browser API is supported.",
+      "path": "src/useSupported/meta.json"
+    },
+    {
       "name": "use-symbol",
       "description": "Creates a new unique symbol and adds it to the local registry.",
       "path": "src/useSymbol/meta.json"
@@ -296,5 +326,5 @@
       "path": "src/withDefaults/meta.json"
     }
   ],
-  "length": 59
+  "length": 65
 }

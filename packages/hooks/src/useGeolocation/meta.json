@@ -1,0 +1,157 @@
+{
+  "$schema": "https://sse-hooks.vercel.app/api/registry/schema/hook.json",
+  "name": "use-geolocation",
+  "type": "registry:hook",
+  "title": "useGeolocation",
+  "description": "Custom hook that tracks the user's geographic location using the Geolocation API.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "use-supported"
+  ],
+  "api": {
+    "tags": {
+      "category": "sensors",
+      "see": "[Documentation](https://sse-hooks.vercel.app/docs/hooks/use-geolocation)",
+      "public": true
+    },
+    "types": [],
+    "parameters": [
+      {
+        "name": "options",
+        "type": "Partial<PositionOptions>",
+        "isOptional": true,
+        "defaultValue": "{}",
+        "description": "- Configuration options for the geolocation requests.",
+        "properties": [
+          {
+            "name": "enableHighAccuracy",
+            "type": "boolean | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "maximumAge",
+            "type": "number | undefined",
+            "isOptional": true
+          },
+          {
+            "name": "timeout",
+            "type": "number | undefined",
+            "isOptional": true
+          }
+        ]
+      }
+    ],
+    "returnType": {
+      "name": "UseGeolocationReturns",
+      "description": "An object containing the coordinates, timestamp, error state, and API support status.",
+      "properties": [
+        {
+          "name": "coordinates",
+          "type": "GeolocationCoordinates",
+          "isOptional": false,
+          "properties": [
+            {
+              "name": "accuracy",
+              "type": "number",
+              "isOptional": false,
+              "description": "The **`accuracy`** read-only property of the GeolocationCoordinates interface is a strictly positive double representing the accuracy, with a 95% confidence level, of the GeolocationCoordinates.latitude and GeolocationCoordinates.longitude properties expressed in meters.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/GeolocationCoordinates/accuracy)"
+            },
+            {
+              "name": "altitude",
+              "type": "number | null",
+              "isOptional": false,
+              "description": "The **`altitude`** read-only property of the GeolocationCoordinates interface is a double representing the altitude of the position in meters above the WGS84 ellipsoid (which defines the nominal sea level surface). This value is null if the implementation cannot provide this data.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/GeolocationCoordinates/altitude)"
+            },
+            {
+              "name": "altitudeAccuracy",
+              "type": "number | null",
+              "isOptional": false,
+              "description": "The **`altitudeAccuracy`** read-only property of the GeolocationCoordinates interface is a strictly positive double representing the accuracy, with a 95% confidence level, of the altitude expressed in meters. This value is null if the implementation doesn't support measuring altitude.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/GeolocationCoordinates/altitudeAccuracy)"
+            },
+            {
+              "name": "heading",
+              "type": "number | null",
+              "isOptional": false,
+              "description": "The **`heading`** read-only property of the GeolocationCoordinates interface is a double representing the direction in which the device is traveling. This value, specified in degrees, indicates how far off from heading due north the device is. 0 degrees represents true north, and the direction is determined clockwise (which means that east is 90 degrees and west is 270 degrees). If GeolocationCoordinates.speed is 0 or the device is not able to provide heading information, heading is null.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/GeolocationCoordinates/heading)"
+            },
+            {
+              "name": "latitude",
+              "type": "number",
+              "isOptional": false,
+              "description": "The **`latitude`** read-only property of the GeolocationCoordinates interface is a double representing the latitude of the position in decimal degrees.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/GeolocationCoordinates/latitude)"
+            },
+            {
+              "name": "longitude",
+              "type": "number",
+              "isOptional": false,
+              "description": "The **`longitude`** read-only property of the GeolocationCoordinates interface is a number which represents the longitude of a geographical position, specified in decimal degrees. Together with a timestamp, given as Unix time in milliseconds, indicating a time of measurement, the GeolocationCoordinates object is part of the GeolocationPosition interface, which is the object type returned by Geolocation API functions that obtain and return a geographical position.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/GeolocationCoordinates/longitude)"
+            },
+            {
+              "name": "speed",
+              "type": "number | null",
+              "isOptional": false,
+              "description": "The **`speed`** read-only property of the GeolocationCoordinates interface is a double representing the velocity of the device in meters per second. This value is null if the implementation is not able to measure it.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/GeolocationCoordinates/speed)"
+            },
+            {
+              "name": "toJSON",
+              "type": "() => any",
+              "isOptional": false,
+              "description": "The **`toJSON()`** method of the GeolocationCoordinates interface is a serializer; it returns a JSON representation of the GeolocationCoordinates object.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/GeolocationCoordinates/toJSON)"
+            }
+          ]
+        },
+        {
+          "name": "locatedAt",
+          "type": "number | null",
+          "isOptional": false
+        },
+        {
+          "name": "error",
+          "type": "GeolocationPositionError | null",
+          "isOptional": false,
+          "properties": [
+            {
+              "name": "code",
+              "type": "number",
+              "isOptional": false,
+              "description": "The **`code`** read-only property of the GeolocationPositionError interface is an unsigned short representing the error code.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/GeolocationPositionError/code)"
+            },
+            {
+              "name": "message",
+              "type": "string",
+              "isOptional": false,
+              "description": "The **`message`** read-only property of the GeolocationPositionError interface returns a human-readable string describing the details of the error.\n\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/GeolocationPositionError/message)"
+            },
+            {
+              "name": "PERMISSION_DENIED",
+              "type": "1",
+              "isOptional": false
+            },
+            {
+              "name": "POSITION_UNAVAILABLE",
+              "type": "2",
+              "isOptional": false
+            },
+            {
+              "name": "TIMEOUT",
+              "type": "3",
+              "isOptional": false
+            }
+          ]
+        },
+        {
+          "name": "isSupported",
+          "type": "boolean",
+          "isOptional": false
+        }
+      ]
+    }
+  },
+  "file": {
+    "path": "use-geolocation.ts",
+    "content": "export interface UseGeolocationReturns {\n  readonly coordinates: GeolocationCoordinates;\n  readonly locatedAt: number | null;\n  readonly error: GeolocationPositionError | null;\n  readonly isSupported: boolean;\n}\n\nexport const initCoord: GeolocationPosition[\"coords\"] = {\n  accuracy: 0,\n  latitude: Number.POSITIVE_INFINITY,\n  longitude: Number.POSITIVE_INFINITY,\n  altitude: null,\n  altitudeAccuracy: null,\n  heading: null,\n  speed: null,\n  toJSON() {},\n};\n\n/**\n * Custom hook that tracks the user's geographic location using the Geolocation API.\n * @category sensors\n * @param {Partial<PositionOptions>} [options={}] - Configuration options for the geolocation requests.\n * @returns {UseGeolocationReturns} An object containing the coordinates, timestamp, error state, and API support status.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-geolocation)\n * @public\n */\nexport function useGeolocation(\n  options: Partial<PositionOptions> = {},\n): UseGeolocationReturns {\n  const {\n    enableHighAccuracy = true,\n    maximumAge = 30000,\n    timeout = 27000,\n  } = options;\n\n  const isSupported = useSupported(\n    () =>\n      typeof navigator !== \"undefined\" &&\n      !!navigator.geolocation &&\n      typeof navigator.geolocation.getCurrentPosition === \"function\" &&\n      typeof navigator.geolocation.watchPosition === \"function\" &&\n      typeof navigator.geolocation.clearWatch === \"function\",\n  );\n\n  const [coordinates, setCoordinates] =\n    useState<GeolocationPosition[\"coords\"]>(initCoord);\n  const [locatedAt, setLocatedAt] = useState<number | null>(null);\n  const [error, setError] = useState<GeolocationPositionError | null>(null);\n\n  const updatePosition = useCallback((position: GeolocationPosition) => {\n    setCoordinates(position.coords);\n    setLocatedAt(position.timestamp);\n    setError(null);\n  }, []);\n\n  const updateError = useCallback((err: GeolocationPositionError) => {\n    setCoordinates(initCoord);\n    setLocatedAt(null);\n    setError(err);\n  }, []);\n\n  useEffect(() => {\n    if (!isSupported) {\n      return;\n    }\n\n    // watchPosition automatically grabs the initial location,\n    // so getCurrentPosition is not needed here.\n    const watchId = navigator.geolocation.watchPosition(\n      updatePosition,\n      updateError,\n      {\n        enableHighAccuracy,\n        maximumAge,\n        timeout,\n      },\n    );\n\n    return () => {\n      if (watchId !== undefined) {\n        navigator.geolocation.clearWatch(watchId);\n      }\n    };\n  }, [\n    enableHighAccuracy,\n    isSupported,\n    maximumAge,\n    timeout,\n    updateError,\n    updatePosition,\n  ]);\n\n  return {\n    coordinates,\n    locatedAt,\n    error,\n    isSupported,\n  };\n}\n",
+    "js": "export const initCoord = {\n  accuracy: 0,\n  latitude: Number.POSITIVE_INFINITY,\n  longitude: Number.POSITIVE_INFINITY,\n  altitude: null,\n  altitudeAccuracy: null,\n  heading: null,\n  speed: null,\n  toJSON() {},\n};\nexport function useGeolocation(options = {}) {\n  const {\n    enableHighAccuracy = true,\n    maximumAge = 30000,\n    timeout = 27000,\n  } = options;\n  const isSupported = useSupported(\n    () =>\n      typeof navigator !== \"undefined\" &&\n      !!navigator.geolocation &&\n      typeof navigator.geolocation.getCurrentPosition === \"function\" &&\n      typeof navigator.geolocation.watchPosition === \"function\" &&\n      typeof navigator.geolocation.clearWatch === \"function\",\n  );\n  const [coordinates, setCoordinates] = useState(initCoord);\n  const [locatedAt, setLocatedAt] = useState(null);\n  const [error, setError] = useState(null);\n  const updatePosition = useCallback((position) => {\n    setCoordinates(position.coords);\n    setLocatedAt(position.timestamp);\n    setError(null);\n  }, []);\n  const updateError = useCallback((err) => {\n    setCoordinates(initCoord);\n    setLocatedAt(null);\n    setError(err);\n  }, []);\n  useEffect(() => {\n    if (!isSupported) {\n      return;\n    }\n    const watchId = navigator.geolocation.watchPosition(\n      updatePosition,\n      updateError,\n      {\n        enableHighAccuracy,\n        maximumAge,\n        timeout,\n      },\n    );\n    return () => {\n      if (watchId !== undefined) {\n        navigator.geolocation.clearWatch(watchId);\n      }\n    };\n  }, [\n    enableHighAccuracy,\n    isSupported,\n    maximumAge,\n    timeout,\n    updateError,\n    updatePosition,\n  ]);\n  return {\n    coordinates,\n    locatedAt,\n    error,\n    isSupported,\n  };\n}\n"
+  }
+}

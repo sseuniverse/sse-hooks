@@ -16,7 +16,7 @@
   },
   "file": {
     "path": "use-isomorphic-layout-effect.ts",
-    "content": "/**\n * Custom hook that uses either `useLayoutEffect` or `useEffect` based on the environment (client-side or server-side).\n * @param {Function} effect - The effect function to be executed.\n * @param {Array<any>} [dependencies] - An array of dependencies for the effect (optional).\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-isomorphic-layout-effect)\n * @public\n */\nexport const useIsomorphicLayoutEffect =\n  typeof window !== \"undefined\" ? useLayoutEffect : useEffect;\n",
+    "content": "/**\n * Custom hook that uses either `useLayoutEffect` or `useEffect` based on the environment (client-side or server-side).\n *\n * @category effect\n * @param {Function} effect - The effect function to be executed.\n * @param {Array<any>} [dependencies] - An array of dependencies for the effect (optional).\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-isomorphic-layout-effect)\n * @public\n */\nexport const useIsomorphicLayoutEffect =\n  typeof window !== \"undefined\" ? useLayoutEffect : useEffect;\n",
     "js": "export const useIsomorphicLayoutEffect =\n  typeof window !== \"undefined\" ? useLayoutEffect : useEffect;\n"
   }
 }

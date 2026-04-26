@@ -1,0 +1,43 @@
+{
+  "$schema": "https://sse-hooks.vercel.app/api/registry/schema/hook.json",
+  "name": "use-focus",
+  "type": "registry:hook",
+  "title": "useFocus",
+  "description": "Custom hook that tracks the focus state of a DOM element.",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [],
+  "api": {
+    "tags": {
+      "category": "dom",
+      "see": "[Documentation](https://sse-hooks.vercel.app/docs/hooks/use-focus)",
+      "public": true
+    },
+    "types": [],
+    "parameters": [
+      {
+        "name": "ref",
+        "type": "RefObject<T>",
+        "isOptional": false,
+        "description": "- The React ref object attached to the DOM element."
+      },
+      {
+        "name": "defaultState",
+        "type": "boolean",
+        "isOptional": true,
+        "defaultValue": "false",
+        "description": "- The initial focus state."
+      }
+    ],
+    "returnType": {
+      "name": "boolean",
+      "description": "True if the element is currently focused, false otherwise."
+    }
+  },
+  "file": {
+    "path": "use-focus.ts",
+    "content": "/**\n * Custom hook that tracks the focus state of a DOM element.\n * @category dom\n * @param {RefObject<HTMLElement>} ref - The React ref object attached to the DOM element.\n * @param {boolean} [defaultState=false] - The initial focus state.\n * @returns {boolean} True if the element is currently focused, false otherwise.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-focus)\n * @public\n */\nexport const useFocus = <T extends HTMLElement>(\n  ref: RefObject<T>,\n  defaultState: boolean = false,\n): boolean => {\n  const [state, setState] = useState(defaultState);\n\n  useEffect(() => {\n    const element = ref.current;\n    if (!element) return;\n\n    element.addEventListener(\"focus\", () => setState(true));\n    element.addEventListener(\"blur\", () => setState(false));\n\n    return () => {\n      element.removeEventListener(\"focus\", () => setState(true));\n      element.removeEventListener(\"blur\", () => setState(false));\n    };\n  }, [ref]);\n\n  return state;\n};\n",
+    "js": "export const useFocus = (ref, defaultState = false) => {\n  const [state, setState] = useState(defaultState);\n  useEffect(() => {\n    const element = ref.current;\n    if (!element) return;\n    element.addEventListener(\"focus\", () => setState(true));\n    element.addEventListener(\"blur\", () => setState(false));\n    return () => {\n      element.removeEventListener(\"focus\", () => setState(true));\n      element.removeEventListener(\"blur\", () => setState(false));\n    };\n  }, [ref]);\n  return state;\n};\n"
+  }
+}

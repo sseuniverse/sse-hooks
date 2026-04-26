@@ -6,7 +6,9 @@
 - [`useAudioRecorder`](https://sse-hooks.vercel.app/docs/hooks/use-audio-recorder) — A comprehensive hook for audio recording with real-time analysis using getUserMedia, MediaRecorder, and Web Audio APIs
 - [`useBreakpoint`](https://sse-hooks.vercel.app/docs/hooks/use-breakpoint) — Reactive hooks and utilities to be used with user provided breakpoints.
 - [`useConferenceSystem`](https://sse-hooks.vercel.app/docs/hooks/use-conference-system) — A comprehensive hook for managing video conferencing state, including camera access, screen sharing, network monitoring, and automatic media quality adjustment.
+- [`useGeolocation`](https://sse-hooks.vercel.app/docs/hooks/use-geolocation) — Custom hook that tracks the user's geographic location using the Geolocation API.
 - [`useHover`](https://sse-hooks.vercel.app/docs/hooks/use-hover) — Custom hook that tracks whether a DOM element is being hovered over.
+- [`useIdle`](https://sse-hooks.vercel.app/docs/hooks/use-idle) — Custom hook that tracks whether the user is idle based on activity events.
 - [`useKey`](https://sse-hooks.vercel.app/docs/hooks/use-key) — A powerful sensor hook for handling keyboard shortcuts, sequences, and modifiers.  It supports complex key combinations (`Ctrl+Shift+S`), Gmail-style sequences (`g then i`), and provides metadata for generating \"Keyboard Shortcut\" UI help modals.
 - [`useMediaQuery`](https://sse-hooks.vercel.app/docs/hooks/use-media-query) — Custom hook that tracks the state of a media query using the `Match Media API`.
 - [`useMediaSession`](https://sse-hooks.vercel.app/docs/hooks/use-media-session) — Custom hook that interacts with the Media Session API. It allows you to customize media notifications and handle media control events (like play, pause, next track) from the system's notification area or lock screen.
@@ -19,6 +21,7 @@
 ### 💾 State
 - [`useBoolean`](https://sse-hooks.vercel.app/docs/hooks/use-boolean) — Custom hook that handles boolean state with useful utility functions.
 - [`useCounter`](https://sse-hooks.vercel.app/docs/hooks/use-counter) — Custom hook that manages a counter with increment, decrement, reset, and setCount functionalities.
+- [`useHistoryState`](https://sse-hooks.vercel.app/docs/hooks/use-history-state) — Custom hook for managing state history, providing undo, redo, and clear functionality.
 - [`useMap`](https://sse-hooks.vercel.app/docs/hooks/use-map) — Custom hook that manages a key-value `Map` state with setter actions.
 - [`useRoleGuard`](https://sse-hooks.vercel.app/docs/hooks/use-role-guard) — Custom hook for Role-Based Access Control (RBAC). Checks if a user has specific permissions and handles redirection for unauthorized access.
 - [`useStep`](https://sse-hooks.vercel.app/docs/hooks/use-step) — Custom hook that manages and navigates between steps in a multi-step process.
@@ -28,6 +31,7 @@
 - [`useCountdown`](https://sse-hooks.vercel.app/docs/hooks/use-countdown) — Custom hook that manages countdown.
 - [`useDebounceCallback`](https://sse-hooks.vercel.app/docs/hooks/use-debounce-callback) — Custom hook that creates a debounced version of a callback function.
 - [`useDebounceValue`](https://sse-hooks.vercel.app/docs/hooks/use-debounce-value) — Custom hook that returns a debounced version of the provided value, along with a function to update it.
+- [`useDeepCompareEffect`](https://sse-hooks.vercel.app/docs/hooks/use-deep-compare-effect) — Custom hook that serves as a drop-in replacement for `useEffect`, but uses deep comparison on its dependencies instead of reference equality.
 - [`useEventListener`](https://sse-hooks.vercel.app/docs/hooks/use-event-listener) — Custom hook that attaches event listeners to DOM elements, the window, or media query lists.
 - [`useInterval`](https://sse-hooks.vercel.app/docs/hooks/use-interval) — Custom hook that creates an interval that invokes a callback function at a specified delay using the `setInterval API`.
 - [`useTimeout`](https://sse-hooks.vercel.app/docs/hooks/use-timeout) — Custom hook that handles timeouts in React components using the `setTimeout API`.
@@ -43,6 +47,7 @@
 - [`useDarkMode`](https://sse-hooks.vercel.app/docs/hooks/use-dark-mode) — Custom hook that returns the current state of the dark mode.
 - [`useDocumentTitle`](https://sse-hooks.vercel.app/docs/hooks/use-document-title) — Custom hook that sets the document title.
 - [`useFavicon`](https://sse-hooks.vercel.app/docs/hooks/use-favicon) — Custom hook that sets the document favicon.
+- [`useFocus`](https://sse-hooks.vercel.app/docs/hooks/use-focus) — Custom hook that tracks the focus state of a DOM element.
 - [`useForkRef`](https://sse-hooks.vercel.app/docs/hooks/use-fork-ref) — Merges refs into a single memoized callback ref or `null`.
 - [`useIntersectionObserver`](https://sse-hooks.vercel.app/docs/hooks/use-intersection-observer) — Custom hook that tracks the intersection of a DOM element with its containing element or the viewport using the `Intersection Observer API`.
 - [`usePortal`](https://sse-hooks.vercel.app/docs/hooks/use-portal) — Custom hook to manage the creation and state of DOM Portals. Handles mounting, unmounting, outside clicks, and \"Escape\" key closure.
@@ -71,5 +76,6 @@
 - [`useMemoizedFn`](https://sse-hooks.vercel.app/docs/hooks/use-memoized-fn) — A hook that returns a memoized version of a function. Unlike `useCallback`, the function identity remains stable across re-renders, but it always has access to the latest props and state without needing a dependency array. This is particularly useful for passing callbacks to optimized child components to prevent unnecessary re-renders while avoiding closure staleness.
 - [`useSearchWithSuggestions`](https://sse-hooks.vercel.app/docs/hooks/use-search-with-suggestions) — A comprehensive hook for building \"Command Palette\" or \"Omnibar\" style search interfaces. * It provides \"Ghost Text\" autocomplete (like Google search), command scoping (like Slack's `/` commands), and keyboard support. It handles the complex logic of parsing input strings to separate commands from queries.
 - [`useSSR`](https://sse-hooks.vercel.app/docs/hooks/use-ssr) — Custom hook that detects the current environment (Browser, Server, or Native) and capability support (Workers, EventListeners). useful for avoiding hydration mismatches.
+- [`useSupported`](https://sse-hooks.vercel.app/docs/hooks/use-supported) — Custom hook that safely checks if a specific feature or browser API is supported.
 - [`useSymbol`](https://sse-hooks.vercel.app/docs/hooks/use-symbol) — Custom hook for managing ES6 Symbols. Provides utilities to create unique symbols, manage a registry of symbols, and access well-known symbols.
 <!-- HOOKS:END -->
