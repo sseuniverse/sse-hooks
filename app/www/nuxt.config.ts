@@ -12,11 +12,6 @@ export default defineNuxtConfig({
     "motion-v/nuxt",
   ],
 
-  sourcemap: {
-    server: false,
-    client: false,
-  },
-
   devtools: {
     enabled: true,
   },

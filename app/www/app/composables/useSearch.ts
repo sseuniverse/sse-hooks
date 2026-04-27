@@ -1,42 +1,34 @@
 import type { UIMessage } from "ai";
+import { useChat } from "./useChat";
 
 export function useSearch() {
   const route = useRoute();
-
-  const chat = ref(false);
-  const fullscreen = ref(false);
   const searchTerm = ref("");
-  const messages = ref<UIMessage[]>([]);
+  const { open, messages } = useChat();
 
-  function onSelect(e: any) {
-    e.preventDefault();
+  function onSelect() {
+    if (searchTerm.value) {
+      messages.value = [
+        ...messages.value,
+        {
+          id: String(Date.now()),
+          role: "user",
+          parts: [{ type: "text", text: searchTerm.value }],
+        },
+      ];
+    }
 
-    messages.value = searchTerm.value
-      ? [
-          {
-            id: "1",
-            role: "user",
-            parts: [{ type: "text", text: searchTerm.value }],
-          },
-        ]
-      : [
-          {
-            id: "1",
-            role: "assistant",
-            parts: [{ type: "text", text: "Hello, how can I help you today?" }],
-          },
-        ];
-
-    chat.value = true;
+    open.value = true;
   }
 
   const links = computed(() =>
     [
-      !searchTerm.value && {
+      {
         label: "Ask AI",
         description:
           "Ask the AI assistant powered by our custom MCP server for help.",
         icon: "i-lucide-bot",
+        kbds: ["meta", "i"],
         ui: {
           itemLeadingIcon:
             "group-data-highlighted:not-group-data-disabled:text-primary",
@@ -69,44 +61,14 @@ export function useSearch() {
         description:
           "Check out the Nuxt UI repository and follow development on GitHub.",
         icon: "i-simple-icons-github",
-        to: "https://github.com/nuxt/ui/releases",
+        to: "https://github.com/sseuniverse/sse-hooks/releases",
         target: "_blank",
       },
     ].filter((link) => !!link),
   );
 
-  const groups = computed(() => [
-    {
-      id: "ai",
-      label: "AI",
-      ignoreFilter: true,
-      postFilter: (searchTerm: string, items: any[]) => {
-        if (!searchTerm) {
-          return [];
-        }
-
-        return items;
-      },
-      items: [
-        {
-          label: "Ask AI",
-          icon: "i-lucide-bot",
-          ui: {
-            itemLeadingIcon:
-              "group-data-highlighted:not-group-data-disabled:text-primary",
-          },
-          onSelect,
-        },
-      ],
-    },
-  ]);
-
   return {
     links,
-    groups,
-    chat,
-    fullscreen,
     searchTerm,
-    messages,
   };
 }

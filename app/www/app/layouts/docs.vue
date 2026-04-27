@@ -1,57 +1,49 @@
 <script setup lang="ts">
-import { useFilter } from "reka-ui";
-import type { ContentNavigationItem } from "@nuxt/content";
+import { useFilter } from '@nuxt/ui/composables'
+import type { ContentNavigationItem } from '@nuxt/content'
 
-const navigation = inject<Ref<ContentNavigationItem[]>>("navigation");
+const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
-const route = useRoute();
-const { contains } = useFilter({ sensitivity: "base" });
-const { navigationByCategory } = useNavigation(navigation!);
+const route = useRoute()
+const { scoreItem } = useFilter()
+const { navigationByCategory } = useNavigation(navigation!)
 
 const filteredNavigation = computed(() => {
-  if (!searchTerm.value) {
-    return navigationByCategory.value || [];
+  if (!cleanedSearchTerm.value) {
+    return navigationByCategory.value
   }
 
-  return (navigationByCategory.value || [])
-    .map((item) => ({
-      ...item,
-      children: item.children?.filter(
-        (child) =>
-          contains(child.title as string, searchTerm.value) ||
-          contains(child.description as string, searchTerm.value),
-      ),
-    }))
-    .filter((item) => item.children && item.children.length > 0);
-});
+  return navigationByCategory.value.map(item => ({
+    ...item,
+    children: item.children?.filter(child => scoreItem(child, cleanedSearchTerm.value, ['title', 'description']) !== null)
+  })).filter(item => item.children && item.children.length > 0)
+})
 
-const searchTerm = ref("");
-const isSearchActive = computed(() =>
-  route.path.startsWith("/docs/components"),
-);
-const navigationKey = computed(
-  () => `${route.path}-${searchTerm.value ? "filtered" : "unfiltered"}`,
-);
+const searchTerm = ref('')
+const isSearchActive = computed(() => route.path.startsWith('/docs/components'))
+const navigationKey = computed(() => `${route.path}-${searchTerm.value ? 'filtered' : 'unfiltered'}`)
+const cleanedSearchTerm = computed(() => {
+  return searchTerm.value
+    .replace(/^U(?=[A-Z])/, '')
+    .replace(/^u-/, '')
+})
 
-watch(
-  () => route.path,
-  () => {
-    if (!isSearchActive.value) {
-      searchTerm.value = "";
-    }
-  },
-);
+watch(() => route.path, () => {
+  if (!isSearchActive.value) {
+    searchTerm.value = ''
+  }
+})
 
-const input = useTemplateRef("input");
+const input = useTemplateRef('input')
 
 defineShortcuts({
-  "/": {
+  '/': {
     usingInput: false,
     handler: () => {
-      input.value?.inputRef?.focus();
-    },
-  },
-});
+      input.value?.inputRef?.focus()
+    }
+  }
+})
 </script>
 
 <template>
@@ -61,19 +53,9 @@ defineShortcuts({
         <template #left>
           <UPageAside>
             <template v-if="isSearchActive" #top>
-              <UInput
-                ref="input"
-                v-model="searchTerm"
-                variant="soft"
-                placeholder="Filter..."
-                class="group"
-              >
+              <UInput ref="input" v-model="searchTerm" variant="soft" placeholder="Filter..." class="group">
                 <template #trailing>
-                  <UKbd
-                    value="/"
-                    variant="subtle"
-                    class="ring-muted bg-transparent text-muted"
-                  />
+                  <UKbd value="/" variant="subtle" class="ring-muted bg-transparent text-muted" />
                 </template>
               </UInput>
             </template>
@@ -84,7 +66,7 @@ defineShortcuts({
               :navigation="filteredNavigation"
               highlight
               :ui="{
-                linkTrailingBadge: 'font-semibold uppercase',
+                linkTrailingBadge: 'font-semibold uppercase'
               }"
             />
           </UPageAside>

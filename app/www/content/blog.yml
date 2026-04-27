@@ -1,0 +1,9 @@
+seo:
+  title: Blog
+  description: Tutorials, guides, and insights to help you build beautiful applications with SSE Hooks.
+title: Blog
+description: Tutorials, guides, and insights to help you build beautiful applications with SSE Hooks.
+hero:
+  title: SSE [Hooks]{.text-primary} Blog
+  description: Tutorials, guides, and insights to help you build beautiful applications with SSE Hooks.
+navigation: false

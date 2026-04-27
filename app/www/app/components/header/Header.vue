@@ -10,7 +10,6 @@ const { desktopLinks } = useHeader()
   >
     <template #left>
       <HeaderLogo />
-
       <VersionMenu />
     </template>
 

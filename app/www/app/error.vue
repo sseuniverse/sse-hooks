@@ -1,39 +1,78 @@
 <script setup lang="ts">
-import type { NuxtError } from '#app'
+import colors from "tailwindcss/colors";
+import type { NuxtError } from "#app";
 
-defineProps<{
-  error: NuxtError
-}>()
+const props = defineProps<{
+  error: NuxtError;
+}>();
+
+const route = useRoute();
+const appConfig = useAppConfig();
+const colorMode = useColorMode();
+const { style, link } = useTheme();
+
+const { data: navigation } = await useAsyncData("navigation", () =>
+  queryCollectionNavigation("docs", ["category", "description"]),
+);
+
+const { data: files } = useLazyAsyncData(
+  "search",
+  () =>
+    queryCollectionSearchSections("docs", {
+      ignoredTags: ["style"],
+    }),
+  {
+    server: false,
+  },
+);
+
+const color = computed(() =>
+  colorMode.value === "dark"
+    ? (colors as any)[appConfig.ui.colors.neutral][900]
+    : "white",
+);
 
 useHead({
+  meta: [
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { key: "theme-color", name: "theme-color", content: color },
+  ],
+  link,
+  style,
   htmlAttrs: {
-    lang: 'en'
-  }
-})
+    lang: "en",
+  },
+});
 
 useSeoMeta({
-  title: 'Page not found',
-  description: 'We are sorry but this page could not be found.'
-})
+  titleTemplate: "%s - Nuxt UI",
+  title: String(props.error.statusCode),
+});
 
-const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'))
-const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
-  server: false
-})
+useServerSeoMeta({
+  ogSiteName: "Nuxt UI",
+  twitterCard: "summary_large_image",
+});
 
-provide('navigation', navigation)
+// useFaviconFromTheme()
+
+const { rootNavigation, searchNavigation } = useNavigation(navigation);
+
+provide("navigation", rootNavigation);
 </script>
 
 <template>
   <UApp>
-    <Header />
-    <UError :error="error" />
-    <AppFooter />
-    <ClientOnly>
-      <LazyUContentSearch
-        :files="files"
-        :navigation="navigation"
-      />
-    </ClientOnly>
+    <NuxtLoadingIndicator color="var(--ui-primary)" :height="2" />
+
+    <div :class="[route.path.startsWith('/docs/') && 'root']">
+      <!-- <Banner /> -->
+      <Header />
+      <UError :error="error" />
+      <Footer />
+      <ClientOnly>
+        <Search :files="files" :navigation="searchNavigation" />
+      </ClientOnly>
+    </div>
   </UApp>
 </template>

@@ -66,13 +66,44 @@ export default defineContentConfig({
             "storage",
             "network",
             "utilities",
-            "uncategorized"
+            "uncategorized",
           ])
           .optional(),
         navigation: z.object({
           title: z.string().optional(),
         }),
         links: z.array(Button).optional(),
+      }),
+    }),
+    team: defineCollection({
+      type: "page",
+      source: "team.yml",
+      schema: Page,
+    }),
+    blog: defineCollection({
+      type: "page",
+      source: "blog.yml",
+      schema: Page,
+    }),
+    posts: defineCollection({
+      type: "page",
+      source: [
+        {
+          include: "blog/**/*",
+        },
+      ],
+      schema: z.object({
+        image: z.string(),
+        date: z.string(),
+        authors: z
+          .array(
+            z.object({
+              name: z.string(),
+              avatar: Avatar.optional(),
+              to: z.string().optional(),
+            }),
+          )
+          .optional(),
       }),
     }),
     releases: defineCollection({

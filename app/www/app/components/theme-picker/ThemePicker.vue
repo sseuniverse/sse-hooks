@@ -1,14 +1,13 @@
 <script setup lang="ts">
-const appConfig = useAppConfig()
-const colorMode = useColorMode()
-
-const open = ref(false)
+const colorMode = useColorMode();
+const open = ref(false);
 
 const {
   neutralColors,
   neutral,
   primaryColors,
   primary,
+  blackAsPrimary,
   setBlackAsPrimary,
   radiuses,
   radius,
@@ -19,13 +18,19 @@ const {
   modes,
   mode,
   hasCSSChanges,
-  hasAppConfigChanges,
-  resetTheme
-} = useTheme()
+  hasConfigChanges,
+  resetTheme,
+} = useTheme();
 </script>
 
 <template>
-  <UPopover v-model:open="open" :ui="{ content: 'w-72 px-6 py-4 flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-5rem)]' }">
+  <UPopover
+    v-model:open="open"
+    :ui="{
+      content:
+        'w-72 px-6 py-4 flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-5rem)]',
+    }"
+  >
     <template #default>
       <UButton
         icon="i-lucide-swatch-book"
@@ -39,10 +44,13 @@ const {
 
     <template #content>
       <fieldset>
-        <legend class="text-[11px] leading-none font-semibold mb-2 select-none flex items-center gap-1">
+        <legend
+          class="text-[11px] leading-none font-semibold mb-2 select-none flex items-center gap-1"
+        >
           Primary
 
           <UButton
+            to="/docs/getting-started/theme/css-variables#colors"
             size="xs"
             color="neutral"
             variant="link"
@@ -55,11 +63,13 @@ const {
         <div class="grid grid-cols-3 gap-1 -mx-2">
           <ThemePickerButton
             label="Black"
-            :selected="appConfig.theme.blackAsPrimary"
+            :selected="blackAsPrimary"
             @click="setBlackAsPrimary(true)"
           >
             <template #leading>
-              <span class="inline-block w-2 h-2 rounded-full bg-black dark:bg-white" />
+              <span
+                class="inline-block size-2 rounded-full bg-black dark:bg-white"
+              />
             </template>
           </ThemePickerButton>
 
@@ -68,17 +78,20 @@ const {
             :key="color"
             :label="color"
             :chip="color"
-            :selected="!appConfig.theme.blackAsPrimary && primary === color"
+            :selected="!blackAsPrimary && primary === color"
             @click="primary = color"
           />
         </div>
       </fieldset>
 
       <fieldset>
-        <legend class="text-[11px] leading-none font-semibold mb-2 select-none flex items-center gap-1">
+        <legend
+          class="text-[11px] leading-none font-semibold mb-2 select-none flex items-center gap-1"
+        >
           Neutral
 
           <UButton
+            to="/docs/getting-started/theme/css-variables#text"
             size="xs"
             color="neutral"
             variant="link"
@@ -101,10 +114,13 @@ const {
       </fieldset>
 
       <fieldset>
-        <legend class="text-[11px] leading-none font-semibold mb-2 select-none flex items-center gap-1">
+        <legend
+          class="text-[11px] leading-none font-semibold mb-2 select-none flex items-center gap-1"
+        >
           Radius
 
           <UButton
+            to="/docs/getting-started/theme/css-variables#radius"
             size="xs"
             color="neutral"
             variant="link"
@@ -127,10 +143,13 @@ const {
       </fieldset>
 
       <fieldset>
-        <legend class="text-[11px] leading-none font-semibold mb-2 select-none flex items-center gap-1">
+        <legend
+          class="text-[11px] leading-none font-semibold mb-2 select-none flex items-center gap-1"
+        >
           Font
 
           <UButton
+            to="/docs/getting-started/integrations/fonts"
             size="xs"
             color="neutral"
             variant="link"
@@ -148,16 +167,22 @@ const {
             icon="i-lucide-type"
             :items="fonts"
             class="w-full ring-default rounded-sm hover:bg-elevated/50 text-[11px] data-[state=open]:bg-elevated/50"
-            :ui="{ trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200' }"
+            :ui="{
+              trailingIcon:
+                'group-data-[state=open]:rotate-180 transition-transform duration-200',
+            }"
           />
         </div>
       </fieldset>
 
       <fieldset>
-        <legend class="text-[11px] leading-none font-semibold mb-2 select-none flex items-center gap-1">
+        <legend
+          class="text-[11px] leading-none font-semibold mb-2 select-none flex items-center gap-1"
+        >
           Icons
 
           <UButton
+            to="/docs/getting-started/integrations/icons"
             size="xs"
             color="neutral"
             variant="link"
@@ -172,16 +197,22 @@ const {
             v-model="icon"
             size="sm"
             color="neutral"
-            :icon="icons.find(i => i.value === icon)?.icon"
+            :icon="icons.find((i) => i.value === icon)?.icon"
             :items="icons"
             class="w-full ring-default rounded-sm hover:bg-elevated/50 capitalize text-[11px] data-[state=open]:bg-elevated/50"
-            :ui="{ item: 'capitalize text-[11px]', trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200' }"
+            :ui="{
+              item: 'capitalize text-[11px]',
+              trailingIcon:
+                'group-data-[state=open]:rotate-180 transition-transform duration-200',
+            }"
           />
         </div>
       </fieldset>
 
       <fieldset>
-        <legend class="text-[11px] leading-none font-semibold mb-2 select-none flex items-center gap-1">
+        <legend
+          class="text-[11px] leading-none font-semibold mb-2 select-none flex items-center gap-1"
+        >
           Color Mode
 
           <UButton
@@ -206,7 +237,7 @@ const {
         </div>
       </fieldset>
 
-      <fieldset v-if="hasCSSChanges || hasAppConfigChanges">
+      <fieldset v-if="hasCSSChanges || hasConfigChanges">
         <div class="flex items-center justify-between gap-1 -mx-2">
           <UTooltip text="Reset theme">
             <UButton

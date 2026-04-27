@@ -1,14 +1,14 @@
 <script setup lang="ts">
 defineProps<{
-  label: string
-  icon?: string
-  chip?: string
-  selected?: boolean
-}>()
+  label: string;
+  icon?: string;
+  chip?: string;
+  selected?: boolean;
+}>();
 
 const slots = defineSlots<{
-  leading: () => any
-}>()
+  leading: () => any;
+}>();
 </script>
 
 <template>
@@ -28,7 +28,7 @@ const slots = defineSlots<{
           :class="`bg-(--color-light) dark:bg-(--color-dark)`"
           :style="{
             '--color-light': `var(--color-${chip}-500)`,
-            '--color-dark': `var(--color-${chip}-400)`
+            '--color-dark': `var(--color-${chip}-400)`,
           }"
         />
       </slot>

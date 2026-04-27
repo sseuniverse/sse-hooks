@@ -2,23 +2,21 @@ import type { ContentNavigationItem } from "@nuxt/content";
 import { findPageChildren, findPageBreadcrumb } from "@nuxt/content/utils";
 import { mapContentNavigation } from "@nuxt/ui/utils/content";
 
-interface CategoryTypes {
-  hooks: { id: string; title: string }[];
-}
-
-const categories: CategoryTypes = {
+const categories = {
   hooks: [
     { id: "sensors", title: "Sensors" },
     { id: "state", title: "State" },
     { id: "effect", title: "Side Effects" },
     { id: "lifecycle", title: "LifeCycle" },
-    { id: "dom", title: "DOM" },
+    { id: "dom", title: "DOM & UI" },
     { id: "storage", title: "Storage" },
     { id: "network", title: "Network" },
+    { id: "form", title: "Form" },
+    { id: "animation", title: "Animation" },
     { id: "utilities", title: "Utilities" },
     { id: "uncategorized", title: "Uncategorized" },
   ],
-};
+} as const;
 
 function groupChildrenByCategory(
   items: ContentNavigationItem[],
@@ -73,7 +71,6 @@ function groupChildrenByCategory(
     groups.push(...withChildren);
   }
 
-  // Handle categorized items (Hooks)
   for (const category of categories[slug as keyof typeof categories] || []) {
     if (categorized[category.id]?.length) {
       groups.push({
@@ -86,18 +83,6 @@ function groupChildrenByCategory(
 
   return groups;
 }
-
-// function resolveNavigationIcon(item: ContentNavigationItem) {
-//   let icon = item.icon;
-//   // You can customize icons here based on your paths if needed
-//   if (item.path.startsWith("/docs/hooks")) {
-//     icon = "i-lucide-square-function";
-//   }
-//   return {
-//     ...item,
-//     icon,
-//   };
-// }
 
 function processNavigationItem(
   item: ContentNavigationItem,
@@ -130,6 +115,55 @@ export const useNavigation = (
       ) as ContentNavigationItem[],
   );
 
+  const searchNavigation = computed(() => {
+    if (!navigation.value) return [];
+    // Start with the top-level docs children
+    const root = navigation.value[0]?.children || navigation.value;
+    const groups: ContentNavigationItem[] = [];
+
+    root.forEach((node) => {
+      if (
+        node.path === "/docs/hooks" ||
+        node.title?.toLowerCase() === "hooks"
+      ) {
+        const categorized: Record<string, ContentNavigationItem[]> = {};
+        const uncategorized: ContentNavigationItem[] = [];
+
+        (node.children || []).forEach((hook) => {
+          const cat = hook.category as string;
+          if (cat) {
+            categorized[cat] = categorized[cat] || [];
+            categorized[cat].push(hook);
+          } else {
+            uncategorized.push(hook);
+          }
+        });
+
+        categories.hooks.forEach((catDef) => {
+          if (categorized[catDef.id]?.length) {
+            groups.push({
+              title: catDef.title,
+              path: `/docs/hooks#${catDef.id}`,
+              children: categorized[catDef.id],
+            });
+          }
+        });
+
+        if (uncategorized.length) {
+          groups.push({
+            title: "Uncategorized",
+            path: "/docs/hooks#uncategorized",
+            children: uncategorized,
+          });
+        }
+      } else {
+        groups.push(node);
+      }
+    });
+
+    return groups;
+  });
+
   const navigationByCategory = computed(() => {
     const route = useRoute();
     const slug = route.params.slug?.[0] as string;
@@ -145,7 +179,6 @@ export const useNavigation = (
   function findSurround(
     path: string,
   ): [ContentNavigationItem | undefined, ContentNavigationItem | undefined] {
-    // Flatten the categorized navigation to find prev/next links
     const flattenNavigation =
       navigationByCategory.value?.flatMap((item) => item.children) ?? [];
 
@@ -170,6 +203,7 @@ export const useNavigation = (
   return {
     rootNavigation,
     navigationByCategory,
+    searchNavigation,
     findSurround,
     findBreadcrumb,
   };
