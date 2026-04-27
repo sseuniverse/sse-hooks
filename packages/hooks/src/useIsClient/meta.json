@@ -23,7 +23,7 @@
   },
   "file": {
     "path": "use-is-client.ts",
-    "content": "/**\n * Custom hook that determines if the code is running on the client side (in the browser).\n *\n * @category lifecycle\n * @returns {boolean} A boolean value indicating whether the code is running on the client side.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-is-client)\n * @public\n */\nexport function useIsClient(): boolean {\n  const [isClient, setClient] = useState(false);\n\n  useEffect(() => {\n    setClient(true);\n  }, []);\n\n  return isClient;\n}\n",
-    "js": "export function useIsClient() {\n  const [isClient, setClient] = useState(false);\n  useEffect(() => {\n    setClient(true);\n  }, []);\n  return isClient;\n}\n"
+    "content": "import { useEffect, useState } from \"react\";\n\n/**\n * Custom hook that determines if the code is running on the client side (in the browser).\n *\n * @category lifecycle\n * @returns {boolean} A boolean value indicating whether the code is running on the client side.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-is-client)\n * @public\n */\nexport function useIsClient(): boolean {\n  const [isClient, setClient] = useState(false);\n\n  useEffect(() => {\n    setClient(true);\n  }, []);\n\n  return isClient;\n}\n",
+    "js": "import { useEffect, useState } from \"react\";\nexport function useIsClient() {\n  const [isClient, setClient] = useState(false);\n  useEffect(() => {\n    setClient(true);\n  }, []);\n  return isClient;\n}\n"
   }
 }

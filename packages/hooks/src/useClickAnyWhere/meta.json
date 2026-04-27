@@ -29,7 +29,7 @@
   },
   "file": {
     "path": "use-click-any-where.ts",
-    "content": "/**\n * Custom hook that handles click events anywhere on the document.\n *\n * @category dom\n * @param {Function} handler - The function to be called when a click event is detected anywhere on the document.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-click-any-where)\n * @public\n */\nexport function useClickAnyWhere(handler: (event: MouseEvent) => void) {\n  useEventListener(\"click\", (event) => {\n    handler(event);\n  });\n}\n",
-    "js": "export function useClickAnyWhere(handler) {\n  useEventListener(\"click\", (event) => {\n    handler(event);\n  });\n}\n"
+    "content": "import { useEventListener } from \"./use-event-listener\";\n\n/**\n * Custom hook that handles click events anywhere on the document.\n *\n * @category dom\n * @param {Function} handler - The function to be called when a click event is detected anywhere on the document.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-click-any-where)\n * @public\n */\nexport function useClickAnyWhere(handler: (event: MouseEvent) => void) {\n  useEventListener(\"click\", (event) => {\n    handler(event);\n  });\n}\n",
+    "js": "import { useEventListener } from \"./use-event-listener\";\nexport function useClickAnyWhere(handler) {\n  useEventListener(\"click\", (event) => {\n    handler(event);\n  });\n}\n"
   }
 }

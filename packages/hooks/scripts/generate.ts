@@ -88,6 +88,7 @@ const generateMeta = async () => {
     const sourceFile = project.addSourceFileAtPath(indexFile);
     const registryDeps = new Set<string>();
     const npmDeps = new Set<string>();
+    const collectedImports = new Set<string>();
     const kebabName = toKebabCase(hookName);
 
     const rawBundledTs = bundleHook(
@@ -96,11 +97,15 @@ const generateMeta = async () => {
       new Set(),
       registryDeps,
       npmDeps,
+      collectedImports,
     );
     const description = extractDescription(rawBundledTs);
     const apiData = getHookApi(sourceFile, hookName);
 
-    let cleanTs = rawBundledTs.replace(/export \* from .+/g, "").trim();
+    const importsText = Array.from(collectedImports).join("\n");
+    const fullTs = `${importsText}\n\n${rawBundledTs}`;
+
+    let cleanTs = fullTs.replace(/export \* from .+/g, "").trim();
     try {
       cleanTs = await formatCode(cleanTs, "ts");
     } catch (e) {}

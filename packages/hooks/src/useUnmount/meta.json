@@ -29,7 +29,7 @@
   },
   "file": {
     "path": "use-unmount.ts",
-    "content": "/**\n * Custom hook that runs a cleanup function when the component is unmounted.\n *\n * @category lifecycle\n * @param {() => void} func - The cleanup function to be executed on unmount.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-unmount)\n * @public\n */\nexport function useUnmount(func: () => void) {\n  const funcRef = useRef(func);\n\n  funcRef.current = func;\n\n  useEffect(\n    () => () => {\n      funcRef.current();\n    },\n    [],\n  );\n}\n",
-    "js": "export function useUnmount(func) {\n  const funcRef = useRef(func);\n  funcRef.current = func;\n  useEffect(\n    () => () => {\n      funcRef.current();\n    },\n    [],\n  );\n}\n"
+    "content": "import { useEffect, useRef } from \"react\";\n\n/**\n * Custom hook that runs a cleanup function when the component is unmounted.\n *\n * @category lifecycle\n * @param {() => void} func - The cleanup function to be executed on unmount.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-unmount)\n * @public\n */\nexport function useUnmount(func: () => void) {\n  const funcRef = useRef(func);\n\n  funcRef.current = func;\n\n  useEffect(\n    () => () => {\n      funcRef.current();\n    },\n    [],\n  );\n}\n",
+    "js": "import { useEffect, useRef } from \"react\";\nexport function useUnmount(func) {\n  const funcRef = useRef(func);\n  funcRef.current = func;\n  useEffect(\n    () => () => {\n      funcRef.current();\n    },\n    [],\n  );\n}\n"
   }
 }

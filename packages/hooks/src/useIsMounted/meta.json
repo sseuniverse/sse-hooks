@@ -23,7 +23,7 @@
   },
   "file": {
     "path": "use-is-mounted.ts",
-    "content": "/**\n * Custom hook that determines if the component is currently mounted.\n *\n * @category lifecycle\n * @returns {() => boolean} A function that returns a boolean value indicating whether the component is mounted.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-is-mounted)\n * @public\n */\nexport function useIsMounted(): () => boolean {\n  const isMounted = useRef(false);\n\n  useEffect(() => {\n    isMounted.current = true;\n\n    return () => {\n      isMounted.current = false;\n    };\n  }, []);\n\n  return useCallback(() => isMounted.current, []);\n}\n",
-    "js": "export function useIsMounted() {\n  const isMounted = useRef(false);\n  useEffect(() => {\n    isMounted.current = true;\n    return () => {\n      isMounted.current = false;\n    };\n  }, []);\n  return useCallback(() => isMounted.current, []);\n}\n"
+    "content": "import { useCallback, useEffect, useRef } from \"react\";\n\n/**\n * Custom hook that determines if the component is currently mounted.\n *\n * @category lifecycle\n * @returns {() => boolean} A function that returns a boolean value indicating whether the component is mounted.\n * @see [Documentation](https://sse-hooks.vercel.app/docs/hooks/use-is-mounted)\n * @public\n */\nexport function useIsMounted(): () => boolean {\n  const isMounted = useRef(false);\n\n  useEffect(() => {\n    isMounted.current = true;\n\n    return () => {\n      isMounted.current = false;\n    };\n  }, []);\n\n  return useCallback(() => isMounted.current, []);\n}\n",
+    "js": "import { useCallback, useEffect, useRef } from \"react\";\nexport function useIsMounted() {\n  const isMounted = useRef(false);\n  useEffect(() => {\n    isMounted.current = true;\n    return () => {\n      isMounted.current = false;\n    };\n  }, []);\n  return useCallback(() => isMounted.current, []);\n}\n"
   }
 }
