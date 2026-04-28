@@ -60,7 +60,7 @@ const { links } = useFooter();
         size="sm"
       /> -->
       <UButton
-        aria-label="Nuxt UI on GitHub"
+        aria-label="SSE Hooks on GitHub"
         icon="i-simple-icons-github"
         to="https://github.com/sseuniverse/sse-hooks"
         target="_blank"

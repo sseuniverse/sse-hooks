@@ -16,6 +16,10 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
+  runtimeConfig: {
+    githubToken: process.env.NUXT_GITHUB_TOKEN,
+  },
+
   css: ["~/assets/css/main.css"],
 
   app: {
@@ -84,6 +88,7 @@ export default defineNuxtConfig({
       routes: ["/"],
       crawlLinks: true,
       autoSubfolderIndex: false,
+      ignore: ["/api/registry"],
     },
   },
 

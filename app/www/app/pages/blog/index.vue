@@ -15,10 +15,10 @@ const { data: posts } = await useAsyncData("blog-posts", () =>
 );
 
 useSeoMeta({
-  titleTemplate: "%s - Nuxt UI",
+  titleTemplate: "%s - SSE Hooks",
   title: page.value.title,
   description: page.value.description,
-  ogTitle: `${page.value.title} - Nuxt UI`,
+  ogTitle: `${page.value.title} - SSE Hooks`,
   ogDescription: page.value.description,
 });
 

@@ -8,6 +8,16 @@ export function useHeader() {
       active: route.path.startsWith("/docs/"),
     },
     {
+      label: "Team",
+      description: "Discover websites built with SSE Hooks.",
+      to: "/team",
+    },
+    {
+      label: "Blog",
+      description: "Read the latest news and updates.",
+      to: "/blog",
+    },
+    {
       label: "Releases",
       to: "/releases",
     },
@@ -25,6 +35,18 @@ export function useHeader() {
       icon: "i-lucide-square-function",
       to: "/docs/hooks",
       active: route.path.startsWith("/docs/hooks"),
+    },
+    {
+      label: "Blog",
+      icon: "i-lucide-newspaper",
+      to: "/blog",
+      active: route.path.startsWith("/blog"),
+    },
+    {
+      label: "Team",
+      icon: "i-lucide-user",
+      description: "Discover websites built with SSE Hooks.",
+      to: "/team",
     },
     {
       label: "Releases",

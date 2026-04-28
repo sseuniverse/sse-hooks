@@ -7,45 +7,39 @@ const props = withDefaults(
     collapse?: boolean;
   }>(),
   {
-    collapse: false,
+    collapse: true,
   },
 );
 
 const route = useRoute();
 const name = props.slug ?? route.path.split("/").pop() ?? "";
 
+// Fetching from your local API registry
 const { data: codes } = await useAsyncData(
   `fetch-example-${name}`,
-  async () => {
-    const url = `https://raw.githubusercontent.com/sseuniverse/sse-hooks/main/examples/${name}.tsx`;
-
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error("Example not found");
-    }
-
-    const tsxSource = await response.text();
-    return {
-      ts: tsxSource,
-    };
-  },
+  () => $fetch(`/api/registry/hook/${name}/example`)
 );
 
 const exampleCodeGroupMarkdown = computed(() => {
   if (!codes.value) return "";
 
   let md = "";
+  
   if (props.collapse) {
     md += "::code-collapse\n";
   }
 
   md += `
+::code-group{sync="type"}
 \`\`\`tsx [example.tsx]
 ${codes.value.ts.trim()}
 \`\`\`
+\`\`\`jsx [example.jsx]
+${codes.value.js.trim()}
+\`\`\`
+::
 `;
 
-  // Close the collapse block if it was opened
   if (props.collapse) {
     md += "::\n";
   }

@@ -1,33 +1,12 @@
 <script setup lang="ts">
-const config = useRuntimeConfig().public
-const appConfig = useAppConfig()
-
-const items = computed(() => {
-  return [
-    { label: `v1.3.x`, active: true, color: 'primary' as const, checked: true, type: 'checkbox' as const },
-  ]
-})
-
-      // :class="[open && 'bg-primary/15']"
-      // :ui="{
-      //   trailingIcon: ['transition-transform duration-200', open ? 'rotate-180' : undefined].filter(Boolean).join(' ')
-      // }"
+const { data: module } = await useFetch("/api/module.json");
 </script>
 
 <template>
-  <!-- <UDropdownMenu
-    v-slot="{ open }"
-    :modal="false"
-    :items="items"
-    :content="{ align: 'start' }"
-    :ui="{ content: 'min-w-fit' }"
+  <UButton
+    :label="module?.latest_release.tag"
+    variant="subtle"
     size="xs"
-  > -->
-    <UButton
-      :label="`v1.4.0`"
-      variant="subtle"
-      size="xs"
-      class="-mb-[6px] font-semibold rounded-full truncate"
-    />
-  <!-- </UDropdownMenu> -->
+    class="-mb-[6px] font-semibold rounded-full truncate"
+  />
 </template>

@@ -37,14 +37,14 @@ export function useSearch() {
       },
       {
         label: "Get Started",
-        description: "Learn how to get started with Nuxt UI.",
+        description: "Learn how to get started with SSE Hooks.",
         icon: "i-lucide-square-play",
         to: "/docs/getting-started",
         active: route.path.startsWith("/docs/getting-started"),
       },
       {
         label: "Hooks",
-        description: "Learn how to use the hooks available in Nuxt UI.",
+        description: "Learn how to use the hooks available in SSE Hooks.",
         icon: "i-lucide-square-function",
         to: "/docs/hooks",
         active: route.path.startsWith("/docs/hooks"),
@@ -52,14 +52,14 @@ export function useSearch() {
       {
         label: "Releases",
         description:
-          "Stay up to date with the newest features, enhancements, and fixes for Nuxt UI.",
+          "Stay up to date with the newest features, enhancements, and fixes for SSE Hooks.",
         icon: "i-lucide-rocket",
         to: "/releases",
       },
       {
         label: "GitHub",
         description:
-          "Check out the Nuxt UI repository and follow development on GitHub.",
+          "Check out the SSE Hooks repository and follow development on GitHub.",
         icon: "i-simple-icons-github",
         to: "https://github.com/sseuniverse/sse-hooks/releases",
         target: "_blank",

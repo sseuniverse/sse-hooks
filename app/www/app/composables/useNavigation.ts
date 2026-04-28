@@ -143,6 +143,7 @@ export const useNavigation = (
           if (categorized[catDef.id]?.length) {
             groups.push({
               title: catDef.title,
+              navigation: { icon: "i-lucide-square-function" },
               path: `/docs/hooks#${catDef.id}`,
               children: categorized[catDef.id],
             });
@@ -152,6 +153,7 @@ export const useNavigation = (
         if (uncategorized.length) {
           groups.push({
             title: "Uncategorized",
+            navigation: { icon: "i-lucide-square-function" },
             path: "/docs/hooks#uncategorized",
             children: uncategorized,
           });

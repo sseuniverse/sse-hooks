@@ -45,12 +45,12 @@ useHead({
 });
 
 useSeoMeta({
-  titleTemplate: "%s - Nuxt UI",
+  titleTemplate: "%s - SSE Hooks",
   title: String(props.error.statusCode),
 });
 
 useServerSeoMeta({
-  ogSiteName: "Nuxt UI",
+  ogSiteName: "SSE Hooks",
   twitterCard: "summary_large_image",
 });
 

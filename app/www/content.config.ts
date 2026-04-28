@@ -65,6 +65,8 @@ export default defineContentConfig({
             "dom",
             "storage",
             "network",
+            "form",
+            "animation",
             "utilities",
             "uncategorized",
           ])

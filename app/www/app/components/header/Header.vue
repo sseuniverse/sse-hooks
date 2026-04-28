@@ -9,7 +9,8 @@ const { desktopLinks } = useHeader()
     class="flex flex-col"
   >
     <template #left>
-      <HeaderLogo />
+      <!-- <HeaderLogo /> -->
+       SSE Hooks
       <VersionMenu />
     </template>
 

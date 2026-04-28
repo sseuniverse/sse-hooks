@@ -8,7 +8,9 @@ const props = defineProps<{
 }>();
 
 const slots = defineSlots();
+
 const target = useTemplateRef("target");
+
 const tree = inject<Ref<Record<string, Node>>>("tree", ref({}));
 const activePath = inject<Ref<string>>("activePath", ref(""));
 

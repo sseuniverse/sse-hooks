@@ -25,7 +25,7 @@ const schemaProps = computed(() => {
       let description = p.description || "";
       const def = p.defaultValue ?? p.default;
 
-      // If a default value exists, append it to the description just like Nuxt UI
+      // If a default value exists, append it to the description just like SSE Hooks
       if (def && def !== "undefined") {
         const defaultText = `Defaults to \`${def}\`.`;
         description = description

@@ -23,9 +23,9 @@ const title = page.value.seo?.title || page.value.title;
 const description = page.value.seo?.description || page.value.description;
 
 useSeoMeta({
-  titleTemplate: "%s - Nuxt UI",
+  titleTemplate: "%s - SSE Hooks",
   title,
-  ogTitle: `${title} - Nuxt UI`,
+  ogTitle: `${title} - SSE Hooks`,
   description,
   ogDescription: description,
 });

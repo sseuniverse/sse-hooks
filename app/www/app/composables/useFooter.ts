@@ -6,6 +6,7 @@ type Links = {
 export function useFooter() {
   const links: Links[] = [
     { label: "Hooks", to: "/docs/hooks" },
+    { label: "Teams", to: "/team" },
     { label: "Release", to: "/releases" },
   ];
 
